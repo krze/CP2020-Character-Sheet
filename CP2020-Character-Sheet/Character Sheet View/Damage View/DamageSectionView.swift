@@ -12,6 +12,8 @@ import UIKit
 final class DamageSectionView: UIView {
     
     private let model: DamageSectionViewModel
+    
+    // Temporary until cells track their own state
     private var damageCells = [UIView]()
     private var views = [UIView]()
     
@@ -23,32 +25,38 @@ final class DamageSectionView: UIView {
     init(with viewModel: DamageSectionViewModel, frame: CGRect) {
         model = viewModel
         super.init(frame: frame)
+        translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = model.lightColor
 
-        let damageTypeLabel = self.damageTypeLabel(yPosition: frame.origin.y)
-        addSubview(damageTypeLabel)
+        // MARK: Wound type label construction
         
-        damageTypeLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        damageTypeLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-        damageTypeLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
+        let woundTypeLabel = self.label(for: viewModel.woundType, yPosition: frame.origin.y)
+        addSubview(woundTypeLabel)
         
-        addConstraint(NSLayoutConstraint(item: damageTypeLabel,
+        woundTypeLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        woundTypeLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        woundTypeLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
+        
+        addConstraint(NSLayoutConstraint(item: woundTypeLabel,
                                          attribute: .height,
                                          relatedBy: .lessThanOrEqual,
                                          toItem: safeAreaLayoutGuide,
                                          attribute: .height,
-                                         multiplier: model.damageTypeLabelViewRatio,
+                                         multiplier: model.woundTypeLabelViewRatio,
                                          constant: 0))
-        damageTypeLabel.updateConstraints()
-        views.append(damageTypeLabel)
+        woundTypeLabel.updateConstraints()
+        views.append(woundTypeLabel)
         
-        let damageCellContainer = self.damageCellContainer(yPosition: damageTypeLabel.frame.height)
+        // MARK: Damage cell container construction
+        
+        let damageCellYPosition = woundTypeLabel.frame.height
+        let damageCellContainer = self.damageCellContainer(yPosition: damageCellYPosition)
 
         addSubview(damageCellContainer)
         addConstraint(NSLayoutConstraint(item: damageCellContainer,
                                          attribute: .top,
                                          relatedBy: .equal,
-                                         toItem: damageTypeLabel,
+                                         toItem: woundTypeLabel,
                                          attribute: .bottom,
                                          multiplier: 1,
                                          constant: 0))
@@ -69,22 +77,64 @@ final class DamageSectionView: UIView {
         damageCellContainer.updateConstraints()
 
         views.append(damageCellContainer)
+
+        // MARK: Stun label construction
+        
+        let stunTypeLabelYPosition = damageCellYPosition + damageCellContainer.frame.height
+        let stunTypeLabel = self.label(for: viewModel.stunType, yPosition: stunTypeLabelYPosition)
+        addSubview(stunTypeLabel)
+
+        woundTypeLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        woundTypeLabel.topAnchor.constraint(equalTo: damageCellContainer.bottomAnchor).isActive = true
+        woundTypeLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
+        woundTypeLabel.updateConstraints()
+        
+        views.append(stunTypeLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func damageTypeLabel(yPosition: CGFloat) -> UILabel {
-        let frame = CGRect(x: 0, y: yPosition, width: self.frame.width, height: self.frame.height * model.damageTypeLabelViewRatio)
+    /// Produces a UILabel for the supplied WoundType
+    ///
+    /// - Parameters:
+    ///   - woundType: The type of wound to be listed in the label
+    ///   - yPosition: The yPosition relative to the entire DamageSectionView
+    /// - Returns: UILabel ready to be positioned in the cell
+    private func label(for woundType: WoundType, yPosition: CGFloat) -> UILabel {
+        let label = self.label(for: woundType.rawValue, yPosition: yPosition, viewRatio: model.woundTypeLabelViewRatio)
+        
+        return label
+    }
+    
+    /// Produces a UILabel for the supplied StunType
+    ///
+    /// - Parameters:
+    ///   - stunType: The type of stun to be listed in the label
+    ///   - yPosition: The yPosition relative to the entire DamageSectionView
+    /// - Returns: UILabel ready to be positioned in the cell
+    private func label(for stunType: StunType, yPosition: CGFloat) -> UILabel {
+        let label = self.label(for: stunType.rawValue, yPosition: yPosition, viewRatio: model.stunLabelViewRatio)
+        
+        return label
+    }
+    
+    private func label(for text: String, yPosition: CGFloat, viewRatio: CGFloat) -> UILabel {
+        let frame = CGRect(x: 0, y: yPosition, width: self.frame.width, height: self.frame.height * viewRatio)
         let label = UILabel(frame: frame)
         
-        label.text = model.woundType.rawValue
+        label.text = text
         label.adjustsFontSizeToFitWidth = true
         
         return label
     }
     
+    /// Produces the container that holds the cells for the damage track, filled with the number
+    /// of cells specified in the DamageSectionViewModel
+    ///
+    /// - Parameter yPosition: The yPosition relative to the entire DamageSectionView
+    /// - Returns: UIView acting as the damage cell container
     private func damageCellContainer(yPosition: CGFloat) -> UIView {
         let frame = CGRect(x: 0, y: yPosition, width: self.frame.width, height: self.frame.height * model.damageCellViewRatio)
 
@@ -96,6 +146,7 @@ final class DamageSectionView: UIView {
                                           bottom: model.damageCellVerticalPadding,
                                           right: model.damageCellHorizontalPadding)
         
+        // TODO: Make the tracking of this state contained to the cell itself.
         let damageCells = self.damageCells(frame: view.frame, count: model.damageCellCount)
         
         let cellWidth = calculateWidth(forFrameCount: damageCells.count, toFit: view.frame)

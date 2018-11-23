@@ -13,7 +13,7 @@ import UIKit
  
  Each damage section looks roughly like this:
  ________________
- | Light        | <---  Damage type label
+ | Light        | <---  Wound type label
  | ▢  ▢  ▢  ▢ | <--- Damage cells (default: 4)
  | Stun - 0     | <--- Stun label
  ----------------
@@ -26,7 +26,7 @@ struct DamageSectionViewModel {
 
     
     /// The proportion of the view taken up by the top section label indicating damage type. This is the top section of the view.
-    let damageTypeLabelViewRatio: CGFloat
+    let woundTypeLabelViewRatio: CGFloat
     
     /// The proportion of the view taken up by the damage cells which track damage points. This is the middle section of the view.
     let damageCellViewRatio: CGFloat
@@ -61,7 +61,7 @@ struct DamageSectionViewModel {
         
         self.woundType = woundType
 
-        damageTypeLabelViewRatio = CGFloat(typeRatio)
+        woundTypeLabelViewRatio = CGFloat(typeRatio)
         
         damageCellViewRatio = CGFloat(cellRatio)
         damageCellHorizontalPadding = CGFloat(cellHorizontalPaddingSpace / Double(cellCount + 1)) // 1 extra space for the right side
