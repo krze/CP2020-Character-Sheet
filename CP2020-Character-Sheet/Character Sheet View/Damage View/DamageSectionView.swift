@@ -83,12 +83,19 @@ final class DamageSectionView: UIView {
         let stunTypeLabelYPosition = damageCellYPosition + damageCellContainer.frame.height
         let stunTypeLabel = self.label(for: viewModel.stunType, yPosition: stunTypeLabelYPosition)
         addSubview(stunTypeLabel)
-
-        woundTypeLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        woundTypeLabel.topAnchor.constraint(equalTo: damageCellContainer.bottomAnchor).isActive = true
-        woundTypeLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
-        woundTypeLabel.updateConstraints()
         
+        addConstraint(NSLayoutConstraint(item: stunTypeLabel,
+                                         attribute: .height,
+                                         relatedBy: .lessThanOrEqual,
+                                         toItem: self,
+                                         attribute: .height,
+                                         multiplier: model.stunLabelViewRatio,
+                                         constant: 0))
+        stunTypeLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        stunTypeLabel.topAnchor.constraint(equalTo: damageCellContainer.bottomAnchor).isActive = true
+        stunTypeLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
+        stunTypeLabel.updateConstraints()
+
         views.append(stunTypeLabel)
     }
     
@@ -103,7 +110,15 @@ final class DamageSectionView: UIView {
     ///   - yPosition: The yPosition relative to the entire DamageSectionView
     /// - Returns: UILabel ready to be positioned in the cell
     private func label(for woundType: WoundType, yPosition: CGFloat) -> UILabel {
-        let label = self.label(for: woundType.rawValue, yPosition: yPosition, viewRatio: model.woundTypeLabelViewRatio)
+        let text: String = {
+            if woundType == .Mortal, let count = model.mortalCount {
+                return "\(woundType.rawValue) - \(count)"
+            }
+            else {
+                return woundType.rawValue
+            }
+        }()
+        let label = self.label(for: text, yPosition: yPosition, viewRatio: model.woundTypeLabelViewRatio)
         
         return label
     }
@@ -115,7 +130,8 @@ final class DamageSectionView: UIView {
     ///   - yPosition: The yPosition relative to the entire DamageSectionView
     /// - Returns: UILabel ready to be positioned in the cell
     private func label(for stunType: StunType, yPosition: CGFloat) -> UILabel {
-        let label = self.label(for: stunType.rawValue, yPosition: yPosition, viewRatio: model.stunLabelViewRatio)
+        let text = "\(stunType.rawValue) - \(model.stunCount)"
+        let label = self.label(for: text, yPosition: yPosition, viewRatio: model.stunLabelViewRatio)
         
         return label
     }

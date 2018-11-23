@@ -9,7 +9,7 @@
 import UIKit
 
 /**
- View properties for individual damage sections within the Damage View
+ Initial view properties for individual damage sections within the Damage View
  
  Each damage section looks roughly like this:
  ________________
@@ -43,21 +43,41 @@ struct DamageSectionViewModel {
     let darkColor: UIColor
     let lightColor: UIColor
     
+    let startingDamageCellNumber: Int
+    
+    let stunCount: Int
+    let mortalCount: Int?
+
     /// Creates a view model for the damage cell
     ///
     /// - Parameters:
-    ///   - woundType: The type of wound sustained
+    ///   - startingDamageCellNumber: The number correlating with the starting damage cell, out of total damage points for the character (i.e. if this was the fifth damage cell out of 40 total damage, this would be 5)
+    ///   - totalDamage: The total number of damage for the character (default 40)
+    ///   - woundType: The type of wound sustained, displayed in the top track
     ///   - typeRatio: The Y-axis percentage of the view to take up for the wound type label
     ///   - cellRatio: The Y-axis percentage of the view to take up for the damage cells
-    ///   - cellHorizontalPaddingSpace: The total amount of padding space you want around the cells
-    ///   - cellVerticalPaddingSpace: The total amount of padding space you want around the cells
+    ///   - cellHorizontalPaddingSpace: The total amount of padding space you want around the damage cells
+    ///   - cellVerticalPaddingSpace: The total amount of padding space you want around the damagecells
+    ///   - cellCount: The total number of damage cells for this section
     ///   - stunRatio: The Y-axis percentage of the view to take up for the stun label
     ///   - darkColor: The dark color for the cell. This should contrast the light color.
     ///   - lightColor: The light color for the cell. This should contrast the dark color.
-    init(woundType: WoundType, typeRatio: Double, cellRatio: Double, cellHorizontalPaddingSpace: Double, cellVerticalPaddingSpace: Double, cellCount: Int, stunRatio: Double, darkColor: UIColor, lightColor: UIColor) {
+    init(startingDamageCellNumber: Int,
+         totalDamage: Int,
+         woundType: WoundType,
+         typeRatio: Double,
+         cellRatio: Double,
+         cellHorizontalPaddingSpace: Double,
+         cellVerticalPaddingSpace: Double,
+         cellCount: Int,
+         stunRatio: Double,
+         darkColor: UIColor,
+         lightColor: UIColor) {
         guard typeRatio + cellRatio + stunRatio == 1.0 else {
             fatalError("Ratios must add up to 1.0")
         }
+        
+        self.startingDamageCellNumber = startingDamageCellNumber
         
         self.woundType = woundType
 
@@ -72,6 +92,20 @@ struct DamageSectionViewModel {
         
         self.darkColor = darkColor
         self.lightColor = lightColor
+        
+        stunCount = totalDamage / cellCount // NEXT: Fix this. Double check the math. Definitely wrong.
+        
+        if woundType == .Mortal {
+            let thisSegment = totalDamage / startingDamageCellNumber
+            let nonMortalDamageTotal = (totalDamage / cellCount) * WoundType.allCases.filter({ $0 != .Mortal }).count
+            let lastNonMortalSegment = (nonMortalDamageTotal / WoundType.allCases.filter({ $0 != .Mortal }).count) - 1 // off by one adjustment
+            
+            mortalCount = thisSegment - lastNonMortalSegment - 1 // Off by one again (starts at 0)
+        }
+        else {
+            mortalCount = nil
+        }
+        
     }
     
 }

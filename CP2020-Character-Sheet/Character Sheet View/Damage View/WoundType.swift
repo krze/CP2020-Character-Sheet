@@ -18,6 +18,8 @@ enum WoundType: String {
     case Light, Serious, Critical, Mortal
 }
 
+extension WoundType: CaseIterable {}
+
 /// Categories of Stun effects.
 ///
 /// - Stun: Stun effect
