@@ -10,6 +10,8 @@ import UIKit
 
 final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate {
     
+    private(set) var damageController: TotalDamageController?
+
     private var totalDamage: Int?
     private(set) var damageCells = [UIView]()
     
@@ -24,7 +26,8 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate 
     /// - Parameters:
     ///   - viewModel: The initial DamageSectionViewModel
     ///   - rows: The number of rows
-    func setup(with viewModel: DamageSectionViewModel, rows: Int) {
+    func setup(with viewModel: DamageSectionViewModel, rows: Int, damageController: TotalDamageController) {
+        self.damageController = damageController
         self.totalDamage = viewModel.totalDamage
         var viewModel = viewModel
         var wounds = WoundType.allCases.reversed().map { $0 }
@@ -87,6 +90,53 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate 
         
         // This is in place to ensure we never misalign these totals
         assert(damageCells.count == totalDamage ?? 0, "Cell count an unexpected amount.")
+        setupGestureRecognizers()
+    }
+    
+    func updateCells(to currentDamage: Int) {
+        guard let currentLastUndamagedIndex = damageCells.firstIndex(where: { $0.backgroundColor == .white }) else {
+            return
+        }
+        let destinationIndex = currentDamage - 1
+        var currentIndex = currentLastUndamagedIndex
+        
+        // Do nothing if we can't apply the damage
+        guard damageCells.indices.contains(destinationIndex) && destinationIndex != currentIndex else {
+            return
+        }
+        let range = currentIndex...destinationIndex
+        let increasing = destinationIndex > currentIndex
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            while range.contains(currentIndex) {
+                let color: UIColor = increasing ? .red : .white
+                self.damageCells[currentIndex].backgroundColor = color
+                if increasing {
+                    currentIndex += 1
+                }
+                else {
+                    currentIndex -= 1
+                }
+            }
+        }
+    }
+    
+    @objc private func iterateDamage() {
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            do {
+                try self?.damageController?.iterateDamageUp()
+            }
+            catch {
+                return
+            }
+        }
+    }
+    
+    private func setupGestureRecognizers() {
+        let iterateDamageTap = UITapGestureRecognizer(target: self, action: #selector(DamageViewCell.iterateDamage))
+        iterateDamageTap.cancelsTouchesInView = false
+        contentView.addGestureRecognizer(iterateDamageTap)
     }
    
     required init?(coder aDecoder: NSCoder) {
@@ -103,8 +153,4 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate 
         // TODO: Test cell re-use and see if it needs anything here
     }
     
-}
-
-enum DamageCellError: Error {
-    case ExceedsMaxDamage
 }

@@ -12,5 +12,8 @@ import UIKit
 protocol TotalDamageControllerDelegate: class {
     var damageCells: [UIView] { get }
     
-    //TODO: Arrange the relationship between the TotalDamageController and the DamageViewCell via the delegate
+    /// Updates the damage cells to display the current value
+    ///
+    /// - Parameter currentDamage: The current damage the character has
+    func updateCells(to currentDamage: Int)
 }

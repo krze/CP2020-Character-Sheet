@@ -39,7 +39,8 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
         
         if let cell = cell as? DamageViewCell {
             let viewModel = DamageSectionViewModel(startingDamageCellNumber: 1, totalDamage: 40, woundType: .Light, typeRatio: 0.3, cellRatio: 0.3, cellHorizontalPaddingSpace: 0.2, cellVerticalPaddingSpace: 0.2, cellBorderThickness: 1.0, cellCount: 4, stunRatio: 0.4, darkColor: .black, lightColor: .white)
-            cell.setup(with: viewModel, rows: 2)
+            let totalDamageController = TotalDamageController(maxDamage: viewModel.totalDamage, delegate: cell)
+            cell.setup(with: viewModel, rows: 2, damageController: totalDamageController)
         }
         
         return cell
