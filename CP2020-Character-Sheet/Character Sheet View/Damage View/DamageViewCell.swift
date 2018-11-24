@@ -8,8 +8,11 @@
 
 import UIKit
 
-final class DamageViewCell: UICollectionViewCell {
-
+final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate {
+    
+    private var totalDamage: Int?
+    private(set) var damageCells = [UIView]()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -22,6 +25,7 @@ final class DamageViewCell: UICollectionViewCell {
     ///   - viewModel: The initial DamageSectionViewModel
     ///   - rows: The number of rows
     func setup(with viewModel: DamageSectionViewModel, rows: Int) {
+        self.totalDamage = viewModel.totalDamage
         var viewModel = viewModel
         var wounds = WoundType.allCases.reversed().map { $0 }
         var woundType = wounds.popLast()! // Debug. do not force unwrap.
@@ -40,7 +44,11 @@ final class DamageViewCell: UICollectionViewCell {
         var frame = CGRect(x: contentView.safeAreaLayoutGuide.layoutFrame.minX, y: contentView.safeAreaLayoutGuide.layoutFrame.minY, width: contentView.safeAreaLayoutGuide.layoutFrame.width * sectionWidthMultiplier, height: contentView.safeAreaLayoutGuide.layoutFrame.height * sectionHeightMultiplier)
         while viewModel.startingDamageCellNumber < viewModel.totalDamage {
             let view = DamageSectionView(with: viewModel, frame: frame)
-            self.contentView.addSubview(view)
+            self.damageCells.append(contentsOf: view.damageCells)
+            contentView.addSubview(view)
+
+            // MARK: Damage cell layout
+            
             NSLayoutConstraint.activate([
                 view.topAnchor.constraint(equalTo: topAnchor),
                 view.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -76,7 +84,9 @@ final class DamageViewCell: UICollectionViewCell {
             
             viewModel = viewModel.constructNextModel(for: woundType)
         }
-
+        
+        // This is in place to ensure we never misalign these totals
+        assert(damageCells.count == totalDamage ?? 0, "Cell count an unexpected amount.")
     }
    
     required init?(coder aDecoder: NSCoder) {
@@ -92,4 +102,9 @@ final class DamageViewCell: UICollectionViewCell {
         super.prepareForReuse()
         // TODO: Test cell re-use and see if it needs anything here
     }
+    
+}
+
+enum DamageCellError: Error {
+    case ExceedsMaxDamage
 }

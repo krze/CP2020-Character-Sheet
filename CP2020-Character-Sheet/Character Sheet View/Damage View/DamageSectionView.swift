@@ -14,7 +14,7 @@ final class DamageSectionView: UIView {
     private let model: DamageSectionViewModel
     
     // Temporary until cells track their own state
-    private var damageCells = [UIView]()
+    private(set) var damageCells = [UIView]()
     private var views = [UIView]()
     
     /// Create a damage section containing 4 damage points
@@ -204,6 +204,8 @@ final class DamageSectionView: UIView {
             
             
             NSLayoutConstraint.activate(constraints)
+            
+            self.damageCells.append(cell)
         }
         
         return view

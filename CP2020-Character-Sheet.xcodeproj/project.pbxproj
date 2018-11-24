@@ -22,6 +22,8 @@
 		9DE3359E21A9EA4100180927 /* StatsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3359D21A9EA4100180927 /* StatsViewCell.swift */; };
 		9DE335A121A9EA7900180927 /* CharacterDescriptionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335A021A9EA7900180927 /* CharacterDescriptionViewCell.swift */; };
 		9DE335A721A9EB5B00180927 /* SkillViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335A621A9EB5B00180927 /* SkillViewCell.swift */; };
+		9DE335AA21A9F27400180927 /* TotalDamageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335A921A9F27400180927 /* TotalDamageController.swift */; };
+		9DE335AC21A9F2C800180927 /* TotalDamageControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335AB21A9F2C800180927 /* TotalDamageControllerDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		9DE3359D21A9EA4100180927 /* StatsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewCell.swift; sourceTree = "<group>"; };
 		9DE335A021A9EA7900180927 /* CharacterDescriptionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionViewCell.swift; sourceTree = "<group>"; };
 		9DE335A621A9EB5B00180927 /* SkillViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillViewCell.swift; sourceTree = "<group>"; };
+		9DE335A921A9F27400180927 /* TotalDamageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDamageController.swift; sourceTree = "<group>"; };
+		9DE335AB21A9F2C800180927 /* TotalDamageControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDamageControllerDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +169,7 @@
 		9D5C1F5F21A07E4900B3D493 /* Damage View */ = {
 			isa = PBXGroup;
 			children = (
+				9DE335AD21A9F42900180927 /* Controller */,
 				9D5C1F5921A0775B00B3D493 /* DamageViewCell.swift */,
 				9D5C1F5B21A0794400B3D493 /* DamageSectionView.swift */,
 				9D5C1F5D21A07E1500B3D493 /* DamageSectionViewModel.swift */,
@@ -203,6 +208,15 @@
 				9DE335A621A9EB5B00180927 /* SkillViewCell.swift */,
 			);
 			path = "Skill View";
+			sourceTree = "<group>";
+		};
+		9DE335AD21A9F42900180927 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9DE335AB21A9F2C800180927 /* TotalDamageControllerDelegate.swift */,
+				9DE335A921A9F27400180927 /* TotalDamageController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -342,9 +356,11 @@
 				9DE335A721A9EB5B00180927 /* SkillViewCell.swift in Sources */,
 				9D5C1F5E21A07E1500B3D493 /* DamageSectionViewModel.swift in Sources */,
 				9D5C1F5C21A0794400B3D493 /* DamageSectionView.swift in Sources */,
+				9DE335AC21A9F2C800180927 /* TotalDamageControllerDelegate.swift in Sources */,
 				9D24375421A085DE0084E77D /* WoundType.swift in Sources */,
 				9D5C1F2A21A06CE700B3D493 /* AppDelegate.swift in Sources */,
 				9DE335A121A9EA7900180927 /* CharacterDescriptionViewCell.swift in Sources */,
+				9DE335AA21A9F27400180927 /* TotalDamageController.swift in Sources */,
 				9D5C1F5A21A0775B00B3D493 /* DamageViewCell.swift in Sources */,
 				9DE3359E21A9EA4100180927 /* StatsViewCell.swift in Sources */,
 			);
