@@ -9,7 +9,7 @@
 import UIKit
 
 final class DamageViewCell: UICollectionViewCell {
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         

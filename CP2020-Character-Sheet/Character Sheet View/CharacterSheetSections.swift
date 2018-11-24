@@ -14,7 +14,7 @@ enum CharacterSheetSections: Int {
     func cellReuseID() -> String {
         switch self {
         case .Damage:
-            return "damageID"
+            return String(describing: DamageViewCell.self)
         }
     }
 }

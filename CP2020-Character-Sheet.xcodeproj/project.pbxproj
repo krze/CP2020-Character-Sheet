@@ -18,6 +18,10 @@
 		9D5C1F5C21A0794400B3D493 /* DamageSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C1F5B21A0794400B3D493 /* DamageSectionView.swift */; };
 		9D5C1F5E21A07E1500B3D493 /* DamageSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C1F5D21A07E1500B3D493 /* DamageSectionViewModel.swift */; };
 		9DE3359721A9A53800180927 /* DamageSectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3359621A9A53800180927 /* DamageSectionViewModelTests.swift */; };
+		9DE3359B21A9E9F700180927 /* DamageModifierViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3359A21A9E9F700180927 /* DamageModifierViewCell.swift */; };
+		9DE3359E21A9EA4100180927 /* StatsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3359D21A9EA4100180927 /* StatsViewCell.swift */; };
+		9DE335A121A9EA7900180927 /* CharacterDescriptionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335A021A9EA7900180927 /* CharacterDescriptionViewCell.swift */; };
+		9DE335A721A9EB5B00180927 /* SkillViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335A621A9EB5B00180927 /* SkillViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +59,10 @@
 		9D5C1F5B21A0794400B3D493 /* DamageSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageSectionView.swift; sourceTree = "<group>"; };
 		9D5C1F5D21A07E1500B3D493 /* DamageSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageSectionViewModel.swift; sourceTree = "<group>"; };
 		9DE3359621A9A53800180927 /* DamageSectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageSectionViewModelTests.swift; sourceTree = "<group>"; };
+		9DE3359A21A9E9F700180927 /* DamageModifierViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageModifierViewCell.swift; sourceTree = "<group>"; };
+		9DE3359D21A9EA4100180927 /* StatsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewCell.swift; sourceTree = "<group>"; };
+		9DE335A021A9EA7900180927 /* CharacterDescriptionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionViewCell.swift; sourceTree = "<group>"; };
+		9DE335A621A9EB5B00180927 /* SkillViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,7 +153,11 @@
 			children = (
 				9D24375521A091AE0084E77D /* CharacterSheetSections.swift */,
 				9D5C1F2B21A06CE700B3D493 /* CharacterSheetViewController.swift */,
+				9DE335A221A9EA7C00180927 /* Character Description View */,
+				9DE3359F21A9EA4500180927 /* Stats View */,
+				9DE3359C21A9EA0A00180927 /* Damage Modifier View */,
 				9D5C1F5F21A07E4900B3D493 /* Damage View */,
+				9DE335A821A9EB6800180927 /* Skill View */,
 			);
 			path = "Character Sheet View";
 			sourceTree = "<group>";
@@ -159,6 +171,38 @@
 				9D24375321A085DE0084E77D /* WoundType.swift */,
 			);
 			path = "Damage View";
+			sourceTree = "<group>";
+		};
+		9DE3359C21A9EA0A00180927 /* Damage Modifier View */ = {
+			isa = PBXGroup;
+			children = (
+				9DE3359A21A9E9F700180927 /* DamageModifierViewCell.swift */,
+			);
+			path = "Damage Modifier View";
+			sourceTree = "<group>";
+		};
+		9DE3359F21A9EA4500180927 /* Stats View */ = {
+			isa = PBXGroup;
+			children = (
+				9DE3359D21A9EA4100180927 /* StatsViewCell.swift */,
+			);
+			path = "Stats View";
+			sourceTree = "<group>";
+		};
+		9DE335A221A9EA7C00180927 /* Character Description View */ = {
+			isa = PBXGroup;
+			children = (
+				9DE335A021A9EA7900180927 /* CharacterDescriptionViewCell.swift */,
+			);
+			path = "Character Description View";
+			sourceTree = "<group>";
+		};
+		9DE335A821A9EB6800180927 /* Skill View */ = {
+			isa = PBXGroup;
+			children = (
+				9DE335A621A9EB5B00180927 /* SkillViewCell.swift */,
+			);
+			path = "Skill View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,13 +336,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DE3359B21A9E9F700180927 /* DamageModifierViewCell.swift in Sources */,
 				9D24375621A091AF0084E77D /* CharacterSheetSections.swift in Sources */,
 				9D5C1F2C21A06CE700B3D493 /* CharacterSheetViewController.swift in Sources */,
+				9DE335A721A9EB5B00180927 /* SkillViewCell.swift in Sources */,
 				9D5C1F5E21A07E1500B3D493 /* DamageSectionViewModel.swift in Sources */,
 				9D5C1F5C21A0794400B3D493 /* DamageSectionView.swift in Sources */,
 				9D24375421A085DE0084E77D /* WoundType.swift in Sources */,
 				9D5C1F2A21A06CE700B3D493 /* AppDelegate.swift in Sources */,
+				9DE335A121A9EA7900180927 /* CharacterDescriptionViewCell.swift in Sources */,
 				9D5C1F5A21A0775B00B3D493 /* DamageViewCell.swift in Sources */,
+				9DE3359E21A9EA4100180927 /* StatsViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
