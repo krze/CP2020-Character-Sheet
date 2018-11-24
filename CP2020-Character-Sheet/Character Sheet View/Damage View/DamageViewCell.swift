@@ -94,7 +94,7 @@ final class DamageViewCell: UICollectionViewCell {
         // Debug
 
         
-        self.contentView.backgroundColor = .lightGray
+        self.contentView.backgroundColor = .white
     }
     
     required init?(coder aDecoder: NSCoder) {
