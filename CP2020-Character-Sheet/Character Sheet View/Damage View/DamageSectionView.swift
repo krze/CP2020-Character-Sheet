@@ -150,7 +150,7 @@ final class DamageSectionView: UIView {
             label.textColor = model.darkColor
         }
         
-        label.font = UIFont(name: "AvenirNext-Bold", size: 18.0)
+        label.font = UIFont(name: "AvenirNext-DemiBoldItalic", size: 18.0)
         label.text = text
         label.adjustsFontSizeToFitWidth = true
         
@@ -168,16 +168,16 @@ final class DamageSectionView: UIView {
         let view = UIView(frame: frame)
         view.backgroundColor = model.lightColor
         view.accessibilityLabel = "DamageCellContainer"
-        view.layoutMargins = UIEdgeInsets(top: model.damageCellVerticalPadding,
+        view.layoutMargins = UIEdgeInsets(top: 0,
                                           left: model.damageCellHorizontalPadding,
-                                          bottom: model.damageCellVerticalPadding,
+                                          bottom: model.damageCellVerticalPadding * 2,
                                           right: model.damageCellHorizontalPadding)
         
         // TODO: Make the tracking of this state contained to the cell itself.
         let damageCells = self.damageCells(frame: view.frame, count: model.damageCellCount)
         
         let cellWidth = calculateWidth(forFrameCount: damageCells.count, toFit: view.frame)
-        let cellHeight = view.frame.height - model.damageCellVerticalPadding
+        let cellHeight = view.frame.height - (view.frame.height * model.damageCellVerticalPadding * 2)
         
         damageCells.enumerated().forEach { index, cell in
             cell.accessibilityLabel = "Cell \(index)"

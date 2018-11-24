@@ -23,7 +23,7 @@ final class DamageViewCell: UICollectionViewCell {
         let typeRatio = 0.3
         let cellRatio = 0.3
         let cellHorizontalPaddingSpace = 0.2
-        let cellVerticalPaddingSpace = 0.1
+        let cellVerticalPaddingSpace = 0.2
         let cellBorderThickness = 1.0
         let stunRatio = 0.4
         let darkColor = UIColor.black
