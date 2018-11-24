@@ -28,13 +28,17 @@ struct DamageSectionViewModel {
     /// The proportion of the view taken up by the top section label indicating damage type. This is the top section of the view.
     let woundTypeLabelViewRatio: CGFloat
     
+    let totalDamage: Int
+    
     /// The proportion of the view taken up by the damage cells which track damage points. This is the middle section of the view.
     let damageCellViewRatio: CGFloat
     
     /// The total padding to space around the damage cells. This will be divided by the number of cells
     let damageCellHorizontalPadding: CGFloat
+    let damageCellTotalHorizontalPadding: CGFloat
     /// The total padding to space above the damage cells
     let damageCellVerticalPadding: CGFloat
+    let damageCellTotalVerticalPadding: CGFloat
     let damageCellCount: Int
     let damageCellBorderThickness: CGFloat
     
@@ -66,13 +70,13 @@ struct DamageSectionViewModel {
     init(startingDamageCellNumber: Int,
          totalDamage: Int,
          woundType: WoundType,
-         typeRatio: Double,
-         cellRatio: Double,
-         cellHorizontalPaddingSpace: Double,
-         cellVerticalPaddingSpace: Double,
-         cellBorderThickness: Double,
+         typeRatio: CGFloat,
+         cellRatio: CGFloat,
+         cellHorizontalPaddingSpace: CGFloat,
+         cellVerticalPaddingSpace: CGFloat,
+         cellBorderThickness: CGFloat,
          cellCount: Int,
-         stunRatio: Double,
+         stunRatio: CGFloat,
          darkColor: UIColor,
          lightColor: UIColor) {
         guard typeRatio + cellRatio + stunRatio == 1.0 else {
@@ -83,15 +87,17 @@ struct DamageSectionViewModel {
         
         self.woundType = woundType
 
-        woundTypeLabelViewRatio = CGFloat(typeRatio)
+        woundTypeLabelViewRatio = typeRatio
         
-        damageCellViewRatio = CGFloat(cellRatio)
-        damageCellHorizontalPadding = CGFloat(cellHorizontalPaddingSpace / Double(cellCount + 1)) // 1 extra space for the right side
-        damageCellVerticalPadding = CGFloat(cellVerticalPaddingSpace / 2) // Only supports 1 row
-        damageCellBorderThickness = CGFloat(cellBorderThickness)
+        damageCellViewRatio = cellRatio
+        damageCellHorizontalPadding = cellHorizontalPaddingSpace / CGFloat(cellCount + 1) // 1 extra space for the right side
+        damageCellTotalHorizontalPadding = cellHorizontalPaddingSpace
+        damageCellVerticalPadding = cellVerticalPaddingSpace / 2 // Only supports 1 row
+        damageCellTotalVerticalPadding = cellVerticalPaddingSpace
+        damageCellBorderThickness = cellBorderThickness
         damageCellCount = cellCount
 
-        stunLabelViewRatio = CGFloat(stunRatio)
+        stunLabelViewRatio = stunRatio
         
         self.darkColor = darkColor
         self.lightColor = lightColor
@@ -113,6 +119,26 @@ struct DamageSectionViewModel {
             mortalCount = nil
         }
         
+        self.totalDamage = totalDamage
+    }
+    
+    /// Constructs a view model, iterating off the current model's properties.
+    ///
+    /// - Parameter woundType: Wound type for the new view model
+    /// - Returns: A new view model ready to be placed adjacent to the previous
+    func constructNextModel(for woundType: WoundType) -> DamageSectionViewModel {
+        return DamageSectionViewModel(startingDamageCellNumber: startingDamageCellNumber + damageCellCount,
+                                      totalDamage: totalDamage,
+                                      woundType: woundType,
+                                      typeRatio: woundTypeLabelViewRatio,
+                                      cellRatio: damageCellViewRatio,
+                                      cellHorizontalPaddingSpace: damageCellTotalHorizontalPadding,
+                                      cellVerticalPaddingSpace: damageCellTotalVerticalPadding,
+                                      cellBorderThickness: damageCellBorderThickness,
+                                      cellCount: damageCellCount,
+                                      stunRatio: stunLabelViewRatio,
+                                      darkColor: darkColor,
+                                      lightColor: lightColor)
     }
     
 }

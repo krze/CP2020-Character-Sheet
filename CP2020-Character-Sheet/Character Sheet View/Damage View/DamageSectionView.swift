@@ -35,8 +35,7 @@ final class DamageSectionView: UIView {
         
         woundTypeLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
         woundTypeLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-        woundTypeLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
-        
+
         addConstraint(NSLayoutConstraint(item: woundTypeLabel,
                                          attribute: .height,
                                          relatedBy: .lessThanOrEqual,
@@ -63,7 +62,7 @@ final class DamageSectionView: UIView {
         addConstraint(NSLayoutConstraint(item: damageCellContainer,
                                          attribute: .centerX,
                                          relatedBy: .equal,
-                                         toItem: safeAreaLayoutGuide,
+                                         toItem: woundTypeLabel,
                                          attribute: .centerX,
                                          multiplier: 1,
                                          constant: 0))
@@ -93,7 +92,6 @@ final class DamageSectionView: UIView {
                                          constant: 0))
         stunTypeLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
         stunTypeLabel.topAnchor.constraint(equalTo: damageCellContainer.bottomAnchor).isActive = true
-        stunTypeLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
         stunTypeLabel.updateConstraints()
 
         views.append(stunTypeLabel)

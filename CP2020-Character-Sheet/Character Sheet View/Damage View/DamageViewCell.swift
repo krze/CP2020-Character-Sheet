@@ -13,22 +13,19 @@ final class DamageViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        // TODO: Make these injectable via an initializer. This is just debug for now
-        let rows = 2
-        var startingDamageCellNumber = 1
-        let totalDamage = 40
+        self.contentView.backgroundColor = .white
+    }
+    
+    /// Sets up the view by supplying a view model object
+    ///
+    /// - Parameters:
+    ///   - viewModel: The initial DamageSectionViewModel
+    ///   - rows: The number of rows
+    func setup(with viewModel: DamageSectionViewModel, rows: Int) {
+        var viewModel = viewModel
         var wounds = WoundType.allCases.reversed().map { $0 }
         var woundType = wounds.popLast()! // Debug. do not force unwrap.
-        let cellCount = 4
-        let typeRatio = 0.3
-        let cellRatio = 0.3
-        let cellHorizontalPaddingSpace = 0.2
-        let cellVerticalPaddingSpace = 0.2
-        let cellBorderThickness = 1.0
-        let stunRatio = 0.4
-        let darkColor = UIColor.black
-        let lightColor = UIColor.white
-        let sectionWidthMultiplier = CGFloat(1.0 / ((CGFloat(totalDamage) / CGFloat(cellCount)) / CGFloat(rows)))
+        let sectionWidthMultiplier = CGFloat(1.0 / ((CGFloat(viewModel.totalDamage) / CGFloat(viewModel.damageCellCount)) / CGFloat(rows)))
         let sectionHeightMultiplier = CGFloat(1.0 / CGFloat(rows))
         
         // The first cell will start with the top left corner, so leading/top will be the edge
@@ -39,32 +36,19 @@ final class DamageViewCell: UICollectionViewCell {
         
         var nextViewNumber = 1
         var currentRow = 1
-        let viewsPerRow = (totalDamage / cellCount) / rows
+        let viewsPerRow = (viewModel.totalDamage / viewModel.damageCellCount) / rows
         var frame = CGRect(x: contentView.safeAreaLayoutGuide.layoutFrame.minX, y: contentView.safeAreaLayoutGuide.layoutFrame.minY, width: contentView.safeAreaLayoutGuide.layoutFrame.width * sectionWidthMultiplier, height: contentView.safeAreaLayoutGuide.layoutFrame.height * sectionHeightMultiplier)
-        while startingDamageCellNumber < totalDamage {
-            let damageSectionViewModel = DamageSectionViewModel(startingDamageCellNumber: startingDamageCellNumber,
-                                                                totalDamage: totalDamage,
-                                                                woundType: woundType,
-                                                                typeRatio: typeRatio,
-                                                                cellRatio: cellRatio,
-                                                                cellHorizontalPaddingSpace: cellHorizontalPaddingSpace,
-                                                                cellVerticalPaddingSpace: cellVerticalPaddingSpace,
-                                                                cellBorderThickness: cellBorderThickness,
-                                                                cellCount: cellCount,
-                                                                stunRatio: stunRatio,
-                                                                darkColor: darkColor,
-                                                                lightColor: lightColor)
-            let view = DamageSectionView(with: damageSectionViewModel, frame: frame)
+        while viewModel.startingDamageCellNumber < viewModel.totalDamage {
+            let view = DamageSectionView(with: viewModel, frame: frame)
             self.contentView.addSubview(view)
             NSLayoutConstraint.activate([
                 view.topAnchor.constraint(equalTo: topAnchor),
                 view.leadingAnchor.constraint(equalTo: leadingAnchor),
-                view.widthAnchor.constraint(lessThanOrEqualTo: contentView.safeAreaLayoutGuide.widthAnchor, multiplier: sectionWidthMultiplier),
-                view.widthAnchor.constraint(lessThanOrEqualTo: contentView.safeAreaLayoutGuide.heightAnchor, multiplier: sectionHeightMultiplier)
+                view.widthAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.widthAnchor, multiplier: sectionWidthMultiplier),
+                view.heightAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.heightAnchor, multiplier: sectionHeightMultiplier)
                 ])
             
             // Prep for the next view's relevant properties
-            startingDamageCellNumber += cellCount
             nextViewNumber += 1
             
             // Set the next anchors
@@ -90,20 +74,17 @@ final class DamageViewCell: UICollectionViewCell {
                 woundType = nextWoundType
             }
             
+            viewModel = viewModel.constructNextModel(for: woundType)
         }
-        // Debug
 
-        
-        self.contentView.backgroundColor = .white
     }
-    
+   
     required init?(coder aDecoder: NSCoder) {
         fatalError("This initializer is not supported.")
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         fatalError("Interface Builder is not supported!")
     }
     
