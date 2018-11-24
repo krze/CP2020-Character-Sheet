@@ -48,4 +48,4 @@ Currently I'm not accepting any PRs, as this project is intended mostly for prac
 Provided you have Xcode 10+, check out the repo and compile via Xcode. This project does not yet have code signing for devices.
 
 ## WIP Latest screenshot:
-![Latest screenshot as of 11/24](https://github.com/krze/CP2020-Character-Sheet/tree/master/Images/latest.png)
+![Latest screenshot as of 11/24](https://raw.githubusercontent.com/krze/CP2020-Character-Sheet/master/Images/latest.png)
