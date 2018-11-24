@@ -93,14 +93,18 @@ struct DamageSectionViewModel {
         self.darkColor = darkColor
         self.lightColor = lightColor
         
-        stunCount = totalDamage / cellCount // NEXT: Fix this. Double check the math. Definitely wrong.
+        stunCount = Int((Double(startingDamageCellNumber) / Double(totalDamage)) * 10)
         
         if woundType == .Mortal {
-            let thisSegment = totalDamage / startingDamageCellNumber
-            let nonMortalDamageTotal = (totalDamage / cellCount) * WoundType.allCases.filter({ $0 != .Mortal }).count
-            let lastNonMortalSegment = (nonMortalDamageTotal / WoundType.allCases.filter({ $0 != .Mortal }).count) - 1 // off by one adjustment
+            // Sections have an "index" value, where the first section is 0, it happens to correlate
+            // with the stunCount.
+            let thisSegmentIndex = stunCount
             
-            mortalCount = thisSegment - lastNonMortalSegment - 1 // Off by one again (starts at 0)
+            // Mortal wound types start at "Mortal 0", after all the non-mortal wound types which occupy
+            // the initial indices BEFORE "Mortal 0". i.e. Light is index 0 ... Critical is index 2, the first
+            // Mortal wound be index 3, so if this is tagged as a Mortal wound, we must shift -3 (indices 0-2)
+            // to get Mortal 0
+            mortalCount = thisSegmentIndex - WoundType.allCases.filter({ $0 != .Mortal }).count
         }
         else {
             mortalCount = nil

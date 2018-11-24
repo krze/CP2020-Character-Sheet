@@ -13,11 +13,11 @@
 		9D5C1F2C21A06CE700B3D493 /* CharacterSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C1F2B21A06CE700B3D493 /* CharacterSheetViewController.swift */; };
 		9D5C1F3121A06CE800B3D493 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D5C1F3021A06CE800B3D493 /* Assets.xcassets */; };
 		9D5C1F3421A06CE800B3D493 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D5C1F3221A06CE800B3D493 /* LaunchScreen.storyboard */; };
-		9D5C1F3F21A06CE800B3D493 /* CP2020_Character_SheetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C1F3E21A06CE800B3D493 /* CP2020_Character_SheetTests.swift */; };
 		9D5C1F4A21A06CE800B3D493 /* CP2020_Character_SheetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C1F4921A06CE800B3D493 /* CP2020_Character_SheetUITests.swift */; };
 		9D5C1F5A21A0775B00B3D493 /* DamageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C1F5921A0775B00B3D493 /* DamageViewCell.swift */; };
 		9D5C1F5C21A0794400B3D493 /* DamageSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C1F5B21A0794400B3D493 /* DamageSectionView.swift */; };
 		9D5C1F5E21A07E1500B3D493 /* DamageSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C1F5D21A07E1500B3D493 /* DamageSectionViewModel.swift */; };
+		9DE3359721A9A53800180927 /* DamageSectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3359621A9A53800180927 /* DamageSectionViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +47,6 @@
 		9D5C1F3321A06CE800B3D493 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9D5C1F3521A06CE800B3D493 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D5C1F3A21A06CE800B3D493 /* CP2020-Character-SheetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CP2020-Character-SheetTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9D5C1F3E21A06CE800B3D493 /* CP2020_Character_SheetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CP2020_Character_SheetTests.swift; sourceTree = "<group>"; };
 		9D5C1F4021A06CE800B3D493 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D5C1F4521A06CE800B3D493 /* CP2020-Character-SheetUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CP2020-Character-SheetUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D5C1F4921A06CE800B3D493 /* CP2020_Character_SheetUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CP2020_Character_SheetUITests.swift; sourceTree = "<group>"; };
@@ -55,6 +54,7 @@
 		9D5C1F5921A0775B00B3D493 /* DamageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageViewCell.swift; sourceTree = "<group>"; };
 		9D5C1F5B21A0794400B3D493 /* DamageSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageSectionView.swift; sourceTree = "<group>"; };
 		9D5C1F5D21A07E1500B3D493 /* DamageSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageSectionViewModel.swift; sourceTree = "<group>"; };
+		9DE3359621A9A53800180927 /* DamageSectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageSectionViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,8 +117,8 @@
 		9D5C1F3D21A06CE800B3D493 /* CP2020-Character-SheetTests */ = {
 			isa = PBXGroup;
 			children = (
-				9D5C1F3E21A06CE800B3D493 /* CP2020_Character_SheetTests.swift */,
 				9D5C1F4021A06CE800B3D493 /* Info.plist */,
+				9DE3359621A9A53800180927 /* DamageSectionViewModelTests.swift */,
 			);
 			path = "CP2020-Character-SheetTests";
 			sourceTree = "<group>";
@@ -232,6 +232,7 @@
 					};
 					9D5C1F3921A06CE800B3D493 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 						TestTargetID = 9D5C1F2521A06CE700B3D493;
 					};
 					9D5C1F4421A06CE800B3D493 = {
@@ -305,7 +306,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D5C1F3F21A06CE800B3D493 /* CP2020_Character_SheetTests.swift in Sources */,
+				9DE3359721A9A53800180927 /* DamageSectionViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,6 +506,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "CP2020-Character-SheetTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -514,6 +516,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "krze.CP2020-Character-SheetTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CP2020-Character-Sheet.app/CP2020-Character-Sheet";
@@ -525,6 +528,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "CP2020-Character-SheetTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (

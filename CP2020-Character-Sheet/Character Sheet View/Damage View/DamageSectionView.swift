@@ -112,7 +112,7 @@ final class DamageSectionView: UIView {
     private func label(for woundType: WoundType, yPosition: CGFloat) -> UILabel {
         let text: String = {
             if woundType == .Mortal, let count = model.mortalCount {
-                return "\(woundType.rawValue) - \(count)"
+                return "\(woundType.rawValue) -\(count)"
             }
             else {
                 return woundType.rawValue
@@ -130,7 +130,7 @@ final class DamageSectionView: UIView {
     ///   - yPosition: The yPosition relative to the entire DamageSectionView
     /// - Returns: UILabel ready to be positioned in the cell
     private func label(for stunType: StunType, yPosition: CGFloat) -> UILabel {
-        let text = "\(stunType.rawValue) - \(model.stunCount)"
+        let text = "\(stunType.rawValue) -\(model.stunCount)"
         let label = self.label(for: text, yPosition: yPosition, viewRatio: model.stunLabelViewRatio)
         
         return label

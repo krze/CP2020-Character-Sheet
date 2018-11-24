@@ -14,9 +14,9 @@ final class DamageViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         // Debug
-        let damageSectionViewModel = DamageSectionViewModel(startingDamageCellNumber: 1,
+        let damageSectionViewModel = DamageSectionViewModel(startingDamageCellNumber: 13,
                                                             totalDamage: 40,
-                                                            woundType: .Light,
+                                                            woundType: .Mortal,
                                                             typeRatio: 0.3,
                                                             cellRatio: 0.4,
                                                             cellHorizontalPaddingSpace: 0.2,
