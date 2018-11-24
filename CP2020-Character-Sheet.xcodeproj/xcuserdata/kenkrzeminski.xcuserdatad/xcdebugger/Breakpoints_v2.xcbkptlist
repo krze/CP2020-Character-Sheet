@@ -32,7 +32,7 @@
             condition = "(text == &quot;Mortal -0&quot;)||(text == &quot;Mortal -2&quot;)"
             continueAfterRunningActions = "No"
             filePath = "CP2020-Character-Sheet/Character Sheet View/Damage View/DamageSectionView.swift"
-            timestampString = "564775407.215005"
+            timestampString = "564775625.6424021"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "121"

@@ -131,27 +131,28 @@ final class DamageSectionView: UIView {
     /// - Returns: UILabel ready to be positioned in the cell
     private func label(for stunType: StunType, yPosition: CGFloat) -> UILabel {
         let text = "\(stunType.rawValue) -\(model.stunCount)"
-        let label = self.label(for: text, yPosition: yPosition, viewRatio: model.stunLabelViewRatio)
+        let label = self.label(for: text, yPosition: yPosition, viewRatio: model.stunLabelViewRatio, invertColors: true)
         
         return label
     }
     
-    private func label(for text: String, yPosition: CGFloat, viewRatio: CGFloat) -> UILabel {
+    private func label(for text: String, yPosition: CGFloat, viewRatio: CGFloat, invertColors: Bool = false) -> UILabel {
         let frame = CGRect(x: 0, y: yPosition, width: self.frame.width, height: self.frame.height * viewRatio)
         
         let label = UILabel(frame: frame)
         
-        if text.contains("Stun") {
+        if invertColors {
             label.backgroundColor = model.darkColor
             label.textColor = model.lightColor
+        }
+        else {
+            label.backgroundColor = model.lightColor
+            label.textColor = model.darkColor
         }
         
         label.font = UIFont(name: "AvenirNext-Bold", size: 18.0)
         label.text = text
         label.adjustsFontSizeToFitWidth = true
-        
-        
-
         
         return label
     }
