@@ -26,3 +26,5 @@ extension WoundType: CaseIterable {}
 enum StunType: String {
     case Stun
 }
+
+extension StunType: CaseIterable {}

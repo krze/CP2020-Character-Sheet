@@ -13,27 +13,84 @@ final class DamageViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        // Debug
-        let damageSectionViewModel = DamageSectionViewModel(startingDamageCellNumber: 13,
-                                                            totalDamage: 40,
-                                                            woundType: .Mortal,
-                                                            typeRatio: 0.3,
-                                                            cellRatio: 0.4,
-                                                            cellHorizontalPaddingSpace: 0.2,
-                                                            cellVerticalPaddingSpace: 0.1,
-                                                            cellCount: 4,
-                                                            stunRatio: 0.3,
-                                                            darkColor: .black,
-                                                            lightColor: .white)
+        // TODO: Make these injectable via an initializer. This is just debug for now
+        let rows = 2
+        var startingDamageCellNumber = 1
+        let totalDamage = 40
+        var wounds = WoundType.allCases.reversed().map { $0 }
+        var woundType = wounds.popLast()! // Debug. do not force unwrap.
+        let cellCount = 4
+        let typeRatio = 0.3
+        let cellRatio = 0.4
+        let cellHorizontalPaddingSpace = 0.2
+        let cellVerticalPaddingSpace = 0.1
+        let stunRatio = 0.3
+        let darkColor = UIColor.black
+        let lightColor = UIColor.white
+        let sectionWidthMultiplier = CGFloat(1.0 / ((CGFloat(totalDamage) / CGFloat(cellCount)) / CGFloat(rows)))
+        let sectionHeightMultiplier = CGFloat(1.0 / CGFloat(rows))
         
-        let testView = DamageSectionView(with: damageSectionViewModel, frame: frame)
-        self.contentView.addSubview(testView)
-        NSLayoutConstraint.activate([
-            testView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-            testView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
-            testView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
-            testView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
-            ])
+        // The first cell will start with the top left corner, so leading/top will be the edge
+        // of the view. These values will be replaced with the trailing anchor of the cell when
+        // the construction is finished
+        var leadingAnchor = self.contentView.safeAreaLayoutGuide.leadingAnchor
+        var topAnchor = self.contentView.safeAreaLayoutGuide.topAnchor
+        
+        var nextViewNumber = 1
+        var currentRow = 1
+        let viewsPerRow = (totalDamage / cellCount) / rows
+        var frame = CGRect(x: contentView.safeAreaLayoutGuide.layoutFrame.minX, y: contentView.safeAreaLayoutGuide.layoutFrame.minY, width: contentView.safeAreaLayoutGuide.layoutFrame.width * sectionWidthMultiplier, height: contentView.safeAreaLayoutGuide.layoutFrame.height * sectionHeightMultiplier)
+        while startingDamageCellNumber < totalDamage {
+            let damageSectionViewModel = DamageSectionViewModel(startingDamageCellNumber: startingDamageCellNumber,
+                                                                totalDamage: totalDamage,
+                                                                woundType: woundType,
+                                                                typeRatio: typeRatio,
+                                                                cellRatio: cellRatio,
+                                                                cellHorizontalPaddingSpace: cellHorizontalPaddingSpace,
+                                                                cellVerticalPaddingSpace: cellVerticalPaddingSpace,
+                                                                cellCount: cellCount,
+                                                                stunRatio: stunRatio,
+                                                                darkColor: darkColor,
+                                                                lightColor: lightColor)
+            let view = DamageSectionView(with: damageSectionViewModel, frame: frame)
+            self.contentView.addSubview(view)
+            NSLayoutConstraint.activate([
+                view.topAnchor.constraint(equalTo: topAnchor),
+                view.leadingAnchor.constraint(equalTo: leadingAnchor),
+                view.widthAnchor.constraint(lessThanOrEqualTo: contentView.safeAreaLayoutGuide.widthAnchor, multiplier: sectionWidthMultiplier),
+                view.widthAnchor.constraint(lessThanOrEqualTo: contentView.safeAreaLayoutGuide.heightAnchor, multiplier: sectionHeightMultiplier)
+                ])
+            
+            // Prep for the next view's relevant properties
+            startingDamageCellNumber += cellCount
+            nextViewNumber += 1
+            
+            // Set the next anchors
+            leadingAnchor = view.trailingAnchor
+            var newRowX: CGFloat?
+            var newRowY: CGFloat?
+            // Only update the topAnchor if we've gone down a row
+            if nextViewNumber > viewsPerRow * currentRow {
+                newRowX = contentView.safeAreaLayoutGuide.layoutFrame.minX
+                newRowY = contentView.safeAreaLayoutGuide.layoutFrame.minY + (frame.height * CGFloat(currentRow))
+                currentRow += 1
+                leadingAnchor = contentView.safeAreaLayoutGuide.leadingAnchor
+                topAnchor = view.bottomAnchor
+            }
+            else {
+                leadingAnchor = view.trailingAnchor
+            }
+            
+            frame = CGRect(x: newRowX ?? frame.minX + frame.width, y: newRowY ?? frame.minY, width: frame.width, height: frame.height)
+            // The last wound type should be mortal, and will continue to be so until all views are constructed.
+            // Only update the type if there's another wound type in the list.
+            if let nextWoundType = wounds.popLast() {
+                woundType = nextWoundType
+            }
+            
+        }
+        // Debug
+
         
         self.contentView.backgroundColor = .lightGray
     }

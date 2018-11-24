@@ -30,7 +30,7 @@ final class DamageSectionView: UIView {
 
         // MARK: Wound type label construction
         
-        let woundTypeLabel = self.label(for: viewModel.woundType, yPosition: frame.origin.y)
+        let woundTypeLabel = self.label(for: viewModel.woundType, yPosition: self.safeAreaLayoutGuide.layoutFrame.minY)
         addSubview(woundTypeLabel)
         
         woundTypeLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
