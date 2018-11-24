@@ -21,10 +21,11 @@ final class DamageViewCell: UICollectionViewCell {
         var woundType = wounds.popLast()! // Debug. do not force unwrap.
         let cellCount = 4
         let typeRatio = 0.3
-        let cellRatio = 0.4
+        let cellRatio = 0.3
         let cellHorizontalPaddingSpace = 0.2
         let cellVerticalPaddingSpace = 0.1
-        let stunRatio = 0.3
+        let cellBorderThickness = 1.0
+        let stunRatio = 0.4
         let darkColor = UIColor.black
         let lightColor = UIColor.white
         let sectionWidthMultiplier = CGFloat(1.0 / ((CGFloat(totalDamage) / CGFloat(cellCount)) / CGFloat(rows)))
@@ -48,6 +49,7 @@ final class DamageViewCell: UICollectionViewCell {
                                                                 cellRatio: cellRatio,
                                                                 cellHorizontalPaddingSpace: cellHorizontalPaddingSpace,
                                                                 cellVerticalPaddingSpace: cellVerticalPaddingSpace,
+                                                                cellBorderThickness: cellBorderThickness,
                                                                 cellCount: cellCount,
                                                                 stunRatio: stunRatio,
                                                                 darkColor: darkColor,

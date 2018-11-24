@@ -138,10 +138,20 @@ final class DamageSectionView: UIView {
     
     private func label(for text: String, yPosition: CGFloat, viewRatio: CGFloat) -> UILabel {
         let frame = CGRect(x: 0, y: yPosition, width: self.frame.width, height: self.frame.height * viewRatio)
+        
         let label = UILabel(frame: frame)
         
+        if text.contains("Stun") {
+            label.backgroundColor = model.darkColor
+            label.textColor = model.lightColor
+        }
+        
+        label.font = UIFont(name: "AvenirNext-Bold", size: 18.0)
         label.text = text
         label.adjustsFontSizeToFitWidth = true
+        
+        
+
         
         return label
     }
@@ -209,7 +219,7 @@ final class DamageSectionView: UIView {
         for _ in 1...count {
             let backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: cellWidth, height: cellHeight))
             backgroundView.backgroundColor = model.lightColor
-            backgroundView.layer.borderWidth = 2
+            backgroundView.layer.borderWidth = model.damageCellBorderThickness
             backgroundView.layer.borderColor = model.darkColor.cgColor
             
             views.append(backgroundView)

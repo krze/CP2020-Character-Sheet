@@ -36,6 +36,7 @@ struct DamageSectionViewModel {
     /// The total padding to space above the damage cells
     let damageCellVerticalPadding: CGFloat
     let damageCellCount: Int
+    let damageCellBorderThickness: CGFloat
     
     /// The proportion of the view taken up by the stun labe indicating the stun check value. This is the bottom section of the view
     let stunLabelViewRatio: CGFloat
@@ -69,6 +70,7 @@ struct DamageSectionViewModel {
          cellRatio: Double,
          cellHorizontalPaddingSpace: Double,
          cellVerticalPaddingSpace: Double,
+         cellBorderThickness: Double,
          cellCount: Int,
          stunRatio: Double,
          darkColor: UIColor,
@@ -86,6 +88,7 @@ struct DamageSectionViewModel {
         damageCellViewRatio = CGFloat(cellRatio)
         damageCellHorizontalPadding = CGFloat(cellHorizontalPaddingSpace / Double(cellCount + 1)) // 1 extra space for the right side
         damageCellVerticalPadding = CGFloat(cellVerticalPaddingSpace / 2) // Only supports 1 row
+        damageCellBorderThickness = CGFloat(cellBorderThickness)
         damageCellCount = cellCount
 
         stunLabelViewRatio = CGFloat(stunRatio)
