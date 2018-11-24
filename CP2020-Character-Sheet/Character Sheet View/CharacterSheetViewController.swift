@@ -15,7 +15,18 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
         
         navigationItem.title = "Cyberpunk 2020"
         collectionView.backgroundColor = .black
-        collectionView.register(DamageViewCell.self, forCellWithReuseIdentifier: CharacterSheetSections.Damage.cellReuseID())
+        collectionView.register(CharacterDescriptionViewCell.self,
+                                forCellWithReuseIdentifier: CharacterSheetSections.CharacterDescription.cellReuseID())
+        collectionView.register(StatsViewCell.self,
+                                forCellWithReuseIdentifier: CharacterSheetSections.Stats.cellReuseID())
+        collectionView.register(DamageModifierViewCell.self,
+                                forCellWithReuseIdentifier: CharacterSheetSections.DamageModifier.cellReuseID())
+        collectionView.register(DamageViewCell.self,
+                                forCellWithReuseIdentifier: CharacterSheetSections.Damage.cellReuseID())
+        collectionView.register(SkillViewCell.self,
+                                forCellWithReuseIdentifier: CharacterSheetSections.Skill.cellReuseID())
+
+
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

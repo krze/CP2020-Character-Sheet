@@ -8,14 +8,26 @@
 
 import Foundation
 
+/// Enum for managing the character sheet sections in the collection view.
 enum CharacterSheetSections: Int {
-    case Damage
+    // This ordering is strict!
+    case CharacterDescription, Stats, DamageModifier, Damage, Skill
     
     func cellReuseID() -> String {
         switch self {
         case .Damage:
             return String(describing: DamageViewCell.self)
+        case .CharacterDescription:
+            return String(describing: CharacterDescriptionViewCell.self)
+        case .Stats:
+            return String(describing: StatsViewCell.self)
+        case .DamageModifier:
+            return String(describing: DamageModifierViewCell.self)
+        case .Skill:
+            return String(describing: SkillViewCell.self)
         }
+        
+
     }
 }
 
