@@ -10,7 +10,7 @@ import UIKit
 
 final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate {
     
-    private(set) var damageController: TotalDamageController?
+    private var damageController: TotalDamageController?
 
     private var totalDamage: Int?
     private(set) var damageCells = [UIView]()
@@ -102,12 +102,13 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate 
             let destinationIndex = currentDamage - 1
             var currentIndex = currentLastUndamagedIndex
             
+            
             // Do nothing if we can't apply the damage
-            guard self.damageCells.indices.contains(destinationIndex) && destinationIndex != currentIndex else {
+            guard self.damageCells.indices.contains(destinationIndex) else {
                 return
             }
             let range = currentIndex...destinationIndex
-            let increasing = destinationIndex > currentIndex
+            let increasing = destinationIndex == currentIndex || destinationIndex > currentIndex
             
             while range.contains(currentIndex) {
                 let color: UIColor = increasing ? .red : .white
@@ -128,7 +129,8 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate 
             do {
                 try self.damageController?.iterateDamageUp()
             } catch let error {
-                // TODO: Error window
+                // TODO: Make an alert view controller to pop alerts anywhere
+                // TODO: Make this pop an alert view
                 fatalError(error.localizedDescription)
             }
         }

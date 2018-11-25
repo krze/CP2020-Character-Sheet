@@ -22,14 +22,14 @@ final class TotalDamageController {
     ///
     /// - Throws: DamageModification error if the damage could not be applied
     func iterateDamageUp() throws {
-        try? modifyDamage(by: 1)
+        try modifyDamage(by: 1)
     }
     
     /// Iterates damage down by 1 damage point. Updates the delegate's damage cells.
     ///
     /// - Throws: DamageModification error if the damage could not be applied
     func iterateDamageDown() throws {
-        try? modifyDamage(by: -1)
+        try modifyDamage(by: -1)
     }
     
     /// Modifies the damage by the amount specified. Updates the delegate's damage cells.
@@ -60,6 +60,10 @@ final class TotalDamageController {
             throw DamageModification.CannotGoBelowZero
         }
         
+        guard pendingCurrentDamage <= maxDamage else {
+            throw DamageModification.CannotExceedMaxDamage
+        }
+        
         guard pendingCurrentDamage != currentDamage else {
             throw DamageModification.NoModification
         }
@@ -76,5 +80,5 @@ final class TotalDamageController {
 /// - BufferOverflow: The damage applied overflowed Int.max or Int.min
 /// - NoModification: The damage applied would have resulted in no change to the damage
 enum DamageModification: Error {
-    case CannotGoBelowZero, BufferOverflow, NoModification
+    case CannotGoBelowZero, CannotExceedMaxDamage, BufferOverflow, NoModification
 }
