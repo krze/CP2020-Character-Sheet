@@ -56,7 +56,7 @@ final class TotalDamageController {
             throw DamageModification.BufferOverflow
         }
         
-        guard pendingCurrentDamage > 0 else {
+        guard pendingCurrentDamage >= 0 else {
             throw DamageModification.CannotGoBelowZero
         }
         

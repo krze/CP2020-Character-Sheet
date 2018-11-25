@@ -15,5 +15,5 @@ protocol TotalDamageControllerDelegate: class {
     /// Updates the damage cells to display the current value
     ///
     /// - Parameter currentDamage: The current damage the character has
-    func updateCells(to currentDamage: Int)
+    func updateCells(to newDamage: Int)
 }

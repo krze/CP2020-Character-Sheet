@@ -96,34 +96,58 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate 
         setupGestureRecognizers()
     }
     
-    func updateCells(to currentDamage: Int) {
+    func updateCells(to newDamage: Int) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self,
-                let currentLastUndamagedIndex = self.damageCells.firstIndex(where: { $0.backgroundColor ==  StyleConstants.lightColor }) else {
-                return
+            guard let self = self else { return }
+            var currentDamage: Int {
+                return self.damageCells.filter({ $0.backgroundColor == StyleConstants.redColor }).count
             }
-            let destinationIndex = currentDamage - 1
-            var currentIndex = currentLastUndamagedIndex
+            let currentDamageIndex = currentDamage - 1
+            let destinationIndex = newDamage - 1
             
+            var increasing = true
+            var next = 0
+
+            if currentDamageIndex <= destinationIndex {
+                next = currentDamageIndex + 1
+            }
+            else {
+                increasing = false
+                next = currentDamageIndex
+            }
             
             // Do nothing if we can't apply the damage
-            guard self.damageCells.indices.contains(destinationIndex) else {
+            guard self.damageCells.indices.contains(next) else {
                 return
             }
-            let range = currentIndex...destinationIndex
-            let increasing = destinationIndex == currentIndex || destinationIndex > currentIndex
-            
-            while range.contains(currentIndex) {
+        
+            while currentDamage != newDamage {
                 let color: UIColor = increasing ? StyleConstants.redColor : StyleConstants.lightColor
-                self.damageCells[currentIndex].backgroundColor = color
+                self.damageCells[next].backgroundColor = color
                 if increasing {
-                    currentIndex += 1
+                    next += 1
                 }
                 else {
-                    currentIndex -= 1
+                    next -= 1
                 }
             }
         }
+    }
+    
+    // MARK: Gesture Recognition and actions
+    
+    private func setupGestureRecognizers() {
+        // Single tap iterate
+        let iterateDamageTap = UITapGestureRecognizer(target: self, action: #selector(DamageViewCell.iterateDamage))
+        iterateDamageTap.cancelsTouchesInView = false
+        iterateDamageTap.numberOfTouchesRequired = 1
+        contentView.addGestureRecognizer(iterateDamageTap)
+        
+        // Two-finger tap decrement
+        let decrementDamageTap = UITapGestureRecognizer(target: self, action: #selector(DamageViewCell.decrementDamage))
+        decrementDamageTap.cancelsTouchesInView = false
+        decrementDamageTap.numberOfTouchesRequired = 2
+        contentView.addGestureRecognizer(decrementDamageTap)
     }
     
     @objc private func iterateDamage() {
@@ -131,20 +155,45 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate 
             guard let self = self else { return }
             do {
                 try self.damageController?.iterateDamageUp()
-            } catch let error {
+            }
+            catch let error as DamageModification {
+                switch error {
+                case let error where error == DamageModification.CannotExceedMaxDamage:
+                    return
+                default:
+                    fatalError(error.localizedDescription)
+                }
                 // TODO: Make an alert view controller to pop alerts anywhere
                 // TODO: Make this pop an alert view
+            }
+            catch let error {
                 fatalError(error.localizedDescription)
             }
         }
     }
     
-    private func setupGestureRecognizers() {
-        let iterateDamageTap = UITapGestureRecognizer(target: self, action: #selector(DamageViewCell.iterateDamage))
-        iterateDamageTap.cancelsTouchesInView = false
-        contentView.addGestureRecognizer(iterateDamageTap)
+    @objc private func decrementDamage() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            do {
+                try self.damageController?.iterateDamageDown()
+            }
+            catch let error as DamageModification {
+                switch error {
+                case let error where error == DamageModification.CannotExceedMaxDamage:
+                    return
+                default:
+                    fatalError(error.localizedDescription)
+                }
+                // TODO: Make an alert view controller to pop alerts anywhere
+                // TODO: Make this pop an alert view
+            }
+            catch let error {
+                fatalError(error.localizedDescription)
+            }
+        }
     }
-   
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("This initializer is not supported.")
     }
