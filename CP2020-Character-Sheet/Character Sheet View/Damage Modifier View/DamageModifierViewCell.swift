@@ -13,7 +13,7 @@ final class DamageModifierViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.contentView.backgroundColor = .red
+        self.contentView.backgroundColor = .white
     }
     
     required init?(coder aDecoder: NSCoder) {

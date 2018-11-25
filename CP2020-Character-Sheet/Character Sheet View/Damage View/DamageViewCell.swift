@@ -30,8 +30,11 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate 
         self.damageController = damageController
         self.totalDamage = viewModel.totalDamage
         var viewModel = viewModel
+        
+        // For iterating on the next view model.
         var wounds = WoundType.allCases.reversed().map { $0 }
-        var woundType = wounds.popLast()! // Debug. do not force unwrap.
+        var woundType = wounds.popLast() ?? .Light
+        
         let sectionWidthMultiplier = CGFloat(1.0 / ((CGFloat(viewModel.totalDamage) / CGFloat(viewModel.damageCellCount)) / CGFloat(rows)))
         let sectionHeightMultiplier = CGFloat(1.0 / CGFloat(rows))
         

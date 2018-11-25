@@ -14,10 +14,10 @@ final class DamageSectionViewModelTests: XCTestCase {
     let startingNonMortalDamgeValue = 9
     let startingMortalDamageValue = 13
     let totalDamage = 40
-    let typeRatio = 0.2
-    let cellRatio = 0.4
-    let stunRatio = 0.4
-    let padding = 0.2
+    let typeRatio: CGFloat = 0.2
+    let cellRatio: CGFloat = 0.4
+    let stunRatio: CGFloat = 0.4
+    let padding: CGFloat = 0.2
     
     private func makeTestModel(startingValue: Int, woundType: WoundType) -> DamageSectionViewModel {
         return DamageSectionViewModel(startingDamageCellNumber: startingValue,
@@ -27,6 +27,7 @@ final class DamageSectionViewModelTests: XCTestCase {
                                       cellRatio: cellRatio,
                                       cellHorizontalPaddingSpace: padding,
                                       cellVerticalPaddingSpace: padding,
+                                      cellBorderThickness: 1.0,
                                       cellCount: cellCount,
                                       stunRatio: stunRatio,
                                       darkColor: .black,

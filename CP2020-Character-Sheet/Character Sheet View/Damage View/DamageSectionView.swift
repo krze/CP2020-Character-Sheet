@@ -148,7 +148,7 @@ final class DamageSectionView: UIView {
             label.textColor = model.darkColor
         }
         
-        label.font = UIFont(name: "AvenirNext-DemiBoldItalic", size: 18.0)
+        label.font = StyleConstants.defaultItalicFont
         label.text = text
         label.adjustsFontSizeToFitWidth = true
         
