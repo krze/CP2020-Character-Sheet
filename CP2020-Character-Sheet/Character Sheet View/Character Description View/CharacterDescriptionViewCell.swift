@@ -13,7 +13,7 @@ final class CharacterDescriptionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.contentView.backgroundColor = .yellow
+        self.contentView.backgroundColor = StyleConstants.grayColor
     }
     
     required init?(coder aDecoder: NSCoder) {

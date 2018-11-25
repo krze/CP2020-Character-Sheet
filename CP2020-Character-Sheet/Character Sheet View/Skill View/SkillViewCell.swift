@@ -13,7 +13,7 @@ final class SkillViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.contentView.backgroundColor = .orange
+        self.contentView.backgroundColor = StyleConstants.grayColor
     }
     
     required init?(coder aDecoder: NSCoder) {

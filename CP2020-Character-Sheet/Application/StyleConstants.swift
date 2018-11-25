@@ -24,4 +24,9 @@ struct StyleConstants {
     
     /// A lighter font, suited to denser blocks of text or descriptions, italicized
     static let lightItalicFont = UIFont(name: "AvenirNext-RegularItalic", size: 18)
+    
+    static let darkColor = UIColor(red:0.11, green:0.15, blue:0.19, alpha:1.0)
+    static let lightColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
+    static let redColor = UIColor(red:0.81, green:0.07, blue:0.15, alpha:1.0)
+    static let grayColor = UIColor(red:0.55, green:0.54, blue:0.52, alpha:1.0)
 }
