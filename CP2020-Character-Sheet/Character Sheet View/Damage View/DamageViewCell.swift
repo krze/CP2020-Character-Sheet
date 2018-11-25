@@ -94,21 +94,21 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate 
     }
     
     func updateCells(to currentDamage: Int) {
-        guard let currentLastUndamagedIndex = damageCells.firstIndex(where: { $0.backgroundColor == .white }) else {
-            return
-        }
-        let destinationIndex = currentDamage - 1
-        var currentIndex = currentLastUndamagedIndex
-        
-        // Do nothing if we can't apply the damage
-        guard damageCells.indices.contains(destinationIndex) && destinationIndex != currentIndex else {
-            return
-        }
-        let range = currentIndex...destinationIndex
-        let increasing = destinationIndex > currentIndex
-        
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
+            guard let self = self,
+                let currentLastUndamagedIndex = self.damageCells.firstIndex(where: { $0.backgroundColor == .white }) else {
+                return
+            }
+            let destinationIndex = currentDamage - 1
+            var currentIndex = currentLastUndamagedIndex
+            
+            // Do nothing if we can't apply the damage
+            guard self.damageCells.indices.contains(destinationIndex) && destinationIndex != currentIndex else {
+                return
+            }
+            let range = currentIndex...destinationIndex
+            let increasing = destinationIndex > currentIndex
+            
             while range.contains(currentIndex) {
                 let color: UIColor = increasing ? .red : .white
                 self.damageCells[currentIndex].backgroundColor = color
@@ -123,12 +123,13 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate 
     }
     
     @objc private func iterateDamage() {
-        DispatchQueue.global(qos: .background).async { [weak self] in
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             do {
-                try self?.damageController?.iterateDamageUp()
-            }
-            catch {
-                return
+                try self.damageController?.iterateDamageUp()
+            } catch let error {
+                // TODO: Error window
+                fatalError(error.localizedDescription)
             }
         }
     }

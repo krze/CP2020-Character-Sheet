@@ -9,9 +9,8 @@
 import Foundation
 
 final class TotalDamageController {
-    private let maxDamage: Int
-    private var currentDamage: Int = 0
-    private var pendingDamage = 0
+    let maxDamage: Int
+    private(set) var currentDamage: Int = 0
     private weak var delegate: TotalDamageControllerDelegate?
     
     init(maxDamage: Int, delegate: TotalDamageControllerDelegate) {
@@ -19,38 +18,63 @@ final class TotalDamageController {
         self.delegate = delegate
     }
     
-    func modifyDamage(by amount: Int) {
-        validate(damage: amount + currentDamage) // ERror this out
+    /// Iterates damage up by 1 damage point. Updates the delegate's damage cells.
+    ///
+    /// - Throws: DamageModification error if the damage could not be applied
+    func iterateDamageUp() throws {
+        try? modifyDamage(by: 1)
+    }
+    
+    /// Iterates damage down by 1 damage point. Updates the delegate's damage cells.
+    ///
+    /// - Throws: DamageModification error if the damage could not be applied
+    func iterateDamageDown() throws {
+        try? modifyDamage(by: -1)
+    }
+    
+    /// Modifies the damage by the amount specified. Updates the delegate's damage cells.
+    ///
+    /// - Parameter amount: The amount to modify the damage by. Can be positive or negative.
+    /// - Throws: DamageModification error if the damage could not be applied
+    func modifyDamage(by amount: Int) throws {
+        do {
+            currentDamage = try validate(newDamage: amount)
+        }
+        catch let error {
+            throw error
+        }
         
         delegate?.updateCells(to: currentDamage)
     }
     
-    func getLatestDamage(completion: @escaping (Int) -> Void) {
-        DispatchQueue.main.async {
-            guard let latestDamage = self.delegate?.damageCells.filter({ $0.backgroundColor == .red }).count else {
-                return
-            }
-            
-            self.currentDamage = latestDamage
-            completion(latestDamage)
+    /// Ensure the new damage applied can be applied
+    ///
+    /// - Parameter newDamage: The new damage to add to the current damage
+    private func validate(newDamage: Int) throws -> Int {
+        let (pendingCurrentDamage, didOverflow): (Int, Bool) = currentDamage.addingReportingOverflow(newDamage)
+        guard !didOverflow else {
+            throw DamageModification.BufferOverflow
         }
+        
+        guard pendingCurrentDamage > 0 else {
+            throw DamageModification.CannotGoBelowZero
+        }
+        
+        guard pendingCurrentDamage != currentDamage else {
+            throw DamageModification.NoModification
+        }
+        
+        return pendingCurrentDamage
     }
     
-    private func validate(damage: Int) {
-        guard delegate?.damageCells.indices.contains(damage) == true,
-            0...maxDamage ~= currentDamage + damage else {
-            return
-        }
-    }
     
-    private func updateCurrentDamage(to damage: Int?) {
-        guard let damage = damage else {
-            return
-        }
-        currentDamage = damage
-    }
 }
 
+/// An error that occurs when attempting to modify the current damage, but failed
+///
+/// - CannotGoBelowZero: The damage applied would have resulted in a negative damage value
+/// - BufferOverflow: The damage applied overflowed Int.max or Int.min
+/// - NoModification: The damage applied would have resulted in no change to the damage
 enum DamageModification: Error {
-    case OutOfBounds, CouldNotGetCurrentDamage
+    case CannotGoBelowZero, BufferOverflow, NoModification
 }
