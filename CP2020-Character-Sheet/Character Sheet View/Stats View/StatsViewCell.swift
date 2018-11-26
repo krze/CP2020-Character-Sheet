@@ -13,7 +13,7 @@ final class StatsViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.contentView.backgroundColor = StyleConstants.grayColor
+        self.contentView.backgroundColor = StyleConstants.Color.gray
     }
     
     required init?(coder aDecoder: NSCoder) {

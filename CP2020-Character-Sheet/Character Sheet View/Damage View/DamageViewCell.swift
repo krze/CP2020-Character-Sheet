@@ -100,7 +100,7 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate 
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             var currentDamage: Int {
-                return self.damageCells.filter({ $0.backgroundColor == StyleConstants.redColor }).count
+                return self.damageCells.filter({ $0.backgroundColor == StyleConstants.Color.red }).count
             }
             let currentDamageIndex = currentDamage - 1
             let destinationIndex = newDamage - 1
@@ -122,7 +122,7 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate 
             }
         
             while currentDamage != newDamage {
-                let color: UIColor = increasing ? StyleConstants.redColor : StyleConstants.lightColor
+                let color: UIColor = increasing ? StyleConstants.Color.red : StyleConstants.Color.light
                 self.damageCells[next].backgroundColor = color
                 if increasing {
                     next += 1

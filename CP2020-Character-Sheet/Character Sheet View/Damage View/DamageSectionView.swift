@@ -148,7 +148,7 @@ final class DamageSectionView: UIView {
             label.textColor = model.darkColor
         }
         
-        label.font = StyleConstants.defaultItalicFont
+        label.font = StyleConstants.Font.defaultItalic
         label.text = text
         label.adjustsFontSizeToFitWidth = true
         

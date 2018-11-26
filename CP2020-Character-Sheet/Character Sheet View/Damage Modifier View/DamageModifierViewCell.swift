@@ -17,13 +17,10 @@ final class DamageModifierViewCell: UICollectionViewCell {
     }
     
     init(frame: CGRect, viewModel: DamageModifierViewModel) {
-        super.init(frame: frame)
         model = viewModel
-    }
-    override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.contentView.backgroundColor = .white
+        backgroundColor = StyleConstants.Color.light
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -59,7 +56,7 @@ final class DamageModifierViewCell: UICollectionViewCell {
     private func stunSaveLabel(frame: CGRect) -> UILabel {
         let label = UILabel(frame: frame)
         label.text = model.stunSaveText
-        label.font = StyleConstants.defaultFont
+        label.font = StyleConstants.Font.defaultFont
         label.adjustsFontSizeToFitWidth = true
         
         return label
@@ -68,7 +65,7 @@ final class DamageModifierViewCell: UICollectionViewCell {
     private func btmLabel(frame: CGRect) -> UILabel {
         let label = UILabel(frame: frame)
         label.text = model.bodyTypeModifierText
-        label.font = StyleConstants.defaultFont
+        label.font = StyleConstants.Font.defaultFont
         label.adjustsFontSizeToFitWidth = true
         
         return label
