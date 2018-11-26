@@ -14,12 +14,24 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
     private var controller: DamageModifierController? // TODO: When this is implemented, make it non-optional
     
     func setup(with viewModel: DamageModifierViewModel) {
+        model = viewModel
+        translatesAutoresizingMaskIntoConstraints = false
         
+        let stunSaveCellFrame = CGRect(x: 0.0, y: 0.0, width: frame.width * (model?.stunSaveCellWidthRatio ?? 0), height: frame.height * (model?.stunSaveLabelHeightRatio ?? 0))
+        let stunSaveCell = self.stunSaveCell(frame: stunSaveCellFrame)
+        
+        contentView.addSubview(stunSaveCell)
+        
+        NSLayoutConstraint.activate([
+            stunSaveCell.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            stunSaveCell.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor)
+            ])
     }
     
     init(frame: CGRect, viewModel: DamageModifierViewModel) {
         model = viewModel
         super.init(frame: frame)
+
     }
     
     override init(frame: CGRect) {
@@ -54,7 +66,18 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
             label.heightAnchor.constraint(equalTo: cell.heightAnchor, multiplier: (model?.stunSaveLabelHeightRatio ?? 0))
             ])
         
-        // NEXT: Label to contain the actual stun save value
+        let valueLabelRatio = 1.0 - (model?.stunSaveLabelHeightRatio ?? 0)
+        let valueLabel = self.valueLabel(frame: CGRect(x: 0.0, y: label.frame.height, width: frame.width, height: frame.height * valueLabelRatio))
+        
+        cell.addSubview(valueLabel)
+        
+        NSLayoutConstraint.activate([
+            valueLabel.leadingAnchor.constraint(equalTo: cell.leadingAnchor),
+            valueLabel.topAnchor.constraint(equalTo: label.bottomAnchor),
+            valueLabel.widthAnchor.constraint(equalTo: cell.widthAnchor),
+            valueLabel.heightAnchor.constraint(equalTo: cell.heightAnchor, multiplier: valueLabelRatio)
+            ])
+        
         return cell
     }
     
@@ -71,6 +94,15 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
         let label = UILabel(frame: frame)
         label.text = model?.bodyTypeModifierText
         label.font = StyleConstants.Font.defaultFont
+        label.adjustsFontSizeToFitWidth = true
+        
+        return label
+    }
+    
+    private func valueLabel(frame: CGRect) -> UILabel {
+        let label = UILabel(frame: frame)
+        label.text = model?.placeholderValue
+        label.font = StyleConstants.Font.defaultBold
         label.adjustsFontSizeToFitWidth = true
         
         return label

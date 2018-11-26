@@ -13,6 +13,7 @@ struct DamageModifierViewModel {
     // TODO: Centralized/Localized strings
     let stunSaveText = "Stun Save"
     let bodyTypeModifierText = "BTM"
+    let placeholderValue = "0"
     
     let stunSaveCellWidthRatio: CGFloat
     let bodyTypeModifierCellWidthRatio: CGFloat
