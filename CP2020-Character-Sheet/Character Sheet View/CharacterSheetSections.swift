@@ -26,7 +26,6 @@ enum CharacterSheetSections: Int {
         case .Skill:
             return String(describing: SkillViewCell.self)
         }
-        
 
     }
 }

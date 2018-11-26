@@ -151,7 +151,7 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate 
     }
     
     @objc private func iterateDamage() {
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else { return }
             do {
                 try self.damageController?.iterateDamageUp()
@@ -173,14 +173,14 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate 
     }
     
     @objc private func decrementDamage() {
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else { return }
             do {
                 try self.damageController?.iterateDamageDown()
             }
             catch let error as DamageModification {
                 switch error {
-                case let error where error == DamageModification.CannotExceedMaxDamage:
+                case let error where error == DamageModification.CannotGoBelowZero:
                     return
                 default:
                     fatalError(error.localizedDescription)

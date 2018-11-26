@@ -8,9 +8,10 @@
 
 import UIKit
 
-final class DamageModifierViewCell: UICollectionViewCell {
+final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControllerDelegate {
     
-    private let model: DamageModifierViewModel
+    private var model: DamageModifierViewModel?
+    private var controller: DamageModifierController? // TODO: When this is implemented, make it non-optional
     
     func setup(with viewModel: DamageModifierViewModel) {
         
@@ -19,8 +20,12 @@ final class DamageModifierViewCell: UICollectionViewCell {
     init(frame: CGRect, viewModel: DamageModifierViewModel) {
         model = viewModel
         super.init(frame: frame)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
-        backgroundColor = StyleConstants.Color.light
+        self.contentView.backgroundColor = StyleConstants.Color.light
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,14 +44,14 @@ final class DamageModifierViewCell: UICollectionViewCell {
     
     private func stunSaveCell(frame: CGRect) -> UIView {
         let cell = UIView(frame: frame)
-        let label = stunSaveLabel(frame: CGRect(x: 0.0, y: 0.0, width: frame.width, height: frame.height * model.stunSaveLabelHeightRatio))
+        let label = stunSaveLabel(frame: CGRect(x: 0.0, y: 0.0, width: frame.width, height: frame.height * (model?.stunSaveLabelHeightRatio ?? 0)))
         cell.addSubview(label)
         
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: cell.leadingAnchor),
             label.topAnchor.constraint(equalTo: cell.topAnchor),
             label.widthAnchor.constraint(equalTo: cell.widthAnchor),
-            label.heightAnchor.constraint(equalTo: cell.heightAnchor, multiplier: model.stunSaveLabelHeightRatio)
+            label.heightAnchor.constraint(equalTo: cell.heightAnchor, multiplier: (model?.stunSaveLabelHeightRatio ?? 0))
             ])
         
         // NEXT: Label to contain the actual stun save value
@@ -55,7 +60,7 @@ final class DamageModifierViewCell: UICollectionViewCell {
     
     private func stunSaveLabel(frame: CGRect) -> UILabel {
         let label = UILabel(frame: frame)
-        label.text = model.stunSaveText
+        label.text = model?.stunSaveText
         label.font = StyleConstants.Font.defaultFont
         label.adjustsFontSizeToFitWidth = true
         
@@ -64,7 +69,7 @@ final class DamageModifierViewCell: UICollectionViewCell {
     
     private func btmLabel(frame: CGRect) -> UILabel {
         let label = UILabel(frame: frame)
-        label.text = model.bodyTypeModifierText
+        label.text = model?.bodyTypeModifierText
         label.font = StyleConstants.Font.defaultFont
         label.adjustsFontSizeToFitWidth = true
         
