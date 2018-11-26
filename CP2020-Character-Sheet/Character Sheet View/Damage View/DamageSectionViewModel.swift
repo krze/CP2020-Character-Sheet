@@ -9,7 +9,7 @@
 import UIKit
 
 /**
- Initial view properties for individual damage sections within the Damage View
+ Initial view properties for individual damage sections within the DamageView
  
  Each damage section looks roughly like this:
  ________________
@@ -79,8 +79,8 @@ struct DamageSectionViewModel {
          stunRatio: CGFloat,
          darkColor: UIColor,
          lightColor: UIColor) {
-        guard typeRatio + cellRatio + stunRatio == 1.0 else {
-            fatalError("Ratios must add up to 1.0")
+        guard typeRatio + cellRatio + stunRatio <= 1.0 else {
+            fatalError("Ratios must not exceed 1.0")
         }
         
         self.startingDamageCellNumber = startingDamageCellNumber
