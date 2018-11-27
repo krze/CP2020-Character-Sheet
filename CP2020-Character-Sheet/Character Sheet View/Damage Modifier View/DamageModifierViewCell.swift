@@ -16,6 +16,11 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
     func setup(with viewModel: DamageModifierViewModel) {
         model = viewModel
         
+        contentView.layoutMargins = UIEdgeInsets(top: contentView.safeAreaLayoutGuide.layoutFrame.height * viewModel.topPaddingRatio,
+                                                 left: contentView.safeAreaLayoutGuide.layoutFrame.width * viewModel.leftPaddingRatio,
+                                                 bottom: contentView.safeAreaLayoutGuide.layoutFrame.height * viewModel.bottomPaddingRatio,
+                                                 right: contentView.safeAreaLayoutGuide.layoutFrame.width * viewModel.rightPaddingRatio)
+        
         let totalWidth = contentView.layoutMarginsGuide.layoutFrame.width - contentView.layoutMargins.right
         let stunSaveCellFrame = CGRect(x: contentView.layoutMarginsGuide.layoutFrame.minX, y: contentView.layoutMarginsGuide.layoutFrame.minY, width: totalWidth * viewModel.stunSaveCellWidthRatio, height: contentView.layoutMarginsGuide.layoutFrame.height * viewModel.cellHeightRatio)
         let stunSaveCell = self.cell(frame: stunSaveCellFrame, labelHeightRatio: viewModel.stunSaveLabelHeightRatio, labelType: .Stun)
@@ -29,13 +34,15 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
             stunSaveCell.heightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.heightAnchor, multiplier: viewModel.cellHeightRatio)
             ])
         
-        let btmCellFrame = CGRect(x: stunSaveCellFrame.width + (contentView.layoutMargins.left * 2), y: contentView.layoutMarginsGuide.layoutFrame.minY, width: totalWidth * viewModel.bodyTypeModifierCellWidthRatio, height: contentView.layoutMarginsGuide.layoutFrame.height * viewModel.cellHeightRatio)
+        let middlePadding = contentView.safeAreaLayoutGuide.layoutFrame.width * viewModel.inbetweenPaddingRatio
+        
+        let btmCellFrame = CGRect(x: stunSaveCellFrame.width + middlePadding, y: contentView.layoutMarginsGuide.layoutFrame.minY, width: totalWidth * viewModel.bodyTypeModifierCellWidthRatio, height: contentView.layoutMarginsGuide.layoutFrame.height * viewModel.cellHeightRatio)
         let btmCell = self.cell(frame: btmCellFrame, labelHeightRatio: viewModel.bodyTypeModifierLabelHeightRatio, labelType: .BTM)
         
         contentView.addSubview(btmCell)
         
         NSLayoutConstraint.activate([
-            btmCell.leadingAnchor.constraint(equalTo: stunSaveCell.trailingAnchor, constant: contentView.layoutMargins.right * 2),
+            btmCell.leadingAnchor.constraint(equalTo: stunSaveCell.trailingAnchor, constant: middlePadding * 2),
             btmCell.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
             btmCell.widthAnchor.constraint(equalTo: contentView.layoutMarginsGuide.widthAnchor, multiplier: viewModel.bodyTypeModifierCellWidthRatio, constant: -contentView.layoutMargins.right),
             btmCell.heightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.heightAnchor, multiplier: viewModel.cellHeightRatio)

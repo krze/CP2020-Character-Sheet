@@ -31,11 +31,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CP2020-Character-Sheet/Character Sheet View/Damage Modifier View/DamageModifierViewCell.swift"
-            timestampString = "564981301.485508"
+            timestampString = "564981883.018733"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "cell(frame:labelHeightRatio:labelType:)"
             landmarkType = "7">
          </BreakpointContent>
