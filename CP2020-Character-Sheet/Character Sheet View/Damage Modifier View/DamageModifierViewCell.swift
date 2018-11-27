@@ -24,7 +24,9 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
         
         NSLayoutConstraint.activate([
             stunSaveCell.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-            stunSaveCell.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor)
+            stunSaveCell.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+            stunSaveCell.widthAnchor.constraint(equalTo: contentView.layoutMarginsGuide.widthAnchor, multiplier: viewModel.stunSaveCellWidthRatio, constant: -contentView.layoutMargins.right),
+            stunSaveCell.heightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.heightAnchor, multiplier: viewModel.cellHeightRatio)
             ])
         
         let btmCellFrame = CGRect(x: stunSaveCellFrame.width + (contentView.layoutMargins.left * 2), y: contentView.layoutMarginsGuide.layoutFrame.minY, width: totalWidth * viewModel.bodyTypeModifierCellWidthRatio, height: contentView.layoutMarginsGuide.layoutFrame.height * viewModel.cellHeightRatio)
@@ -33,8 +35,10 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
         contentView.addSubview(btmCell)
         
         NSLayoutConstraint.activate([
-            btmCell.leadingAnchor.constraint(equalTo: stunSaveCell.trailingAnchor, constant: contentView.layoutMargins.right),
-            btmCell.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor)
+            btmCell.leadingAnchor.constraint(equalTo: stunSaveCell.trailingAnchor, constant: contentView.layoutMargins.right * 2),
+            btmCell.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+            btmCell.widthAnchor.constraint(equalTo: contentView.layoutMarginsGuide.widthAnchor, multiplier: viewModel.bodyTypeModifierCellWidthRatio, constant: -contentView.layoutMargins.right),
+            btmCell.heightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.heightAnchor, multiplier: viewModel.cellHeightRatio)
             ])
     }
     
@@ -60,6 +64,7 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
     
     private func cell(frame: CGRect, labelHeightRatio: CGFloat, labelType: Label) -> UIView {
         let cell = UIView(frame: frame)
+        cell.translatesAutoresizingMaskIntoConstraints = false
         let label: UILabel = {
             let labelFrame = CGRect(x: 0.0, y: 0.0, width: frame.width, height: frame.height * labelHeightRatio)
             
@@ -75,8 +80,8 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: cell.leadingAnchor),
             label.topAnchor.constraint(equalTo: cell.topAnchor),
-//            label.widthAnchor.constraint(lessThanOrEqualTo: cell.widthAnchor),
-//            label.heightAnchor.constraint(lessThanOrEqualTo: cell.heightAnchor, multiplier: labelHeightRatio)
+            label.widthAnchor.constraint(equalTo: cell.widthAnchor),
+            label.heightAnchor.constraint(equalTo: cell.heightAnchor, multiplier: labelHeightRatio)
             ])
         
         let valueLabelRatio = 1.0 - labelHeightRatio
@@ -87,8 +92,8 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
         NSLayoutConstraint.activate([
             valueLabel.leadingAnchor.constraint(equalTo: cell.leadingAnchor),
             valueLabel.topAnchor.constraint(equalTo: label.bottomAnchor),
-//            valueLabel.widthAnchor.constraint(lessThanOrEqualTo: cell.widthAnchor),
-//            valueLabel.heightAnchor.constraint(lessThanOrEqualTo: cell.heightAnchor, multiplier: valueLabelRatio)
+            valueLabel.widthAnchor.constraint(equalTo: cell.widthAnchor),
+            valueLabel.heightAnchor.constraint(equalTo: cell.heightAnchor, multiplier: valueLabelRatio)
             ])
         
         return cell
@@ -96,6 +101,7 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
     
     private func stunSaveLabel(frame: CGRect) -> UILabel {
         let label = UILabel(frame: frame)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
 
@@ -111,6 +117,7 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
     
     private func btmLabel(frame: CGRect) -> UILabel {
         let label = UILabel(frame: frame)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
 
@@ -128,6 +135,7 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
     
     private func valueLabel(frame: CGRect) -> UILabel {
         let label = UILabel(frame: frame)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
 
