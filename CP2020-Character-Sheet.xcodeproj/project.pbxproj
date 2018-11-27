@@ -14,6 +14,7 @@
 		9D552CF621AB266F008B90E9 /* DamageModifierViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D552CF521AB266F008B90E9 /* DamageModifierViewModel.swift */; };
 		9D552CF821AC899C008B90E9 /* DamageModifierController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D552CF721AC899C008B90E9 /* DamageModifierController.swift */; };
 		9D552CFA21AC89DA008B90E9 /* DamageModifierControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D552CF921AC89DA008B90E9 /* DamageModifierControllerDelegate.swift */; };
+		9D552CFC21ACE775008B90E9 /* BestFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D552CFB21ACE775008B90E9 /* BestFit.swift */; };
 		9D5C1F2A21A06CE700B3D493 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C1F2921A06CE700B3D493 /* AppDelegate.swift */; };
 		9D5C1F2C21A06CE700B3D493 /* CharacterSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C1F2B21A06CE700B3D493 /* CharacterSheetViewController.swift */; };
 		9D5C1F3121A06CE800B3D493 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D5C1F3021A06CE800B3D493 /* Assets.xcassets */; };
@@ -56,6 +57,7 @@
 		9D552CF521AB266F008B90E9 /* DamageModifierViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageModifierViewModel.swift; sourceTree = "<group>"; };
 		9D552CF721AC899C008B90E9 /* DamageModifierController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageModifierController.swift; sourceTree = "<group>"; };
 		9D552CF921AC89DA008B90E9 /* DamageModifierControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageModifierControllerDelegate.swift; sourceTree = "<group>"; };
+		9D552CFB21ACE775008B90E9 /* BestFit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestFit.swift; sourceTree = "<group>"; };
 		9D5C1F2621A06CE700B3D493 /* CP2020-Character-Sheet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CP2020-Character-Sheet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D5C1F2921A06CE700B3D493 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D5C1F2B21A06CE700B3D493 /* CharacterSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSheetViewController.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 			children = (
 				9D5C1F2921A06CE700B3D493 /* AppDelegate.swift */,
 				9D552CF121AB0E69008B90E9 /* StyleConstants.swift */,
+				9D552CFB21ACE775008B90E9 /* BestFit.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 				9DE3359B21A9E9F700180927 /* DamageModifierViewCell.swift in Sources */,
 				9D552CF221AB0E69008B90E9 /* StyleConstants.swift in Sources */,
 				9D24375621A091AF0084E77D /* CharacterSheetSections.swift in Sources */,
+				9D552CFC21ACE775008B90E9 /* BestFit.swift in Sources */,
 				9D5C1F2C21A06CE700B3D493 /* CharacterSheetViewController.swift in Sources */,
 				9DE335A721A9EB5B00180927 /* SkillViewCell.swift in Sources */,
 				9D552CF621AB266F008B90E9 /* DamageModifierViewModel.swift in Sources */,
