@@ -76,10 +76,10 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
             let labelFrame = CGRect(x: 0.0, y: 0.0, width: frame.width, height: frame.height * labelHeightRatio)
             
             if labelType == .Stun {
-                return stunSaveLabel(frame: labelFrame)
+                return sectionLabel(frame: labelFrame, text: model?.stunSaveText ?? "")
             }
             
-            return btmLabel(frame: labelFrame)
+            return sectionLabel(frame: labelFrame, text: model?.stunSaveText ?? "")
         }()
         
         cell.addSubview(label)
@@ -106,34 +106,16 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
         return cell
     }
     
-    private func stunSaveLabel(frame: CGRect) -> UILabel {
+    private func sectionLabel(frame: CGRect, text: String) -> UILabel {
         let label = UILabel(frame: frame)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
 
-        label.text = model?.stunSaveText
+        label.text = text
         label.font = StyleConstants.Font.defaultFont
         label.textColor = StyleConstants.Color.light
         label.backgroundColor = StyleConstants.Color.dark
-        label.textAlignment = .center
-        label.fitTextToBounds()
-        
-        return label
-    }
-    
-    private func btmLabel(frame: CGRect) -> UILabel {
-        let label = UILabel(frame: frame)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.5
-
-        label.text = model?.bodyTypeModifierText
-        label.font = StyleConstants.Font.defaultFont
-        label.textColor = StyleConstants.Color.light
-        label.backgroundColor = StyleConstants.Color.dark
-        label.layer.borderColor = StyleConstants.Color.dark.cgColor
-        label.layer.borderWidth = 2.0
         label.textAlignment = .center
         label.fitTextToBounds()
         
