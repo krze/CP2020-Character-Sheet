@@ -15,24 +15,33 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
     
     func setup(with viewModel: DamageModifierViewModel) {
         model = viewModel
-        translatesAutoresizingMaskIntoConstraints = false
         
-        let stunSaveCellFrame = CGRect(x: 0.0, y: 0.0, width: frame.width * (model?.stunSaveCellWidthRatio ?? 0), height: frame.height * (model?.stunSaveLabelHeightRatio ?? 0))
-        let stunSaveCell = self.stunSaveCell(frame: stunSaveCellFrame)
+        let stunSaveCellFrame = CGRect(x: contentView.safeAreaLayoutGuide.layoutFrame.minX, y: contentView.safeAreaLayoutGuide.layoutFrame.minX, width: contentView.layoutMarginsGuide.layoutFrame.width * viewModel.stunSaveCellWidthRatio, height: contentView.layoutMarginsGuide.layoutFrame.height * viewModel.cellHeightRatio)
+        let stunSaveCell = self.cell(frame: stunSaveCellFrame, labelHeightRatio: viewModel.stunSaveLabelHeightRatio, labelType: .Stun)
         
         contentView.addSubview(stunSaveCell)
         
         NSLayoutConstraint.activate([
-            stunSaveCell.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            stunSaveCell.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor)
+            stunSaveCell.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor, constant: contentView.layoutMargins.left),
+            stunSaveCell.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: contentView.layoutMargins.top)
+            ])
+        
+        let btmCellFrame = CGRect(x: stunSaveCellFrame.width, y: contentView.safeAreaLayoutGuide.layoutFrame.minY, width: contentView.layoutMarginsGuide.layoutFrame.width * viewModel.bodyTypeModifierCellWidthRatio, height: contentView.layoutMarginsGuide.layoutFrame.height * viewModel.cellHeightRatio)
+        let btmCell = self.cell(frame: btmCellFrame, labelHeightRatio: viewModel.bodyTypeModifierLabelHeightRatio, labelType: .BTM)
+        
+        contentView.addSubview(btmCell)
+        
+        NSLayoutConstraint.activate([
+            btmCell.leadingAnchor.constraint(equalTo: stunSaveCell.trailingAnchor),
+            btmCell.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor)
             ])
     }
     
-    init(frame: CGRect, viewModel: DamageModifierViewModel) {
-        model = viewModel
-        super.init(frame: frame)
-
-    }
+//    init(frame: CGRect, viewModel: DamageModifierViewModel) {
+//        model = viewModel
+//        super.init(frame: frame)
+//
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -54,19 +63,28 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
         // TODO: Test cell re-use and see if it needs anything here
     }
     
-    private func stunSaveCell(frame: CGRect) -> UIView {
+    private func cell(frame: CGRect, labelHeightRatio: CGFloat, labelType: Label) -> UIView {
         let cell = UIView(frame: frame)
-        let label = stunSaveLabel(frame: CGRect(x: 0.0, y: 0.0, width: frame.width, height: frame.height * (model?.stunSaveLabelHeightRatio ?? 0)))
+        let label: UILabel = {
+            let labelFrame = CGRect(x: 0.0, y: 0.0, width: frame.width, height: frame.height * labelHeightRatio)
+            
+            if labelType == .Stun {
+                return stunSaveLabel(frame: labelFrame)
+            }
+            
+            return btmLabel(frame: labelFrame)
+        }()
+        
         cell.addSubview(label)
         
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: cell.leadingAnchor),
             label.topAnchor.constraint(equalTo: cell.topAnchor),
             label.widthAnchor.constraint(equalTo: cell.widthAnchor),
-            label.heightAnchor.constraint(equalTo: cell.heightAnchor, multiplier: (model?.stunSaveLabelHeightRatio ?? 0))
+            label.heightAnchor.constraint(equalTo: cell.heightAnchor, multiplier: labelHeightRatio)
             ])
         
-        let valueLabelRatio = 1.0 - (model?.stunSaveLabelHeightRatio ?? 0)
+        let valueLabelRatio = 1.0 - labelHeightRatio
         let valueLabel = self.valueLabel(frame: CGRect(x: 0.0, y: label.frame.height, width: frame.width, height: frame.height * valueLabelRatio))
         
         cell.addSubview(valueLabel)
@@ -83,28 +101,51 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
     
     private func stunSaveLabel(frame: CGRect) -> UILabel {
         let label = UILabel(frame: frame)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 10.0
+
         label.text = model?.stunSaveText
         label.font = StyleConstants.Font.defaultFont
-        label.adjustsFontSizeToFitWidth = true
+        label.textColor = StyleConstants.Color.light
+        label.backgroundColor = StyleConstants.Color.dark
+        label.textAlignment = .center
         
         return label
     }
     
     private func btmLabel(frame: CGRect) -> UILabel {
         let label = UILabel(frame: frame)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 10.0
+
         label.text = model?.bodyTypeModifierText
         label.font = StyleConstants.Font.defaultFont
-        label.adjustsFontSizeToFitWidth = true
+        label.textColor = StyleConstants.Color.light
+        label.backgroundColor = StyleConstants.Color.dark
+        label.layer.borderColor = StyleConstants.Color.dark.cgColor
+        label.layer.borderWidth = 2.0
+        label.textAlignment = .center
         
         return label
     }
     
     private func valueLabel(frame: CGRect) -> UILabel {
         let label = UILabel(frame: frame)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 10.0
+
         label.text = model?.placeholderValue
         label.font = StyleConstants.Font.defaultBold
-        label.adjustsFontSizeToFitWidth = true
-        
+        label.textColor = StyleConstants.Color.dark
+        label.backgroundColor = StyleConstants.Color.light
+        label.layer.borderColor = StyleConstants.Color.dark.cgColor
+        label.layer.borderWidth = 2.0
+        label.textAlignment = .center
+                
         return label
+    }
+    
+    private enum Label {
+        case Stun, BTM
     }
 }

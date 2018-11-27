@@ -27,32 +27,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CP2020-Character-Sheet/Character Sheet View/CharacterSheetViewController.swift"
-            timestampString = "564957169.5059659"
+            filePath = "CP2020-Character-Sheet/Character Sheet View/Damage Modifier View/DamageModifierViewCell.swift"
+            timestampString = "564978127.503798"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "collectionView(_:cellForItemAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CP2020-Character-Sheet/Character Sheet View/CharacterSheetViewController.swift"
-            timestampString = "564957169.506353"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "cell(frame:labelHeightRatio:labelType:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

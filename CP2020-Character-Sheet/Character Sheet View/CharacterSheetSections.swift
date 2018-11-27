@@ -6,7 +6,7 @@
 //  Copyright © 2018 Ken Krzeminski. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /// Enum for managing the character sheet sections in the collection view.
 enum CharacterSheetSections: Int {
@@ -26,7 +26,15 @@ enum CharacterSheetSections: Int {
         case .Skill:
             return String(describing: SkillViewCell.self)
         }
-
+    }
+    
+    func cellHeight() -> CGFloat {
+        switch self {
+        case .DamageModifier:
+            return 80
+        default:
+            return 160
+        }
     }
 }
 
