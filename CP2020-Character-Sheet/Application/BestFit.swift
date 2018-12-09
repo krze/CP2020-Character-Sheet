@@ -1,12 +1,15 @@
-
-
 import UIKit
 
 extension UIFont {
     
-    /**
-     Will return the best font conforming to the descriptor which will fit in the provided bounds.
-     */
+    /// Will return the best size conforming to the descriptor which will fit in the provided bounds.
+    ///
+    /// - Parameters:
+    ///   - text: The string that's in use
+    ///   - bounds: Bounds of the view to fit
+    ///   - fontDescriptor: The font's descriptor
+    ///   - additionalAttributes: Additional NSAttributedString attributes
+    /// - Returns: GGFloat representing the font size that best fits in the bounds
     static func bestFittingFontSize(for text: String, in bounds: CGRect, fontDescriptor: UIFontDescriptor, additionalAttributes: [NSAttributedString.Key: Any]? = nil) -> CGFloat {
         let constrainingDimension = min(bounds.width, bounds.height)
         let properBounds = CGRect(origin: .zero, size: bounds.size)
@@ -29,6 +32,14 @@ extension UIFont {
         return bestFontSize
     }
     
+    /// Will return the best font conforming to the descriptor which will fit in the provided bounds.
+    ///
+    /// - Parameters:
+    ///   - text: The string that's in use
+    ///   - bounds: Bounds of the view to fit
+    ///   - fontDescriptor: The font's descriptor
+    ///   - additionalAttributes: Additional NSAttributedString attributes
+    /// - Returns: UIFont representing the font that best fits in the bounds
     static func bestFittingFont(for text: String, in bounds: CGRect, fontDescriptor: UIFontDescriptor, additionalAttributes: [NSAttributedString.Key: Any]? = nil) -> UIFont {
         let bestSize = bestFittingFontSize(for: text, in: bounds, fontDescriptor: fontDescriptor, additionalAttributes: additionalAttributes)
         return UIFont(descriptor: fontDescriptor, size: bestSize)

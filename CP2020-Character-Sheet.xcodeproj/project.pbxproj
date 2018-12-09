@@ -30,6 +30,10 @@
 		9DE335A721A9EB5B00180927 /* SkillViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335A621A9EB5B00180927 /* SkillViewCell.swift */; };
 		9DE335AA21A9F27400180927 /* TotalDamageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335A921A9F27400180927 /* TotalDamageController.swift */; };
 		9DE335AC21A9F2C800180927 /* TotalDamageControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335AB21A9F2C800180927 /* TotalDamageControllerDelegate.swift */; };
+		9DFE711121BD92C9000561B0 /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711021BD92C9000561B0 /* StatView.swift */; };
+		9DFE711321BD933A000561B0 /* StatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711221BD933A000561B0 /* StatViewModel.swift */; };
+		9DFE711521BD94FD000561B0 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711421BD94FD000561B0 /* Stat.swift */; };
+		9DFE711721BDA18B000561B0 /* StatsViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711621BDA18B000561B0 /* StatsViewCellModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +83,10 @@
 		9DE335A621A9EB5B00180927 /* SkillViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillViewCell.swift; sourceTree = "<group>"; };
 		9DE335A921A9F27400180927 /* TotalDamageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDamageController.swift; sourceTree = "<group>"; };
 		9DE335AB21A9F2C800180927 /* TotalDamageControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDamageControllerDelegate.swift; sourceTree = "<group>"; };
+		9DFE711021BD92C9000561B0 /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
+		9DFE711221BD933A000561B0 /* StatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatViewModel.swift; sourceTree = "<group>"; };
+		9DFE711421BD94FD000561B0 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
+		9DFE711621BDA18B000561B0 /* StatsViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewCellModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +216,10 @@
 			isa = PBXGroup;
 			children = (
 				9DE3359D21A9EA4100180927 /* StatsViewCell.swift */,
+				9DFE711621BDA18B000561B0 /* StatsViewCellModel.swift */,
+				9DFE711021BD92C9000561B0 /* StatView.swift */,
+				9DFE711221BD933A000561B0 /* StatViewModel.swift */,
+				9DFE711421BD94FD000561B0 /* Stat.swift */,
 			);
 			path = "Stats View";
 			sourceTree = "<group>";
@@ -370,6 +382,8 @@
 			files = (
 				9D552CFA21AC89DA008B90E9 /* DamageModifierControllerDelegate.swift in Sources */,
 				9DE3359B21A9E9F700180927 /* DamageModifierViewCell.swift in Sources */,
+				9DFE711721BDA18B000561B0 /* StatsViewCellModel.swift in Sources */,
+				9DFE711321BD933A000561B0 /* StatViewModel.swift in Sources */,
 				9D552CF221AB0E69008B90E9 /* StyleConstants.swift in Sources */,
 				9D24375621A091AF0084E77D /* CharacterSheetSections.swift in Sources */,
 				9D552CFC21ACE775008B90E9 /* BestFit.swift in Sources */,
@@ -377,7 +391,9 @@
 				9DE335A721A9EB5B00180927 /* SkillViewCell.swift in Sources */,
 				9D552CF621AB266F008B90E9 /* DamageModifierViewModel.swift in Sources */,
 				9D5C1F5E21A07E1500B3D493 /* DamageSectionViewModel.swift in Sources */,
+				9DFE711521BD94FD000561B0 /* Stat.swift in Sources */,
 				9D5C1F5C21A0794400B3D493 /* DamageSectionView.swift in Sources */,
+				9DFE711121BD92C9000561B0 /* StatView.swift in Sources */,
 				9DE335AC21A9F2C800180927 /* TotalDamageControllerDelegate.swift in Sources */,
 				9D24375421A085DE0084E77D /* WoundType.swift in Sources */,
 				9D5C1F2A21A06CE700B3D493 /* AppDelegate.swift in Sources */,

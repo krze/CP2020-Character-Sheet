@@ -8,6 +8,7 @@
 
 import Foundation
 
-protocol DamageModifierControllerDelegate {
-    
+protocol DamageModifierControllerDelegate: class {
+    // TODO: Determine the callbacks necessary when the controller wants to modify the view
+
 }

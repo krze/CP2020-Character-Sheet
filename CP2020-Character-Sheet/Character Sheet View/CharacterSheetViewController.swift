@@ -46,6 +46,12 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
             let viewModel = DamageModifierViewModel(stunSaveCellWidthRatio: 0.5, bodyTypeModifierCellWidthRatio: 0.5, cellHeightRatio: 1.0, stunSaveLabelHeightRatio: 0.3, bodyTypeModifierLabelHeightRatio: 0.3, leftPaddingRatio: 0.1, rightPaddingRatio: 0.1, topPaddingRatio: 0.1, bottomPaddingRatio: 0.1, inbetweenPaddingRatio: 0.1)
             cell.setup(with: viewModel)
         }
+        else if let cell = cell as? StatsViewCell {
+            let viewModel = StatsViewCellModel(paddingRatio: 0.05, statsPerRow: 3, statViewWidthRatio: CGFloat(1.0 / 3))
+            let statViewModels = Stat.allCases.map { StatViewModel.model(for: $0, baseValue: 5, currentValue: 5) }
+            
+            cell.setup(with: viewModel, statViewModels: statViewModels)
+        }
         
         return cell
     }
