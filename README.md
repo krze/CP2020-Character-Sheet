@@ -7,7 +7,7 @@ The character sheet app is planned out for the following phases:
 #### UI:
 - [ ] Character name and Handle
 - [ ] Class description
-- [ ] Stats
+- [X] Stats
 - [x] Damage track
 - [ ] Skill list
 #### Data layer:
