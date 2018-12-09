@@ -47,7 +47,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
             cell.setup(with: viewModel)
         }
         else if let cell = cell as? StatsViewCell {
-            let viewModel = StatsViewCellModel(paddingRatio: 0.05, statsPerRow: 3, statViewWidthRatio: CGFloat(1.0 / 3))
+            let viewModel = StatsViewCellModel(paddingRatio: 0.0, statsPerRow: 3, statViewWidthRatio: CGFloat(1.0 / 3))
             let statViewModels = Stat.allCases.map { StatViewModel.model(for: $0, baseValue: 5, currentValue: 5) }
             
             cell.setup(with: viewModel, statViewModels: statViewModels)
@@ -58,7 +58,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height: CGFloat = CharacterSheetSections(rawValue: indexPath.row)?.cellHeight() ?? 160.0
-        return CGSize(width: view.frame.width, height: height)
+        return CGSize(width: view.safeAreaLayoutGuide.layoutFrame.width, height: height)
     }
 
 }
