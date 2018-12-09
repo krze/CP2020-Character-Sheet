@@ -15,6 +15,8 @@ final class StatView: UIView {
     private let leftBracket = "[ "
     private let rightBracket = " ]"
     
+    private var statNameLabel: UILabel?
+    private var valueLabel: UILabel?
     
     init(frame: CGRect, viewModel: StatViewModel) {
         model = viewModel
@@ -30,14 +32,18 @@ final class StatView: UIView {
                                     y: frame.minY,
                                     width: nameLabelWidth,
                                     height: frame.height)
-        let nameLabel = self.nameLabel(frame: nameLabelFrame)
-        addSubview(nameLabel)
+        let nameLabelInsets = NSDirectionalEdgeInsets(top: nameLabelFrame.height * model.paddingRatio,
+                                                      leading: nameLabelFrame.width * model.paddingRatio,
+                                                      bottom: nameLabelFrame.height * model.paddingRatio,
+                                                      trailing: nameLabelFrame.width * model.paddingRatio)
+        let nameLabel = UILabel.container(frame: nameLabelFrame, margins: nameLabelInsets, backgroundColor: model.darkColor, borderColor: nil, borderWidth: nil, labelMaker: self.nameLabel)
+        addSubview(nameLabel.container)
         
         NSLayoutConstraint.activate([
-            nameLabel.widthAnchor.constraint(equalToConstant: nameLabelWidth),
-            nameLabel.heightAnchor.constraint(equalToConstant: frame.height),
-            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            nameLabel.topAnchor.constraint(equalTo: topAnchor)
+            nameLabel.container.widthAnchor.constraint(equalToConstant: nameLabelWidth),
+            nameLabel.container.heightAnchor.constraint(equalToConstant: frame.height),
+            nameLabel.container.leadingAnchor.constraint(equalTo: leadingAnchor),
+            nameLabel.container.topAnchor.constraint(equalTo: topAnchor)
             ])
         
         
@@ -45,17 +51,23 @@ final class StatView: UIView {
                                     y: frame.minY,
                                     width: statLabelWidth,
                                     height: frame.height)
-        let statLabel = self.statLabel(frame: statLabelFrame)
-        addSubview(statLabel)
+        let statLabelInsets = NSDirectionalEdgeInsets(top: statLabelFrame.height * 0.05,
+                                                      leading: statLabelFrame.width * 0.05,
+                                                      bottom: statLabelFrame.height * 0.05,
+                                                      trailing: statLabelFrame.width * 0.05)
+        let statLabel = UILabel.container(frame: statLabelFrame, margins: statLabelInsets, backgroundColor: model.lightColor, borderColor: model.darkColor, borderWidth: model.statValueBorder, labelMaker: self.statLabel)
+        addSubview(statLabel.container)
         
         NSLayoutConstraint.activate([
-            statLabel.widthAnchor.constraint(equalToConstant: statLabelWidth),
-            statLabel.heightAnchor.constraint(equalToConstant: frame.height),
-            statLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
-            statLabel.topAnchor.constraint(equalTo: topAnchor)
+            statLabel.container.widthAnchor.constraint(equalToConstant: statLabelWidth),
+            statLabel.container.heightAnchor.constraint(equalToConstant: frame.height),
+            statLabel.container.leadingAnchor.constraint(equalTo: nameLabel.container.trailingAnchor),
+            statLabel.container.topAnchor.constraint(equalTo: topAnchor)
             ])
+        
+        statNameLabel = statLabel.label
+        valueLabel = statLabel.label
     }
-    
     
     private func nameLabel(frame: CGRect) -> UILabel {
         let label = UILabel(frame: frame)
@@ -88,8 +100,6 @@ final class StatView: UIView {
             
             return "\(leftBracket)\(value)\(rightBracket)"
         }()
-        label.layer.borderColor = model.darkColor.cgColor
-        label.layer.borderWidth = model.statValueBorder
         label.textAlignment = .center
         label.fitTextToBounds()
         

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D11763821BDCE0300E297BA /* UILabel+LabelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */; };
 		9D24375421A085DE0084E77D /* WoundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24375321A085DE0084E77D /* WoundType.swift */; };
 		9D24375621A091AF0084E77D /* CharacterSheetSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24375521A091AE0084E77D /* CharacterSheetSections.swift */; };
 		9D552CF221AB0E69008B90E9 /* StyleConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D552CF121AB0E69008B90E9 /* StyleConstants.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+LabelContainer.swift"; sourceTree = "<group>"; };
 		9D24375321A085DE0084E77D /* WoundType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoundType.swift; sourceTree = "<group>"; };
 		9D24375521A091AE0084E77D /* CharacterSheetSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSheetSections.swift; sourceTree = "<group>"; };
 		9D552CF121AB0E69008B90E9 /* StyleConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConstants.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				9D5C1F2921A06CE700B3D493 /* AppDelegate.swift */,
 				9D552CF121AB0E69008B90E9 /* StyleConstants.swift */,
 				9D552CFB21ACE775008B90E9 /* BestFit.swift */,
+				9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				9D552CFC21ACE775008B90E9 /* BestFit.swift in Sources */,
 				9D5C1F2C21A06CE700B3D493 /* CharacterSheetViewController.swift in Sources */,
 				9DE335A721A9EB5B00180927 /* SkillViewCell.swift in Sources */,
+				9D11763821BDCE0300E297BA /* UILabel+LabelContainer.swift in Sources */,
 				9D552CF621AB266F008B90E9 /* DamageModifierViewModel.swift in Sources */,
 				9D5C1F5E21A07E1500B3D493 /* DamageSectionViewModel.swift in Sources */,
 				9DFE711521BD94FD000561B0 /* Stat.swift in Sources */,
