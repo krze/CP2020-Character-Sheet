@@ -12,8 +12,6 @@ import UIKit
 final class StatView: UIView {
     private let model: StatViewModel
     private let divider = " / "
-    private let leftBracket = "[ "
-    private let rightBracket = " ]"
     
     private var statNameLabel: UILabel?
     private var valueLabel: UILabel?
@@ -23,7 +21,7 @@ final class StatView: UIView {
         super.init(frame: frame)
         
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = model.highlightColor
+        backgroundColor = model.lightColor
         
         let statLabelWidth = frame.width * model.statValueRatio
         let nameLabelWidth = frame.width - (statLabelWidth)
@@ -98,7 +96,7 @@ final class StatView: UIView {
                 value = "\(model.statValue)"
             }
             
-            return "\(leftBracket)\(value)\(rightBracket)"
+            return value
         }()
         label.textAlignment = .center
         label.fitTextToBounds()

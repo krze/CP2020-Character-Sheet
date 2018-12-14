@@ -79,7 +79,7 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
                 return sectionLabel(frame: labelFrame, text: model?.stunSaveText ?? "")
             }
             
-            return sectionLabel(frame: labelFrame, text: model?.stunSaveText ?? "")
+            return sectionLabel(frame: labelFrame, text: model?.bodyTypeModifierText ?? "")
         }()
         
         cell.addSubview(label)
