@@ -46,5 +46,10 @@ struct StyleConstants {
         /// Use to convey disabled or unavailable items (if necessary)
         static let gray = UIColor(red:0.55, green:0.54, blue:0.52, alpha:1.0)
     }
+    
+    struct SizeConstants {
+        static let borderWidth: CGFloat = 2.0
+        static let textPaddingRatio: CGFloat = 0.05
+    }
 
 }

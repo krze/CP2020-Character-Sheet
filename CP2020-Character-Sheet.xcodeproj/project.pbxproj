@@ -12,6 +12,12 @@
 		9D24375621A091AF0084E77D /* CharacterSheetSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24375521A091AE0084E77D /* CharacterSheetSections.swift */; };
 		9D2CF9FE21C4336900EC76D7 /* UserEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CF9FD21C4336900EC76D7 /* UserEntryView.swift */; };
 		9D2CFA0021C433C500EC76D7 /* UserEntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CF9FF21C433C500EC76D7 /* UserEntryViewModel.swift */; };
+		9D2CFA0221C5913100EC76D7 /* CharacterDescriptionConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CFA0121C5913100EC76D7 /* CharacterDescriptionConstants.swift */; };
+		9D2CFA0421C5921A00EC76D7 /* CharacterSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CFA0321C5921A00EC76D7 /* CharacterSheetCoordinator.swift */; };
+		9D2CFA0621C593D200EC76D7 /* MarginCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CFA0521C593D200EC76D7 /* MarginCreator.swift */; };
+		9D2CFA0821C59B9400EC76D7 /* CharacterClassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CFA0721C59B9400EC76D7 /* CharacterClassView.swift */; };
+		9D2CFA0A21C59BEA00EC76D7 /* CharacterClassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CFA0921C59BEA00EC76D7 /* CharacterClassViewModel.swift */; };
+		9D2CFA0C21C59D7900EC76D7 /* CharacterClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CFA0B21C59D7900EC76D7 /* CharacterClass.swift */; };
 		9D552CF221AB0E69008B90E9 /* StyleConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D552CF121AB0E69008B90E9 /* StyleConstants.swift */; };
 		9D552CF421AB1050008B90E9 /* DamageControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D552CF321AB1050008B90E9 /* DamageControllerTests.swift */; };
 		9D552CF621AB266F008B90E9 /* DamageModifierViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D552CF521AB266F008B90E9 /* DamageModifierViewModel.swift */; };
@@ -62,6 +68,12 @@
 		9D24375521A091AE0084E77D /* CharacterSheetSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSheetSections.swift; sourceTree = "<group>"; };
 		9D2CF9FD21C4336900EC76D7 /* UserEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntryView.swift; sourceTree = "<group>"; };
 		9D2CF9FF21C433C500EC76D7 /* UserEntryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntryViewModel.swift; sourceTree = "<group>"; };
+		9D2CFA0121C5913100EC76D7 /* CharacterDescriptionConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionConstants.swift; sourceTree = "<group>"; };
+		9D2CFA0321C5921A00EC76D7 /* CharacterSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSheetCoordinator.swift; sourceTree = "<group>"; };
+		9D2CFA0521C593D200EC76D7 /* MarginCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarginCreator.swift; sourceTree = "<group>"; };
+		9D2CFA0721C59B9400EC76D7 /* CharacterClassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterClassView.swift; sourceTree = "<group>"; };
+		9D2CFA0921C59BEA00EC76D7 /* CharacterClassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterClassViewModel.swift; sourceTree = "<group>"; };
+		9D2CFA0B21C59D7900EC76D7 /* CharacterClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterClass.swift; sourceTree = "<group>"; };
 		9D552CF121AB0E69008B90E9 /* StyleConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConstants.swift; sourceTree = "<group>"; };
 		9D552CF321AB1050008B90E9 /* DamageControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageControllerTests.swift; sourceTree = "<group>"; };
 		9D552CF521AB266F008B90E9 /* DamageModifierViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageModifierViewModel.swift; sourceTree = "<group>"; };
@@ -178,6 +190,7 @@
 				9D552CF121AB0E69008B90E9 /* StyleConstants.swift */,
 				9D552CFB21ACE775008B90E9 /* BestFit.swift */,
 				9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */,
+				9D2CFA0521C593D200EC76D7 /* MarginCreator.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -187,6 +200,7 @@
 			children = (
 				9D24375521A091AE0084E77D /* CharacterSheetSections.swift */,
 				9D5C1F2B21A06CE700B3D493 /* CharacterSheetViewController.swift */,
+				9D2CFA0321C5921A00EC76D7 /* CharacterSheetCoordinator.swift */,
 				9DE335A221A9EA7C00180927 /* Character Description View */,
 				9DE3359F21A9EA4500180927 /* Stats View */,
 				9DE3359C21A9EA0A00180927 /* Damage Modifier View */,
@@ -237,6 +251,10 @@
 				9DE335A021A9EA7900180927 /* CharacterDescriptionViewCell.swift */,
 				9D2CF9FD21C4336900EC76D7 /* UserEntryView.swift */,
 				9D2CF9FF21C433C500EC76D7 /* UserEntryViewModel.swift */,
+				9D2CFA0121C5913100EC76D7 /* CharacterDescriptionConstants.swift */,
+				9D2CFA0721C59B9400EC76D7 /* CharacterClassView.swift */,
+				9D2CFA0921C59BEA00EC76D7 /* CharacterClassViewModel.swift */,
+				9D2CFA0B21C59D7900EC76D7 /* CharacterClass.swift */,
 			);
 			path = "Character Description View";
 			sourceTree = "<group>";
@@ -393,7 +411,9 @@
 				9DE3359B21A9E9F700180927 /* DamageModifierViewCell.swift in Sources */,
 				9DFE711721BDA18B000561B0 /* StatsViewCellModel.swift in Sources */,
 				9DFE711321BD933A000561B0 /* StatViewModel.swift in Sources */,
+				9D2CFA0821C59B9400EC76D7 /* CharacterClassView.swift in Sources */,
 				9D552CF221AB0E69008B90E9 /* StyleConstants.swift in Sources */,
+				9D2CFA0C21C59D7900EC76D7 /* CharacterClass.swift in Sources */,
 				9D24375621A091AF0084E77D /* CharacterSheetSections.swift in Sources */,
 				9D552CFC21ACE775008B90E9 /* BestFit.swift in Sources */,
 				9D5C1F2C21A06CE700B3D493 /* CharacterSheetViewController.swift in Sources */,
@@ -403,16 +423,20 @@
 				9D5C1F5E21A07E1500B3D493 /* DamageSectionViewModel.swift in Sources */,
 				9DFE711521BD94FD000561B0 /* Stat.swift in Sources */,
 				9D5C1F5C21A0794400B3D493 /* DamageSectionView.swift in Sources */,
+				9D2CFA0A21C59BEA00EC76D7 /* CharacterClassViewModel.swift in Sources */,
 				9DFE711121BD92C9000561B0 /* StatView.swift in Sources */,
 				9D2CF9FE21C4336900EC76D7 /* UserEntryView.swift in Sources */,
+				9D2CFA0621C593D200EC76D7 /* MarginCreator.swift in Sources */,
 				9DE335AC21A9F2C800180927 /* TotalDamageControllerDelegate.swift in Sources */,
 				9D2CFA0021C433C500EC76D7 /* UserEntryViewModel.swift in Sources */,
 				9D24375421A085DE0084E77D /* WoundType.swift in Sources */,
 				9D5C1F2A21A06CE700B3D493 /* AppDelegate.swift in Sources */,
+				9D2CFA0221C5913100EC76D7 /* CharacterDescriptionConstants.swift in Sources */,
 				9D552CF821AC899C008B90E9 /* DamageModifierController.swift in Sources */,
 				9DE335A121A9EA7900180927 /* CharacterDescriptionViewCell.swift in Sources */,
 				9DE335AA21A9F27400180927 /* TotalDamageController.swift in Sources */,
 				9D5C1F5A21A0775B00B3D493 /* DamageViewCell.swift in Sources */,
+				9D2CFA0421C5921A00EC76D7 /* CharacterSheetCoordinator.swift in Sources */,
 				9DE3359E21A9EA4100180927 /* StatsViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

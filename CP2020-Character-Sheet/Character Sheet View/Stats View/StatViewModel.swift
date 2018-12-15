@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct StatViewModel {
+struct StatViewModel: MarginCreator {
     let stat: Stat
     let statNameFont = StyleConstants.Font.defaultBold
     
@@ -32,6 +32,14 @@ struct StatViewModel {
             return stat.hasBaseState() ? 0.5 : 0.25
         }()
 
-        return StatViewModel(stat: stat, statValue: baseValue, statValueRatio: valueRatio, statValueBorder: 2.0, statCurrentValue: currentValue, paddingRatio: 0.05, lightColor: StyleConstants.Color.light, darkColor: StyleConstants.Color.dark, highlightColor: StyleConstants.Color.red)
+        return StatViewModel(stat: stat,
+                             statValue: baseValue,
+                             statValueRatio: valueRatio,
+                             statValueBorder: StyleConstants.SizeConstants.borderWidth,
+                             statCurrentValue: currentValue,
+                             paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
+                             lightColor: StyleConstants.Color.light,
+                             darkColor: StyleConstants.Color.dark,
+                             highlightColor: StyleConstants.Color.red)
     }
 }

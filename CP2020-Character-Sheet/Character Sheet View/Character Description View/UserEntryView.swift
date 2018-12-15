@@ -9,9 +9,10 @@
 import UIKit
 
 /// A simple view containing a static label and a textview for user input
-/// Used for things like Character name
+/// Used for things like character name
 final class UserEntryView: UIView, UITextFieldDelegate {
     private let viewModel: UserEntryViewModel
+    private var inputField: UITextField?
     
     init(frame: CGRect, viewModel: UserEntryViewModel) {
         self.viewModel = viewModel
@@ -20,10 +21,38 @@ final class UserEntryView: UIView, UITextFieldDelegate {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = viewModel.lightColor
         
+        let labelWidth = frame.width * viewModel.labelWidthRatio
+        let labelFrame = CGRect(x: frame.minX, y: frame.minY, width: frame.width * viewModel.labelWidthRatio, height: frame.height)
+        let labelMargins = viewModel.createInsets(with: labelFrame)
+        let label = UILabel.container(frame: labelFrame,
+                                          margins: labelMargins,
+                                          backgroundColor: viewModel.darkColor,
+                                          borderColor: nil,
+                                          borderWidth: nil,
+                                          labelMaker: self.label)
         
+        addSubview(label.container)
+        NSLayoutConstraint.activate([
+            label.container.widthAnchor.constraint(equalToConstant: labelWidth),
+            label.container.heightAnchor.constraint(equalToConstant: frame.height),
+            label.container.leadingAnchor.constraint(equalTo: leadingAnchor),
+            label.container.topAnchor.constraint(equalTo: topAnchor)
+            ])
         
+        let inputFieldWidth = frame.width * viewModel.inputWidthRatio
+        let inputFieldFrame = CGRect(x: labelFrame.width, y: frame.minY, width: inputFieldWidth, height: frame.height)
+        let inputField = self.inputField(frame: inputFieldFrame)
         
+        addSubview(inputField)
+        NSLayoutConstraint.activate([
+            inputField.widthAnchor.constraint(equalToConstant: inputFieldWidth),
+            inputField.heightAnchor.constraint(equalToConstant: frame.height),
+            inputField.leadingAnchor.constraint(equalTo: label.container.trailingAnchor),
+            inputField.topAnchor.constraint(equalTo: topAnchor)
+            ])
         
+        self.inputField = inputField
+        self.inputField?.delegate = self
     }
     
     private func label(frame: CGRect) -> UILabel {
@@ -45,6 +74,8 @@ final class UserEntryView: UIView, UITextFieldDelegate {
         field.minimumFontSize = viewModel.inputMinimumSize
         field.adjustsFontSizeToFitWidth = true
         field.autocorrectionType = .no
+        field.layer.borderColor = viewModel.darkColor.cgColor
+        field.layer.borderWidth = StyleConstants.SizeConstants.borderWidth
         
         return field
     }

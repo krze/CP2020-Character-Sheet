@@ -9,7 +9,7 @@
 import Foundation
 
 enum Stat: String {
-    case Intelligence, Tech, Cool, Reflex, Attractiveness, Luck, MovementAllowance, Body, Empathy, Run, Leap, Lift, Humanity
+    case Intelligence, Tech, Cool, Reflex, Attractiveness, Luck, MovementAllowance, Body, Empathy, Run, Leap, Lift, Humanity, Reputation
     
     /// Indicates whether the stat is calculated or not. i.e. Run
     ///
@@ -50,6 +50,8 @@ enum Stat: String {
             return "MA"
         case .Empathy:
             return "EMP"
+        case .Reputation:
+            return "REP"
         default:
             return rawValue.uppercased()
         }

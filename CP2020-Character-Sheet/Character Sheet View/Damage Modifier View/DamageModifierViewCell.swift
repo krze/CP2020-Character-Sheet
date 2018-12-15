@@ -133,7 +133,7 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
         label.textColor = StyleConstants.Color.dark
         label.backgroundColor = StyleConstants.Color.light
         label.layer.borderColor = StyleConstants.Color.dark.cgColor
-        label.layer.borderWidth = 2.0
+        label.layer.borderWidth = StyleConstants.SizeConstants.borderWidth
         label.textAlignment = .center
         label.fitTextToBounds()
                 

@@ -30,13 +30,15 @@ final class StatView: UIView {
                                     y: frame.minY,
                                     width: nameLabelWidth,
                                     height: frame.height)
-        let nameLabelInsets = NSDirectionalEdgeInsets(top: nameLabelFrame.height * model.paddingRatio,
-                                                      leading: nameLabelFrame.width * model.paddingRatio,
-                                                      bottom: nameLabelFrame.height * model.paddingRatio,
-                                                      trailing: nameLabelFrame.width * model.paddingRatio)
-        let nameLabel = UILabel.container(frame: nameLabelFrame, margins: nameLabelInsets, backgroundColor: model.darkColor, borderColor: nil, borderWidth: nil, labelMaker: self.nameLabel)
-        addSubview(nameLabel.container)
+        let nameLabelInsets = viewModel.createInsets(with: nameLabelFrame)
+        let nameLabel = UILabel.container(frame: nameLabelFrame,
+                                          margins: nameLabelInsets,
+                                          backgroundColor: model.darkColor,
+                                          borderColor: nil,
+                                          borderWidth: nil,
+                                          labelMaker: self.nameLabel)
         
+        addSubview(nameLabel.container)
         NSLayoutConstraint.activate([
             nameLabel.container.widthAnchor.constraint(equalToConstant: nameLabelWidth),
             nameLabel.container.heightAnchor.constraint(equalToConstant: frame.height),
@@ -44,18 +46,19 @@ final class StatView: UIView {
             nameLabel.container.topAnchor.constraint(equalTo: topAnchor)
             ])
         
-        
         let statLabelFrame = CGRect(x: nameLabelWidth,
                                     y: frame.minY,
                                     width: statLabelWidth,
                                     height: frame.height)
-        let statLabelInsets = NSDirectionalEdgeInsets(top: statLabelFrame.height * 0.05,
-                                                      leading: statLabelFrame.width * 0.05,
-                                                      bottom: statLabelFrame.height * 0.05,
-                                                      trailing: statLabelFrame.width * 0.05)
-        let statLabel = UILabel.container(frame: statLabelFrame, margins: statLabelInsets, backgroundColor: model.lightColor, borderColor: model.darkColor, borderWidth: model.statValueBorder, labelMaker: self.statLabel)
-        addSubview(statLabel.container)
+        let statLabelInsets = viewModel.createInsets(with: statLabelFrame)
+        let statLabel = UILabel.container(frame: statLabelFrame,
+                                          margins: statLabelInsets,
+                                          backgroundColor: model.lightColor,
+                                          borderColor: model.darkColor,
+                                          borderWidth: model.statValueBorder,
+                                          labelMaker: self.statLabel)
         
+        addSubview(statLabel.container)
         NSLayoutConstraint.activate([
             statLabel.container.widthAnchor.constraint(equalToConstant: statLabelWidth),
             statLabel.container.heightAnchor.constraint(equalToConstant: frame.height),

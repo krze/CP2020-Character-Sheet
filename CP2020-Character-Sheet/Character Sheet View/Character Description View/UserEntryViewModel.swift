@@ -8,18 +8,20 @@
 
 import UIKit
 
-struct UserEntryViewModel {
+struct UserEntryViewModel: MarginCreator {
+    let paddingRatio: CGFloat
+    
     let labelText: String
     let labelWidthRatio: CGFloat
     var inputWidthRatio: CGFloat {
         return 1.0 - labelWidthRatio
     }
     
-    let lightColor: UIColor
-    let darkColor: UIColor
-    let highlightColor: UIColor
+    let lightColor = StyleConstants.Color.light
+    let darkColor = StyleConstants.Color.dark
+    let highlightColor = StyleConstants.Color.red
     
-    let labelFont: UIFont
-    let inputFont: UIFont
+    let labelFont: UIFont? = StyleConstants.Font.defaultBold
+    let inputFont: UIFont? = StyleConstants.Font.defaultFont
     let inputMinimumSize: CGFloat
 }

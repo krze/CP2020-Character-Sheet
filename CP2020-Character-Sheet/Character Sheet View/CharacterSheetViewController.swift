@@ -52,6 +52,21 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
             
             cell.setup(with: viewModel, statViewModels: statViewModels)
         }
+        else if let cell = cell as? CharacterDescriptionViewCell {
+            let userEntryViewModels = [
+                UserEntryViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
+                                   labelText: CharacterDescriptionConstants.Text.name,
+                                   labelWidthRatio: 0.3,
+                                   inputMinimumSize: 10.0),
+                UserEntryViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
+                                   labelText: CharacterDescriptionConstants.Text.handle,
+                                   labelWidthRatio: 0.3,
+                                   inputMinimumSize: 10.0)
+            ]
+            let characterClassViewModel = CharacterClassViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
+                                                                  classType: CharacterClass.Corporate, classLabelWidthRatio: 0.3)
+            cell.setup(with: userEntryViewModels, classViewModel: characterClassViewModel)
+        }
         
         return cell
     }
