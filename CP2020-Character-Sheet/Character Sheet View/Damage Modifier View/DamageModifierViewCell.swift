@@ -16,15 +16,23 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
     func setup(with viewModel: DamageModifierViewModel) {
         model = viewModel
         
-        contentView.layoutMargins = UIEdgeInsets(top: contentView.safeAreaLayoutGuide.layoutFrame.height * viewModel.topPaddingRatio,
-                                                 left: contentView.safeAreaLayoutGuide.layoutFrame.width * viewModel.leftPaddingRatio,
-                                                 bottom: contentView.safeAreaLayoutGuide.layoutFrame.height * viewModel.bottomPaddingRatio,
-                                                 right: contentView.safeAreaLayoutGuide.layoutFrame.width * viewModel.rightPaddingRatio)
+        contentView.layoutMargins = UIEdgeInsets(top: contentView.safeAreaLayoutGuide.layoutFrame.height * viewModel.paddingRatio,
+                                                 left: contentView.safeAreaLayoutGuide.layoutFrame.width * viewModel.paddingRatio,
+                                                 bottom: contentView.safeAreaLayoutGuide.layoutFrame.height * viewModel.paddingRatio,
+                                                 right: contentView.safeAreaLayoutGuide.layoutFrame.width * viewModel.paddingRatio)
         
         let damageModifierCellLabels = Label.allCases.map { $0 }
         let subviewTotalWidth = contentView.layoutMarginsGuide.layoutFrame.width
-        let paddingWidth = viewModel.inbetweenPaddingRatio * subviewTotalWidth
-        let subviewWidth = subviewTotalWidth * viewModel.cellWidthRatio
+        let paddingWidth = viewModel.paddingRatio * subviewTotalWidth
+        let subviewWidth: CGFloat = {
+            let presetWidth = subviewTotalWidth * viewModel.cellWidthRatio
+            
+            let totalInbetweenSpacingWidth = CGFloat(damageModifierCellLabels.count - 1) * paddingWidth
+            let availableWidth = subviewTotalWidth - totalInbetweenSpacingWidth
+            let calculatedWidth = availableWidth / CGFloat(damageModifierCellLabels.count)
+            
+            return calculatedWidth > presetWidth ? calculatedWidth : presetWidth
+        }()
         let subviewHeight = contentView.layoutMarginsGuide.layoutFrame.height * viewModel.cellHeightRatio
         var leadingAnchor = contentView.layoutMarginsGuide.leadingAnchor
         

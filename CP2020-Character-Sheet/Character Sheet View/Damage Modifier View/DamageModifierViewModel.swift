@@ -18,21 +18,5 @@ struct DamageModifierViewModel {
     
     let labelHeightRatio: CGFloat
     
-    let leftPaddingRatio: CGFloat
-    let rightPaddingRatio: CGFloat
-    let topPaddingRatio: CGFloat
-    let bottomPaddingRatio: CGFloat
-    let inbetweenPaddingRatio: CGFloat
-    
-    init(cellWidthRatio: CGFloat, cellHeightRatio: CGFloat, labelHeightRatio: CGFloat, leftPaddingRatio: CGFloat, rightPaddingRatio: CGFloat, topPaddingRatio: CGFloat, bottomPaddingRatio: CGFloat, inbetweenPaddingRatio: CGFloat) {
-        
-        self.cellWidthRatio = cellWidthRatio
-        self.cellHeightRatio = cellHeightRatio
-        self.labelHeightRatio = labelHeightRatio
-        self.leftPaddingRatio = leftPaddingRatio
-        self.rightPaddingRatio = rightPaddingRatio
-        self.topPaddingRatio = topPaddingRatio
-        self.bottomPaddingRatio = bottomPaddingRatio
-        self.inbetweenPaddingRatio = inbetweenPaddingRatio
-    }
+    let paddingRatio: CGFloat
 }
