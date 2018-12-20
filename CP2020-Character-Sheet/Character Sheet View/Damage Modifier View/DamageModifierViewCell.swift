@@ -86,31 +86,45 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
     private func cell(frame: CGRect, labelHeightRatio: CGFloat, labelType: Label) -> UIView {
         let cell = UIView(frame: frame)
         cell.translatesAutoresizingMaskIntoConstraints = false
-        let label: UILabel = {
-            let labelFrame = CGRect(x: 0.0, y: 0.0, width: frame.width, height: frame.height * labelHeightRatio)
-            
-            return sectionLabel(frame: labelFrame, text: labelType.labelText())
-        }()
+        let containerFrame = CGRect(x: 0.0, y: 0.0, width: frame.width, height: frame.height * labelHeightRatio)
+        let insets = NSDirectionalEdgeInsets(top: frame.height * StyleConstants.SizeConstants.textPaddingRatio,
+                                             leading: frame.width * StyleConstants.SizeConstants.textPaddingRatio,
+                                             bottom: frame.height * StyleConstants.SizeConstants.textPaddingRatio,
+                                             trailing: frame.width * StyleConstants.SizeConstants.textPaddingRatio)
+        // Quick function to make this work better with the label container
+        func makeLabel(frame: CGRect) -> UILabel {
+            return sectionLabel(frame: frame, text: labelType.labelText())
+        }
         
-        cell.addSubview(label)
+        let labelContainer = UILabel.container(frame: containerFrame,
+                                               margins: insets,
+                                               backgroundColor: StyleConstants.Color.dark,
+                                               borderColor: nil,
+                                               borderWidth: nil,
+                                               labelMaker: makeLabel)
+        
+        cell.addSubview(labelContainer.container)
         
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: cell.leadingAnchor),
-            label.topAnchor.constraint(equalTo: cell.topAnchor),
-            label.widthAnchor.constraint(equalTo: cell.widthAnchor),
-            label.heightAnchor.constraint(equalTo: cell.heightAnchor, multiplier: labelHeightRatio)
+            labelContainer.container.leadingAnchor.constraint(equalTo: cell.leadingAnchor),
+            labelContainer.container.topAnchor.constraint(equalTo: cell.topAnchor),
+            labelContainer.container.widthAnchor.constraint(equalToConstant: containerFrame.width),
+            labelContainer.container.heightAnchor.constraint(equalToConstant: containerFrame.height)
             ])
         
+                
         let valueLabelRatio = 1.0 - labelHeightRatio
-        let valueLabel = self.valueLabel(frame: CGRect(x: 0.0, y: label.frame.height, width: frame.width, height: frame.height * valueLabelRatio))
+        let valueLabelFrame = CGRect(x: 0.0, y: labelContainer.container.frame.height,
+                                     width: frame.width, height: frame.height * valueLabelRatio)
+        let valueLabel = self.valueLabel(frame: valueLabelFrame)
         
         cell.addSubview(valueLabel)
         
         NSLayoutConstraint.activate([
             valueLabel.leadingAnchor.constraint(equalTo: cell.leadingAnchor),
-            valueLabel.topAnchor.constraint(equalTo: label.bottomAnchor),
-            valueLabel.widthAnchor.constraint(equalTo: cell.widthAnchor),
-            valueLabel.heightAnchor.constraint(equalTo: cell.heightAnchor, multiplier: valueLabelRatio)
+            valueLabel.topAnchor.constraint(equalTo: labelContainer.container.bottomAnchor),
+            valueLabel.widthAnchor.constraint(equalToConstant: valueLabelFrame.width),
+            valueLabel.heightAnchor.constraint(equalToConstant: valueLabelFrame.height)
             ])
         
         return cell
@@ -150,7 +164,7 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
         return label
     }
     
-    private enum Label: String {
+    private enum Label: String, CaseIterable {
         case Stun, BTM, TotalDamage
         
         func labelText() -> String {

@@ -31,12 +31,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CP2020-Character-Sheet/Character Sheet View/CharacterSheetViewController.swift"
-            timestampString = "566962942.325977"
+            timestampString = "567013595.453104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "54"
             endingLineNumber = "54"
             landmarkName = "collectionView(_:cellForItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CP2020-Character-Sheet/Application/UILabel+LabelContainer.swift"
+            timestampString = "567013595.453238"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "container(frame:margins:backgroundColor:borderColor:borderWidth:labelMaker:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

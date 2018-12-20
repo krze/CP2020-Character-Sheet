@@ -33,6 +33,7 @@ extension UILabel {
                                 width: container.frame.width - container.directionalLayoutMargins.leading - container.directionalLayoutMargins.trailing,
                                 height: container.frame.height - container.directionalLayoutMargins.top - container.directionalLayoutMargins.bottom)
         let label = labelMaker(labelFrame)
+        
         container.addSubview(label)
         
         NSLayoutConstraint.activate([
