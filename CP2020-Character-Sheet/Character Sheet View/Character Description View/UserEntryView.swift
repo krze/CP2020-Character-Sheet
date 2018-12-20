@@ -22,7 +22,7 @@ final class UserEntryView: UIView, UITextFieldDelegate {
         backgroundColor = viewModel.lightColor
         
         let labelWidth = frame.width * viewModel.labelWidthRatio
-        let labelFrame = CGRect(x: frame.minX, y: frame.minY, width: frame.width * viewModel.labelWidthRatio, height: frame.height)
+        let labelFrame = CGRect(x: frame.minX, y: frame.minY, width: labelWidth, height: frame.height)
         let labelMargins = viewModel.createInsets(with: labelFrame)
         let label = UILabel.container(frame: labelFrame,
                                           margins: labelMargins,
@@ -33,7 +33,6 @@ final class UserEntryView: UIView, UITextFieldDelegate {
         
         addSubview(label.container)
         NSLayoutConstraint.activate([
-            label.container.widthAnchor.constraint(lessThanOrEqualToConstant: labelWidth),
             label.container.heightAnchor.constraint(equalToConstant: frame.height),
             label.container.leadingAnchor.constraint(equalTo: leadingAnchor),
             label.container.topAnchor.constraint(equalTo: topAnchor)
@@ -45,7 +44,6 @@ final class UserEntryView: UIView, UITextFieldDelegate {
         
         addSubview(inputField)
         NSLayoutConstraint.activate([
-            inputField.widthAnchor.constraint(lessThanOrEqualToConstant: inputFieldWidth),
             inputField.heightAnchor.constraint(equalToConstant: frame.height),
             inputField.leadingAnchor.constraint(equalTo: label.container.trailingAnchor),
             inputField.topAnchor.constraint(equalTo: topAnchor)

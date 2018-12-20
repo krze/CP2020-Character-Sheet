@@ -13,9 +13,9 @@ struct CharacterDescriptionConstants {
     
     /// Strings used in the Character Description View
     struct Text {
-        static let name = "Name"
-        static let handle = "Handle"
-        static let characterClass = "Class"
+        static let name = "NAME"
+        static let handle = "HANDLE"
+        static let characterClass = "CLASS"
     }
 
 }

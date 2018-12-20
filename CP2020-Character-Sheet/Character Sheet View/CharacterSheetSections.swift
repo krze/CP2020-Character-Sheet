@@ -32,6 +32,8 @@ enum CharacterSheetSections: Int {
         switch self {
         case .DamageModifier:
             return 80
+        case .CharacterDescription:
+            return 100
         default:
             return 160
         }

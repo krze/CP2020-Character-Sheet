@@ -50,7 +50,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
         }
         else if let cell = cell as? StatsViewCell {
             let viewModel = StatsViewCellModel(paddingRatio: 0.0, statsPerRow: 3, statViewWidthRatio: CGFloat(1.0 / 3))
-            let statViewModels = Stat.allCases.map { StatViewModel.model(for: $0, baseValue: 5, currentValue: 5) }
+            let statViewModels = Stat.allCases.map { StatViewModel.model(for: $0, baseValue: 10, currentValue: 10) }
             
             cell.setup(with: viewModel, statViewModels: statViewModels)
         }
@@ -58,15 +58,15 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
             let userEntryViewModels = [
                 UserEntryViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
                                    labelText: CharacterDescriptionConstants.Text.name,
-                                   labelWidthRatio: 0.3,
+                                   labelWidthRatio: 0.2,
                                    inputMinimumSize: 10.0),
                 UserEntryViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
                                    labelText: CharacterDescriptionConstants.Text.handle,
-                                   labelWidthRatio: 0.3,
+                                   labelWidthRatio: 0.2,
                                    inputMinimumSize: 10.0)
             ]
             let characterClassViewModel = CharacterClassViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
-                                                                  classType: CharacterClass.Corporate, classLabelWidthRatio: 0.3)
+                                                                  classType: CharacterClass.Corporate, classLabelWidthRatio: 0.2)
             cell.setup(with: userEntryViewModels, classViewModel: characterClassViewModel)
         }
         

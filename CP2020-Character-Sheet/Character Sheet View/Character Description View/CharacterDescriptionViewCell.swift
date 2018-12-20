@@ -25,7 +25,7 @@ final class CharacterDescriptionViewCell: UICollectionViewCell {
             addSubview(userEntryView)
             
             NSLayoutConstraint.activate([
-                userEntryView.widthAnchor.constraint(equalToConstant: subviewFrame.width),
+                userEntryView.widthAnchor.constraint(lessThanOrEqualToConstant: subviewFrame.width),
                 userEntryView.heightAnchor.constraint(equalToConstant: subviewFrame.height),
                 userEntryView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
                 userEntryView.topAnchor.constraint(equalTo: topAnchor)
@@ -40,7 +40,7 @@ final class CharacterDescriptionViewCell: UICollectionViewCell {
         
         addSubview(classView)
         NSLayoutConstraint.activate([
-            classView.widthAnchor.constraint(equalToConstant: subviewFrame.width),
+            classView.widthAnchor.constraint(lessThanOrEqualToConstant: subviewFrame.width),
             classView.heightAnchor.constraint(equalToConstant: subviewFrame.height),
             classView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             classView.topAnchor.constraint(equalTo: topAnchor)
