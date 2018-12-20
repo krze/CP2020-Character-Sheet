@@ -32,6 +32,7 @@
 		9D5C1F5A21A0775B00B3D493 /* DamageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C1F5921A0775B00B3D493 /* DamageViewCell.swift */; };
 		9D5C1F5C21A0794400B3D493 /* DamageSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C1F5B21A0794400B3D493 /* DamageSectionView.swift */; };
 		9D5C1F5E21A07E1500B3D493 /* DamageSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C1F5D21A07E1500B3D493 /* DamageSectionViewModel.swift */; };
+		9DCD370121CC024C00EE00D9 /* SkillViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD370021CC024C00EE00D9 /* SkillViewCellModel.swift */; };
 		9DE3359721A9A53800180927 /* DamageSectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3359621A9A53800180927 /* DamageSectionViewModelTests.swift */; };
 		9DE3359B21A9E9F700180927 /* DamageModifierViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3359A21A9E9F700180927 /* DamageModifierViewCell.swift */; };
 		9DE3359E21A9EA4100180927 /* StatsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3359D21A9EA4100180927 /* StatsViewCell.swift */; };
@@ -94,6 +95,7 @@
 		9D5C1F5921A0775B00B3D493 /* DamageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageViewCell.swift; sourceTree = "<group>"; };
 		9D5C1F5B21A0794400B3D493 /* DamageSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageSectionView.swift; sourceTree = "<group>"; };
 		9D5C1F5D21A07E1500B3D493 /* DamageSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageSectionViewModel.swift; sourceTree = "<group>"; };
+		9DCD370021CC024C00EE00D9 /* SkillViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillViewCellModel.swift; sourceTree = "<group>"; };
 		9DE3359621A9A53800180927 /* DamageSectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageSectionViewModelTests.swift; sourceTree = "<group>"; };
 		9DE3359A21A9E9F700180927 /* DamageModifierViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageModifierViewCell.swift; sourceTree = "<group>"; };
 		9DE3359D21A9EA4100180927 /* StatsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewCell.swift; sourceTree = "<group>"; };
@@ -222,6 +224,17 @@
 			path = "Damage View";
 			sourceTree = "<group>";
 		};
+		9DCD370321CC065500EE00D9 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				9D2CFA0121C5913100EC76D7 /* CharacterDescriptionConstants.swift */,
+				9D2CFA0721C59B9400EC76D7 /* CharacterClassView.swift */,
+				9D2CFA0921C59BEA00EC76D7 /* CharacterClassViewModel.swift */,
+				9D2CFA0B21C59D7900EC76D7 /* CharacterClass.swift */,
+			);
+			path = Class;
+			sourceTree = "<group>";
+		};
 		9DE3359C21A9EA0A00180927 /* Damage Modifier View */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,10 +264,7 @@
 				9DE335A021A9EA7900180927 /* CharacterDescriptionViewCell.swift */,
 				9D2CF9FD21C4336900EC76D7 /* UserEntryView.swift */,
 				9D2CF9FF21C433C500EC76D7 /* UserEntryViewModel.swift */,
-				9D2CFA0121C5913100EC76D7 /* CharacterDescriptionConstants.swift */,
-				9D2CFA0721C59B9400EC76D7 /* CharacterClassView.swift */,
-				9D2CFA0921C59BEA00EC76D7 /* CharacterClassViewModel.swift */,
-				9D2CFA0B21C59D7900EC76D7 /* CharacterClass.swift */,
+				9DCD370321CC065500EE00D9 /* Class */,
 			);
 			path = "Character Description View";
 			sourceTree = "<group>";
@@ -263,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				9DE335A621A9EB5B00180927 /* SkillViewCell.swift */,
+				9DCD370021CC024C00EE00D9 /* SkillViewCellModel.swift */,
 			);
 			path = "Skill View";
 			sourceTree = "<group>";
@@ -416,6 +427,7 @@
 				9D2CFA0C21C59D7900EC76D7 /* CharacterClass.swift in Sources */,
 				9D24375621A091AF0084E77D /* CharacterSheetSections.swift in Sources */,
 				9D552CFC21ACE775008B90E9 /* BestFit.swift in Sources */,
+				9DCD370121CC024C00EE00D9 /* SkillViewCellModel.swift in Sources */,
 				9D5C1F2C21A06CE700B3D493 /* CharacterSheetViewController.swift in Sources */,
 				9DE335A721A9EB5B00180927 /* SkillViewCell.swift in Sources */,
 				9D11763821BDCE0300E297BA /* UILabel+LabelContainer.swift in Sources */,
