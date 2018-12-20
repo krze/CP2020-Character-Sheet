@@ -21,45 +21,33 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
                                                  bottom: contentView.safeAreaLayoutGuide.layoutFrame.height * viewModel.bottomPaddingRatio,
                                                  right: contentView.safeAreaLayoutGuide.layoutFrame.width * viewModel.rightPaddingRatio)
         
-        let totalWidth = contentView.layoutMarginsGuide.layoutFrame.width
-        let stunSaveCellFrame = CGRect(x: contentView.layoutMarginsGuide.layoutFrame.minX, y: contentView.layoutMarginsGuide.layoutFrame.minY, width: totalWidth * viewModel.cellWidthRatio, height: contentView.layoutMarginsGuide.layoutFrame.height * viewModel.cellHeightRatio)
-        let stunSaveCell = self.cell(frame: stunSaveCellFrame, labelHeightRatio: viewModel.labelHeightRatio, labelType: .Stun)
+        let damageModifierCellLabels = Label.allCases.map { $0 }
+        let subviewTotalWidth = contentView.layoutMarginsGuide.layoutFrame.width
+        let paddingWidth = viewModel.inbetweenPaddingRatio * subviewTotalWidth
+        let subviewWidth = subviewTotalWidth * viewModel.cellWidthRatio
+        let subviewHeight = contentView.layoutMarginsGuide.layoutFrame.height * viewModel.cellHeightRatio
+        var leadingAnchor = contentView.layoutMarginsGuide.leadingAnchor
         
-        contentView.addSubview(stunSaveCell)
-        
-        NSLayoutConstraint.activate([
-            stunSaveCell.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-            stunSaveCell.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-            stunSaveCell.widthAnchor.constraint(equalTo: contentView.layoutMarginsGuide.widthAnchor, multiplier: viewModel.cellWidthRatio, constant: -contentView.layoutMargins.right),
-            stunSaveCell.heightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.heightAnchor, multiplier: viewModel.cellHeightRatio)
-            ])
-        
-        let middlePadding = contentView.safeAreaLayoutGuide.layoutFrame.width * viewModel.inbetweenPaddingRatio
-        
-        let btmCellFrame = CGRect(x: stunSaveCellFrame.width + middlePadding, y: contentView.layoutMarginsGuide.layoutFrame.minY, width: totalWidth * viewModel.cellWidthRatio, height: contentView.layoutMarginsGuide.layoutFrame.height * viewModel.cellHeightRatio)
-        let btmCell = self.cell(frame: btmCellFrame, labelHeightRatio: viewModel.labelHeightRatio, labelType: .BTM)
-        
-        contentView.addSubview(btmCell)
-        
-        NSLayoutConstraint.activate([
-            btmCell.leadingAnchor.constraint(equalTo: stunSaveCell.trailingAnchor, constant: middlePadding * 2),
-            btmCell.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-            btmCell.widthAnchor.constraint(equalTo: contentView.layoutMarginsGuide.widthAnchor, multiplier: viewModel.cellWidthRatio, constant: -contentView.layoutMargins.right),
-            btmCell.heightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.heightAnchor, multiplier: viewModel.cellHeightRatio)
-            ])
-        
-        let totalDMGCellFrame = CGRect(x: stunSaveCellFrame.width + btmCellFrame.width + (middlePadding * 2), y: contentView.layoutMarginsGuide.layoutFrame.minY, width: totalWidth * viewModel.cellWidthRatio, height: contentView.layoutMarginsGuide.layoutFrame.height * viewModel.cellHeightRatio)
-        let totalDMGCell = self.cell(frame: totalDMGCellFrame, labelHeightRatio: viewModel.labelHeightRatio, labelType: .TotalDamage)
-        
-        contentView.addSubview(totalDMGCell)
-        
-        NSLayoutConstraint.activate([
-            totalDMGCell.leadingAnchor.constraint(equalTo: btmCell.trailingAnchor, constant: middlePadding * 2),
-            totalDMGCell.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-            totalDMGCell.widthAnchor.constraint(equalTo: contentView.layoutMarginsGuide.widthAnchor, multiplier: viewModel.cellWidthRatio, constant: -contentView.layoutMargins.right),
-            totalDMGCell.heightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.heightAnchor, multiplier: viewModel.cellHeightRatio)
-            ])
-        
+        damageModifierCellLabels.enumerated().forEach { index, label in
+            let x = contentView.layoutMarginsGuide.layoutFrame.minX + (subviewWidth * CGFloat(index)) + (paddingWidth * CGFloat(index))
+            let frame = CGRect(x: x, y: contentView.layoutMarginsGuide.layoutFrame.minY,
+                               width: subviewWidth, height: subviewHeight)
+            
+            let cell = self.cell(frame: frame, labelHeightRatio: viewModel.labelHeightRatio, labelType: label)
+            
+            contentView.addSubview(cell)
+            
+            let constantPadding = index > 0 ? paddingWidth : 0
+            
+            NSLayoutConstraint.activate([
+                cell.leadingAnchor.constraint(equalTo: leadingAnchor, constant: constantPadding),
+                cell.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+                cell.widthAnchor.constraint(equalToConstant: frame.width),
+                cell.heightAnchor.constraint(equalToConstant: frame.height)
+                ])
+            
+            leadingAnchor = cell.trailingAnchor
+        }
 
     }
     
