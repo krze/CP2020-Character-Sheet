@@ -13,10 +13,10 @@ final class CharacterDescriptionViewCell: UICollectionViewCell {
     func setup(with userEntryViewModels: [UserEntryViewModel], classViewModel: CharacterClassViewModel) {
         /// This is only going to have 3 fields for now
         // If this changes in the future, we'll need a viewmodel for this cell.
-        let subviewHeight = self.frame.height / 3
+        let subviewHeight = safeAreaLayoutGuide.layoutFrame.height / 3
         
-        var topAnchor = self.topAnchor
-        var subviewFrame = CGRect(x: self.frame.minX, y: self.frame.minY, width: self.frame.width, height: subviewHeight)
+        var topAnchor = safeAreaLayoutGuide.topAnchor
+        let subviewFrame = CGRect(x: safeAreaLayoutGuide.layoutFrame.minX, y: safeAreaLayoutGuide.layoutFrame.minY, width: safeAreaLayoutGuide.layoutFrame.width, height: subviewHeight)
         
         // MARK: User Entry views
         
@@ -32,23 +32,19 @@ final class CharacterDescriptionViewCell: UICollectionViewCell {
                 ])
             
             topAnchor = userEntryView.bottomAnchor
-            subviewFrame = CGRect(x: subviewFrame.minX,
-                                  y: subviewFrame.height * CGFloat(index + 1),
-                                  width: subviewFrame.width,
-                                  height: subviewFrame.height)
         }
         
         // MARK: Character Class view
         
-//        let classView = CharacterClassView(frame: subviewFrame, viewModel: classViewModel)
-//        
-//        addSubview(classView)
-//        NSLayoutConstraint.activate([
-//            classView.widthAnchor.constraint(equalToConstant: subviewFrame.width),
-//            classView.heightAnchor.constraint(equalToConstant: subviewFrame.height),
-//            classView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-//            classView.topAnchor.constraint(equalTo: topAnchor)
-//            ])
+        let classView = CharacterClassView(frame: subviewFrame, viewModel: classViewModel)
+        
+        addSubview(classView)
+        NSLayoutConstraint.activate([
+            classView.widthAnchor.constraint(equalToConstant: subviewFrame.width),
+            classView.heightAnchor.constraint(equalToConstant: subviewFrame.height),
+            classView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            classView.topAnchor.constraint(equalTo: topAnchor)
+            ])
     }
     
     override init(frame: CGRect) {

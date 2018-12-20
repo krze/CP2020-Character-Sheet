@@ -33,7 +33,7 @@ final class UserEntryView: UIView, UITextFieldDelegate {
         
         addSubview(label.container)
         NSLayoutConstraint.activate([
-            label.container.widthAnchor.constraint(equalToConstant: labelWidth),
+            label.container.widthAnchor.constraint(lessThanOrEqualToConstant: labelWidth),
             label.container.heightAnchor.constraint(equalToConstant: frame.height),
             label.container.leadingAnchor.constraint(equalTo: leadingAnchor),
             label.container.topAnchor.constraint(equalTo: topAnchor)
@@ -45,7 +45,7 @@ final class UserEntryView: UIView, UITextFieldDelegate {
         
         addSubview(inputField)
         NSLayoutConstraint.activate([
-            inputField.widthAnchor.constraint(equalToConstant: inputFieldWidth),
+            inputField.widthAnchor.constraint(lessThanOrEqualToConstant: inputFieldWidth),
             inputField.heightAnchor.constraint(equalToConstant: frame.height),
             inputField.leadingAnchor.constraint(equalTo: label.container.trailingAnchor),
             inputField.topAnchor.constraint(equalTo: topAnchor)
