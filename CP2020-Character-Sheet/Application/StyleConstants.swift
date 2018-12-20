@@ -28,6 +28,8 @@ struct StyleConstants {
         
         /// A lighter font, suited to denser blocks of text or descriptions, italicized
         static let lightItalic = UIFont(name: "AvenirNext-RegularItalic", size: 18)
+        
+        static let maximumSize: CGFloat = 20
     }
 
     /// Colors to use for any element requiring color, including black and white

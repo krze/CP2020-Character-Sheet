@@ -78,7 +78,7 @@ final class StatView: UIView {
         label.textColor = model.lightColor
         label.text = model.stat.abbreviation()
         label.textAlignment = .center
-        label.fitTextToBounds()
+        label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
         
         return label
     }
@@ -102,7 +102,7 @@ final class StatView: UIView {
             return value
         }()
         label.textAlignment = .center
-        label.fitTextToBounds()
+        label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
         
         return label
     }

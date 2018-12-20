@@ -63,7 +63,7 @@ final class UserEntryView: UIView, UITextFieldDelegate {
         label.textColor = viewModel.lightColor
         label.text = viewModel.labelText
         label.textAlignment = .center
-        label.fitTextToBounds()
+        label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
         
         return label
     }
@@ -72,10 +72,15 @@ final class UserEntryView: UIView, UITextFieldDelegate {
         let field = UITextField(frame: frame)
         field.font = viewModel.inputFont
         field.minimumFontSize = viewModel.inputMinimumSize
-        field.adjustsFontSizeToFitWidth = true
+        field.adjustsFontSizeToFitWidth = false
         field.autocorrectionType = .no
         field.layer.borderColor = viewModel.darkColor.cgColor
         field.layer.borderWidth = StyleConstants.SizeConstants.borderWidth
+        
+        
+        let leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: frame.width * 0.05, height: 0.0))
+        field.leftView = leftView
+        field.leftViewMode = .always
         
         return field
     }

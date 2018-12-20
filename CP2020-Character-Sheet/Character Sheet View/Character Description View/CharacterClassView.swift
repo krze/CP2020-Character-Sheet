@@ -42,6 +42,14 @@ final class CharacterClassView: UIView {
                                                       labelMaker: self.classDescriptionLabel)
         
         addSubview(classDescriptionLabel.container)
+        
+        NSLayoutConstraint.activate([
+            classDescriptionLabel.container.widthAnchor.constraint(equalToConstant: classDescriptionWidth),
+            classDescriptionLabel.container.heightAnchor.constraint(equalToConstant: frame.height),
+            classDescriptionLabel.container.leadingAnchor.constraint(equalTo: classLabel.container.trailingAnchor),
+            classDescriptionLabel.container.topAnchor.constraint(equalTo: topAnchor)
+            ])
+        
     }
     
     private func classLabel(frame: CGRect) -> UILabel {
@@ -52,7 +60,7 @@ final class CharacterClassView: UIView {
         label.textColor = viewModel.lightColor
         label.text = viewModel.classLabelText
         label.textAlignment = .center
-        label.fitTextToBounds()
+        label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
         
         return label
     }
@@ -64,8 +72,8 @@ final class CharacterClassView: UIView {
         label.backgroundColor = viewModel.lightColor
         label.textColor = viewModel.darkColor
         label.text = viewModel.classType.rawValue
-        label.textAlignment = .center
-        label.fitTextToBounds()
+        label.textAlignment = .left
+        label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
         
         return label
     }

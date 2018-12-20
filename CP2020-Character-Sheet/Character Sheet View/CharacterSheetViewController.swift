@@ -43,7 +43,8 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
             cell.setup(with: viewModel, rows: 2, damageController: totalDamageController)
         }
         else if let cell = cell as? DamageModifierViewCell {
-            let viewModel = DamageModifierViewModel(stunSaveCellWidthRatio: 0.5, bodyTypeModifierCellWidthRatio: 0.5, cellHeightRatio: 1.0, stunSaveLabelHeightRatio: 0.3, bodyTypeModifierLabelHeightRatio: 0.3, leftPaddingRatio: 0.1, rightPaddingRatio: 0.1, topPaddingRatio: 0.1, bottomPaddingRatio: 0.1, inbetweenPaddingRatio: 0.1)
+            let viewModel = DamageModifierViewModel(cellWidthRatio: 0.25, cellHeightRatio: 1.0, labelHeightRatio: 0.3, leftPaddingRatio: 0.05, rightPaddingRatio: 0.05, topPaddingRatio: 0.05, bottomPaddingRatio: 0.05, inbetweenPaddingRatio: 0.05)
+//            let viewModel = DamageModifierViewModel(stunSaveCellWidthRatio: 0.5, bodyTypeModifierCellWidthRatio: 0.5, cellHeightRatio: 1.0, stunSaveLabelHeightRatio: 0.3, bodyTypeModifierLabelHeightRatio: 0.3, leftPaddingRatio: 0.1, rightPaddingRatio: 0.1, topPaddingRatio: 0.1, bottomPaddingRatio: 0.1, inbetweenPaddingRatio: 0.1)
             cell.setup(with: viewModel)
         }
         else if let cell = cell as? StatsViewCell {

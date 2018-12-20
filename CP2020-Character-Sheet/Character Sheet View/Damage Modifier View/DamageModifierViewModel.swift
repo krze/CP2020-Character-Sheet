@@ -11,16 +11,12 @@ import UIKit
 struct DamageModifierViewModel {
     
     // TODO: Centralized/Localized strings
-    let stunSaveText = "Stun Save"
-    let bodyTypeModifierText = "BTM"
     let placeholderValue = "0"
     
-    let stunSaveCellWidthRatio: CGFloat
-    let bodyTypeModifierCellWidthRatio: CGFloat
-    
+    let cellWidthRatio: CGFloat
     let cellHeightRatio: CGFloat
-    let stunSaveLabelHeightRatio: CGFloat
-    let bodyTypeModifierLabelHeightRatio: CGFloat
+    
+    let labelHeightRatio: CGFloat
     
     let leftPaddingRatio: CGFloat
     let rightPaddingRatio: CGFloat
@@ -28,17 +24,11 @@ struct DamageModifierViewModel {
     let bottomPaddingRatio: CGFloat
     let inbetweenPaddingRatio: CGFloat
     
-    init(stunSaveCellWidthRatio: CGFloat, bodyTypeModifierCellWidthRatio: CGFloat, cellHeightRatio: CGFloat, stunSaveLabelHeightRatio: CGFloat, bodyTypeModifierLabelHeightRatio: CGFloat, leftPaddingRatio: CGFloat, rightPaddingRatio: CGFloat, topPaddingRatio: CGFloat, bottomPaddingRatio: CGFloat, inbetweenPaddingRatio: CGFloat) {
-        assert(cellHeightRatio <= 1.0,
-               "Cannot exceed the height of the collection view cell.")
-        assert(bodyTypeModifierCellWidthRatio + stunSaveCellWidthRatio <= 1.0,
-               "Cannot exceed the width the collection view cell.")
+    init(cellWidthRatio: CGFloat, cellHeightRatio: CGFloat, labelHeightRatio: CGFloat, leftPaddingRatio: CGFloat, rightPaddingRatio: CGFloat, topPaddingRatio: CGFloat, bottomPaddingRatio: CGFloat, inbetweenPaddingRatio: CGFloat) {
         
-        self.stunSaveCellWidthRatio = stunSaveCellWidthRatio
-        self.bodyTypeModifierCellWidthRatio = bodyTypeModifierCellWidthRatio
+        self.cellWidthRatio = cellWidthRatio
         self.cellHeightRatio = cellHeightRatio
-        self.stunSaveLabelHeightRatio = stunSaveLabelHeightRatio
-        self.bodyTypeModifierLabelHeightRatio = bodyTypeModifierLabelHeightRatio
+        self.labelHeightRatio = labelHeightRatio
         self.leftPaddingRatio = leftPaddingRatio
         self.rightPaddingRatio = rightPaddingRatio
         self.topPaddingRatio = topPaddingRatio
