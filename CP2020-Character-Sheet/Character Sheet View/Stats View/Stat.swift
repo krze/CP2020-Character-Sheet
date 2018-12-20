@@ -23,6 +23,20 @@ enum Stat: String {
         }
     }
     
+    /// Indicates whether the stat is part of the core stat group that makes up a character.
+    /// These stats are used to influence skill check calculations (i.e. Reflex is added to Handgun
+    /// when making a Handgun skill check).
+    ///
+    /// - Returns: True if the stat is a core stat
+    func isCoreStat() -> Bool {
+        switch self {
+        case .Run, .Leap, .Lift, .Humanity, .Reputation, .MovementAllowance, .Luck:
+            return false
+        default:
+            return true
+        }
+    }
+    
     /// Indicates whether the stat can have a +/- state from its base value. i.e. Empathy
     ///
     /// - Returns: True if the stat has a base state
