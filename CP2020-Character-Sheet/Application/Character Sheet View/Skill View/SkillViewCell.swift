@@ -26,7 +26,7 @@ final class SkillViewCell: UICollectionViewCell {
                                                      backgroundColor: viewModel.darkColor,
                                                      borderColor: nil, borderWidth: nil,
                                                      labelMaker: descriptionLabel)
-        
+        cellDescriptionLabel.container.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(cellDescriptionLabel.container)
         
         NSLayoutConstraint.activate([
@@ -35,7 +35,24 @@ final class SkillViewCell: UICollectionViewCell {
             cellDescriptionLabel.container.widthAnchor.constraint(equalToConstant: cellDescriptionLabelFrame.width),
             cellDescriptionLabel.container.heightAnchor.constraint(equalToConstant: cellDescriptionLabelFrame.height)
             ])
+        let highlightedTableContainerFrame = CGRect(x: safeFrame.minX,
+                                                    y: safeFrame.minY + cellDescriptionLabelFrame.height,
+                                                    width: safeFrame.width,
+                                                    height: safeFrame.height - cellDescriptionLabelFrame.height)
+        let highlightedTableContainer = UIView(frame: highlightedTableContainerFrame)
         
+        // debug
+        highlightedTableContainer.backgroundColor = StyleConstants.Color.red
+        
+        highlightedTableContainer.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(highlightedTableContainer)
+        
+        NSLayoutConstraint.activate([
+            highlightedTableContainer.topAnchor.constraint(equalTo: cellDescriptionLabel.container.bottomAnchor),
+            highlightedTableContainer.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            highlightedTableContainer.widthAnchor.constraint(equalToConstant: highlightedTableContainer.frame.width),
+            highlightedTableContainer.heightAnchor.constraint(equalToConstant: highlightedTableContainer.frame.height)
+            ])
     }
     
     private func descriptionLabel(frame: CGRect) -> UILabel {
