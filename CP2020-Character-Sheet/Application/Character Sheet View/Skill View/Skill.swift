@@ -14,6 +14,10 @@ struct Skill: Codable {
     /// Name of the skill
     let name: String
     
+    /// An optional extension to the displayed name of the Skill. For example, "Language: Russian"
+    /// "Language" is the skill's `name`, and "Russian" would be the `nameExtension`.
+    let nameExtension: String?
+    
     /// Description of the skill
     let description: String
     
@@ -28,6 +32,10 @@ struct Skill: Codable {
     /// skill it is added to. This is a top-down relationship, the modified skill does not know
     /// its modifier.
     let modifiesSkill: String?
+    
+    /// The Improvement Point multiplier for the skill. Skills without a listed IP multiplier in
+    /// the rulebook get a multiplier of 1.
+    let IPMultiplier: Int
     
     /// Returns the Stat object linked to this skill, if any
     ///

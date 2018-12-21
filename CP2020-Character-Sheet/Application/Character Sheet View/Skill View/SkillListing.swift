@@ -9,11 +9,13 @@
 import Foundation
 
 /// Represents the listing of a skill as it is known to the character
-final class SkillListing {
+final class SkillListing: Codable {
+    
     /// The skill tied to the listing
     let skill: Skill
     
-    var category: Stat?
+    /// Category for display purposes inside of a tableview. This will be the stat associated with the skill.
+    var category: String?
     
     /// Number of points alloted to the skill by the player
     let points: Int
@@ -35,6 +37,6 @@ final class SkillListing {
         self.points = points
         self.modifier = modifier
         
-        category = skill.stat()
+        category = skill.isSpecialAbility ? "Special Ability" : skill.stat()?.rawValue
     }
 }
