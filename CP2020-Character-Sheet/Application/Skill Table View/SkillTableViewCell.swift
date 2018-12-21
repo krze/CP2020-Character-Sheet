@@ -153,7 +153,6 @@ final class SkillTableViewCell: UITableViewCell {
         total?.fitTextToBounds(maximumSize: viewModel.fontSize)
     }
     
-    
     private func columnLabel(frame: CGRect) -> UILabel {
         let label = UILabel(frame: frame)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -164,5 +163,10 @@ final class SkillTableViewCell: UITableViewCell {
         
         return label
     }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
 
 }

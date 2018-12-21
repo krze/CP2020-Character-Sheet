@@ -34,6 +34,8 @@ enum CharacterSheetSections: Int {
             return 80
         case .CharacterDescription:
             return 100
+        case .Skill:
+            return SkillTableConstants.highlightedSkillViewHeight
         default:
             return 160
         }

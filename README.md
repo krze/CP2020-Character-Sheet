@@ -33,6 +33,7 @@ The character sheet app is planned out for the following phases:
 #### UI:
 - [ ] Lifepath list
 - [ ] Custom skill support
+- [ ] Character builder flow on first run
 #### Data layer:
 - [ ] Custom skill importing and exporting via JSON
   - [ ] Importing from web address or Apple Files/iCloud
