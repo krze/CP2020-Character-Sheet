@@ -25,17 +25,18 @@ final class SkillListing: Codable {
     var modifier: Int
     
     /// The modifier from the linked stat, if any
-    var statModifier: Int?
+    var statModifier: Int
     
     /// Returns the value of the skill added to the skill check roll
     var skillRollValue: Int {
-        return points + modifier + (statModifier ?? 0)
+        return points + modifier + statModifier
     }
     
-    init(skill: Skill, points: Int, modifier: Int, diceRollValue: Int) {
+    init(skill: Skill, points: Int, modifier: Int, statModifier: Int?) {
         self.skill = skill
         self.points = points
         self.modifier = modifier
+        self.statModifier = statModifier ?? 0
         
         category = skill.isSpecialAbility ? "Special Ability" : skill.stat()?.rawValue
     }
