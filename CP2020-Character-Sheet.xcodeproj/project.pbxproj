@@ -257,6 +257,8 @@
 				9DCD371021CC246300EE00D9 /* SkillTableViewCell.swift */,
 				9DCD371421CD598D00EE00D9 /* SkillTableViewCellModel.swift */,
 				9DCD371621CD6E5B00EE00D9 /* SkillTableConstants.swift */,
+				9DCD370421CC105900EE00D9 /* Skill.swift */,
+				9DCD370621CC135A00EE00D9 /* SkillListing.swift */,
 			);
 			path = "Skill Table View";
 			sourceTree = "<group>";
@@ -325,8 +327,6 @@
 			children = (
 				9DE335A621A9EB5B00180927 /* HighlightedSkillViewCell.swift */,
 				9DCD370021CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift */,
-				9DCD370421CC105900EE00D9 /* Skill.swift */,
-				9DCD370621CC135A00EE00D9 /* SkillListing.swift */,
 			);
 			path = "Highlighted Skill View";
 			sourceTree = "<group>";
