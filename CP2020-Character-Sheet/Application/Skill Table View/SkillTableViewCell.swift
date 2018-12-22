@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Custom UITableViewCell which shows a skill listing in unlabeled columns.
 final class SkillTableViewCell: UITableViewCell {
     
     // MARK: Fields for the cell
@@ -23,6 +24,15 @@ final class SkillTableViewCell: UITableViewCell {
     /// Used to indicate that firstTimeSetup has been called by layoutSubViews()
     private var cellHasBeenSetup = false
     
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.autoresizingMask = UIView.AutoresizingMask.flexibleHeight
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     /// Sets up the view with the SkillListing provided. This function is intended for first-time setup.
     /// Use this as as second-stage initializer after creating the cell in a table view with a reuse identifier.
     ///
@@ -33,7 +43,6 @@ final class SkillTableViewCell: UITableViewCell {
         self.viewModel = viewModel
         self.skillListing = skillListing
     }
-    
     
     /// Updates the skill listing. This can be called at any time to change the values displayed.
     ///
@@ -85,13 +94,16 @@ final class SkillTableViewCell: UITableViewCell {
         return label
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.autoresizingMask = UIView.AutoresizingMask.flexibleHeight
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // The correct cell height doesn't seem to be set until layoutSubViews() is called.
+        // This hacky sorta-initializer is called
+        if !cellHasBeenSetup {
+            firstTimeSetup()
+            
+            cellHasBeenSetup = true
+        }
     }
     
     /// This is a one-time called second stage initializer
@@ -179,15 +191,4 @@ final class SkillTableViewCell: UITableViewCell {
         updateColumnValues()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        // The correct cell height doesn't seem to be set until layoutSubViews() is called.
-        // This hacky sorta-initializer is called
-        if !cellHasBeenSetup {
-            firstTimeSetup()
-            
-            cellHasBeenSetup = true
-        }
-    }
-
 }

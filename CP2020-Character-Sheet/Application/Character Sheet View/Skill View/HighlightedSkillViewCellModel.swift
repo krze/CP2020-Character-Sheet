@@ -1,5 +1,5 @@
 //
-// SkillViewCellModel.swift
+//  HighlightedSkillViewCellModel.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 12/20/18.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-/// Sets up the SkillViewCell layout
-struct SkillViewCellModel: MarginCreator {
+/// Sets up the HighlightedSkillViewCellModel layout
+struct HighlightedSkillViewCellModel: MarginCreator {
     
     let cellDescriptionLabelWidthRatio: CGFloat
     let cellDescriptionLabelHeight: CGFloat = SkillTableConstants.rowHeight

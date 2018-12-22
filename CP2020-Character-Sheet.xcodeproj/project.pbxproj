@@ -32,7 +32,7 @@
 		9D5C1F5A21A0775B00B3D493 /* DamageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C1F5921A0775B00B3D493 /* DamageViewCell.swift */; };
 		9D5C1F5C21A0794400B3D493 /* DamageSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C1F5B21A0794400B3D493 /* DamageSectionView.swift */; };
 		9D5C1F5E21A07E1500B3D493 /* DamageSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C1F5D21A07E1500B3D493 /* DamageSectionViewModel.swift */; };
-		9DCD370121CC024C00EE00D9 /* SkillViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD370021CC024C00EE00D9 /* SkillViewCellModel.swift */; };
+		9DCD370121CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD370021CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift */; };
 		9DCD370521CC105900EE00D9 /* Skill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD370421CC105900EE00D9 /* Skill.swift */; };
 		9DCD370721CC135A00EE00D9 /* SkillListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD370621CC135A00EE00D9 /* SkillListing.swift */; };
 		9DCD370B21CC239B00EE00D9 /* SkillTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD370A21CC239B00EE00D9 /* SkillTableViewController.swift */; };
@@ -43,9 +43,10 @@
 		9DE3359B21A9E9F700180927 /* DamageModifierViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3359A21A9E9F700180927 /* DamageModifierViewCell.swift */; };
 		9DE3359E21A9EA4100180927 /* StatsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3359D21A9EA4100180927 /* StatsViewCell.swift */; };
 		9DE335A121A9EA7900180927 /* CharacterDescriptionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335A021A9EA7900180927 /* CharacterDescriptionViewCell.swift */; };
-		9DE335A721A9EB5B00180927 /* SkillViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335A621A9EB5B00180927 /* SkillViewCell.swift */; };
+		9DE335A721A9EB5B00180927 /* HighlightedSkillViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335A621A9EB5B00180927 /* HighlightedSkillViewCell.swift */; };
 		9DE335AA21A9F27400180927 /* TotalDamageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335A921A9F27400180927 /* TotalDamageController.swift */; };
 		9DE335AC21A9F2C800180927 /* TotalDamageControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335AB21A9F2C800180927 /* TotalDamageControllerDelegate.swift */; };
+		9DFA19EB21CE979F0092A450 /* CharacterSheetViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19EA21CE979F0092A450 /* CharacterSheetViewDelegate.swift */; };
 		9DFE711121BD92C9000561B0 /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711021BD92C9000561B0 /* StatView.swift */; };
 		9DFE711321BD933A000561B0 /* StatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711221BD933A000561B0 /* StatViewModel.swift */; };
 		9DFE711521BD94FD000561B0 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711421BD94FD000561B0 /* Stat.swift */; };
@@ -101,7 +102,7 @@
 		9D5C1F5921A0775B00B3D493 /* DamageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageViewCell.swift; sourceTree = "<group>"; };
 		9D5C1F5B21A0794400B3D493 /* DamageSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageSectionView.swift; sourceTree = "<group>"; };
 		9D5C1F5D21A07E1500B3D493 /* DamageSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageSectionViewModel.swift; sourceTree = "<group>"; };
-		9DCD370021CC024C00EE00D9 /* SkillViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillViewCellModel.swift; sourceTree = "<group>"; };
+		9DCD370021CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedSkillViewCellModel.swift; sourceTree = "<group>"; };
 		9DCD370421CC105900EE00D9 /* Skill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skill.swift; sourceTree = "<group>"; };
 		9DCD370621CC135A00EE00D9 /* SkillListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillListing.swift; sourceTree = "<group>"; };
 		9DCD370A21CC239B00EE00D9 /* SkillTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillTableViewController.swift; sourceTree = "<group>"; };
@@ -112,9 +113,10 @@
 		9DE3359A21A9E9F700180927 /* DamageModifierViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageModifierViewCell.swift; sourceTree = "<group>"; };
 		9DE3359D21A9EA4100180927 /* StatsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewCell.swift; sourceTree = "<group>"; };
 		9DE335A021A9EA7900180927 /* CharacterDescriptionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionViewCell.swift; sourceTree = "<group>"; };
-		9DE335A621A9EB5B00180927 /* SkillViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillViewCell.swift; sourceTree = "<group>"; };
+		9DE335A621A9EB5B00180927 /* HighlightedSkillViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedSkillViewCell.swift; sourceTree = "<group>"; };
 		9DE335A921A9F27400180927 /* TotalDamageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDamageController.swift; sourceTree = "<group>"; };
 		9DE335AB21A9F2C800180927 /* TotalDamageControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDamageControllerDelegate.swift; sourceTree = "<group>"; };
+		9DFA19EA21CE979F0092A450 /* CharacterSheetViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSheetViewDelegate.swift; sourceTree = "<group>"; };
 		9DFE711021BD92C9000561B0 /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
 		9DFE711221BD933A000561B0 /* StatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatViewModel.swift; sourceTree = "<group>"; };
 		9DFE711421BD94FD000561B0 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				9D24375521A091AE0084E77D /* CharacterSheetSections.swift */,
 				9D5C1F2B21A06CE700B3D493 /* CharacterSheetViewController.swift */,
 				9D2CFA0321C5921A00EC76D7 /* CharacterSheetCoordinator.swift */,
+				9DFA19EA21CE979F0092A450 /* CharacterSheetViewDelegate.swift */,
 				9DE335A221A9EA7C00180927 /* Character Description View */,
 				9DE3359F21A9EA4500180927 /* Stats View */,
 				9DE3359C21A9EA0A00180927 /* Damage Modifier View */,
@@ -320,8 +323,8 @@
 		9DE335A821A9EB6800180927 /* Skill View */ = {
 			isa = PBXGroup;
 			children = (
-				9DE335A621A9EB5B00180927 /* SkillViewCell.swift */,
-				9DCD370021CC024C00EE00D9 /* SkillViewCellModel.swift */,
+				9DE335A621A9EB5B00180927 /* HighlightedSkillViewCell.swift */,
+				9DCD370021CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift */,
 				9DCD370421CC105900EE00D9 /* Skill.swift */,
 				9DCD370621CC135A00EE00D9 /* SkillListing.swift */,
 			);
@@ -479,9 +482,9 @@
 				9D24375621A091AF0084E77D /* CharacterSheetSections.swift in Sources */,
 				9D552CFC21ACE775008B90E9 /* BestFit.swift in Sources */,
 				9DCD370521CC105900EE00D9 /* Skill.swift in Sources */,
-				9DCD370121CC024C00EE00D9 /* SkillViewCellModel.swift in Sources */,
+				9DCD370121CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift in Sources */,
 				9D5C1F2C21A06CE700B3D493 /* CharacterSheetViewController.swift in Sources */,
-				9DE335A721A9EB5B00180927 /* SkillViewCell.swift in Sources */,
+				9DE335A721A9EB5B00180927 /* HighlightedSkillViewCell.swift in Sources */,
 				9D11763821BDCE0300E297BA /* UILabel+LabelContainer.swift in Sources */,
 				9D552CF621AB266F008B90E9 /* DamageModifierViewModel.swift in Sources */,
 				9D5C1F5E21A07E1500B3D493 /* DamageSectionViewModel.swift in Sources */,
@@ -489,6 +492,7 @@
 				9D5C1F5C21A0794400B3D493 /* DamageSectionView.swift in Sources */,
 				9D2CFA0A21C59BEA00EC76D7 /* CharacterClassViewModel.swift in Sources */,
 				9DFE711121BD92C9000561B0 /* StatView.swift in Sources */,
+				9DFA19EB21CE979F0092A450 /* CharacterSheetViewDelegate.swift in Sources */,
 				9D2CF9FE21C4336900EC76D7 /* UserEntryView.swift in Sources */,
 				9D2CFA0621C593D200EC76D7 /* MarginCreator.swift in Sources */,
 				9DE335AC21A9F2C800180927 /* TotalDamageControllerDelegate.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  SkillViewCell.swift
+//  HighlightedSkillViewCell.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 11/24/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SkillViewCell: UICollectionViewCell, UITableViewDataSource, UITableViewDelegate {
+final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSource, UITableViewDelegate {
     
     // MARK: Tableview fields
     
@@ -16,10 +16,10 @@ final class SkillViewCell: UICollectionViewCell, UITableViewDataSource, UITableV
     private let identifier = SkillTableConstants.identifier
     private let sectionCount = SkillTableConstants.highlightedSkillTableSectionCount
 
-    private var viewModel: SkillViewCellModel?
+    private var viewModel: HighlightedSkillViewCellModel?
     private var tableView = UITableView()
     
-    func setup(viewModel: SkillViewCellModel) {
+    func setup(viewModel: HighlightedSkillViewCellModel) {
         self.viewModel = viewModel
         let safeFrame = contentView.safeAreaLayoutGuide.layoutFrame
         let cellDescriptionLabelFrame = CGRect(x: safeFrame.minX, y: safeFrame.minY,

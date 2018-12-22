@@ -23,7 +23,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
                                 forCellWithReuseIdentifier: CharacterSheetSections.DamageModifier.cellReuseID())
         collectionView.register(DamageViewCell.self,
                                 forCellWithReuseIdentifier: CharacterSheetSections.Damage.cellReuseID())
-        collectionView.register(SkillViewCell.self,
+        collectionView.register(HighlightedSkillViewCell.self,
                                 forCellWithReuseIdentifier: CharacterSheetSections.Skill.cellReuseID())
 
 
@@ -69,8 +69,8 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
                                                                   classType: CharacterClass.Corporate, classLabelWidthRatio: 0.2)
             cell.setup(with: userEntryViewModels, classViewModel: characterClassViewModel)
         }
-        else if let cell = cell as? SkillViewCell {
-            let skillViewCellModel = SkillViewCellModel(cellDescriptionLabelWidthRatio: 0.55)
+        else if let cell = cell as? HighlightedSkillViewCell {
+            let skillViewCellModel = HighlightedSkillViewCellModel(cellDescriptionLabelWidthRatio: 0.55)
             
             cell.setup(viewModel: skillViewCellModel)
         }
