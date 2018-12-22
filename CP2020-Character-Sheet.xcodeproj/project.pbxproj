@@ -202,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				9D5C1F2921A06CE700B3D493 /* AppDelegate.swift */,
+				9DFA19ED21CE9C210092A450 /* Character Model */,
 				9D5C1F5821A0712E00B3D493 /* Character Sheet View */,
 				9DCD370C21CC23C000EE00D9 /* Skill Table View */,
 				9DCD370E21CC240600EE00D9 /* Constants */,
@@ -239,15 +240,14 @@
 			path = "Damage View";
 			sourceTree = "<group>";
 		};
-		9DCD370321CC065500EE00D9 /* Class */ = {
+		9DCD370321CC065500EE00D9 /* Character Class */ = {
 			isa = PBXGroup;
 			children = (
 				9D2CFA0121C5913100EC76D7 /* CharacterDescriptionConstants.swift */,
 				9D2CFA0721C59B9400EC76D7 /* CharacterClassView.swift */,
 				9D2CFA0921C59BEA00EC76D7 /* CharacterClassViewModel.swift */,
-				9D2CFA0B21C59D7900EC76D7 /* CharacterClass.swift */,
 			);
-			path = Class;
+			path = "Character Class";
 			sourceTree = "<group>";
 		};
 		9DCD370C21CC23C000EE00D9 /* Skill Table View */ = {
@@ -257,8 +257,6 @@
 				9DCD371021CC246300EE00D9 /* SkillTableViewCell.swift */,
 				9DCD371421CD598D00EE00D9 /* SkillTableViewCellModel.swift */,
 				9DCD371621CD6E5B00EE00D9 /* SkillTableConstants.swift */,
-				9DCD370421CC105900EE00D9 /* Skill.swift */,
-				9DCD370621CC135A00EE00D9 /* SkillListing.swift */,
 			);
 			path = "Skill Table View";
 			sourceTree = "<group>";
@@ -306,7 +304,6 @@
 				9DFE711621BDA18B000561B0 /* StatsViewCellModel.swift */,
 				9DFE711021BD92C9000561B0 /* StatView.swift */,
 				9DFE711221BD933A000561B0 /* StatViewModel.swift */,
-				9DFE711421BD94FD000561B0 /* Stat.swift */,
 			);
 			path = "Stats View";
 			sourceTree = "<group>";
@@ -317,7 +314,7 @@
 				9DE335A021A9EA7900180927 /* CharacterDescriptionViewCell.swift */,
 				9D2CF9FD21C4336900EC76D7 /* UserEntryView.swift */,
 				9D2CF9FF21C433C500EC76D7 /* UserEntryViewModel.swift */,
-				9DCD370321CC065500EE00D9 /* Class */,
+				9DCD370321CC065500EE00D9 /* Character Class */,
 			);
 			path = "Character Description View";
 			sourceTree = "<group>";
@@ -338,6 +335,17 @@
 				9DE335A921A9F27400180927 /* TotalDamageController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		9DFA19ED21CE9C210092A450 /* Character Model */ = {
+			isa = PBXGroup;
+			children = (
+				9DFE711421BD94FD000561B0 /* Stat.swift */,
+				9D2CFA0B21C59D7900EC76D7 /* CharacterClass.swift */,
+				9DCD370421CC105900EE00D9 /* Skill.swift */,
+				9DCD370621CC135A00EE00D9 /* SkillListing.swift */,
+			);
+			path = "Character Model";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
