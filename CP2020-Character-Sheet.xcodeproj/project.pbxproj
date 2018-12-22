@@ -206,8 +206,7 @@
 				9D5C1F5821A0712E00B3D493 /* Character Sheet View */,
 				9DCD370C21CC23C000EE00D9 /* Skill Table View */,
 				9DCD370E21CC240600EE00D9 /* App Constants */,
-				9DCD370F21CC242100EE00D9 /* Unspecialized Protocols */,
-				9DCD370D21CC23EE00EE00D9 /* Helpers and Foundation Extensions */,
+				9DCD370D21CC23EE00EE00D9 /* Foundation Helpers and Extensions */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -261,13 +260,14 @@
 			path = "Skill Table View";
 			sourceTree = "<group>";
 		};
-		9DCD370D21CC23EE00EE00D9 /* Helpers and Foundation Extensions */ = {
+		9DCD370D21CC23EE00EE00D9 /* Foundation Helpers and Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */,
 				9D552CFB21ACE775008B90E9 /* UIFont+BestFit.swift */,
+				9D2CFA0521C593D200EC76D7 /* MarginCreator.swift */,
 			);
-			path = "Helpers and Foundation Extensions";
+			path = "Foundation Helpers and Extensions";
 			sourceTree = "<group>";
 		};
 		9DCD370E21CC240600EE00D9 /* App Constants */ = {
@@ -276,14 +276,6 @@
 				9D552CF121AB0E69008B90E9 /* StyleConstants.swift */,
 			);
 			path = "App Constants";
-			sourceTree = "<group>";
-		};
-		9DCD370F21CC242100EE00D9 /* Unspecialized Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				9D2CFA0521C593D200EC76D7 /* MarginCreator.swift */,
-			);
-			path = "Unspecialized Protocols";
 			sourceTree = "<group>";
 		};
 		9DE3359C21A9EA0A00180927 /* Damage Modifier View */ = {
