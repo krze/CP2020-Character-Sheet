@@ -17,8 +17,6 @@ final class SkillViewCell: UICollectionViewCell, UITableViewDataSource, UITableV
     private let sectionCount = SkillTableConstants.highlightedSkillTableSectionCount
 
     private var viewModel: SkillViewCellModel?
-//    private var highlightedSkillTableViewController: HighlightedSkillTableViewController?
-    
     private var tableView = UITableView()
     
     func setup(viewModel: SkillViewCellModel) {
@@ -27,10 +25,7 @@ final class SkillViewCell: UICollectionViewCell, UITableViewDataSource, UITableV
         let cellDescriptionLabelFrame = CGRect(x: safeFrame.minX, y: safeFrame.minY,
                                                width: safeFrame.width * viewModel.cellDescriptionLabelWidthRatio,
                                                height: viewModel.cellDescriptionLabelHeight)
-        let margins = NSDirectionalEdgeInsets(top: cellDescriptionLabelFrame.height * viewModel.cellDescriptionLabelPadding,
-                                              leading: cellDescriptionLabelFrame.width * viewModel.cellDescriptionLabelPadding,
-                                              bottom: cellDescriptionLabelFrame.height * viewModel.cellDescriptionLabelPadding,
-                                              trailing: cellDescriptionLabelFrame.width * viewModel.cellDescriptionLabelPadding)
+        let margins = viewModel.createInsets(with: cellDescriptionLabelFrame)
         let cellDescriptionLabel = UILabel.container(frame: cellDescriptionLabelFrame,
                                                      margins: margins,
                                                      backgroundColor: viewModel.darkColor,
@@ -50,6 +45,38 @@ final class SkillViewCell: UICollectionViewCell, UITableViewDataSource, UITableV
                                                y: safeFrame.minY + cellDescriptionLabelFrame.height,
                                                width: safeFrame.width,
                                                height: safeFrame.height - cellDescriptionLabelFrame.height)
+        
+        var trailingAnchor = contentView.trailingAnchor
+        let columnLabelTexts = [viewModel.totalColumnLabelText,
+                                viewModel.modifierColumnLabelText,
+                                viewModel.pointsColumnLabelText]
+        
+        columnLabelTexts.enumerated().forEach { index, text in
+            let width = safeFrame.width * viewModel.columnLabelWidthRatio
+            let frame = CGRect(x: safeFrame.maxX - (width * CGFloat(index)),
+                               y: safeFrame.minY,
+                               width: width,
+                               height: viewModel.cellDescriptionLabelHeight)
+            let margins = viewModel.createInsets(with: frame)
+            let backgroundColor = index % 2 > 0 ? StyleConstants.Color.light : StyleConstants.Color.gray
+            
+            func columnLabel(frame: CGRect) -> UILabel {
+                return self.columnLabel(frame: frame, text: text, backgroundColor: backgroundColor)
+            }
+            
+            let columnView = UILabel.container(frame: frame, margins: margins, backgroundColor: backgroundColor, borderColor: nil, borderWidth: nil, labelMaker: columnLabel)
+            
+            contentView.addSubview(columnView.container)
+            
+            NSLayoutConstraint.activate([
+                columnView.container.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+                columnView.container.trailingAnchor.constraint(equalTo: trailingAnchor),
+                columnView.container.widthAnchor.constraint(equalToConstant: frame.width),
+                columnView.container.heightAnchor.constraint(equalToConstant: frame.height)
+                ])
+            
+            trailingAnchor = columnView.container.leadingAnchor
+        }
         
         tableView = UITableView(frame: highlightedTableViewFrame)
         
@@ -83,6 +110,20 @@ final class SkillViewCell: UICollectionViewCell, UITableViewDataSource, UITableV
         label.text = viewModel?.cellDescriptionLabelText
         label.textAlignment = .center
         label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
+        
+        return label
+    }
+    
+    private func columnLabel(frame: CGRect, text: String, backgroundColor: UIColor) -> UILabel {
+        let label = UILabel(frame: frame)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        label.font = viewModel?.columnLabelFont
+        label.backgroundColor = backgroundColor
+        label.textColor = viewModel?.darkColor
+        label.text = text
+        label.textAlignment = .center
+        label.fitTextToBounds(maximumSize: viewModel?.columnLabelMaxTextSize)
         
         return label
     }

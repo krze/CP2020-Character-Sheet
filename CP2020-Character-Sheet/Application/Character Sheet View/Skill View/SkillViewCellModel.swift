@@ -9,14 +9,21 @@
 import UIKit
 
 /// Sets up the SkillViewCell layout
-struct SkillViewCellModel {
+struct SkillViewCellModel: MarginCreator {
     
     let cellDescriptionLabelWidthRatio: CGFloat
     let cellDescriptionLabelHeight: CGFloat = SkillTableConstants.rowHeight
     
     let cellDescriptionLabelText = "HIGHLIGHTED SKILLS"
     let cellDescriptionLabelFont = StyleConstants.Font.defaultBold
-    let cellDescriptionLabelPadding = StyleConstants.SizeConstants.textPaddingRatio
+    let paddingRatio: CGFloat = StyleConstants.SizeConstants.textPaddingRatio
+    
+    let columnLabelWidthRatio = CGFloat(0.15)
+    let columnLabelMaxTextSize = CGFloat(16)
+    let columnLabelFont = StyleConstants.Font.defaultItalic
+    let pointsColumnLabelText = "Points"
+    let modifierColumnLabelText = "Mod"
+    let totalColumnLabelText = "Total"
     
     let lightColor = StyleConstants.Color.light
     let darkColor = StyleConstants.Color.dark
