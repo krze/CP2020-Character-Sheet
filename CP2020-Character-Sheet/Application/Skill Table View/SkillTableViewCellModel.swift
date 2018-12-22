@@ -14,7 +14,7 @@ struct SkillTableViewCellModel: MarginCreator {
     let numberFont = StyleConstants.Font.defaultFont
     let totalFont = StyleConstants.Font.defaultBold
     
-    let fontSize = CGFloat(12)
+    let fontSize = CGFloat(14)
     
     let paddingRatio: CGFloat = StyleConstants.SizeConstants.textPaddingRatio
 }

@@ -20,23 +20,32 @@ final class SkillTableViewCell: UITableViewCell {
     private var viewModel: SkillTableViewCellModel?
     private var skillListing: SkillListing?
     
+    /// Used to indicate that firstTimeSetup has been called by layoutSubViews()
+    private var cellHasBeenSetup = false
+    
     /// Sets up the view with the SkillListing provided. This function is intended for first-time setup.
+    /// Use this as as second-stage initializer after creating the cell in a table view with a reuse identifier.
     ///
     /// - Parameters:
     ///   - skillListing: SkillListing corresponding with the table view cell
     ///   - viewModel: The cell's view model
-    func setup(with skillListing: SkillListing, viewModel: SkillTableViewCellModel) {
+    func prepareForFirstTimeSetup(with skillListing: SkillListing, viewModel: SkillTableViewCellModel) {
         self.viewModel = viewModel
         self.skillListing = skillListing
-        
-        update(with: skillListing)
+    }
+    
+    
+    /// Updates the skill listing. This can be called at any time to change the values displayed.
+    ///
+    /// - Parameter skillListing: The skill listing to display
+    func update(skillListing: SkillListing) {
+        self.skillListing = skillListing
+        updateColumnValues()
     }
     
     /// Update the skill listing for the table view.
-    ///
-    /// - Parameter skillListing: SkillListing corresponding with the table view cell
-    func update(with skillListing: SkillListing) {
-        guard let viewModel = viewModel else { return }
+    private func updateColumnValues() {
+        guard let viewModel = viewModel, let skillListing = skillListing else { return }
         
         var name = skillListing.skill.name
         
@@ -82,9 +91,11 @@ final class SkillTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        // TODO: Decide whether this should be an injectable view model or just keep it static here.
-        
+        contentView.autoresizingMask = UIView.AutoresizingMask.flexibleHeight
+    }
+    
+    /// This is a one-time called second stage initializer
+    private func firstTimeSetup() {
         let nameCellWidthRatio = CGFloat(0.55) // 55% of view width
         let numericCellWidthRatio = CGFloat(0.15) // 3 cells, 15% of width each
         
@@ -163,6 +174,19 @@ final class SkillTableViewCell: UITableViewCell {
             
             leadingAnchor = numericView.container.trailingAnchor
             count += 1
+        }
+        
+        updateColumnValues()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // The correct cell height doesn't seem to be set until layoutSubViews() is called.
+        // This hacky sorta-initializer is called
+        if !cellHasBeenSetup {
+            firstTimeSetup()
+            
+            cellHasBeenSetup = true
         }
     }
 

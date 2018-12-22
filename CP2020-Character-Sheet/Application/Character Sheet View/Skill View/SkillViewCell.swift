@@ -54,8 +54,7 @@ final class SkillViewCell: UICollectionViewCell, UITableViewDataSource, UITableV
         tableView = UITableView(frame: highlightedTableViewFrame)
         
         tableView.isScrollEnabled = false
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = SkillTableConstants.rowHeight
+        tableView.rowHeight = SkillTableConstants.rowHeight
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SkillTableViewCell.self, forCellReuseIdentifier: identifier)
@@ -129,7 +128,7 @@ final class SkillViewCell: UICollectionViewCell, UITableViewDataSource, UITableV
                               IPMultiplier: 1)
             let skillListing = SkillListing(skill: skill, points: 5, modifier: 0, statModifier: 5)
             let viewModel = SkillTableViewCellModel()
-            cell.setup(with: skillListing, viewModel: viewModel)
+            cell.prepareForFirstTimeSetup(with: skillListing, viewModel: viewModel)
         }
         
         return cell
