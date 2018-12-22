@@ -202,10 +202,10 @@
 			isa = PBXGroup;
 			children = (
 				9D5C1F2921A06CE700B3D493 /* AppDelegate.swift */,
+				9DCD370E21CC240600EE00D9 /* App Constants */,
 				9DFA19ED21CE9C210092A450 /* Character Model */,
 				9D5C1F5821A0712E00B3D493 /* Character Sheet View */,
 				9DCD370C21CC23C000EE00D9 /* Skill Table View */,
-				9DCD370E21CC240600EE00D9 /* App Constants */,
 				9DCD370D21CC23EE00EE00D9 /* Foundation Helpers and Extensions */,
 			);
 			path = Application;
