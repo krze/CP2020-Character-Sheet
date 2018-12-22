@@ -10,6 +10,8 @@ import UIKit
 
 final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSource, UITableViewDelegate {
     
+    private var controller: HighlightedSkillViewCellController?
+    
     // MARK: Tableview fields
     
     private let rowCount = SkillTableConstants.highlightedSkillTableViewCellCount
@@ -19,8 +21,9 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     private var viewModel: HighlightedSkillViewCellModel?
     private var tableView = UITableView()
     
-    func setup(viewModel: HighlightedSkillViewCellModel) {
+    func setup(viewModel: HighlightedSkillViewCellModel, controller: HighlightedSkillViewCellController) {
         self.viewModel = viewModel
+        self.controller = controller
         let safeFrame = contentView.safeAreaLayoutGuide.layoutFrame
         let cellDescriptionLabelFrame = CGRect(x: safeFrame.minX, y: safeFrame.minY,
                                                width: safeFrame.width * viewModel.cellDescriptionLabelWidthRatio,
@@ -81,14 +84,11 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
         tableView = UITableView(frame: highlightedTableViewFrame)
         
         tableView.isScrollEnabled = false
+        tableView.allowsSelection = false
         tableView.rowHeight = SkillTableConstants.rowHeight
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SkillTableViewCell.self, forCellReuseIdentifier: identifier)
-
-        
-        // debug
-        tableView.backgroundColor = StyleConstants.Color.red
         tableView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(tableView)
         
@@ -98,6 +98,50 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
             tableView.widthAnchor.constraint(equalToConstant: tableView.frame.width),
             tableView.heightAnchor.constraint(equalToConstant: tableView.frame.height)
             ])
+        
+        setupGestureRecognizers()
+    }
+    
+    
+    // MARK: UITableViewDataSource & UITableViewDelegate
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return rowCount
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        
+        // DEBUG/PLACEHOLDER: This will have to be populated with skills
+        
+        if let cell = cell as? SkillTableViewCell {
+            let skill = Skill(name: "Persuasion & Fast Talk",
+                              nameExtension: nil,
+                              description: "This is what you use to persuade people.",
+                              isSpecialAbility: false,
+                              linkedStat: "Intelligence",
+                              modifiesSkill: nil,
+                              IPMultiplier: 1)
+            let skillListing = SkillListing(skill: skill, points: 5, modifier: 0, statModifier: 5)
+            let viewModel = SkillTableViewCellModel()
+            cell.prepareForFirstTimeSetup(with: skillListing, viewModel: viewModel)
+        }
+        
+        return cell
+    }
+    
+    // MARK: Private
+    
+    private func setupGestureRecognizers() {
+        // Single tap on the entire cell
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(HighlightedSkillViewCell.cellTapped))
+        singleTap.cancelsTouchesInView = false
+        singleTap.numberOfTouchesRequired = 1
+        contentView.addGestureRecognizer(singleTap)
+    }
+    
+    @objc private func cellTapped() {
+        controller?.showSkillTable()
     }
     
     private func descriptionLabel(frame: CGRect) -> UILabel {
@@ -148,30 +192,4 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
         // TODO: Test cell re-use and see if it needs anything here
     }
     
-    // MARK: UITableViewDataSource & UITableViewDelegate
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return rowCount
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-        
-        // DEBUG/PLACEHOLDER: This will have to be populated with skills
-        
-        if let cell = cell as? SkillTableViewCell {
-            let skill = Skill(name: "Persuasion & Fast Talk",
-                              nameExtension: nil,
-                              description: "This is what you use to persuade people.",
-                              isSpecialAbility: false,
-                              linkedStat: "Intelligence",
-                              modifiesSkill: nil,
-                              IPMultiplier: 1)
-            let skillListing = SkillListing(skill: skill, points: 5, modifier: 0, statModifier: 5)
-            let viewModel = SkillTableViewCellModel()
-            cell.prepareForFirstTimeSetup(with: skillListing, viewModel: viewModel)
-        }
-        
-        return cell
-    }
 }

@@ -21,7 +21,17 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        window?.rootViewController = UINavigationController(rootViewController: CharacterSheetViewController(collectionViewLayout: layout))
+        
+        let characterSheetViewController = CharacterSheetViewController(collectionViewLayout: layout)
+        let navigationController = UINavigationController(rootViewController:characterSheetViewController)
+        
+        window?.rootViewController = navigationController
+        
+        coordinator = CharacterSheetCoordinator(with: navigationController,
+                                                characterSheetViewController: characterSheetViewController)
+        
+        characterSheetViewController.delegate = coordinator
+
         
         return true
     }

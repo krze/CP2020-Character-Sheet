@@ -10,6 +10,6 @@ import Foundation
 
 /// Use these delegate methods provide the CharacterSheetCoordinator with the references
 /// needed to coordinate actions between the cells.
-protocol CharacterSheetViewDelegate {
+protocol CharacterSheetViewDelegate: class {
     
 }

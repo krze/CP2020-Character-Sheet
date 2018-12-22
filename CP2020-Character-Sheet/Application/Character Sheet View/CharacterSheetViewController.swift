@@ -10,6 +10,8 @@ import UIKit
 
 final class CharacterSheetViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    weak var delegate: CharacterSheetViewDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,8 +73,9 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
         }
         else if let cell = cell as? HighlightedSkillViewCell {
             let skillViewCellModel = HighlightedSkillViewCellModel(cellDescriptionLabelWidthRatio: 0.55)
+            let controller = HighlightedSkillViewCellController()
             
-            cell.setup(viewModel: skillViewCellModel)
+            cell.setup(viewModel: skillViewCellModel, controller: controller)
         }
         
         return cell
