@@ -222,7 +222,7 @@
 				9DE3359F21A9EA4500180927 /* Stats View */,
 				9DE3359C21A9EA0A00180927 /* Damage Modifier View */,
 				9D5C1F5F21A07E4900B3D493 /* Damage View */,
-				9DE335A821A9EB6800180927 /* Skill View */,
+				9DE335A821A9EB6800180927 /* Highlighted Skill View */,
 			);
 			path = "Character Sheet View";
 			sourceTree = "<group>";
@@ -320,7 +320,7 @@
 			path = "Character Description View";
 			sourceTree = "<group>";
 		};
-		9DE335A821A9EB6800180927 /* Skill View */ = {
+		9DE335A821A9EB6800180927 /* Highlighted Skill View */ = {
 			isa = PBXGroup;
 			children = (
 				9DE335A621A9EB5B00180927 /* HighlightedSkillViewCell.swift */,
@@ -328,7 +328,7 @@
 				9DCD370421CC105900EE00D9 /* Skill.swift */,
 				9DCD370621CC135A00EE00D9 /* SkillListing.swift */,
 			);
-			path = "Skill View";
+			path = "Highlighted Skill View";
 			sourceTree = "<group>";
 		};
 		9DE335AD21A9F42900180927 /* Controller */ = {
