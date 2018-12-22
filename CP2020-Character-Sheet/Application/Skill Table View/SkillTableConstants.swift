@@ -12,6 +12,8 @@ struct SkillTableConstants {
     
     static let identifier = "skillTableCell"
     static let rowHeight: CGFloat = 32
+    
+    static let highlightedSkillTableSectionCount = 1
     static let highlightedSkillTableViewCellCount = 10
     static let highlightedSkillViewHeight: CGFloat = {
         // provides enough height to show the cell count plus a header view

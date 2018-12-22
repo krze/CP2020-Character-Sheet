@@ -19,94 +19,6 @@ final class SkillTableViewCell: UITableViewCell {
     
     private var viewModel: SkillTableViewCellModel?
     private var skillListing: SkillListing?
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        // TODO: Decide whether this should be an injectable view model or just keep it static here.
-        
-        let nameCellWidthRatio = CGFloat(0.55) // 55% of view width
-        let numericCellWidthRatio = CGFloat(0.15) // 3 cells, 15% of width each
-        
-        let safeFrame = contentView.safeAreaLayoutGuide.layoutFrame
-        let totalWidth = safeFrame.width
-        
-        // MARK: Name column construction
-        
-        let nameFrameWidth = totalWidth * nameCellWidthRatio
-        let nameFrame = CGRect(x: safeFrame.minX, y: safeFrame.minY,
-                               width: nameFrameWidth, height: safeFrame.height)
-        let nameMargins = NSDirectionalEdgeInsets(top: nameFrame.height * 0.05,
-                                                  leading: nameFrame.width * 0.05,
-                                                  bottom: nameFrame.height * 0.05,
-                                                  trailing: nameFrame.width * 0.05)
-        
-        let nameView = UILabel.container(frame: nameFrame,
-                                         margins: nameMargins,
-                                         backgroundColor: StyleConstants.Color.light,
-                                         borderColor: nil, borderWidth: nil,
-                                         labelMaker: columnLabel)
-        name = nameView.label
-        contentView.addSubview(nameView.container)
-        
-        NSLayoutConstraint.activate([
-            nameView.container.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
-            nameView.container.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
-            nameView.container.widthAnchor.constraint(equalToConstant: nameFrameWidth),
-            nameView.container.heightAnchor.constraint(equalToConstant: safeFrame.height)
-            ])
-        
-        // MARK: Numeric Column Construction
-        
-        var leadingAnchor = contentView.safeAreaLayoutGuide.leadingAnchor
-        var count = 0
-
-        for numericColumn in 1...3 {
-            let numericFrameWidth = totalWidth * numericCellWidthRatio
-            let numericFrame = CGRect(x: nameFrameWidth + (numericFrameWidth * CGFloat(count)),
-                                      y: safeFrame.minY,
-                                      width: numericFrameWidth,
-                                      height: safeFrame.height)
-            let numericMargins = NSDirectionalEdgeInsets(top: numericFrame.height * 0.05,
-                                                      leading: numericFrame.width * 0.05,
-                                                      bottom: numericFrame.height * 0.05,
-                                                      trailing: numericFrame.width * 0.05)
-            let backgroundColor = numericColumn % 2 > 0 ? StyleConstants.Color.gray : StyleConstants.Color.light
-            let numericView = UILabel.container(frame: numericFrame,
-                                                margins: numericMargins,
-                                                backgroundColor: backgroundColor,
-                                                borderColor: nil, borderWidth: nil,
-                                                labelMaker: columnLabel)
-            
-            numericView.label.backgroundColor = backgroundColor
-            
-            // Store the labels on the object to be edited by the update function
-            switch numericColumn {
-            case 1:
-                points = numericView.label
-            case 2:
-                modifier = numericView.label
-            case 3:
-                total = numericView.label
-            default:
-                break
-            }
-            
-            contentView.addSubview(numericView.container)
-            
-            NSLayoutConstraint.activate([
-                numericView.container.leadingAnchor.constraint(equalTo: leadingAnchor),
-                numericView.container.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
-                numericView.container.widthAnchor.constraint(equalToConstant: numericFrameWidth),
-                numericView.container.heightAnchor.constraint(equalToConstant: safeFrame.height)
-                ])
-            
-            leadingAnchor = numericView.container.trailingAnchor
-            count += 1
-        }
-        
-        // Initialization code
-    }
     
     /// Sets up the view with the SkillListing provided. This function is intended for first-time setup.
     ///
@@ -167,6 +79,91 @@ final class SkillTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        // TODO: Decide whether this should be an injectable view model or just keep it static here.
+        
+        let nameCellWidthRatio = CGFloat(0.55) // 55% of view width
+        let numericCellWidthRatio = CGFloat(0.15) // 3 cells, 15% of width each
+        
+        let safeFrame = contentView.safeAreaLayoutGuide.layoutFrame
+        let totalWidth = safeFrame.width
+        
+        // MARK: Name column construction
+        
+        let nameFrameWidth = totalWidth * nameCellWidthRatio
+        let nameFrame = CGRect(x: safeFrame.minX, y: safeFrame.minY,
+                               width: nameFrameWidth, height: safeFrame.height)
+        let nameMargins = NSDirectionalEdgeInsets(top: nameFrame.height * 0.05,
+                                                  leading: nameFrame.width * 0.05,
+                                                  bottom: nameFrame.height * 0.05,
+                                                  trailing: nameFrame.width * 0.05)
+        
+        let nameView = UILabel.container(frame: nameFrame,
+                                         margins: nameMargins,
+                                         backgroundColor: StyleConstants.Color.light,
+                                         borderColor: nil, borderWidth: nil,
+                                         labelMaker: columnLabel)
+        name = nameView.label
+        contentView.addSubview(nameView.container)
+        
+        NSLayoutConstraint.activate([
+            nameView.container.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
+            nameView.container.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
+            nameView.container.widthAnchor.constraint(equalToConstant: nameFrameWidth),
+            nameView.container.heightAnchor.constraint(equalToConstant: safeFrame.height)
+            ])
+        
+        // MARK: Numeric Column Construction
+        
+        var leadingAnchor = nameView.container.trailingAnchor
+        var count = 0
+        
+        for numericColumn in 1...3 {
+            let numericFrameWidth = totalWidth * numericCellWidthRatio
+            let numericFrame = CGRect(x: nameFrameWidth + (numericFrameWidth * CGFloat(count)),
+                                      y: safeFrame.minY,
+                                      width: numericFrameWidth,
+                                      height: safeFrame.height)
+            let numericMargins = NSDirectionalEdgeInsets(top: numericFrame.height * 0.05,
+                                                         leading: numericFrame.width * 0.05,
+                                                         bottom: numericFrame.height * 0.05,
+                                                         trailing: numericFrame.width * 0.05)
+            let backgroundColor = numericColumn % 2 > 0 ? StyleConstants.Color.gray : StyleConstants.Color.light
+            let numericView = UILabel.container(frame: numericFrame,
+                                                margins: numericMargins,
+                                                backgroundColor: backgroundColor,
+                                                borderColor: nil, borderWidth: nil,
+                                                labelMaker: columnLabel)
+            
+            numericView.label.backgroundColor = backgroundColor
+            
+            // Store the labels on the object to be edited by the update function
+            switch numericColumn {
+            case 1:
+                points = numericView.label
+            case 2:
+                modifier = numericView.label
+            case 3:
+                total = numericView.label
+            default:
+                break
+            }
+            
+            contentView.addSubview(numericView.container)
+            
+            NSLayoutConstraint.activate([
+                numericView.container.leadingAnchor.constraint(equalTo: leadingAnchor),
+                numericView.container.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
+                numericView.container.widthAnchor.constraint(equalToConstant: numericFrameWidth),
+                numericView.container.heightAnchor.constraint(equalToConstant: safeFrame.height)
+                ])
+            
+            leadingAnchor = numericView.container.trailingAnchor
+            count += 1
+        }
+    }
 
 }

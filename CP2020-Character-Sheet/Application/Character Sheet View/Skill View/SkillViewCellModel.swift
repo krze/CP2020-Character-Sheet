@@ -12,7 +12,8 @@ import UIKit
 struct SkillViewCellModel {
     
     let cellDescriptionLabelWidthRatio: CGFloat
-    let cellDescriptionLabelHeightRatio: CGFloat
+    let cellDescriptionLabelHeight: CGFloat = SkillTableConstants.rowHeight
+    
     let cellDescriptionLabelText = "HIGHLIGHTED SKILLS"
     let cellDescriptionLabelFont = StyleConstants.Font.defaultBold
     let cellDescriptionLabelPadding = StyleConstants.SizeConstants.textPaddingRatio

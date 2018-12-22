@@ -70,8 +70,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
             cell.setup(with: userEntryViewModels, classViewModel: characterClassViewModel)
         }
         else if let cell = cell as? SkillViewCell {
-            let skillViewCellModel = SkillViewCellModel(cellDescriptionLabelWidthRatio: 0.35,
-                                                        cellDescriptionLabelHeightRatio: 0.2)
+            let skillViewCellModel = SkillViewCellModel(cellDescriptionLabelWidthRatio: 0.35)
             
             cell.setup(viewModel: skillViewCellModel)
         }
