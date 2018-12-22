@@ -108,8 +108,8 @@ final class SkillViewCell: UICollectionViewCell, UITableViewDataSource, UITableV
         label.backgroundColor = viewModel?.darkColor
         label.textColor = viewModel?.lightColor
         label.text = viewModel?.cellDescriptionLabelText
-        label.textAlignment = .center
-        label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
+        label.textAlignment = .left
+        label.fitTextToBounds(maximumSize: viewModel?.columnLabelMaxTextSize)
         
         return label
     }
