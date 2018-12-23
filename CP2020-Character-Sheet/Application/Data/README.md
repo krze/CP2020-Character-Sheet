@@ -26,7 +26,9 @@ This is appended to the skill name in the case where a skill has a specific sub-
 This may be `null`.
 
 ### "linked_stat": String?
-The stat which is linked to the skill. The points in the character's stat is added to the skill roll. Examples of this would be "Handgun", which is linked to "Reflex". The string is expected to be one of the following strings from this list:
+The stat which is linked to the skill. The points in the character's stat is added to the skill roll. In the book, skills are divided into categories by stat (i.e. "Intelligence Skills" on pg. 48)
+
+Examples of this string would be "Reflex", which is linked to skills such as "Handgun". This string is expected to be one of the following strings from this list:
 
 ```
 Intelligence
