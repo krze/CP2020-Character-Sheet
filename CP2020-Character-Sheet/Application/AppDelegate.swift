@@ -33,6 +33,28 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         characterSheetViewController.delegate = coordinator
 
         
+        // DEBUG delete this VVV
+        
+        
+        let testSkill = Skill(name: "Combat Sense", nameExtension: nil,
+                              description: "This ability is based on the Solo's constant training and professionalism. Combat Sense allows the Solo to perceive danger, notice traps, and have an almost unearthly ability to avoid harm. Your Combat Sense gives you a bonus on both your Awareness skill and your Initiative equal to your level in the Combat Sense skill.", isSpecialAbility: true, linkedStat: nil, modifiesSkill: "Awareness/Notice", IPMultiplier: 1)
+        let factory = JSONFactory<Skill>()
+        let jsonString = factory.encodedString(from: testSkill)
+        if let string = jsonString {
+            print(string)
+        }
+        
+        let filePath = Bundle.main.url(forResource: "Skills", withExtension: "json")
+        let data = try! Data(contentsOf: filePath!)
+        let skillsFactory = JSONFactory<[Skill]>()
+        let skills = skillsFactory.decode(with: data)
+        
+        if let skills = skills {
+            print(skills)
+        }
+        
+        // DEBUG Delete this ^^^
+        
         return true
     }
 

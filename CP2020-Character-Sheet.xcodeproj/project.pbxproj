@@ -50,6 +50,8 @@
 		9DFA19EF21CE9D920092A450 /* HighlightedSkillViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19EE21CE9D920092A450 /* HighlightedSkillViewCellController.swift */; };
 		9DFA19F121CE9EE10092A450 /* Notification+Cyberpunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19F021CE9EE10092A450 /* Notification+Cyberpunk.swift */; };
 		9DFA19F321CF1F260092A450 /* JSONFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19F221CF1F260092A450 /* JSONFactory.swift */; };
+		9DFA19F521CF25780092A450 /* Skills.json in Resources */ = {isa = PBXBuildFile; fileRef = 9DFA19F421CF25780092A450 /* Skills.json */; };
+		9DFA19FA21CF29190092A450 /* MasterSkillList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19F921CF29190092A450 /* MasterSkillList.swift */; };
 		9DFE711121BD92C9000561B0 /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711021BD92C9000561B0 /* StatView.swift */; };
 		9DFE711321BD933A000561B0 /* StatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711221BD933A000561B0 /* StatViewModel.swift */; };
 		9DFE711521BD94FD000561B0 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711421BD94FD000561B0 /* Stat.swift */; };
@@ -123,6 +125,8 @@
 		9DFA19EE21CE9D920092A450 /* HighlightedSkillViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedSkillViewCellController.swift; sourceTree = "<group>"; };
 		9DFA19F021CE9EE10092A450 /* Notification+Cyberpunk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Cyberpunk.swift"; sourceTree = "<group>"; };
 		9DFA19F221CF1F260092A450 /* JSONFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONFactory.swift; sourceTree = "<group>"; };
+		9DFA19F421CF25780092A450 /* Skills.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Skills.json; sourceTree = "<group>"; };
+		9DFA19F921CF29190092A450 /* MasterSkillList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterSkillList.swift; sourceTree = "<group>"; };
 		9DFE711021BD92C9000561B0 /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
 		9DFE711221BD933A000561B0 /* StatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatViewModel.swift; sourceTree = "<group>"; };
 		9DFE711421BD94FD000561B0 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
@@ -208,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				9D5C1F2921A06CE700B3D493 /* AppDelegate.swift */,
+				9DFA19F621CF25E40092A450 /* Data */,
 				9DCD370E21CC240600EE00D9 /* App Constants */,
 				9DFA19ED21CE9C210092A450 /* Character Model */,
 				9D5C1F5821A0712E00B3D493 /* Character Sheet View */,
@@ -344,9 +349,18 @@
 				9DFE711421BD94FD000561B0 /* Stat.swift */,
 				9D2CFA0B21C59D7900EC76D7 /* CharacterClass.swift */,
 				9DCD370421CC105900EE00D9 /* Skill.swift */,
+				9DFA19F921CF29190092A450 /* MasterSkillList.swift */,
 				9DCD370621CC135A00EE00D9 /* SkillListing.swift */,
 			);
 			path = "Character Model";
+			sourceTree = "<group>";
+		};
+		9DFA19F621CF25E40092A450 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				9DFA19F421CF25780092A450 /* Skills.json */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -454,6 +468,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DFA19F521CF25780092A450 /* Skills.json in Resources */,
 				9D5C1F3421A06CE800B3D493 /* LaunchScreen.storyboard in Resources */,
 				9D5C1F3121A06CE800B3D493 /* Assets.xcassets in Resources */,
 			);
@@ -519,6 +534,7 @@
 				9DCD371721CD6E5B00EE00D9 /* SkillTableConstants.swift in Sources */,
 				9DE335AA21A9F27400180927 /* TotalDamageController.swift in Sources */,
 				9D5C1F5A21A0775B00B3D493 /* DamageViewCell.swift in Sources */,
+				9DFA19FA21CF29190092A450 /* MasterSkillList.swift in Sources */,
 				9DCD371121CC246300EE00D9 /* SkillTableViewCell.swift in Sources */,
 				9D2CFA0421C5921A00EC76D7 /* CharacterSheetCoordinator.swift in Sources */,
 				9DE3359E21A9EA4100180927 /* StatsViewCell.swift in Sources */,

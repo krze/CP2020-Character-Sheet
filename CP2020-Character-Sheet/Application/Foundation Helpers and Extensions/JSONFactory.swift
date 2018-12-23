@@ -8,7 +8,8 @@
 
 import Foundation
 
-final class JSONFactory<T: Codable> {
+/// JSONFactory with helpers to swap between a generic Codable object and JSON, in both directions.
+struct JSONFactory<T: Codable> {
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
     
@@ -21,7 +22,8 @@ final class JSONFactory<T: Codable> {
         do {
             object = try decoder.decode(T.self, from: data)
         }
-        catch {
+        catch let error {
+            print(error)
             // TODO: Catch this and bubble up errors
         }
         
