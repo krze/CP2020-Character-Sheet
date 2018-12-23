@@ -43,4 +43,13 @@ struct Skill: Codable {
     func stat() -> Stat? {
         return Stat(rawValue: linkedStat ?? "")
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case nameExtension = "name_extension"
+        case isSpecialAbility = "special_ability"
+        case linkedStat = "linked_stat"
+        case modifiesSkill = "modifies_skill"
+        case IPMultiplier = "ip_multiplier"
+        case name, description
+    }
 }

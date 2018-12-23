@@ -36,8 +36,14 @@ final class SkillListing: Codable {
         self.skill = skill
         self.points = points
         self.modifier = modifier
+        // TODO: Make stat modifier a computed property based on a stat lookup
         self.statModifier = statModifier ?? 0
         
         category = skill.isSpecialAbility ? "Special Ability" : skill.stat()?.rawValue
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case statModifier = "stat_modifier"
+        case skill, category, points, modifier
     }
 }
