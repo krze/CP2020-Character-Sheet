@@ -56,4 +56,4 @@ The multiplier factored into the calculation that determines how many Improvemen
 The description of the skill. The descriptions are available in the rulebook, and usually explain how the skill is used.
 
 ### "special_ability": Bool
-Whether or not the skill is a special ability.
+Whether or not the skill is a Special Ability. This is unique to a class.
