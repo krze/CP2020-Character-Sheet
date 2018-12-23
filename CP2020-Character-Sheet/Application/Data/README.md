@@ -48,7 +48,10 @@ Even though there's only one case for this, I'm leaving this field available for
 This field may be `null`, and likely will be `null`.
 
 ### "ip_multiplier": Int
-The multiplier factored into the calculation that determines how many Improvement Points are necessary to level up the skill. Most skills have a value of `1`. Some skills, like `Stealth`, have a value >1.
+The multiplier factored into the calculation that determines how many Improvement Points are necessary to level up the skill. Most skills have a value of `1`. Some skills, like `Stealth`, have a value `>1`. Examples of skills that have >1 multipliers are `Stealth (2)`, `Martial Arts: Akido (3)`, and `Cyberdeck Design (2)`.
 
 ### "description": String
 The description of the skill. The descriptions are available in the rulebook, and usually explain how the skill is used.
+
+### "special_ability": Bool
+Whether or not the skill is a special ability.
