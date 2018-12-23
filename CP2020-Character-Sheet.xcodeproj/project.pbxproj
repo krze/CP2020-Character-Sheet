@@ -49,6 +49,7 @@
 		9DFA19EB21CE979F0092A450 /* CharacterSheetViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19EA21CE979F0092A450 /* CharacterSheetViewDelegate.swift */; };
 		9DFA19EF21CE9D920092A450 /* HighlightedSkillViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19EE21CE9D920092A450 /* HighlightedSkillViewCellController.swift */; };
 		9DFA19F121CE9EE10092A450 /* Notification+Cyberpunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19F021CE9EE10092A450 /* Notification+Cyberpunk.swift */; };
+		9DFA19F321CF1F260092A450 /* JSONFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19F221CF1F260092A450 /* JSONFactory.swift */; };
 		9DFE711121BD92C9000561B0 /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711021BD92C9000561B0 /* StatView.swift */; };
 		9DFE711321BD933A000561B0 /* StatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711221BD933A000561B0 /* StatViewModel.swift */; };
 		9DFE711521BD94FD000561B0 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711421BD94FD000561B0 /* Stat.swift */; };
@@ -121,6 +122,7 @@
 		9DFA19EA21CE979F0092A450 /* CharacterSheetViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSheetViewDelegate.swift; sourceTree = "<group>"; };
 		9DFA19EE21CE9D920092A450 /* HighlightedSkillViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedSkillViewCellController.swift; sourceTree = "<group>"; };
 		9DFA19F021CE9EE10092A450 /* Notification+Cyberpunk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Cyberpunk.swift"; sourceTree = "<group>"; };
+		9DFA19F221CF1F260092A450 /* JSONFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONFactory.swift; sourceTree = "<group>"; };
 		9DFE711021BD92C9000561B0 /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
 		9DFE711221BD933A000561B0 /* StatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatViewModel.swift; sourceTree = "<group>"; };
 		9DFE711421BD94FD000561B0 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 				9D552CFB21ACE775008B90E9 /* UIFont+BestFit.swift */,
 				9D2CFA0521C593D200EC76D7 /* MarginCreator.swift */,
 				9DFA19F021CE9EE10092A450 /* Notification+Cyberpunk.swift */,
+				9DFA19F221CF1F260092A450 /* JSONFactory.swift */,
 			);
 			path = "Foundation Helpers and Extensions";
 			sourceTree = "<group>";
@@ -485,6 +488,7 @@
 				9DFA19F121CE9EE10092A450 /* Notification+Cyberpunk.swift in Sources */,
 				9D2CFA0821C59B9400EC76D7 /* CharacterClassView.swift in Sources */,
 				9D552CF221AB0E69008B90E9 /* StyleConstants.swift in Sources */,
+				9DFA19F321CF1F260092A450 /* JSONFactory.swift in Sources */,
 				9D2CFA0C21C59D7900EC76D7 /* CharacterClass.swift in Sources */,
 				9D24375621A091AF0084E77D /* CharacterSheetSections.swift in Sources */,
 				9D552CFC21ACE775008B90E9 /* UIFont+BestFit.swift in Sources */,
