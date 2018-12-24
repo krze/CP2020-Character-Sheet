@@ -1,5 +1,5 @@
 //
-//  CharacterClassViewModel.swift
+//  RoleViewModel.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 12/15/18.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-struct CharacterClassViewModel: MarginCreator {
+struct RoleViewModel: MarginCreator {
     
     let paddingRatio: CGFloat
     let classLabelText = CharacterDescriptionConstants.Text.characterClass
-    let classType: CharacterClass
+    let roleType: Role
     let classLabelWidthRatio: CGFloat
     var classDescriptionWidthRatio: CGFloat {
         return 1.0 - classLabelWidthRatio

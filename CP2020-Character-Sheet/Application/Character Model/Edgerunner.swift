@@ -12,14 +12,39 @@ import Foundation
 final class Edgerunner: Codable {
     
     /// Immutable player stats. This is maintained by the Edgerunner, and you must
-    /// update the stat via
+    /// update the stat via set(stats: Stats)
     private(set) var stats: Stats
+    
+    /// Character role, aka "Class"
+    private(set) var role: Role
+    
+    /// Skills belonging to a character. These are skills that the character has invested in, not all skills.
+    private(set) var taggedSkills: [SkillListing]
+    
+    /// Damage on the player
+    var damage: Int
     
     private var rawHumanity: Int {
         return stats.emp * 10
     }
     
-    private var humanityDeficit: Int
+    /// The humanity deficit incurred by Cyberware
+    private var humanityCost: Int
+    
+    /// Creates a character with the input provided. Skills are not assigned via this initalizer, and
+    /// must be set by
+    ///
+    /// - Parameters:
+    ///   - stats: Character stats objet
+    ///   - role: The role of the character
+    ///   - humanityCost: The humanity cost from cyberware (NOTE: This will be a computed property when cyberware is supported)
+    init(stats: Stats, role: Role, humanityCost: Int) {
+        self.stats = stats
+        self.role = role
+        self.humanityCost = humanityCost
+        damage = 0
+        taggedSkills = [SkillListing]()
+    }
     
     /// Retrieves the value for the stat requested
     ///
@@ -57,10 +82,20 @@ final class Edgerunner: Codable {
         case .Reputation:
             return stats.rep
         case .Humanity:
-            return rawHumanity - humanityDeficit
+            return rawHumanity - humanityCost
         }
     }
     
+    /// Adds the skill to the character, overwriting if the skill already exists.
+    ///
+    /// - Parameter newSkill: The new skill to add.
+    func add(skill newSkill: SkillListing) {
+        taggedSkills.removeAll(where: { skillListing in
+            return skillListing == newSkill
+        })
+        
+        taggedSkills.append(newSkill)
+    }
     
     /// Updates the stats. This should only be called if editing the character.
     /// Stats are supposed to be static.

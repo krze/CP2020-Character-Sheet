@@ -17,7 +17,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
         
         navigationItem.title = "Cyberpunk 2020"
         collectionView.backgroundColor = StyleConstants.Color.dark
-        collectionView.register(CharacterDescriptionViewCell.self,
+        collectionView.register(RoleDescriptionViewCell.self,
                                 forCellWithReuseIdentifier: CharacterSheetSections.CharacterDescription.cellReuseID())
         collectionView.register(StatsViewCell.self,
                                 forCellWithReuseIdentifier: CharacterSheetSections.Stats.cellReuseID())
@@ -56,7 +56,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
             
             cell.setup(with: viewModel, statViewModels: statViewModels)
         }
-        else if let cell = cell as? CharacterDescriptionViewCell {
+        else if let cell = cell as? RoleDescriptionViewCell {
             let userEntryViewModels = [
                 UserEntryViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
                                    labelText: CharacterDescriptionConstants.Text.name,
@@ -67,8 +67,8 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
                                    labelWidthRatio: 0.2,
                                    inputMinimumSize: 10.0)
             ]
-            let characterClassViewModel = CharacterClassViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
-                                                                  classType: .Solo, classLabelWidthRatio: 0.2)
+            let characterClassViewModel = RoleViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
+                                                                  roleType: .Solo, classLabelWidthRatio: 0.2)
             cell.setup(with: userEntryViewModels, classViewModel: characterClassViewModel)
         }
         else if let cell = cell as? HighlightedSkillViewCell {

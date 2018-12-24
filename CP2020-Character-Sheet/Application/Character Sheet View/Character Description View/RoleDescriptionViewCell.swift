@@ -1,5 +1,5 @@
 //
-//  CharacterDescriptionViewCell.swift
+//  RoleDescriptionViewCell.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 11/24/18.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-final class CharacterDescriptionViewCell: UICollectionViewCell {
+final class RoleDescriptionViewCell: UICollectionViewCell {
     
-    func setup(with userEntryViewModels: [UserEntryViewModel], classViewModel: CharacterClassViewModel) {
+    func setup(with userEntryViewModels: [UserEntryViewModel], classViewModel: RoleViewModel) {
         /// This is only going to have 3 fields for now
         // If this changes in the future, we'll need a viewmodel for this cell.
         let subviewHeight = safeAreaLayoutGuide.layoutFrame.height / 3
@@ -36,7 +36,7 @@ final class CharacterDescriptionViewCell: UICollectionViewCell {
         
         // MARK: Character Class view
         
-        let classView = CharacterClassView(frame: subviewFrame, viewModel: classViewModel)
+        let classView = RoleView(frame: subviewFrame, viewModel: classViewModel)
         
         addSubview(classView)
         NSLayoutConstraint.activate([

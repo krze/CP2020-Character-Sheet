@@ -9,7 +9,11 @@
 import Foundation
 
 /// Represents the listing of a skill as it is known to the character
-final class SkillListing: Codable {
+final class SkillListing: Codable, Equatable {
+    static func == (lhs: SkillListing, rhs: SkillListing) -> Bool {
+        return lhs.skill.name == rhs.skill.name && lhs.skill.nameExtension == rhs.skill.nameExtension
+    }
+    
     
     /// The skill tied to the listing
     let skill: Skill
@@ -39,7 +43,7 @@ final class SkillListing: Codable {
         // TODO: Make stat modifier a computed property based on a stat lookup
         self.statModifier = statModifier ?? 0
         
-        category = skill.isSpecialAbility ? "Special Ability" : skill.stat()?.rawValue
+        category = skill.isSpecialAbility ? "Special Ability" : skill.linkedStat?.rawValue
     }
     
     enum CodingKeys: String, CodingKey {

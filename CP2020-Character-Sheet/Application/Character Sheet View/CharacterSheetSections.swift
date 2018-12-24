@@ -18,7 +18,7 @@ enum CharacterSheetSections: Int {
         case .Damage:
             return String(describing: DamageViewCell.self)
         case .CharacterDescription:
-            return String(describing: CharacterDescriptionViewCell.self)
+            return String(describing: RoleDescriptionViewCell.self)
         case .Stats:
             return String(describing: StatsViewCell.self)
         case .DamageModifier:

@@ -119,7 +119,7 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
                               nameExtension: nil,
                               description: "This is what you use to persuade people.",
                               isSpecialAbility: false,
-                              linkedStat: "Intelligence",
+                              linkedStat: .Intelligence,
                               modifiesSkill: nil,
                               IPMultiplier: 1)
             let skillListing = SkillListing(skill: skill, points: 5, modifier: 0, statModifier: 5)

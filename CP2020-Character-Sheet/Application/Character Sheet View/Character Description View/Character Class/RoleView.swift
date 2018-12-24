@@ -1,5 +1,5 @@
 //
-//  CharacterClassView.swift
+//  RoleView.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 12/15/18.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-final class CharacterClassView: UIView {
-    private let viewModel: CharacterClassViewModel
+final class RoleView: UIView {
+    private let viewModel: RoleViewModel
     
-    init(frame: CGRect, viewModel: CharacterClassViewModel) {
+    init(frame: CGRect, viewModel: RoleViewModel) {
         self.viewModel = viewModel
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +71,7 @@ final class CharacterClassView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = viewModel.lightColor
         label.textColor = viewModel.darkColor
-        label.text = viewModel.classType.rawValue
+        label.text = viewModel.roleType.rawValue
         label.textAlignment = .left
         label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
         

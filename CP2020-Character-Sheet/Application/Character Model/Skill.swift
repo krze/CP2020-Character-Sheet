@@ -25,7 +25,7 @@ struct Skill: Codable {
     let isSpecialAbility: Bool
     
     /// The character Stat associated with the skill
-    let linkedStat: String?
+    let linkedStat: Stat?
     
     /// In the case where a skill's value is added to another skill's value,
     /// (i.e. Combat Sense is added to Awareness/Notice) this field indicates which
@@ -36,13 +36,6 @@ struct Skill: Codable {
     /// The Improvement Point multiplier for the skill. Skills without a listed IP multiplier in
     /// the rulebook get a multiplier of 1.
     let IPMultiplier: Int
-    
-    /// Returns the Stat object linked to this skill, if any
-    ///
-    /// - Returns: Stat that is linked to this skill
-    func stat() -> Stat? {
-        return Stat(rawValue: linkedStat ?? "")
-    }
     
     enum CodingKeys: String, CodingKey {
         case nameExtension = "name_extension"

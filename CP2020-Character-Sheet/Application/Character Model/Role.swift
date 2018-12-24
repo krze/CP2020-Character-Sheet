@@ -1,5 +1,5 @@
 //
-//  CharacterClass.swift
+//  Role.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 12/15/18.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-enum CharacterClass: String {
+enum Role: String, Codable {
     case Rocker, Solo, Cop, Media, Fixer, Corporate, Nomad, Techie, MedTechie, Netrunner, Custom
 }

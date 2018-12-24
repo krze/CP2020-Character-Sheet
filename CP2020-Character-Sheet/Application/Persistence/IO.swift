@@ -9,11 +9,15 @@
 import Foundation
 
 /// Serial disk operation. Handles the saving and loading of the JSONs for the character sheet.
+/// File operations are synchronous.
 final class IO {
     
-    /// The serial queue
+    /// The disk operation queue
     let queue: DispatchQueue
     
+    /// Creates the IO class
+    ///
+    /// - Parameter queue: A queue on which to operate. Operations are synchronous. By default, this is a QOS of "utility"
     init(with queue: DispatchQueue = DispatchQueue(label: "CP2020_IO", qos: .utility)) {
         self.queue = queue
     }
@@ -52,6 +56,8 @@ final class IO {
             }
             
             do {
+                // TODO: Safer save operation to check for space and deletion, creates backup before deleting, etc
+                try FileManager.default.removeItem(at: url)
                 try data.write(to: url)
                 completion(nil)
             }
@@ -63,6 +69,10 @@ final class IO {
     
     // TODO: Custom files (i.e. new Skill sets)
     
+    /// Names of files commonly used with JSON operations
+    ///
+    /// - Skills: The Skills JSON
+    /// - Edgerunner: The player Edgerunner JSON
     enum JSONFile {
         case Skills, Edgerunner
         
