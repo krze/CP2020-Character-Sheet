@@ -54,6 +54,8 @@
 		9DFCB7A721D0666100F99798 /* Edgerunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7A621D0666100F99798 /* Edgerunner.swift */; };
 		9DFCB7A921D0674A00F99798 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7A821D0674A00F99798 /* Stats.swift */; };
 		9DFCB7AB21D071EE00F99798 /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7AA21D071EE00F99798 /* IO.swift */; };
+		9DFCB7AE21D14EC400F99798 /* SkillsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7AD21D14EC400F99798 /* SkillsController.swift */; };
+		9DFCB7B021D1506C00F99798 /* SkillManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7AF21D1506C00F99798 /* SkillManager.swift */; };
 		9DFE711121BD92C9000561B0 /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711021BD92C9000561B0 /* StatView.swift */; };
 		9DFE711321BD933A000561B0 /* StatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711221BD933A000561B0 /* StatViewModel.swift */; };
 		9DFE711521BD94FD000561B0 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711421BD94FD000561B0 /* Stat.swift */; };
@@ -131,6 +133,8 @@
 		9DFCB7A621D0666100F99798 /* Edgerunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edgerunner.swift; sourceTree = "<group>"; };
 		9DFCB7A821D0674A00F99798 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		9DFCB7AA21D071EE00F99798 /* IO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
+		9DFCB7AD21D14EC400F99798 /* SkillsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsController.swift; sourceTree = "<group>"; };
+		9DFCB7AF21D1506C00F99798 /* SkillManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillManager.swift; sourceTree = "<group>"; };
 		9DFE711021BD92C9000561B0 /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
 		9DFE711221BD933A000561B0 /* StatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatViewModel.swift; sourceTree = "<group>"; };
 		9DFE711421BD94FD000561B0 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
@@ -269,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				9DCD370A21CC239B00EE00D9 /* SkillTableViewController.swift */,
+				9DFCB7AD21D14EC400F99798 /* SkillsController.swift */,
 				9DCD371021CC246300EE00D9 /* SkillTableViewCell.swift */,
 				9DCD371421CD598D00EE00D9 /* SkillTableViewCellModel.swift */,
 				9DCD371621CD6E5B00EE00D9 /* SkillTableConstants.swift */,
@@ -351,12 +356,13 @@
 		9DFA19ED21CE9C210092A450 /* Character Model */ = {
 			isa = PBXGroup;
 			children = (
+				9DFCB7A621D0666100F99798 /* Edgerunner.swift */,
 				9DFE711421BD94FD000561B0 /* Stat.swift */,
 				9DFCB7A821D0674A00F99798 /* Stats.swift */,
-				9DFCB7A621D0666100F99798 /* Edgerunner.swift */,
 				9D2CFA0B21C59D7900EC76D7 /* Role.swift */,
 				9DCD370421CC105900EE00D9 /* Skill.swift */,
 				9DCD370621CC135A00EE00D9 /* SkillListing.swift */,
+				9DFCB7B121D150D500F99798 /* Model Protocols */,
 			);
 			path = "Character Model";
 			sourceTree = "<group>";
@@ -375,6 +381,14 @@
 				9DFCB7AA21D071EE00F99798 /* IO.swift */,
 			);
 			path = Persistence;
+			sourceTree = "<group>";
+		};
+		9DFCB7B121D150D500F99798 /* Model Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				9DFCB7AF21D1506C00F99798 /* SkillManager.swift */,
+			);
+			path = "Model Protocols";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -522,6 +536,7 @@
 				9DFA19F321CF1F260092A450 /* JSONFactory.swift in Sources */,
 				9D2CFA0C21C59D7900EC76D7 /* Role.swift in Sources */,
 				9D24375621A091AF0084E77D /* CharacterSheetSections.swift in Sources */,
+				9DFCB7AE21D14EC400F99798 /* SkillsController.swift in Sources */,
 				9D552CFC21ACE775008B90E9 /* UIFont+BestFit.swift in Sources */,
 				9DCD370521CC105900EE00D9 /* Skill.swift in Sources */,
 				9DCD370121CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift in Sources */,
@@ -532,6 +547,7 @@
 				9D5C1F5E21A07E1500B3D493 /* DamageSectionViewModel.swift in Sources */,
 				9DFE711521BD94FD000561B0 /* Stat.swift in Sources */,
 				9DFA19EF21CE9D920092A450 /* HighlightedSkillViewCellController.swift in Sources */,
+				9DFCB7B021D1506C00F99798 /* SkillManager.swift in Sources */,
 				9D5C1F5C21A0794400B3D493 /* DamageSectionView.swift in Sources */,
 				9D2CFA0A21C59BEA00EC76D7 /* RoleViewModel.swift in Sources */,
 				9DFE711121BD92C9000561B0 /* StatView.swift in Sources */,

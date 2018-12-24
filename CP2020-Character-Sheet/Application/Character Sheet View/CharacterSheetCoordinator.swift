@@ -42,9 +42,7 @@ final class CharacterSheetCoordinator: CharacterSheetViewDelegate {
             self.navigationController.pushViewController(self.skillTableViewController, animated: true)
         }
     }
-    
-    // TODO: Create an initializer that starts listening for events before the cells are created
-    
+        
     // TODO: Create a method for sending messages between the damage cells and the damage modifier view
     
     // TODO: Create a method for sending messages between the stat view and the skill view

@@ -9,7 +9,7 @@
 import Foundation
 
 /// The model for the player character
-final class Edgerunner: Codable {
+final class Edgerunner: Codable, SkillManager {
     
     /// Immutable player stats. This is maintained by the Edgerunner, and you must
     /// update the stat via set(stats: Stats)
@@ -24,7 +24,7 @@ final class Edgerunner: Codable {
     /// Damage on the player
     var damage: Int
     
-    private var rawHumanity: Int {
+    private var baseHumanity: Int {
         return stats.emp * 10
     }
     
@@ -32,7 +32,8 @@ final class Edgerunner: Codable {
     private var humanityCost: Int
     
     /// Creates a character with the input provided. Skills are not assigned via this initalizer, and
-    /// must be set by
+    /// must be set by using `add(skill: SkillListing)`. This initializer is intended to be used by
+    /// first-time character creation. For the most part, this class will be created from JSON.
     ///
     /// - Parameters:
     ///   - stats: Character stats objet
@@ -82,7 +83,7 @@ final class Edgerunner: Codable {
         case .Reputation:
             return stats.rep
         case .Humanity:
-            return rawHumanity - humanityCost
+            return baseHumanity - humanityCost
         }
     }
     
@@ -90,19 +91,38 @@ final class Edgerunner: Codable {
     ///
     /// - Parameter newSkill: The new skill to add.
     func add(skill newSkill: SkillListing) {
-        taggedSkills.removeAll(where: { skillListing in
-            return skillListing == newSkill
-        })
-        
-        taggedSkills.append(newSkill)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            self.taggedSkills.removeAll(where: { skillListing in
+                return skillListing == newSkill
+            })
+            
+            self.taggedSkills.append(newSkill)
+            
+            NotificationCenter.default.post(name: .newSkillAdded, object: newSkill)
+        }
     }
     
     /// Updates the stats. This should only be called if editing the character.
-    /// Stats are supposed to be static.
+    /// Stats are immutable during normal gameplay.
     ///
-    /// - Parameter stats: The updates stats object
+    /// - Parameter stats: The new stats object
     func set(stats: Stats) {
-        self.stats = stats
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.stats = stats
+
+            NotificationCenter.default.post(name: .statsDidChange, object: nil)
+        }
+    }
+    
+    /// Updates the character role. Call this when editing the character, otherwise
+    /// this value should be immutable during normal gameplay.
+    ///
+    /// - Parameter role: The new player role
+    func set(role: Role) {
+        self.role = role
     }
     
     /// Saves the character to disk.

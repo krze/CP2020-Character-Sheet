@@ -15,8 +15,8 @@ The character sheet app is planned out for the following phases:
 - [ ] Persistence
 - [ ] Editable values for each section
 - [ ] Character Model
-  - [ ] Character info
-  - [ ] Damage
+  - [x] Character info
+  - [x] Damage
   - [ ] Skills
 - [ ] Skill models
 

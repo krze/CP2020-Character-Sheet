@@ -11,4 +11,10 @@ import Foundation
 extension Notification.Name {
     
     static let showSkillTable = Notification.Name("showSkillTable")
+    static let skillPointsDidChange = Notification.Name("skillPointsDidChange")
+    static let statsDidChange = Notification.Name("statsDidChange")
+    static let roleDidChange = Notification.Name("roleDidChange")
+    static let newSkillAdded = Notification.Name("newSkillAdded")
+    static let improvementPointsAdded = Notification.Name("improvementPointsAdded")
+    static let skillPointModifierDidChange = Notification.Name("skillPointModifierDidChange")
 }

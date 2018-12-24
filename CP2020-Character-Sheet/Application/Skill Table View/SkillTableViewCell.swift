@@ -19,7 +19,7 @@ final class SkillTableViewCell: UITableViewCell {
     private var total: UILabel?
     
     private var viewModel: SkillTableViewCellModel?
-    private var skillListing: SkillListing?
+    private(set) var skillListing: SkillListing?
     
     /// Used to indicate that firstTimeSetup has been called by layoutSubViews()
     private var cellHasBeenSetup = false

@@ -19,17 +19,32 @@ final class SkillListing: Codable, Equatable {
     let skill: Skill
     
     /// Category for display purposes inside of a tableview. This will be the stat associated with the skill.
-    var category: String?
+    let category: String?
     
     /// Number of points alloted to the skill by the player
-    let points: Int
+    private(set) var points: Int
+    
+    /// The number of IP in the skill
+    private(set) var improvementPoints: Int
+    
+    /// The number of IP required to level up
+    private var nextLevelIP: Int {
+        let base = 10
+        
+        switch points {
+        case 0:
+            return base * skill.IPMultiplier
+        default:
+            return base * points * skill.IPMultiplier
+        }
+    }
     
     /// The number of points that modify this score. This does not include the linked stat.
     /// This field is intended for positive or negative effects (i.e. temporary states)
     var modifier: Int
     
     /// The modifier from the linked stat, if any
-    var statModifier: Int
+    var statModifier: Int // TODO: This will be stale from the JSON if stat points change.
     
     /// Returns the value of the skill added to the skill check roll
     var skillRollValue: Int {
@@ -42,12 +57,53 @@ final class SkillListing: Codable, Equatable {
         self.modifier = modifier
         // TODO: Make stat modifier a computed property based on a stat lookup
         self.statModifier = statModifier ?? 0
+        self.improvementPoints = 0
         
         category = skill.isSpecialAbility ? "Special Ability" : skill.linkedStat?.rawValue
     }
     
+    /// Updates the raw point value
+    ///
+    /// - Parameter points: The new point value for the skill
+    func update(points: Int) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.points = points
+            
+            NotificationCenter.default.post(name: .skillPointsDidChange, object: self)
+        }
+
+    }
+    
+    /// Updates the modifier point value
+    ///
+    /// - Parameter points: The new point value for the modifier
+    func update(modifierPoints: Int) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.modifier = modifierPoints
+            
+            NotificationCenter.default.post(name: .skillPointModifierDidChange, object: self)
+        }
+        
+    }
+    
+    /// Adds the points to the existing IP value
+    ///
+    /// - Parameter newPoints: IP to add to the existing IP
+    func add(improvementPoints newPoints: Int) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            self.improvementPoints += newPoints
+            
+            NotificationCenter.default.post(name: .improvementPointsAdded, object: self)
+        }
+    }
+    
     enum CodingKeys: String, CodingKey {
         case statModifier = "stat_modifier"
+        case improvementPoints = "ip"
         case skill, category, points, modifier
     }
 }
