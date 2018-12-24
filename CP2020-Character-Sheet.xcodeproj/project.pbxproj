@@ -273,7 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				9DCD370A21CC239B00EE00D9 /* SkillTableViewController.swift */,
-				9DFCB7AD21D14EC400F99798 /* SkillsController.swift */,
+				9DFCB7B421D16D5800F99798 /* Controller */,
 				9DCD371021CC246300EE00D9 /* SkillTableViewCell.swift */,
 				9DCD371421CD598D00EE00D9 /* SkillTableViewCellModel.swift */,
 				9DCD371621CD6E5B00EE00D9 /* SkillTableConstants.swift */,
@@ -389,6 +389,14 @@
 				9DFCB7AF21D1506C00F99798 /* SkillManager.swift */,
 			);
 			path = "Model Protocols";
+			sourceTree = "<group>";
+		};
+		9DFCB7B421D16D5800F99798 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9DFCB7AD21D14EC400F99798 /* SkillsController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

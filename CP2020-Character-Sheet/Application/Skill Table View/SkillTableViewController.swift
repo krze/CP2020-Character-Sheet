@@ -10,6 +10,11 @@ import UIKit
 
 /// The table view containing the full listing of every skill available to the player
 final class SkillTableViewController: UITableViewController {
+    private var skillsController: SkillsController?
+    
+    func setup(with skillsController: SkillsController) {
+        self.skillsController = skillsController
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +33,17 @@ final class SkillTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 0
+    }
+    
+    private func createObservers() {
+        // TODO: Set up observers for the following:
+        //        skillPointsDidChange
+        //        statsDidChange (maybe? I dont think this controller will be alive during this notification)
+        //        roleDidChange (maybe? See above)
+        //        newSkillAdded
+        //        improvementPointsAdded
+        //        skillPointModifierDidChange
+        //        skillPointStatModifierDidChange
     }
 
     /*
