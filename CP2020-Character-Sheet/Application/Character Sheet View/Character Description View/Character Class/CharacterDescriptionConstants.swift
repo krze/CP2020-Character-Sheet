@@ -15,7 +15,7 @@ struct CharacterDescriptionConstants {
     struct Text {
         static let name = "NAME"
         static let handle = "HANDLE"
-        static let characterClass = "CLASS"
+        static let characterClass = "ROLE"
     }
 
 }

@@ -51,7 +51,6 @@
 		9DFA19F121CE9EE10092A450 /* Notification+Cyberpunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19F021CE9EE10092A450 /* Notification+Cyberpunk.swift */; };
 		9DFA19F321CF1F260092A450 /* JSONFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19F221CF1F260092A450 /* JSONFactory.swift */; };
 		9DFA19F521CF25780092A450 /* Skills.json in Resources */ = {isa = PBXBuildFile; fileRef = 9DFA19F421CF25780092A450 /* Skills.json */; };
-		9DFA19FA21CF29190092A450 /* MasterSkillList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19F921CF29190092A450 /* MasterSkillList.swift */; };
 		9DFCB7A721D0666100F99798 /* Edgerunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7A621D0666100F99798 /* Edgerunner.swift */; };
 		9DFCB7A921D0674A00F99798 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7A821D0674A00F99798 /* Stats.swift */; };
 		9DFCB7AB21D071EE00F99798 /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7AA21D071EE00F99798 /* IO.swift */; };
@@ -129,7 +128,6 @@
 		9DFA19F021CE9EE10092A450 /* Notification+Cyberpunk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Cyberpunk.swift"; sourceTree = "<group>"; };
 		9DFA19F221CF1F260092A450 /* JSONFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONFactory.swift; sourceTree = "<group>"; };
 		9DFA19F421CF25780092A450 /* Skills.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Skills.json; sourceTree = "<group>"; };
-		9DFA19F921CF29190092A450 /* MasterSkillList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterSkillList.swift; sourceTree = "<group>"; };
 		9DFCB7A621D0666100F99798 /* Edgerunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edgerunner.swift; sourceTree = "<group>"; };
 		9DFCB7A821D0674A00F99798 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		9DFCB7AA21D071EE00F99798 /* IO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
@@ -358,7 +356,6 @@
 				9DFCB7A621D0666100F99798 /* Edgerunner.swift */,
 				9D2CFA0B21C59D7900EC76D7 /* Role.swift */,
 				9DCD370421CC105900EE00D9 /* Skill.swift */,
-				9DFA19F921CF29190092A450 /* MasterSkillList.swift */,
 				9DCD370621CC135A00EE00D9 /* SkillListing.swift */,
 			);
 			path = "Character Model";
@@ -554,7 +551,6 @@
 				9DCD371721CD6E5B00EE00D9 /* SkillTableConstants.swift in Sources */,
 				9DE335AA21A9F27400180927 /* TotalDamageController.swift in Sources */,
 				9D5C1F5A21A0775B00B3D493 /* DamageViewCell.swift in Sources */,
-				9DFA19FA21CF29190092A450 /* MasterSkillList.swift in Sources */,
 				9DCD371121CC246300EE00D9 /* SkillTableViewCell.swift in Sources */,
 				9D2CFA0421C5921A00EC76D7 /* CharacterSheetCoordinator.swift in Sources */,
 				9DE3359E21A9EA4100180927 /* StatsViewCell.swift in Sources */,
