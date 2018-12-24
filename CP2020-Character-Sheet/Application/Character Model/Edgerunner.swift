@@ -11,21 +11,26 @@ import Foundation
 /// The model for the player character
 final class Edgerunner: Codable, SkillManager {
     
-    /// Immutable player stats. This is maintained by the Edgerunner, and you must
-    /// update the stat via set(stats: Stats)
-    private(set) var stats: Stats
+    /// The player stats assigned at creation. These stats are immutable according to game rules; you must
+    /// update the stat via set(stats: Stats). These are the raw, base stats. Use value(for: Stat) to retrieve
+    /// the calculated stat values includng pentalties
+    private(set) var baseStats: Stats
     
     /// Character role, aka "Class"
     private(set) var role: Role
     
     /// Skills belonging to a character. These are skills that the character has invested in, not all skills.
-    private(set) var taggedSkills: [SkillListing]
+    private(set) var skills: [SkillListing]
     
     /// Damage on the player
     var damage: Int
     
+    /// In the case where the character is healing, there will be a reflex penalty.
+    /// This is not utilized at the moment, but will be in the future.
+    private var reflexPentalty: Int = 0
+    
     private var baseHumanity: Int {
-        return stats.emp * 10
+        return baseStats.emp * 10
     }
     
     /// The humanity deficit incurred by Cyberware
@@ -36,15 +41,15 @@ final class Edgerunner: Codable, SkillManager {
     /// first-time character creation. For the most part, this class will be created from JSON.
     ///
     /// - Parameters:
-    ///   - stats: Character stats objet
+    ///   - baseStats: Character stats object representing the base stat values
     ///   - role: The role of the character
     ///   - humanityCost: The humanity cost from cyberware (NOTE: This will be a computed property when cyberware is supported)
-    init(stats: Stats, role: Role, humanityCost: Int) {
-        self.stats = stats
+    init(baseStats: Stats, role: Role, humanityCost: Int) {
+        self.baseStats = baseStats
         self.role = role
         self.humanityCost = humanityCost
         damage = 0
-        taggedSkills = [SkillListing]()
+        skills = [SkillListing]()
     }
     
     /// Retrieves the value for the stat requested
@@ -54,34 +59,34 @@ final class Edgerunner: Codable, SkillManager {
     func value(for stat: Stat) -> Int {
         switch stat {
         case .Intelligence:
-            return stats.int
+            return baseStats.int
         case .Reflex:
-            return stats.ref
+            return baseStats.ref - reflexPentalty
         case .Tech:
-            return stats.tech
+            return baseStats.tech
         case .Cool:
-            return stats.cool
+            return baseStats.cool
         case .Attractiveness:
-            return stats.attr
+            return baseStats.attr
         case .Luck:
-            return stats.luck
+            return baseStats.luck
         case .MovementAllowance:
-            return stats.ma
+            return baseStats.ma
         case .Body:
-            return stats.body
+            return baseStats.body
         case .Empathy:
             // TODO: Cyberpsychosis
             let empathy = value(for: .Humanity) / 10
             
             return empathy > 0 ? empathy : 1
         case .Run:
-            return stats.ma * 3
+            return baseStats.ma * 3
         case .Leap:
             return value(for: .Run) / 4
         case .Lift:
             return value(for: .Body) * 40
         case .Reputation:
-            return stats.rep
+            return baseStats.rep
         case .Humanity:
             return baseHumanity - humanityCost
         }
@@ -94,11 +99,11 @@ final class Edgerunner: Codable, SkillManager {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             
-            self.taggedSkills.removeAll(where: { skillListing in
+            self.skills.removeAll(where: { skillListing in
                 return skillListing == newSkill
             })
             
-            self.taggedSkills.append(newSkill)
+            self.skills.append(newSkill)
             
             NotificationCenter.default.post(name: .newSkillAdded, object: newSkill)
         }
@@ -107,12 +112,14 @@ final class Edgerunner: Codable, SkillManager {
     /// Updates the stats. This should only be called if editing the character.
     /// Stats are immutable during normal gameplay.
     ///
-    /// - Parameter stats: The new stats object
-    func set(stats: Stats) {
+    /// - Parameter baseStats: The new Stats object
+    func set(baseStats: Stats) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.stats = stats
-
+            self.baseStats = baseStats
+            
+            self.updateStatModifiers()
+            
             NotificationCenter.default.post(name: .statsDidChange, object: nil)
         }
     }
@@ -123,6 +130,18 @@ final class Edgerunner: Codable, SkillManager {
     /// - Parameter role: The new player role
     func set(role: Role) {
         self.role = role
+    }
+    
+    /// Updates the stat modifiers for each skill
+    private func updateStatModifiers() {
+        for skillListing in skills {
+            guard let stat = skillListing.skill.linkedStat,
+                skillListing.statModifier != value(for: stat) else {
+                continue
+            }
+            
+            skillListing.update(statModifierPoints: value(for: stat))
+        }
     }
     
     /// Saves the character to disk.

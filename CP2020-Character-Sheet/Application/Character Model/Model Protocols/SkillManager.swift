@@ -9,7 +9,7 @@
 import Foundation
 
 protocol SkillManager {
-    var taggedSkills: [SkillListing] { get }
+    var skills: [SkillListing] { get }
     
     func add(skill newSkill: SkillListing)
 }

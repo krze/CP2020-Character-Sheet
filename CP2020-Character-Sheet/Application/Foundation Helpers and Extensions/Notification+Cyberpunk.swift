@@ -17,4 +17,6 @@ extension Notification.Name {
     static let newSkillAdded = Notification.Name("newSkillAdded")
     static let improvementPointsAdded = Notification.Name("improvementPointsAdded")
     static let skillPointModifierDidChange = Notification.Name("skillPointModifierDidChange")
+    static let skillPointStatModifierDidChange = Notification.Name("skillPointStatModifierDidChange")
+    
 }

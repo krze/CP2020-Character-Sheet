@@ -41,10 +41,10 @@ final class SkillListing: Codable, Equatable {
     
     /// The number of points that modify this score. This does not include the linked stat.
     /// This field is intended for positive or negative effects (i.e. temporary states)
-    var modifier: Int
+    private(set) var modifier: Int
     
     /// The modifier from the linked stat, if any
-    var statModifier: Int // TODO: This will be stale from the JSON if stat points change.
+    private(set) var statModifier: Int // TODO: This will be stale from the JSON if stat points change.
     
     /// Returns the value of the skill added to the skill check roll
     var skillRollValue: Int {
@@ -86,6 +86,20 @@ final class SkillListing: Codable, Equatable {
             NotificationCenter.default.post(name: .skillPointModifierDidChange, object: self)
         }
         
+    }
+    
+    /// Updates the stat modifier point value
+    ///
+    /// - Parameter points: The new point value for the stat modifier
+    func update(statModifierPoints: Int) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.statModifier = statModifierPoints
+            
+            // This does not fire off a notification center event as this will almost always be a bulk
+            // update performed by the Edgerunner class. Stats are supposed to be immutable according to
+            // the game rules, so changing this modifier will be a modification at the character level.
+        }
     }
     
     /// Adds the points to the existing IP value
