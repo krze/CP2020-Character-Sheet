@@ -56,6 +56,7 @@
 		9DFCB7AB21D071EE00F99798 /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7AA21D071EE00F99798 /* IO.swift */; };
 		9DFCB7AE21D14EC400F99798 /* SkillsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7AD21D14EC400F99798 /* SkillsController.swift */; };
 		9DFCB7B021D1506C00F99798 /* SkillManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7AF21D1506C00F99798 /* SkillManager.swift */; };
+		9DFCB7B621D17AD000F99798 /* SkillTableSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7B521D17AD000F99798 /* SkillTableSections.swift */; };
 		9DFE711121BD92C9000561B0 /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711021BD92C9000561B0 /* StatView.swift */; };
 		9DFE711321BD933A000561B0 /* StatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711221BD933A000561B0 /* StatViewModel.swift */; };
 		9DFE711521BD94FD000561B0 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711421BD94FD000561B0 /* Stat.swift */; };
@@ -135,6 +136,7 @@
 		9DFCB7AA21D071EE00F99798 /* IO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
 		9DFCB7AD21D14EC400F99798 /* SkillsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsController.swift; sourceTree = "<group>"; };
 		9DFCB7AF21D1506C00F99798 /* SkillManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillManager.swift; sourceTree = "<group>"; };
+		9DFCB7B521D17AD000F99798 /* SkillTableSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillTableSections.swift; sourceTree = "<group>"; };
 		9DFE711021BD92C9000561B0 /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
 		9DFE711221BD933A000561B0 /* StatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatViewModel.swift; sourceTree = "<group>"; };
 		9DFE711421BD94FD000561B0 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				9DCD370A21CC239B00EE00D9 /* SkillTableViewController.swift */,
+				9DFCB7B521D17AD000F99798 /* SkillTableSections.swift */,
 				9DFCB7B421D16D5800F99798 /* Controller */,
 				9DCD371021CC246300EE00D9 /* SkillTableViewCell.swift */,
 				9DCD371421CD598D00EE00D9 /* SkillTableViewCellModel.swift */,
@@ -549,6 +552,7 @@
 				9DCD370521CC105900EE00D9 /* Skill.swift in Sources */,
 				9DCD370121CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift in Sources */,
 				9D5C1F2C21A06CE700B3D493 /* CharacterSheetViewController.swift in Sources */,
+				9DFCB7B621D17AD000F99798 /* SkillTableSections.swift in Sources */,
 				9DE335A721A9EB5B00180927 /* HighlightedSkillViewCell.swift in Sources */,
 				9D11763821BDCE0300E297BA /* UILabel+LabelContainer.swift in Sources */,
 				9D552CF621AB266F008B90E9 /* DamageModifierViewModel.swift in Sources */,
