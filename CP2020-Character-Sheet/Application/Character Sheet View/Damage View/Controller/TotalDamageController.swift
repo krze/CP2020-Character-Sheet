@@ -11,11 +11,10 @@ import Foundation
 final class TotalDamageController {
     let maxDamage: Int
     private(set) var currentDamage: Int = 0
-    private weak var delegate: TotalDamageControllerDelegate?
+    weak var delegate: TotalDamageControllerDelegate?
     
-    init(maxDamage: Int, delegate: TotalDamageControllerDelegate) {
+    init(maxDamage: Int) {
         self.maxDamage = maxDamage
-        self.delegate = delegate
     }
     
     /// Iterates damage up by 1 damage point. Updates the delegate's damage cells.

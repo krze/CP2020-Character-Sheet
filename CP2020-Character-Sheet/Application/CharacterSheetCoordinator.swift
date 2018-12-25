@@ -14,20 +14,29 @@ import UIKit
 ///
 /// The coordinator also handles presenting popovers that do not belong to a specific cell, and to push new
 /// full-screen view controllers such as the full skill listing.
-final class CharacterSheetCoordinator: CharacterSheetViewDelegate {
-    private let navigationController: UINavigationController
-    private let characterSheetViewController: CharacterSheetViewController
+///
+/// Use this class in the same way you'd use an application coordinator
+final class CharacterSheetCoordinator: CharacterSheetControllerCoordinator {
+    weak var skillsController: SkillsController?
+
+    weak var damageModifierController: DamageModifierController?
     
+    weak var totalDamageController: TotalDamageController?
     
-    private lazy var skillTableViewController: SkillTableViewController = {
-        return SkillTableViewController(with: <#T##SkillsController#>, viewModel: <#T##SkillTableViewModel#>, tableViewCellModel: <#T##SkillTableViewCellModel#>)
-    }()
+    weak var highlightedSkillViewCellController: HighlightedSkillViewCellController?
     
-    init(with navigationController: UINavigationController,
-         characterSheetViewController: CharacterSheetViewController) {
-        self.navigationController = navigationController
-        self.characterSheetViewController = characterSheetViewController
-        
+    let navigationController: UINavigationController
+    let characterSheetViewController: CharacterSheetViewController
+    
+//    private lazy var skillTableViewController: SkillTableViewController = {
+//
+//    }()
+//
+    init(with layout: UICollectionViewFlowLayout) {
+        characterSheetViewController = CharacterSheetViewController(collectionViewLayout: layout)
+        navigationController = UINavigationController(rootViewController:characterSheetViewController)
+        characterSheetViewController.delegate = self
+
         createObservers()
     }
     
@@ -39,7 +48,7 @@ final class CharacterSheetCoordinator: CharacterSheetViewDelegate {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             
-            self.navigationController.pushViewController(self.skillTableViewController, animated: true)
+//            self.navigationController.pushViewController(self.skillTableViewController, animated: true)
         }
     }
         
