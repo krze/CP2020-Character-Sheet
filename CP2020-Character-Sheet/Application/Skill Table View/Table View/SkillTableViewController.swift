@@ -11,13 +11,19 @@ import UIKit
 /// The table view containing the full listing of every skill available to the player
 final class SkillTableViewController: UITableViewController {
     private let skillsController: SkillsController
+    
+    private let viewModel: SkillTableViewModel
     private let cellModel: SkillTableViewCellModel
+    
     private var sections = [SkillTableSections: [SkillListing]]()
-    private let identifier = "SkillListing"
+    private let identifier = SkillTableConstants.identifier
 
-    init(with skillsController: SkillsController, skillTableViewCellModel: SkillTableViewCellModel) {
+    init(with skillsController: SkillsController,
+         viewModel: SkillTableViewModel,
+         tableViewCellModel: SkillTableViewCellModel) {
         self.skillsController = skillsController
-        cellModel = skillTableViewCellModel
+        self.viewModel = viewModel
+        cellModel = tableViewCellModel
         super.init(style: .plain)
     }
     

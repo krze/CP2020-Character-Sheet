@@ -57,6 +57,7 @@
 		9DFCB7AE21D14EC400F99798 /* SkillsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7AD21D14EC400F99798 /* SkillsController.swift */; };
 		9DFCB7B021D1506C00F99798 /* SkillManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7AF21D1506C00F99798 /* SkillManager.swift */; };
 		9DFCB7B621D17AD000F99798 /* SkillTableSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7B521D17AD000F99798 /* SkillTableSections.swift */; };
+		9DFCB7BA21D298E000F99798 /* SkillTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7B921D298E000F99798 /* SkillTableViewModel.swift */; };
 		9DFE711121BD92C9000561B0 /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711021BD92C9000561B0 /* StatView.swift */; };
 		9DFE711321BD933A000561B0 /* StatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711221BD933A000561B0 /* StatViewModel.swift */; };
 		9DFE711521BD94FD000561B0 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711421BD94FD000561B0 /* Stat.swift */; };
@@ -137,6 +138,7 @@
 		9DFCB7AD21D14EC400F99798 /* SkillsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsController.swift; sourceTree = "<group>"; };
 		9DFCB7AF21D1506C00F99798 /* SkillManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillManager.swift; sourceTree = "<group>"; };
 		9DFCB7B521D17AD000F99798 /* SkillTableSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillTableSections.swift; sourceTree = "<group>"; };
+		9DFCB7B921D298E000F99798 /* SkillTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillTableViewModel.swift; sourceTree = "<group>"; };
 		9DFE711021BD92C9000561B0 /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
 		9DFE711221BD933A000561B0 /* StatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatViewModel.swift; sourceTree = "<group>"; };
 		9DFE711421BD94FD000561B0 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
@@ -274,11 +276,9 @@
 		9DCD370C21CC23C000EE00D9 /* Skill Table View */ = {
 			isa = PBXGroup;
 			children = (
-				9DCD370A21CC239B00EE00D9 /* SkillTableViewController.swift */,
-				9DFCB7B521D17AD000F99798 /* SkillTableSections.swift */,
+				9DFCB7B721D298A300F99798 /* Table View */,
 				9DFCB7B421D16D5800F99798 /* Controller */,
-				9DCD371021CC246300EE00D9 /* SkillTableViewCell.swift */,
-				9DCD371421CD598D00EE00D9 /* SkillTableViewCellModel.swift */,
+				9DFCB7B821D298B100F99798 /* Table Cell */,
 				9DCD371621CD6E5B00EE00D9 /* SkillTableConstants.swift */,
 			);
 			path = "Skill Table View";
@@ -400,6 +400,25 @@
 				9DFCB7AD21D14EC400F99798 /* SkillsController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		9DFCB7B721D298A300F99798 /* Table View */ = {
+			isa = PBXGroup;
+			children = (
+				9DCD370A21CC239B00EE00D9 /* SkillTableViewController.swift */,
+				9DFCB7B921D298E000F99798 /* SkillTableViewModel.swift */,
+				9DFCB7B521D17AD000F99798 /* SkillTableSections.swift */,
+			);
+			path = "Table View";
+			sourceTree = "<group>";
+		};
+		9DFCB7B821D298B100F99798 /* Table Cell */ = {
+			isa = PBXGroup;
+			children = (
+				9DCD371021CC246300EE00D9 /* SkillTableViewCell.swift */,
+				9DCD371421CD598D00EE00D9 /* SkillTableViewCellModel.swift */,
+			);
+			path = "Table Cell";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -558,6 +577,7 @@
 				9D552CF621AB266F008B90E9 /* DamageModifierViewModel.swift in Sources */,
 				9D5C1F5E21A07E1500B3D493 /* DamageSectionViewModel.swift in Sources */,
 				9DFE711521BD94FD000561B0 /* Stat.swift in Sources */,
+				9DFCB7BA21D298E000F99798 /* SkillTableViewModel.swift in Sources */,
 				9DFA19EF21CE9D920092A450 /* HighlightedSkillViewCellController.swift in Sources */,
 				9DFCB7B021D1506C00F99798 /* SkillManager.swift in Sources */,
 				9D5C1F5C21A0794400B3D493 /* DamageSectionView.swift in Sources */,

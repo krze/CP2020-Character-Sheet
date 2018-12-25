@@ -20,7 +20,7 @@ final class CharacterSheetCoordinator: CharacterSheetViewDelegate {
     
     
     private lazy var skillTableViewController: SkillTableViewController = {
-        return SkillTableViewController()
+        return SkillTableViewController(with: <#T##SkillsController#>, viewModel: <#T##SkillTableViewModel#>, tableViewCellModel: <#T##SkillTableViewCellModel#>)
     }()
     
     init(with navigationController: UINavigationController,
