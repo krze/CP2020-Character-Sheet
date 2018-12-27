@@ -318,14 +318,397 @@
     "ip_modifier": 1,
     "description": "The skill of losing pursuers, covering tracks and otherwise evading people on your trail. At +3, you can lose most boostergangers on the rampage. At +6, you can ditch cops and private eyes. At +8, you can ditch most Solos.",
     "special_ability": false
+},{
+    "name": "History",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The knowledge of facts and figures of past events. In game play, this might be used to determine if a character is familiar with a particular clue related to a past event. At +2, you have the equivalent of a grade school history education. At +6, you would have the equivalent of a college grasp on the subject. At +8, you could teach history in high school. At +9, you may have written a few of the most oft-used texts on a particular historical personage or epoch.",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The knowledge of a foreign tongue. At +2, you can \"get by\" with speaking the language. At +3, you can actually read a written form of it. At +6 and above, you are fairly fluent, although no native will be fooled by your ability. At +8 and above, you speak and read the language like a native.\nEach language known requires a separate Know Lanquage Skill, however, one may use the knowledge of a particular Language with up to 1/2 (round down) proficiency with any language in the same linguistic family (example: knowing Cantonese at +4 will give you the ability to understand and speak Mandarin at +2).",
+    "special_ability": false
+},{
+    "name": "Library Search",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of using databases, DataTerms, libraries and other compiled information sources to find facts. With a skill of +2 you can use most simple databases. With a skill of +6, you can easily access the Library Congress. At +9, you can comprehend almost any public database and find very obscure facts.",
+    "special_ability": false
+},{
+    "name": "Mathematics",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of understanding calculations and mathematical formulas. At +3, you have the ability to add, subtract, divide and multiply. At +4, you can do algebra and geometry. At +6, you can perform calculus. At +9 you can deduce your own mathematical formulas.",
+    "special_ability": false
+},{
+    "name": "Physics",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to calculate physical principles, such as gas pressures, mechanical energies, etc. This skill requires a basic Mathematics Skill of +4.",
+    "special_ability": false
+},{
+    "name": "Programming",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The required skill to write programs and to re-program computer systems. This skill does not allow players to actually do repairs on a computer (this requires Electronics). With a Programming Skill of +1, you can do simple Python programs. A Programming Skill of +3 or better allows you to know some higher level languages and be able to write reasonably complex programs (including video games). Players with a Programming Skill +6 or better are considered to be professionals, who can build operating software, design mainframe systems, and hold down a steady job at your average Silicon Valley firm. With a Programming Skill of +9 or better, other programmers speak your name with reverence (\"You invented Rust? Wow!\"}, young hackers set out to crack your systems, and any computer software you design instantly gets used by every business application in the world.",
+    "special_ability": false
+},{
+    "name": "Stock Market",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to play the stock market, engage in routine stock transactions and manipulate stocks profitably. At +2, you know enough to invest in junk bonds and lose your shirt. At +6, your investments pay off 75% of the time. At +9, you are a major heavy on the Market, routinely dabble in international stocks, and can write learned articles on the subject of investment.",
+    "special_ability": false
+},{
+    "name": "System Knowledge",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "Basic knowledge of the geography of the Net, it's lore and history, as well as knowledge of the important computer systems, their strengths and their weaknesses. At +2, you can generally navigate around the Net and know where all the local places are. At +6, you know the locations of most places in the Net, and have a working understanding of its largest and most well known systems. At +9, you know the entire Net like the back of your hand, know the general layouts of the important systems cold, and are aware of the layouts for the rest of them.",
+    "special_ability": false
+},{
+    "name": "Teaching",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of imparting knowledge to someone else (if you don't think this is a skill, you ought to try it sometime). Players may not teach any skill unless they have a higher skill level than the student. The referee is the final arbiter of how long it takes to teach a skill. At a Teaching Skill of +3 or better, you can professionally teach students up to High School. At +6, you know enough to be a college professor (if you wanted). At +9 or greater, you are recognized by others in the field as good enough to guest lecture at MIT or Cal Tech; your texts on the subject are quoted as the major references, and you might have a TV show on the equivalent of the PBS channel.",
+    "special_ability": false
+},{
+    "name": "Wilderness Survival",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The required skill for knowing how to survive in the wilds. Knowledge includes how to set traps, forage for wood, track game, build shelters, make fires. The average Boy Scout has a Survival of +3. A Special Forces Green Beret has a Survival of +6 or above. Davey Crockett would have a +9 or +10 Survival Skill.",
+    "special_ability": false
+},{
+    "name": "Zoology",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "Knowledge of lifeforms, biological processes and their relation to the environment. At +2, you know most common animals. At +5, you not only know common animals, but also many exotics and endangered species. At +8, you are knowledgable on most animals, know their habits well, and have a +1 advantage to any Wilderness Survival Skills (you know where to find the game).",
+    "special_ability": false
+},{
+    "name": "Archery",
+    "name_extension": null,
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill required to use bows, crossbows and other arrow-based ranged weapons. See Handgun for details.",
+    "special_ability": false
+},{
+    "name": "Athletics",
+    "name_extension": null,
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "This skill is required for accurate throwing, climbing, and balancing. It combines the basic elements of any high school level sports program. At +3 and above, you are the equivalent of a real high school \"jock\". At +5 and above, you can perform in college level competitions. At +8 and above, you are of Olympic or professional caliber.",
+    "special_ability": false
+},{
+    "name": "Brawling",
+    "name_extension": null,
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of fighting man to man with fist, feet and other parts of the body. Brawling is not a trained skill - it Is learned on the Street by getting into a lot of fights. Unlike Martial Arts, there are no specialized attacks and no damage bonuses based on level of mastery.",
+    "special_ability": false
+},{
+    "name": "Dance",
+    "name_extension": null,
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The specific skill needed to become a professional dancer. A trained dancer +4 or greater can successfully dance for payment in small clubs or dance troupes. Dancers +6 or greater will be considered to be of professional caliber, and regularly give performances and have fans. Dancers +9 or greater are of \"star\" caliber, have a large number of fans, and may be recognized on the street.",
+    "special_ability": false
+},{
+    "name": "Dodge & Escape",
+    "name_extension": null,
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "This skill is required to dodge attacks and escape grapples and holds. If an attack is made without your knowledge, you may not apply this skill to your Defense roll.",
+    "special_ability": false
+},{
+    "name": "Driving",
+    "name_extension": null,
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "This skill allows you to pilot all ground vehicles like cars, trucks, tanks and hovercraft. This skill is not useable for piloting aircraft. A skill of +3 is equal to that of a very good non-professional driver. A skill of +6 allows you to drive with the skill of a moderately skilled race driver. An driver witha skill of +8 or greater will be nationally known as a racer, regularly win championship races, and possibly have access to the most advanced ground vehicles available (as long as he makes an endorsement).",
+    "special_ability": false
+},{
+    "name": "Fencing",
+    "name_extension": null,
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The mastery of swords, rapiers and monoblades. A Fencing skill of +3 allows you to be competent with a blade. A skill of +5 makes you fairly skilled. A Fencing skill of +6 might win you the National Fencing Competitions. A Skill of +8 will get you a reputation for being a true swordsman of duellist caliber. People like D'Artagnan or Miyamoto Musashi have Skills of +10. They are legendary masters of the blade; the mention of whom will cause all but the stupidest young bravo to run for cover.",
+    "special_ability": false
+},{
+    "name": "Handgun",
+    "name_extension": null,
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "You must have this skill to effec- tively use handguns of any type, including cyberwear types. At +2, you can use a handgun effectively on a target range, though combat will still rattle you. At +5, you are as skilled as most military officers or policemen. At +7, you can do the sort of fancy shooting you see on TV, and have begun to get a reputation of being \"good with a gun\". At +8, you are a recognized gunslinger with a \"rep\". The very sound of your name makes some people back down in fear. Atv+10, you are a legendary gunslinger, feared by all except the stupid young punks who keep trying to \"take\" you in innumerable gunfight challenges.",
+    "special_ability": false
+},{
+    "name": "Heavy Weapons",
+    "name_extension": null,
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The required skill for using grenade launchers, autocannon, mortars, heavy machine guns, missiles and rocket launchers. A level +5 skill would be equivalent to a general military \"Heavy Weapons\" training course, giving the user the ability to use any or all of these types.",
+    "special_ability": false
+},{
+    "name": "Martial Arts",
+    "name_extension": null,
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "This skill covers any type of trained fighting style using hands, feet, or specialized \"martial arts\" weapons. You must elect a style of martial art and take a separate skill for each style (for example, you would have to take Karate and Judo separately, spending points for each one).\nThe primary advantage to martial arts styles is that each one has what are called key attacks; attacks that reflect particular strengths of the style. When a key attack is used, there is a to-hit bonus based on the attack type and martial arts style. A full table of key attacks is listed in Friday Night Firefight, pg. l00.\nThe second advantage to martial arts styles is that there is a damage bonus on attacks equal to the level of the Martial Arts skill; for example, a master with a+10 Kung Fu skill would add 10 points to his damage. This can be a formidable advantage, particularly in head strikes (which double damage).",
+    "special_ability": false
+},{
+    "name": "Melee",
+    "name_extension": null,
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to use knives, axes, clubs and other hand to hand weapons in combat. Note: when using non-ranged cyberweapons such as rippers, scratchers, slice n' dices, cyberbeasts, and battlegloves, you must use this skill.",
+    "special_ability": false
+},{
+    "name": "Motorcycle",
+    "name_extension": null,
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The required skill to operate motorcycles, cyberbikes and other two and three-wheeled vehicles.",
+    "special_ability": false
+},{
+    "name": "Operate Heavy Machinery",
+    "name_extension": null,
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The required skill to operate tractors, tanks, very large trucks and construction equipment.",
+    "special_ability": false
+},{
+    "name": "Pilot",
+    "name_extension": null,
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "In general, this is the skill of controlling aircraft. Aircraft are broken into categories: Gyro and Rotorcraft, Fixed Wing Aircraft, Dirigibles and Vectored Thrust Aerodynes (AV-s). A Piloting Skill of +1 allows you to take off and land safely in good weather conditions. A Piloting Skill of +3 or more makes you a trained pilot, able to engage in most combat situations or bad weather. Pilots with a Skill of +6 or greater are veteran pilots, able to handle themselves in almost any situation, including aerobatic manuevers. Pilots with a Skill of +9 or greater are so good, they have a rep as pilots, and are widely known among the piloting fraternity for having the \"right stuff\".",
+    "special_ability": false
+},{
+    "name": "Rifle",
+    "name_extension": null,
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "You must have this skill to use rifles/shotguns effectively (see Handguns for limitations and modifiers).",
+    "special_ability": false
+},{
+    "name": "Stealth",
+    "name_extension": null,
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The skill of hiding in shadows, moving silently, evading guards, etc. A Stealth skill of+1 is about the level of a very sneaky 10 year old stealing cookies. At +3, you are able to get past most guards, or your parents if you've been grounded. At +6, you are good enough to slip smoothly from shadow to shadow and not make any noise. At +8, you are the equal of most Ninja warriors. At +10, you move as silently as a shadow, making the Ninja sound like elephants.",
+    "special_ability": false
+},{
+    "name": "Submachinegun",
+    "name_extension": null,
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "You must have this skill to use any type of submachinegun effectively (see Handguns for limitations and modifiers).",
+    "special_ability": false
+},{
+    "name": "",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "",
+    "special_ability": false
+},{
+    "name": "Aero Tech",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The required skill for repairing fixed wing aircraft, including Ospreys, jets, and light aircraft. With a Skill of +3, you can perform most routine maintenance tasks. With a Skill of +6, you can do engine teardowns and major structural repairs. With a Skill of +9 or better, you are capable of designing and building your own aircraft.",
+    "special_ability": false
+},{
+    "name": "AV Tech",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "The required skill for repairing all ducted fan aerodyne vehicles. At +3, you can perform routine maintenance. At +6, you can tear down engines and modify an AV. At +10, you can design your own AVs on common airframes.",
+    "special_ability": false
+},{
+    "name": "Basic Tech ",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The required skills for building or repairing simple mechanical and electrical devices, such as car engines, television sets, etc. With a Basic Tech Skill of +3 or better, you can fix minor car problems, repair basic wiring, etc. A Basic Tech Skill of +6 or better can repair stereos and TVs, rebuild an engine, etc. A Basic Tech Skill of +9 or better can build a simple computer from scratch, put together a race car engine, and maintain any kind of industrial machinery. However, they do not know enough specialized knowledge to apply it to complex things such as aircraft (just like a car repair shop doesn't know how to build and service a military fighter jet.",
+    "special_ability": false
+},{
+    "name": "Cryotank Operation",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The required skill for operating, repairing and maintaining life suspension and body chilling devices. A minimum skill of +4 is required to chill down a healthy person. A minumum skill of +6 for chilling a wounded person.",
+    "special_ability": false
+},{
+    "name": "Cyberdeck Design",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The required skill for designing cyberdecks. At level +4, you can modify an existing cyberdeck for greater speed or memory. At level +6, you can design a deck equal to most existing designs. At +8, you can design decks that are substantially improved over existing designs.",
+    "special_ability": false
+},{
+    "name": "CyberTech",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The required skill for repairing and maintaining cyberwear. At level +2, you can keep your cyberwear tuned up and can replace its power batteries. At level +6, you can strip down most cyberwear and even make simple modifications. At level +8, you can design your own cyberwear to order.",
+    "special_ability": false
+},{
+    "name": "Demolitions",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "This skill allows the character to be knowledgeable in the use of explosives, as well as knowing the best explosives to use for which jobs, how to set timers and detonators, and how much explosive to use to accomplish a desired result.",
+    "special_ability": false
+},{
+    "name": "Disguise",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of disguising your character to resemble someone else, whether real or fictitious. This skill incorporates elements of both makeup and acting, although it is not the same as the ability to actually be an actor.",
+    "special_ability": false
+},{
+    "name": "Electronics",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The required skill for maintaining, repairing and modifying electronic instruments such as computers, personal electronics hardware, electronic security systems, cameras and monitors",
+    "special_ability": false
+},{
+    "name": "Electronic Security",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The skill of installing or countering electronic eyes, electronic locks, bugs and tracers, security cameras, pressure plates, etc. At level +3, you can jimmy or install most apartment locks and securitycams. At +6, you can override most corporate office locks and traps. At +9, you can enter most high security areas with impunity.",
+    "special_ability": false
+},{
+    "name": "First Aid",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "This skill allows the user to bind wounds, stop bleeding, and revive a stunned patient (see Trauma Team, pg. 116 for details).",
+    "special_ability": false
+},{
+    "name": "Forgery",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of copying and creating false documents and identifications. This skill may also be applied to the detection of same; if you can fake it, you can usually tell a fake as well.",
+    "special_ability": false
+},{
+    "name": "Gyro Tech",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "The skill of repairing and maintaining rotorwing aircraft such as helicopters and gyrocopters.",
+    "special_ability": false
+},{
+    "name": "Paint or Draw",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of producing professional drawings. A Skill of +3 allows you to produce salable \"modern\" art. A skill of +6 will produce artwork that is recognizable and extremely pleasant to the eye-as well as salable. An artist with a skill of +8 or greater will be nationally known, have exhibits in galleries, and have other lesser artists studying his style in art school.",
+    "special_ability": false
+},{
+    "name": "Photography & Film",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of producing professional-caliber photographs or motion pictures. A skill of +2 allows you to make decent home movies. A skill of +4 or better creates work capable of winning amateur contests. A skill of +6 or better will produce work of the level of the average magazine cover or music video. A photographer or cinematographer with a Skill of +8 or better will be nationally known and probably famous.",
+    "special_ability": false
+},{
+    "name": "Pharmaceuticals",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The skill of designing and manufacturing drugs and medicines. A minimum Chemistry skill of +4 is required. At +4, you can make asprin. At +6, you can make hallucinogenics or antibiotics. At level +9 you can build designer drugs tailored to individual body chemistries.",
+    "special_ability": false
+},{
+    "name": "Pick Lock",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill required to pick locks and break into sealed containers and rooms. At +3, you can jimmy most simple locks. At +6 you can crack most safes. At +9 or better, you have a rep as a master cracksman, and are known to all the major players In the Cyberpunk world.",
+    "special_ability": false
+},{
+    "name": "Pick Pocket",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The required skill for picking pockets without being noticed, as well as \"shoplifting\" small items. For ideas on levels of ability, see Pick Lock.",
+    "special_ability": false
+},{
+    "name": "Play Instrument",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of knowing how to play a musical instrument. You must take this skill separately for each type of instrument played. A Skill of +4 or higher will qualify your character to play professional \"gigs\". A skill of +8 and above will gain the musician some professional acclaim, possibly with recording contracts and command performances. At +10, you are widely acclaimed, have lots of awards, and regularly jam with Kerry Eurodyne.",
+    "special_ability": false
+},{
+    "name": "Weaponsmith",
+    "name_extension": null,
+    "linked_stat": "Tech",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The required skill for repairing and maintaining weapons of all types. At level +2, you can do repairs and field stripping. At level +6, you can repair all types of weapons and make simple modifications. At level +8, you can design your own weapons to order.",
+    "special_ability": false
 }]
  
-{
- "name": "",
- "name_extension": null,
- "linked_stat": "Intelligence",
- "modifies_skill": null,
- "ip_modifier": 1,
- "description": "",
- "special_ability": false
-}

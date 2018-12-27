@@ -9,11 +9,7 @@
 import Foundation
 
 /// Represents the listing of a skill as it is known to the character
-final class SkillListing: Codable, Equatable {
-    static func == (lhs: SkillListing, rhs: SkillListing) -> Bool {
-        return lhs.skill.name == rhs.skill.name && lhs.skill.nameExtension == rhs.skill.nameExtension
-    }
-    
+final class SkillListing: Codable {
     
     /// The skill tied to the listing
     let skill: Skill

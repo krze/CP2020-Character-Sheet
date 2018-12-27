@@ -21,6 +21,7 @@ final class SkillsController {
     ///
     /// - Returns: The updated skill listings
     func fetchCharacterSkills() -> [SkillListing] {
+        // TODO: Filter stuff like "Language" if you have no points in it. Show "Language" and "Expert" without extensions if you dont have a specific language skill. Show your specific skill if you have points in it and hide the language/expert skills that have no extension
         return manager.skills.filter { !$0.skill.isSpecialAbility || $0.skill.name == manager.role.specialAbility() }
     }
 }

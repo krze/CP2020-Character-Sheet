@@ -9,7 +9,7 @@
 import Foundation
 
 /// Represeents a skill available to use as a character.
-struct Skill: Codable {
+struct Skill: Codable, Equatable {
     
     /// Name of the skill
     let name: String
@@ -37,6 +37,16 @@ struct Skill: Codable {
     /// the rulebook get a multiplier of 1.
     let IPMultiplier: Int
     
+    private var hash: Int {
+        var hasher = Hasher()
+        
+        hasher.combine(name)
+        hasher.combine(nameExtension)
+        hasher.combine(linkedStat?.rawValue)
+        
+        return hasher.finalize()
+    }
+    
     enum CodingKeys: String, CodingKey {
         case nameExtension = "name_extension"
         case isSpecialAbility = "special_ability"
@@ -44,5 +54,9 @@ struct Skill: Codable {
         case modifiesSkill = "modifies_skill"
         case IPMultiplier = "ip_multiplier"
         case name, description
+    }
+    
+    static func == (lhs: Skill, rhs: Skill) -> Bool {
+        return lhs.hash == rhs.hash
     }
 }

@@ -100,7 +100,7 @@ final class Edgerunner: Codable, SkillManager {
             guard let self = self else { return }
             
             self.skills.removeAll(where: { skillListing in
-                return skillListing == newSkill
+                return skillListing.skill == newSkill.skill
             })
             
             self.skills.append(newSkill)
