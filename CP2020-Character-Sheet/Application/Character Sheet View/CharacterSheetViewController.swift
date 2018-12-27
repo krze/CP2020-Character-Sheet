@@ -10,7 +10,9 @@ import UIKit
 
 final class CharacterSheetViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    weak var delegate: CharacterSheetControllerCoordinator?
+    weak var coordinator: CharacterSheetControllerCoordinator?
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +41,9 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
         let identifier = CharacterSheetSections(rawValue: indexPath.row)?.cellReuseID() ?? "" // TODO: Error cell for not finding this.
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
         
-        // TODO: Yeah this needs cleanup. Maybe a struct or something to handle this. Maybe standardize the setup calls and make a protocol. Or use a layoutsubviews one-time dispatch call inside of each Cell, instead of calling setup externally
+        // TODO: This needs cleanup. Maybe a struct or something to handle this.
+        // Maybe standardize the setup calls and make a protocol.
+        // Or use a layoutsubviews one-time dispatch call inside of each Cell, instead of calling setup externally
         
         if let cell = cell as? DamageViewCell {
             let viewModel = DamageSectionViewModel(startingDamageCellNumber: 1, totalDamage: 40, woundType: .Light, typeRatio: 0.3, cellRatio: 0.3, cellHorizontalPaddingSpace: 0.2, cellVerticalPaddingSpace: 0.2, cellBorderThickness: 1.0, cellCount: 4, stunRatio: 0.4, darkColor: StyleConstants.Color.dark, lightColor: StyleConstants.Color.light)
@@ -47,6 +51,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
             totalDamageController.delegate = cell
             
             cell.setup(with: viewModel, rows: 2, damageController: totalDamageController)
+            coordinator?.totalDamageController = totalDamageController
         }
         else if let cell = cell as? DamageModifierViewCell {
             let viewModel = DamageModifierViewModel(cellWidthRatio: 0.25, cellHeightRatio: 1.0, labelHeightRatio: 0.4, paddingRatio: 0.05)
@@ -75,9 +80,10 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
         }
         else if let cell = cell as? HighlightedSkillViewCell {
             let skillViewCellModel = HighlightedSkillViewCellModel(cellDescriptionLabelWidthRatio: 0.55)
-            let controller = HighlightedSkillViewCellController()
+            let highlightedSkillViewCellController = HighlightedSkillViewCellController()
             
-            cell.setup(viewModel: skillViewCellModel, controller: controller)
+            cell.setup(viewModel: skillViewCellModel, controller: highlightedSkillViewCellController)
+            coordinator?.highlightedSkillViewCellController = highlightedSkillViewCellController
         }
         
         return cell

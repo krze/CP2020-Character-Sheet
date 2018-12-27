@@ -29,7 +29,7 @@ final class IO {
     ///   - completion: A completion handler for the result
     func load(_ file: JSONFile, completion: (Data?, Error?) -> Void) {
         queue.sync {
-            guard let url = Bundle.main.url(forResource: file.name(), withExtension: Constants.json) else {
+            guard let url = Bundle.main.url(forResource: file.name(), withExtension: file.extension()) else {
                 return
             }
             
@@ -51,7 +51,7 @@ final class IO {
     ///   - completion: A completion handler for the result
     func save(_ data: Data, to file: JSONFile, completion: (Error?) -> Void) {
         queue.sync {
-            guard let url = Bundle.main.url(forResource: file.name(), withExtension: Constants.json) else {
+            guard let url = Bundle.main.url(forResource: file.name(), withExtension: file.extension()) else {
                 return
             }
             
@@ -84,12 +84,15 @@ final class IO {
                 return Constants.edgerunner
             }
         }
+        
+        func `extension`() -> String {
+            return Constants.json
+        }
     }
     
     private struct Constants {
         static let json = "json"
         static let skills = "Skills"
         static let edgerunner = "Edgerunner"
-    
     }
 }

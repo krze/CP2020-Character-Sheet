@@ -24,7 +24,7 @@ struct JSONFactory<T: Codable> {
         }
         catch let error {
             print(error)
-            // TODO: Catch this and bubble up errors
+            // TODO: Bubble up errors
         }
         
         return object
@@ -41,7 +41,8 @@ struct JSONFactory<T: Codable> {
             data = try encoder.encode(object)
         }
         catch {
-            // TODO: Catch this and bubble up errors
+            print(error)
+            // TODO: Bubble up errors
         }
         
         return data
@@ -51,7 +52,7 @@ struct JSONFactory<T: Codable> {
     ///
     /// - Parameter object: The object to convert
     /// - Returns: UTF8 encoded JSON string
-    func encodedString(from object: T) -> String? {
+    func encode(from object: T) -> String? {
         guard let data = encode(with: object),
             let string = String(data: data, encoding: .utf8) else {
             return nil
@@ -64,7 +65,7 @@ struct JSONFactory<T: Codable> {
     ///
     /// - Parameter string: A JSON string assumed to be a valid JSON
     /// - Returns: The object, decoded.
-    func decodedObject(from string: String) -> T? {
+    func decode(from string: String) -> T? {
         guard let data = string.data(using: .utf8),
             let object = decode(with: data) else {
             return nil

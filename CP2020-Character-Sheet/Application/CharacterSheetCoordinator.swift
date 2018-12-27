@@ -28,14 +28,20 @@ final class CharacterSheetCoordinator: CharacterSheetControllerCoordinator {
     let navigationController: UINavigationController
     let characterSheetViewController: CharacterSheetViewController
     
-//    private lazy var skillTableViewController: SkillTableViewController = {
-//
-//    }()
-//
+    private lazy var skillTableViewController: SkillTableViewController? = {
+        if let skillsController = skillsController {
+            return SkillTableViewController(with: skillsController,
+                                            viewModel: SkillTableViewModel(),
+                                            tableViewCellModel: SkillTableViewCellModel())
+        }
+        
+        return nil
+    }()
+
     init(with layout: UICollectionViewFlowLayout) {
         characterSheetViewController = CharacterSheetViewController(collectionViewLayout: layout)
         navigationController = UINavigationController(rootViewController:characterSheetViewController)
-        characterSheetViewController.delegate = self
+        characterSheetViewController.coordinator = self
 
         createObservers()
     }
@@ -46,9 +52,12 @@ final class CharacterSheetCoordinator: CharacterSheetControllerCoordinator {
     
     @objc private func showSkillTable(notification: Notification) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
+            guard let self = self,
+                let skillTableViewController = self.skillTableViewController else {
+                return
+            }
             
-//            self.navigationController.pushViewController(self.skillTableViewController, animated: true)
+            self.navigationController.pushViewController(skillTableViewController, animated: true)
         }
     }
         
