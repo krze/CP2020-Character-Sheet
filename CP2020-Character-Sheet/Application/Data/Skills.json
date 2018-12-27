@@ -335,6 +335,430 @@
     "description": "The knowledge of a foreign tongue. At +2, you can \"get by\" with speaking the language. At +3, you can actually read a written form of it. At +6 and above, you are fairly fluent, although no native will be fooled by your ability. At +8 and above, you speak and read the language like a native.\nEach language known requires a separate Know Lanquage Skill, however, one may use the knowledge of a particular Language with up to 1/2 (round down) proficiency with any language in the same linguistic family (example: knowing Cantonese at +4 will give you the ability to understand and speak Mandarin at +2).",
     "special_ability": false
 },{
+    "name": "Language",
+    "name_extension": "Bantu",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Bantu",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Fante",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Fante",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Ashanti",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Ashanti",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Kongo",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Kongo",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Zulu",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Zulu",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Swahili",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Swahili",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Afrikaans",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Afrikaans",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Lithuanian",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Lithuanian",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Estonian",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Estonian",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Latvian",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Latvian",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Finnish",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Finnish",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Gaelic",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Gaelic",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Welsh",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Welsh",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Breton",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Breton",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Farsi",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Farsi",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "German",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to speak and understand German",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Danish",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to speak and understand Danish",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Dutch",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to speak and understand Dutch",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "English",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to speak and understand English",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Norwegian",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to speak and understand Norwegian",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Swedish",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to speak and understand Swedish",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Finnish",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to speak and understand Finnish",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Yiddish",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to speak and understand Yiddish",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Greek",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Greek",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Japanese",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Japanese",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Korean",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Korean",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Micronsian",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Micronesian",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Tagalog",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Tagalog",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Polynesian",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Polynesian",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Javanese",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Javanese",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Malaysian",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Malaysian",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Sudanese",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Sudanese",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Indonesian",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Indonesian",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Hawaiian",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to speak and understand Hawaiian",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "French",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to speak and understand French",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Italian",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to speak and understand Italian",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Spanish",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to speak and understand Spanish",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Portugese",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to speak and understand Portugese",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Latin",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to speak and understand Latin",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Arabic",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to speak and understand Arabic",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Hebrew",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to speak and understand Hebrew",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Burmese",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "The ability to speak and understand Burmese",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Cantonese",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "The ability to speak and understand Cantonese",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Mandarin",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "The ability to speak and understand Mandarin",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Thai",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "The ability to speak and understand Thai",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Tibetan",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "The ability to speak and understand Tibetan",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Vietnamese",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "The ability to speak and understand Vietnamese",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Bulgarian",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "The ability to speak and understand Bulgarian",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Russian",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "The ability to speak and understand Russian",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Czech",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "The ability to speak and understand Czech",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Polish",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "The ability to speak and understand Polish",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Ukranian",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "The ability to speak and understand Ukranian",
+    "special_ability": false
+},{
+    "name": "Language",
+    "name_extension": "Slovak",
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "The ability to speak and understand Slovak",
+    "special_ability": false
+},{
     "name": "Library Search",
     "name_extension": null,
     "linked_stat": "Intelligence",
