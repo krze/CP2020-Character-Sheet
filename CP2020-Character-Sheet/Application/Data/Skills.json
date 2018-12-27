@@ -20,7 +20,7 @@
     "linked_stat": "Cool",
     "modifies_skill": null,
     "ip_modifier": 1,
-    "description": "This skill allows the Rocker to sway crowds equal to his level squared times 200. This ability (added to your Cool stat) allows the Rockerboy to control, incite and charm large number of people through his or her performance skills. When under the Rocker's control, this group can easily be persuaded to act on his suggestions; for example, a Rocker could convince a concert crowd to riot in the streets or attack a heavily fortified police line. Charismatic Leadership will only work with groups of ten or more people as it is primarily a mob leadership ability. The higher your Charismatic Leadership, the larger a crowd you can control and the more direct and complex the instructions you can get them to follow. For example, a level +3 Leadership could incite a nightclub crowd to get rowdy. A level +5 or +6 could provoke a concert crowd of thousands to trash a neighborhood, if the area wasn't too far from the hall. At level +9, and higher, you have the same sort of mesmeric ability as an Adolph Hitler - you can raise armies, start movements, and destroy nations.",
+    "description": "This skill allows the Rocker to sway crowds equal to his level squared times 200. This ability (added to your Cool stat) allows the Rockerboy to control, incite and charm large number of people through his or her performance skills. When under the Rocker's control, this group can easily be persuaded to act on his suggestions; for example, a Rocker could convince a concert crowd to riot in the streets or attack a heavily fortified police line. Charismatic Leadership will only work with groups of ten or more people as it is primarily a mob leadership ability. The higher your Charismatic Leadership, the larger a crowd you can control and the more direct and complex the instructions you can get them to follow. For example, a level +3 Leadership could incite a nightclub crowd to get rowdy. A level +5 or +6 could provoke a concert crowd of thousands to trash a neighborhood, if the area wasn't too far from the hall. At level +9, and higher, you have the same sort of mesmeric ability as an Napoleon - you can raise armies, start movements, and destroy nations.",
     "special_ability": true
 },{
     "name": "Credibility",
@@ -68,7 +68,7 @@
     "linked_stat": "Intelligence",
     "modifies_skill": null,
     "ip_modifier": 1,
-    "description": "This represents the Corporate's ability to command corporation resources. It is used as a persuasion skill, based on the scale of resources requested. This could include bodyguards, weapons, vehicles, buildings, money, etc. Obviously, the more powerful the Corporate, the more he can call upon at any one time. Your level of Resources determines exactly how much you can request from the Corporation without overreaching yourself. A Resource ability of +2 might get you access to a Company car. An ability of +6 might allow you to use a Company jet or hire a Solo team from the Corporate Security Division. A Resource of +9 would allow you access to almost all levels of the Corporation, as well as the ability to requisition almost any Company resource. Your Resource ability is applied to your INT stat.",
+    "description": "This represents the Corporate's ability to command corporation resources. It is used as a persuasion skill, based on the scale of resources requested. This could include bodyguards, weapons, vehicles, buildings, money, etc. Obviously, the more powerful the Corporate, the more he can call upon at any one time. Your level of Resources determines exactly how much you can request from the Corporation without overreaching yourself. A Resource ability of +2 might get you access to a Company car. An ability of +6 might allow you to use a Company jet or hire a Solo team from the Corporate Security Division. A Resource of +9 would allow you access to almost all levels of the Corporation, as well as the ability to requisition almost any Company resource. Your Resource ability is applied to your Intelligence stat.",
     "special_ability": true
 },{
     "name": "Streetdeal",
@@ -124,7 +124,7 @@
     "linked_stat": "Cool",
     "modifies_skill": null,
     "ip_modifier": 1,
-    "description": "The skill of drawing information from a subject and forcing his secrets into the open. An Interrogation of +2 or better will allow you to infallibly find out if your boyfriend is lying to you. At +5, you are a professional level interrogator - equivalent to a skilled detective grilling a suspect. Mike Wallace of 60 Minutes has an Interrogation of +9, allowing him to make even the most powerful people squirm.",
+    "description": "The skill of drawing information from a subject and forcing his secrets into the open. An Interrogation of +2 or better will allow you to infallibly find out if your boyfriend is lying to you. At +5, you are a professional level interrogator - equivalent to a skilled detective grilling a suspect. An Interrogation of +9, allows you to make even the most powerful people squirm.",
     "special_ability": false
 },{
     "name": "Intimidate",
@@ -132,7 +132,7 @@
     "linked_stat": "Cool",
     "modifies_skill": null,
     "ip_modifier": 1,
-    "description": "The skill of getting people to do what you want by force of personality or physical coercion. At +3, you can frighten almost any typical citizen, politician or low-level thug. At +6, you can intimidate Sylvester Stallone or any moderate \"tough guy\". At +9, you could intimidate Arnold Schwartzenegger.",
+    "description": "The skill of getting people to do what you want by force of personality or physical coercion. At +3, you can frighten almost any typical citizen, politician or low-level thug. At +6, you can intimidate any moderate \"tough guy\". At +9, you could intimidate Hercules.",
     "special_ability": false
 },{
     "name": "Oratory",
@@ -148,6 +148,184 @@
     "linked_stat": "Cool",
     "modifies_skill": null,
     "ip_modifier": 1,
-    "description": "Characterswith this skill are especially toughened against interrogation, torture and mind control drugs. A successful use of this skill will automatically increase the difficulty of any interrogation attempt made by another party by one level.",
+    "description": "Characters with this skill are especially toughened against interrogation, torture and mind control drugs. A successful use of this skill will automatically increase the difficulty of any interrogation attempt made by another party by one level.",
+    "special_ability": false
+},{
+    "name": "Streetwise",
+    "name_extension": null,
+    "linked_stat": "Cool",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The knowledge of the \"seamy\" side of life - where to get illegal and contraband things, how to talk to the criminal element, and avoiding bad situations in bad neighborhoods. With a Streetwise of +2 or better, you can get \"hot\" items, score drugs,etc. A Streetwise of +5 would allow you to arrange a murder contract, know a few mobsters who might owe you favors, and be able to call on muscle when you need it. At +8 or better, you could become a major crimelord yourself and skip the middlemen.",
+    "special_ability": false
+},{
+    "name": "Human Perception",
+    "name_extension": null,
+    "linked_stat": "Empathy",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of detecting lies, evasions, moods and other emotional clues from others. At +2, you can usually tell when you're not getting the whole truth. At +6, you can detect subtle evasions and mood swings. At +8, you can not only detect subtle emotional clues, but can usually tell what the subject is hiding in a general way.",
+    "special_ability": false
+},{
+    "name": "Interview",
+    "name_extension": null,
+    "linked_stat": "Empathy",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of eliciting interesting annecdotes from an interview subject. This information will be of a more non-specific and personal nature rather than specific knowledge (distinguishing this skill from the skill of Interrogation, where the user is trying to extract exact information. Example:Barbara Walters interviews, Mike Wallace interrogates). At +3 or better, the subject will usually tell you only information relating to what he/she is well known for. At +6 or better, the subject will tell you anecdotes about the past, pontificate about favorite interests and philosophies, etc. At +9 or better, he/she tells you everything - including personal information about their illegitimate son, the time they stole a cookie at age 4, and the fact that no one ever loved them.",
+    "special_ability": false
+},{
+    "name": "Leadership",
+    "name_extension": null,
+    "linked_stat": "Empathy",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": " The skill of leading and convincing people to follow you. A leader with a skill of +2 can manage a small office successfully and be respected for it. A leader with a skill of +4 or better can lead a small band of troops into battle and not get shot in the back. A leader with a skill of +7 or better can lead the entire army into battle and look good doing it. Julius Ceasar had a leadership of +11, but you never will.",
+    "special_ability": false
+},{
+    "name": "Seduction",
+    "name_extension": null,
+    "linked_stat": "Empathy",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of forming and maintaining romantic relationships (this includes your abilities as a lover). This skill may be used to determine whether or not players can form relationships with other non-player characters and the intensity of these relationships. In certain cases, Referees may want to average this skill with a player's Attractiveness to get a more realistic outcome.",
+    "special_ability": false
+},{
+    "name": "Social",
+    "name_extension": null,
+    "linked_stat": "Empathy",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to deal with social situations, like knowing the right fork to use or when not to tell the joke about the farmer's daughter and the travelling cyberware salesman. A Social Skill of +2 or better will allow you to get by at any fine restaurant or social function. At +5, you can lunch with the President with aplomb. No social situation will faze you, no matter what. At +8 or above, you can lecture The Queen on what's proper.",
+    "special_ability": false
+},{
+    "name": "Persuasion & Fast Talk",
+    "name_extension": null,
+    "linked_stat": "Empathy",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to talk others into doing what you want. This may be used individually or on large groups. At +3, you can win most debates or convince your girl friend that the blonde you were with was your sister. At +5, you are a smooth talker of professional caliber. At +7, you could broker peace deals and swing politicians. Cleopatra had a Persuasion of +9.",
+    "special_ability": false
+},{
+    "name": "Perform",
+    "name_extension": null,
+    "linked_stat": "Empathy",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of trained acting, singing, etc. A trained performer of +4 or greater can successfully sing for payment at weddings or small clubs. Performers +6 or greater will be considered to be of professional caliber, and may have lucrative contracts and fans. Performers of +9 or greater are of \"star\" caliber, have a large number of fans, and may be recognized on the street.",
+    "special_ability": false
+},{
+    "name": "Accounting",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The ability to balance books (or create false books), juggle numbers, create budgets and handle day to day business operations.",
+    "special_ability": false
+},{
+    "name": "Anthropology",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The knowledge of human cultures, habits and customs. Unlike Streetwise (which covers only the cultures and customs of the Street), or Social (which covers only what you should do in a given situation), Anthropology covers general customs and background of a culture. For example, with Streetwise, you know what alleys to avoid and what gangs are dangerous. With Social, you know the proper forms of address for a high ranking japanese zaibatsu head. With Anthropology, you know that the customs of a N'Tanga tribesman require that a young man kill a lion in order to be accepted as an adult male.",
+    "special_ability": false
+},{
+    "name": "Awareness\/Notice",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": ": This is the equivalent of a \"trained observer\" skill, allowing characters to notice or be aware of dues, shadowers and other events. With an Awareness of +2 you will usually spot small pieces of paper with notes on them, doors left ajar, and obvious expressions of lying or dislike. An Awareness of +5 or better allows you to spot fairly well hidden clues, notice small changes in expression, and fairly sophisticated attempts to \"shadow\" you. With an Awareness of +8 or greater, you routinely perform the sorts of deductive reasoning seen in the average TV cop show (\"The murderer was left handed because this knife has a specialized handle\"). Sherlock Holmes has a +10 Awareness. Players without this skill may only use their Intelligence Stat.",
+    "special_ability": false
+},{
+    "name": "Biology",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "General knowledge of animals, plants, and other biological systems. At level +3, you know most types of common animals, plants. At +6, you have a general understanding of genetics, cellular biology, etc. At +10, you can perform most bio-lab procedures, including gene mapping and splicing.",
+    "special_ability": false
+},{
+    "name": "Botany",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The general knowledge of plants and plant identification. At level +3, you know most common plants and can identify which ones are dangerous and why. At a +6, you can identify most important plants found world wide and have a working knowledge of their uses. At +8, you have the equivalent of a doctorate in Botany and know all about rare poisons, exotic orchids and other useful plants.",
+    "special_ability": false
+},{
+    "name": "Chemistry",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The required skill for mixing chemicals and creating various compounds. A level +2 Chemistry is equal to high school chemistry. A level +4 is equal to a trained pharmacist or college level chemist. A +8 is a trained laboratory chemist.",
+    "special_ability": false
+},{
+    "name": "Composition",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The required skill for writing songs, articles, or stories. A composing Skill of +4 or greater gives your character the ability to produce salable work. A Skill of +8 or more produces work of such a high caliber that the creator may have a strong literary following and not a little critical acclaim.",
+    "special_ability": false
+},{
+    "name": "Diagnose Illness",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of clinically diagnosing symptoms and medical problems. A +3 is the equivalent of a high school nurse - you can recognize most common injuries and complaints. At +6, you would be equivalent to a trained intern; you can recognize many uncommon illnesses and know ·how to treat most common ones. A +9 is the equivalent of a skilled diagnostician; other physicians come to you to get a diagnosis.",
+    "special_ability": false
+},{
+    "name": "Education & General Knowledge",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "This skill is the equivalent of a basic public school education, allowing you to know how to read, write, use basic math, and know enough history to get by. In effect, it is a \"lore\", or trivia skill. A level of +1 is a basic grade school education. A skill of +2 is equal to a high school equivalency. A Knowledge Skill of +3 is equal to a college education, +4 or higher is equal to a Masters or Doctorate. At +7, you are an extremely well-educated person, and are asked to play Trivial Pursuit a lot. At +9 and above, you are one of those people who knows a lot about everything (and hopefully has the good sense to keep his mouth shut).",
+    "special_ability": false
+},{
+    "name": "Expert",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "You may use this skill to be an expert on one specific subject, such as rare postage stamps, obscure weapons, a foreign language, etc. At +3, you are the local expert. At +6, you know enough to publish a few books on the subject. At +8 or better, your books are recognized as major texts on the subject, and you could do the talk show circuit if you wanted to.",
+    "special_ability": false
+},{
+    "name": "Gamble",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of knowing how to make bets, figure odds, and play games of chance successfully. As any professional gambler knows, this is not a luck skill. At +2, you are the local card shark at the Saturday night poker game. At +6, you can make a living at the tables in Vegas and Monte Carlo. At +9 or better, you can beat the house odds.",
+    "special_ability": false
+},{
+    "name": "Geology",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "A functional knowledge of rocks, minerals and geologic structures. At +3, you can identify most common rocks and minerals. At +6, you have the equivalent of a college degree in Geology and can identify minerals and geological structures with ease. At +8, you can teach geology in high school.",
+    "special_ability": false
+},{
+    "name": "Hide\/Evade",
+    "name_extension": null,
+    "linked_stat": "Intelligence",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of losing pursuers, covering tracks and otherwise evading people on your trail. At +3, you can lose most boostergangers on the rampage. At +6, you can ditch cops and private eyes. At +8, you can ditch most Solos.",
     "special_ability": false
 }]
+ 
+{
+ "name": "",
+ "name_extension": null,
+ "linked_stat": "Intelligence",
+ "modifies_skill": null,
+ "ip_modifier": 1,
+ "description": "",
+ "special_ability": false
+}
