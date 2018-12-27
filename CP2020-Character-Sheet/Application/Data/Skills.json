@@ -1023,6 +1023,38 @@
     "description": "In general, this is the skill of controlling aircraft. Aircraft are broken into categories: Gyro and Rotorcraft, Fixed Wing Aircraft, Dirigibles and Vectored Thrust Aerodynes (AV-s). A Piloting Skill of +1 allows you to take off and land safely in good weather conditions. A Piloting Skill of +3 or more makes you a trained pilot, able to engage in most combat situations or bad weather. Pilots with a Skill of +6 or greater are veteran pilots, able to handle themselves in almost any situation, including aerobatic manuevers. Pilots with a Skill of +9 or greater are so good, they have a rep as pilots, and are widely known among the piloting fraternity for having the \"right stuff\".",
     "special_ability": false
 }, {
+    "name": "Pilot",
+    "name_extension": "Gyro",
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "The ability to pilot all types of rotorwing aircraft, including gyros, copters and Ospreys.",
+    "special_ability": false
+}, {
+    "name": "Pilot",
+    "name_extension": "Fixed Wing",
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to pilot fixed wing jets and light aircraft. Ospreys may be flown with this skill, but only in the straight ahead (non-hover) mode",
+    "special_ability": false
+}, {
+    "name": "Pilot",
+    "name_extension": "Dirigible",
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The ability to pilot all lighter than air vehicles, including cargo dirigibles, blimps and powered balloons.",
+    "special_ability": false
+}, {
+    "name": "Pilot",
+    "name_extension": "Vector Thrust Vehicle",
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "The ability to pilot all types of vectored thrust vehicles including hovercars, hover rafts and AV-4, 6 and 7 vehicles.",
+    "special_ability": false
+}, {
     "name": "Rifle",
     "name_extension": null,
     "linked_stat": "Reflex",
