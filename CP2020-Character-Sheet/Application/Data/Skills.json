@@ -78,4 +78,76 @@
     "ip_modifier": 1,
     "description": "This is the ability to deal with the underground information network. With Streetdeal, a Fixer can uncover rumors and information, locate missing persons or things, put gossip out on the Street, pick up clues and score big deals. The higher your Streetdeal ability, the more information you can gather about things happening around you, the more informants you have, and the more secretive the information you can dig up. A level+3 Streetdeal can get you contacts for weapons, tools, or minor illegal operations. At level +5, you can penetrate the secrets of all but the most powerful crime families. At level +9, you are the equivalent of a Mafia crimelord yourself, privy to every secret that's on the Street. Apply Streetdeal to your Cool stat.",
     "special_ability": true
+},{
+    "name": "Personal Grooming",
+    "name_extension": null,
+    "linked_stat": "Attractiveness",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "This is the skill of knowing proper grooming, hair styling, etc., to maximize your physical attractiveness. Use of this skill allows players to increase their Attractiveness, and thus their chances of successful Relationships or Persuasions. A basically good looking person would be at +2. A fashion model might have a Personal Grooming of +5 or +6. At +8 or better, you could be a major fashion model, film star, or trendsetter. You are always \"together\". And you know it.",
+    "special_ability": false
+},{
+    "name": "Wardrobe & Style",
+    "name_extension": null,
+    "linked_stat": "Attractiveness",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of knowing the right clothes to wear, when to wear them, and how to look cool even in a spacesuit. With a Wardrobe of +2 or better, you are good at choosing clothes off the rack. At +6, your friends ask you for wardrobe tips, and you never buy anything off the rack. At +8 or better, you are one of those rare people whose personal style influences major fashion trends.",
+    "special_ability": false
+},{
+    "name": "Endurance",
+    "name_extension": null,
+    "linked_stat": "Body",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "This is the ability to withstand pain or hardship, particularly over long periods of time, by knowing the best ways to conserve strength and energy. Endurance Skill checks would be made whenever a character must continue to be active after a long period without food, sleep or water.",
+    "special_ability": false
+},{
+    "name": "Strength Feat",
+    "name_extension": null,
+    "linked_stat": "Body",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The user of this skill has practiced the art of bending bars, crushing objects, ripping phone books apart and other useful parlor tricks. At +2 you can crush cans, rip thin books in half, and bend thin rods. At +8, no phonebook is safe, you can bend thin rebar, and snap handcuffs. At +10, you can bend prison bars, rip up the Gutenberg Bible, and dent car fenders with one blow.",
+    "special_ability": false
+},{
+    "name": "Swimming",
+    "name_extension": null,
+    "linked_stat": "Body",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "This skill is required to know how to swim (see Athletics for details).",
+    "special_ability": false
+},{
+    "name": "Interrogation",
+    "name_extension": null,
+    "linked_stat": "Cool",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of drawing information from a subject and forcing his secrets into the open. An Interrogation of +2 or better will allow you to infallibly find out if your boyfriend is lying to you. At +5, you are a professional level interrogator - equivalent to a skilled detective grilling a suspect. Mike Wallace of 60 Minutes has an Interrogation of +9, allowing him to make even the most powerful people squirm.",
+    "special_ability": false
+},{
+    "name": "Intimidate",
+    "name_extension": null,
+    "linked_stat": "Cool",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of getting people to do what you want by force of personality or physical coercion. At +3, you can frighten almost any typical citizen, politician or low-level thug. At +6, you can intimidate Sylvester Stallone or any moderate \"tough guy\". At +9, you could intimidate Arnold Schwartzenegger.",
+    "special_ability": false
+},{
+    "name": "Oratory",
+    "name_extension": null,
+    "linked_stat": "Cool",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The skill of public speaking. At +2, you can wing high school speech contests. At +6, you can be paid to speak in public. At +10, you are capable of delivering a speech to rival Kennedy's \"lch Bin Ein Berliner\" or Lincoln's Gettysburg Address. Rockers with an Oratory Skill of +6 or better can add +1 when using their Charismatic Leadership ability.",
+    "special_ability": false
+},{
+    "name": "Resist Torture\/Drugs",
+    "name_extension": null,
+    "linked_stat": "Cool",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "Characterswith this skill are especially toughened against interrogation, torture and mind control drugs. A successful use of this skill will automatically increase the difficulty of any interrogation attempt made by another party by one level.",
+    "special_ability": false
 }]
