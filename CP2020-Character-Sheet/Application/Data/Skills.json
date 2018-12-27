@@ -911,6 +911,86 @@
     "description": "This skill covers any type of trained fighting style using hands, feet, or specialized \"martial arts\" weapons. You must elect a style of martial art and take a separate skill for each style (for example, you would have to take Karate and Judo separately, spending points for each one).\nThe primary advantage to martial arts styles is that each one has what are called key attacks; attacks that reflect particular strengths of the style. When a key attack is used, there is a to-hit bonus based on the attack type and martial arts style. A full table of key attacks is listed in Friday Night Firefight, pg. l00.\nThe second advantage to martial arts styles is that there is a damage bonus on attacks equal to the level of the Martial Arts skill; for example, a master with a+10 Kung Fu skill would add 10 points to his damage. This can be a formidable advantage, particularly in head strikes (which double damage).",
     "special_ability": false
 }, {
+    "name": "Martial Arts",
+    "name_extension": "Akido",
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "This form relies on using the opponent's strength and momentum againsthim. It is a perfect form for stopping an opponent peacefully while making yourself very hard to hit. Key attacks are: blocks & parries, dodges, throws, holds, escapes, chokes, sweeps, trips & sweeps, grapples.",
+    "special_ability": false
+}, {
+    "name": "Martial Arts",
+    "name_extension": "Animal Kung Fu",
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "These are forms based on animal movements, such as crane, mantis, tiger, leopard and dragon forms. These attacks are fast and dangerous, with a style that is exciting and flashy. Key attacks include: strikes, punches, kicks, blocks & parries, sweeps & trips.",
+    "special_ability": false
+}, {
+    "name": "Martial Arts",
+    "name_extension": "Boxing",
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "The manly art of fisticuffs, this form delivers lightning punches and a tight blocking defense. Key attacks are: punches, blocks & parries.",
+    "special_ability": false
+}, {
+    "name": "Martial Arts",
+    "name_extension": "Capoeria",
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "Created by Carribean slaves, this form combines dancelike movements with fast kicks and low line sweeps. It is a relatively unknown form and can be combined with dance moves to disguise it's true power. Key attacks are: punches, kicks, blocks & parries, dodges, and sweeps & trips.",
+    "special_ability": false
+}, {
+    "name": "Martial Arts",
+    "name_extension": "Chol Li Fut",
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "Descended directly from the ancient Shaolin temples, this form combines powerful roundhouse blows and sweeping kicks into a dynamic fighting style. Key attacks are: strikes, punches, kicks, blocks & parries, dodges, throws, and sweeps & trips.",
+    "special_ability": false
+}, {
+    "name": "Martial Arts",
+    "name_extension": "Judo",
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "This system was designed as a sport form, but is very effective in combat as well. It uses throws and sweeps to knock down the opponent. Key attacks include: dodges, throws, holds, escapes, sweeps & trips and grappling.",
+    "special_ability": false
+}, {
+    "name": "Martial Arts",
+    "name_extension": "Karate",
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 2,
+    "description": "The Japanese version of kung fu, this style uses straight line movements and powerful blows. Variations include shotokan and kenpo, each with their own special moves. Key attacks are: punches, kicks, and blocks & parries.",
+    "special_ability": false
+}, {
+    "name": "Martial Arts",
+    "name_extension": "Tae Kwon Do",
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 3,
+    "description": "A very fast and precise form, with graceful movements and some aerial kicks. Key attacks include: strikes, punches, kicks, block & parries, dodges.",
+    "special_ability": false
+}, {
+    "name": "Martial Arts",
+    "name_extension": "Thai Kick Boxing",
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 4,
+    "description": "One ofthe deadliest forms in existence, this style is known for blinding kicks delivered with incredible power. Key moves include: strikes, punches, kicks, blocks & parries, and grapples.",
+    "special_ability": false
+}, {
+    "name": "Martial Arts",
+    "name_extension": "Wrestling",
+    "linked_stat": "Reflex",
+    "modifies_skill": null,
+    "ip_modifier": 1,
+    "description": "This form combines techniques of Olympic and Professonal wrestling. The style uses a wide variety of throws and holds to incapacitate the opponent. Key attacks include: throws, holds, escapes, chokes, sweeps, trips, and grapples.",
+    "special_ability": false
+}, {
     "name": "Melee",
     "name_extension": null,
     "linked_stat": "Reflex",
