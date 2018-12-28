@@ -19,7 +19,7 @@ final class Edgerunner: Codable, SkillManager {
     /// Character role, aka "Class"
     private(set) var role: Role
     
-    /// Skills belonging to a character. These are skills that the character has invested in, not all skills.
+    /// All skills available to a player
     private(set) var skills: [SkillListing]
     
     /// Damage on the player
@@ -50,6 +50,14 @@ final class Edgerunner: Codable, SkillManager {
         self.humanityCost = humanityCost
         damage = 0
         skills = [SkillListing]()
+    }
+    
+    
+    /// Overrides skills with the new skills provided
+    ///
+    /// - Parameter skills: The skills to add to the player.
+    func set(skills: [SkillListing]) {
+        self.skills = skills
     }
     
     /// Retrieves the value for the stat requested

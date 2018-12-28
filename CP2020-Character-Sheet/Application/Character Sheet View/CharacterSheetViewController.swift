@@ -12,8 +12,6 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
     
     weak var coordinator: CharacterSheetControllerCoordinator?
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

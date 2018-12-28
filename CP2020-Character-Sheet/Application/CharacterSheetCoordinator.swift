@@ -17,7 +17,6 @@ import UIKit
 ///
 /// Use this class in the same way you'd use an application coordinator
 final class CharacterSheetCoordinator: CharacterSheetControllerCoordinator {
-    weak var skillsController: SkillsController?
 
     weak var damageModifierController: DamageModifierController?
     
@@ -37,11 +36,17 @@ final class CharacterSheetCoordinator: CharacterSheetControllerCoordinator {
         
         return nil
     }()
+    
+    private let modelManager: ModelManager
+    private var skillsController: SkillsController?
 
-    init(with layout: UICollectionViewFlowLayout) {
+    init(with layout: UICollectionViewFlowLayout, fileHandler: CharacterSheetFileHandler = CharacterSheetFileHandler()) {
+        modelManager = ModelManager(with: fileHandler)
+
         characterSheetViewController = CharacterSheetViewController(collectionViewLayout: layout)
         navigationController = UINavigationController(rootViewController:characterSheetViewController)
         characterSheetViewController.coordinator = self
+        
 
         createObservers()
     }

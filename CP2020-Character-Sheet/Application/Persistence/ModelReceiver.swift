@@ -8,9 +8,14 @@
 
 import Foundation
 
-protocol ModelReceiver {
+protocol ModelReceiver: class {
     
     func edgerunnerLoaded(_ edgerunner: Edgerunner)
     
+    func edgerunnerFailedToLoad(with error: Error)
+    
     func skillsLoaded(_ skills: [Skill])
+    
+    func skillsFailedToLoad(with error: Error)
+
 }
