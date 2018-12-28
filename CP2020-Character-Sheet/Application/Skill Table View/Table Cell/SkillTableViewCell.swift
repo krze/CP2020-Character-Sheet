@@ -21,9 +21,6 @@ final class SkillTableViewCell: UITableViewCell {
     private var viewModel: SkillTableViewCellModel?
     private(set) var skillListing: SkillListing?
     
-    /// Used to indicate that firstTimeSetup has been called by layoutSubViews()
-    private var cellHasBeenSetup = false
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.autoresizingMask = UIView.AutoresizingMask.flexibleHeight
@@ -97,7 +94,11 @@ final class SkillTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        setup()
+        if name == nil {
+            setup()
+        }
+        
+        updateColumnValues()
     }
     
     /// This is a one-time called second stage initializer
@@ -181,8 +182,6 @@ final class SkillTableViewCell: UITableViewCell {
             leadingAnchor = numericView.container.trailingAnchor
             count += 1
         }
-        
-        updateColumnValues()
     }
     
     override func prepareForReuse() {

@@ -37,8 +37,8 @@ final class SkillTableViewController: UITableViewController, SkillsControllerDel
         super.viewDidLoad()
         self.tableView.register(SkillTableViewCell.self, forCellReuseIdentifier: identifier)
 
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = SkillTableConstants.rowHeight
+        tableView.rowHeight = SkillTableConstants.rowHeight
+        tableView.sectionHeaderHeight = SkillTableConstants.rowHeight
     }
 
     // MARK: - Table view data source
@@ -105,18 +105,26 @@ final class SkillTableViewController: UITableViewController, SkillsControllerDel
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: SkillTableConstants.rowHeight)
-        let margins = viewModel.createInsets(with: frame)
         let labelText = SkillTableSections(rawValue: section)?.string() ?? "No Associated Stat"
         
-        func labelMaker(frame: CGRect) -> UILabel {
-            return headerLabel(frame: frame, text: labelText)
-        }
+        let view = UIView(frame: frame)
+        view.backgroundColor = viewModel.darkColor
+        view.directionalLayoutMargins = viewModel.createInsets(with: frame)
+        let labelFrame = CGRect(x: view.frame.minX,
+                                y: view.frame.minY,
+                                width: view.frame.width - view.directionalLayoutMargins.leading - view.directionalLayoutMargins.trailing,
+                                height: view.frame.height - view.directionalLayoutMargins.top - view.directionalLayoutMargins.bottom)
+        let label = headerLabel(frame: labelFrame, text: labelText)
         
-        let view = UILabel.container(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: SkillTableConstants.rowHeight), margins: margins, backgroundColor: viewModel.darkColor, borderColor: nil, borderWidth: nil, labelMaker: labelMaker)
+        view.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.widthAnchor.constraint(equalToConstant: labelFrame.width),
+            label.heightAnchor.constraint(equalToConstant: labelFrame.height),
+            label.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            label.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor)
+            ])
         
-        view.container.translatesAutoresizingMaskIntoConstraints = true
-        
-        return view.container
+        return view
     }
     
     private func headerLabel(frame: CGRect, text: String) -> UILabel {
@@ -126,7 +134,7 @@ final class SkillTableViewController: UITableViewController, SkillsControllerDel
         label.backgroundColor = viewModel.darkColor
         label.textColor = viewModel.lightColor
         label.text = text
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
         
         return label

@@ -279,7 +279,7 @@
     "description": "The skill of clinically diagnosing symptoms and medical problems. A +3 is the equivalent of a high school nurse - you can recognize most common injuries and complaints. At +6, you would be equivalent to a trained intern; you can recognize many uncommon illnesses and know ·how to treat most common ones. A +9 is the equivalent of a skilled diagnostician; other physicians come to you to get a diagnosis.",
     "special_ability": false
 }, {
-    "name": "Education & General Knowledge",
+    "name": "Education & Gen. Knowledge",
     "name_extension": null,
     "linked_stat": "Intelligence",
     "modifies_skill": null,
