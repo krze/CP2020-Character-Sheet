@@ -23,7 +23,7 @@ final class CharacterSheetFileHandler {
     }
     
     func loadSkills() {
-        io.load(.Skills) { (data, error) in
+        io.load(.DefaultSkills) { (data, error) in
             sendSkillsToReceiver(with: data, error: error)
         }
     }

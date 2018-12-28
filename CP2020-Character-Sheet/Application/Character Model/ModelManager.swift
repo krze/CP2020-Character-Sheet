@@ -35,7 +35,8 @@ final class ModelManager: ModelReceiver {
     }
     
     func edgerunnerFailedToLoad(with error: Error) {
-        if let error = error as? IOError, error == .NoSuchFile {
+        if let error = error as? IOError,
+            error == .NoSuchFile {
             // TODO: Introduce character creator flow. For now, we're just generating a blank character.
             let stats = Stats(int: 0, ref: 0, tech: 0, cool: 0, attr: 0, luck: 0, ma: 0, body: 0, emp: 0, rep: 0)
             let skills = self.skills ?? [Skill]()
