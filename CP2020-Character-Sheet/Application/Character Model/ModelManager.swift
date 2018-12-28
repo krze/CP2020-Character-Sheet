@@ -10,9 +10,11 @@ import Foundation
 
 /// Manages the loading and storing of models.
 final class ModelManager: ModelReceiver {
+    
     private(set) var edgerunner: Edgerunner?
     private(set) var skills: [Skill]?
     private let handler: CharacterSheetFileHandler
+    weak var coordinator: CharacterSheetControllerCoordinator?
     
     init(with handler: CharacterSheetFileHandler) {
         self.handler = handler
@@ -23,6 +25,8 @@ final class ModelManager: ModelReceiver {
     }
     
     func edgerunnerLoaded(_ edgerunner: Edgerunner) {
+        coordinator?.skillsController = SkillsController(manager: edgerunner)
+
         self.edgerunner = edgerunner
     }
     
@@ -32,7 +36,13 @@ final class ModelManager: ModelReceiver {
     
     func edgerunnerFailedToLoad(with error: Error) {
         if let error = error as? IOError, error == .NoSuchFile {
-            // TODO: Create new edgerunner
+            // TODO: Introduce character creator flow. For now, we're just generating a blank character.
+            let stats = Stats(int: 0, ref: 0, tech: 0, cool: 0, attr: 0, luck: 0, ma: 0, body: 0, emp: 0, rep: 0)
+            let edgerunner = Edgerunner(baseStats: stats, role: .Netrunner, humanityCost: 0)
+            coordinator?.skillsController = SkillsController(manager: edgerunner)
+            self.edgerunner = edgerunner
+            
+            return
         }
         print(error)
     }

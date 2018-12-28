@@ -105,6 +105,8 @@ final class SkillTableViewController: UITableViewController, SkillsControllerDel
         
         let view = UILabel.container(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: SkillTableConstants.rowHeight), margins: margins, backgroundColor: viewModel.darkColor, borderColor: nil, borderWidth: nil, labelMaker: labelMaker)
         
+        view.container.translatesAutoresizingMaskIntoConstraints = true
+        
         return view.container
     }
     
