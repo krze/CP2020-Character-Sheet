@@ -14,9 +14,6 @@ final class SkillListing: Codable {
     /// The skill tied to the listing
     let skill: Skill
     
-    /// Category for display purposes inside of a tableview. This will be the stat associated with the skill.
-    let category: String?
-    
     /// Number of points alloted to the skill by the player
     private(set) var points: Int
     
@@ -47,6 +44,8 @@ final class SkillListing: Codable {
         return points + modifier + statModifier
     }
     
+    var starred: Bool = false
+    
     init(skill: Skill, points: Int, modifier: Int, statModifier: Int?) {
         self.skill = skill
         self.points = points
@@ -55,7 +54,7 @@ final class SkillListing: Codable {
         self.statModifier = statModifier ?? 0
         self.improvementPoints = 0
         
-        category = skill.isSpecialAbility ? "Special Ability" : skill.linkedStat?.rawValue
+        starred = skill.isSpecialAbility
     }
     
     /// Updates the raw point value
@@ -114,6 +113,6 @@ final class SkillListing: Codable {
     enum CodingKeys: String, CodingKey {
         case statModifier = "stat_modifier"
         case improvementPoints = "ip"
-        case skill, category, points, modifier
+        case skill, points, modifier
     }
 }

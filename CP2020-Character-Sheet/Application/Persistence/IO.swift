@@ -27,6 +27,9 @@ final class IO {
     /// - Parameter queue: A queue on which to operate. Operations are synchronous. By default, this is a QOS of "utility"
     init(with queue: DispatchQueue = DispatchQueue(label: "CP2020_IO", qos: .utility)) {
         self.queue = queue
+        
+        // This call will happen synchronously on main on purpose.
+        // This should be checked before any other save/load actions take place.
         self.customSkillsExist = expectedURL(for: .CustomSkills) != nil
     }
     
