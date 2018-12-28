@@ -124,7 +124,7 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
                               IPMultiplier: 1)
             let skillListing = SkillListing(skill: skill, points: 5, modifier: 0, statModifier: 5)
             let viewModel = SkillTableViewCellModel()
-            cell.prepareForFirstTimeSetup(with: skillListing, viewModel: viewModel)
+            cell.prepare(with: skillListing, viewModel: viewModel)
         }
         
         return cell

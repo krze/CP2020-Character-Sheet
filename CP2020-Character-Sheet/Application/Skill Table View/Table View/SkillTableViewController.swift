@@ -137,7 +137,7 @@ final class SkillTableViewController: UITableViewController, SkillsControllerDel
         
         if let cell = cell as? SkillTableViewCell, let section = SkillTableSections(rawValue: indexPath.section),
             let listing = sections[section]?[indexPath.row] {
-            cell.prepareForFirstTimeSetup(with: listing, viewModel: cellModel)
+            cell.prepare(with: listing, viewModel: cellModel)
         }
         
         return cell

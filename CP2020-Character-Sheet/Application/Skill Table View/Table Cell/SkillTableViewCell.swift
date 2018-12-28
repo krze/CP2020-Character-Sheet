@@ -39,7 +39,7 @@ final class SkillTableViewCell: UITableViewCell {
     /// - Parameters:
     ///   - skillListing: SkillListing corresponding with the table view cell
     ///   - viewModel: The cell's view model
-    func prepareForFirstTimeSetup(with skillListing: SkillListing, viewModel: SkillTableViewCellModel) {
+    func prepare(with skillListing: SkillListing, viewModel: SkillTableViewCellModel) {
         self.viewModel = viewModel
         self.skillListing = skillListing
     }
@@ -97,17 +97,11 @@ final class SkillTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        // The correct cell height doesn't seem to be set until layoutSubViews() is called.
-        // This hacky sorta-initializer is called
-        if !cellHasBeenSetup {
-            firstTimeSetup()
-            
-            cellHasBeenSetup = true
-        }
+        setup()
     }
     
     /// This is a one-time called second stage initializer
-    private func firstTimeSetup() {
+    private func setup() {
         let nameCellWidthRatio = CGFloat(0.55) // 55% of view width
         let numericCellWidthRatio = CGFloat(0.15) // 3 cells, 15% of width each
         
@@ -188,6 +182,11 @@ final class SkillTableViewCell: UITableViewCell {
             count += 1
         }
         
+        updateColumnValues()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
         updateColumnValues()
     }
     
