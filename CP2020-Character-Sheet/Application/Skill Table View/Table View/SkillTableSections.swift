@@ -9,7 +9,7 @@
 import Foundation
 
 enum SkillTableSections: Int, CaseIterable {
-    case SpecialAbility = 0, Attractiveness, Body, Cool, Intelligence, Reflex, Tech
+    case SpecialAbility = 0, Attractiveness, Body, Cool, Empathy, Intelligence, Reflex, Tech
     
     static func section(for stat: Stat) -> SkillTableSections {
         switch stat {
@@ -19,6 +19,8 @@ enum SkillTableSections: Int, CaseIterable {
             return SkillTableSections.Body
         case .Cool:
             return SkillTableSections.Cool
+        case .Empathy:
+            return SkillTableSections.Empathy
         case .Intelligence:
             return SkillTableSections.Intelligence
         case .Reflex:
@@ -40,6 +42,8 @@ enum SkillTableSections: Int, CaseIterable {
             return Stat.Body.rawValue
         case .Cool:
             return Stat.Cool.rawValue
+        case .Empathy:
+            return Stat.Empathy.rawValue
         case .Intelligence:
             return Stat.Intelligence.rawValue
         case .Reflex:

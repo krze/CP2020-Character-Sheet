@@ -44,27 +44,22 @@ final class Edgerunner: Codable, SkillManager {
     ///   - baseStats: Character stats object representing the base stat values
     ///   - role: The role of the character
     ///   - humanityCost: The humanity cost from cyberware (NOTE: This will be a computed property when cyberware is supported)
-    init(baseStats: Stats, role: Role, humanityCost: Int) {
+    init(baseStats: Stats, role: Role, humanityCost: Int, skills: [Skill]) {
         self.baseStats = baseStats
         self.role = role
         self.humanityCost = humanityCost
         damage = 0
-        skills = [SkillListing]()
-    }
-    
-    
-    /// Overrides skills with the new skills provided
-    ///
-    /// - Parameter skills: The skills to add to the player.
-    func set(skills: [SkillListing]) {
-        self.skills = skills
+        self.skills = [SkillListing]() // This is necessary so we can set it on the next line and preserve this class as Codable.
+        self.skills = skills.map({ SkillListing(skill: $0, points: 0, modifier: 0, statModifier: value(for: $0.linkedStat))})
     }
     
     /// Retrieves the value for the stat requested
     ///
     /// - Parameter stat: The stat you want
     /// - Returns: The value for the requested stat
-    func value(for stat: Stat) -> Int {
+    func value(for stat: Stat?) -> Int {
+        guard let stat = stat else { return 0 }
+        
         switch stat {
         case .Intelligence:
             return baseStats.int

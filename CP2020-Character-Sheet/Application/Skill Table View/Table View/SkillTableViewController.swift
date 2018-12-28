@@ -75,6 +75,7 @@ final class SkillTableViewController: UITableViewController, SkillsControllerDel
             .Attractiveness: [SkillListing](),
             .Body: [SkillListing](),
             .Cool: [SkillListing](),
+            .Empathy: [SkillListing](),
             .Intelligence: [SkillListing](),
             .Reflex: [SkillListing](),
             .Tech: [SkillListing]()
@@ -124,9 +125,10 @@ final class SkillTableViewController: UITableViewController, SkillsControllerDel
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         
-        if let cell = cell as? SkillTableViewCell, let section = SkillTableSections(rawValue: indexPath.section), let listing = sections[section]?[indexPath.row] {
+        if let cell = cell as? SkillTableViewCell, let section = SkillTableSections(rawValue: indexPath.section),
+            let listing = sections[section]?[indexPath.row] {
             cell.prepareForFirstTimeSetup(with: listing, viewModel: cellModel)
         }
         

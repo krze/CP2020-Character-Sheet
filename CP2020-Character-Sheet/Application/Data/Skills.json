@@ -1079,14 +1079,6 @@
     "description": "You must have this skill to use any type of submachinegun effectively (see Handguns for limitations and modifiers).",
     "special_ability": false
 }, {
-    "name": "",
-    "name_extension": null,
-    "linked_stat": "Tech",
-    "modifies_skill": null,
-    "ip_multiplier": 1,
-    "description": "",
-    "special_ability": false
-}, {
     "name": "Aero Tech",
     "name_extension": null,
     "linked_stat": "Tech",
