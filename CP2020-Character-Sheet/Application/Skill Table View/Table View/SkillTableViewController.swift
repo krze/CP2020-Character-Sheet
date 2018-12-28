@@ -92,6 +92,14 @@ final class SkillTableViewController: UITableViewController, SkillsControllerDel
             }
         }
         
+        sections.forEach { (key, value) in
+            let sortedListing = value.sorted { (first, next) -> Bool in
+                return first.skill.name < next.skill.name
+            }
+            
+            sections[key] = sortedListing
+        }
+        
         self.sections = sections
     }
     
