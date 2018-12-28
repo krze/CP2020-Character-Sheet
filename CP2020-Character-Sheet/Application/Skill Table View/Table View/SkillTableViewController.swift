@@ -9,7 +9,8 @@
 import UIKit
 
 /// The table view containing the full listing of every skill available to the player
-final class SkillTableViewController: UITableViewController {
+final class SkillTableViewController: UITableViewController, SkillsControllerDelegate {
+
     private let skillsController: SkillsController
     
     private let viewModel: SkillTableViewModel
@@ -17,6 +18,8 @@ final class SkillTableViewController: UITableViewController {
     
     private var sections = [SkillTableSections: [SkillListing]]()
     private let identifier = SkillTableConstants.identifier
+    
+    private var skillListings = [SkillListing]()
 
     init(with skillsController: SkillsController,
          viewModel: SkillTableViewModel,
@@ -24,13 +27,15 @@ final class SkillTableViewController: UITableViewController {
         self.skillsController = skillsController
         self.viewModel = viewModel
         cellModel = tableViewCellModel
+        
         super.init(style: .plain)
+        self.skillsController.delegate = self
+        self.skillsController.getCharacterSkills()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.register(SkillTableViewCell.self, forCellReuseIdentifier: identifier)
-        updateSections()
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = SkillTableConstants.rowHeight
@@ -39,14 +44,25 @@ final class SkillTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
         return sections.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        if let section = SkillTableSections(rawValue: section) {
+            return sections[section]?.count ?? 0
+        }
+        
         return 0
     }
+    
+    // MARK: SkillsControllerDelegate
+    
+    func skillsDidUpdate(skills: [SkillListing]) {
+        skillListings = skills
+        updateSections()
+        tableView.reloadData()
+    }
+    
     
     /// Reflreshes the sections dictionary. This is a O(1) operation.
     ///
@@ -54,7 +70,6 @@ final class SkillTableViewController: UITableViewController {
     /// stats. This controller is expected to recieve a filtered array of stats relevent to the character's
     /// role to begin with, so only one Special Ability will be chosen from the skills.
     private func updateSections() {
-        var skillListings = skillsController.fetchCharacterSkills()
         var sections: [SkillTableSections: [SkillListing]] = [
             .SpecialAbility: [SkillListing](),
             .Attractiveness: [SkillListing](),
@@ -79,6 +94,43 @@ final class SkillTableViewController: UITableViewController {
         self.sections = sections
     }
     
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: SkillTableConstants.rowHeight)
+        let margins = viewModel.createInsets(with: frame)
+        let labelText = SkillTableSections(rawValue: section)?.string() ?? "No Associated Stat"
+        
+        func labelMaker(frame: CGRect) -> UILabel {
+            return headerLabel(frame: frame, text: labelText)
+        }
+        
+        let view = UILabel.container(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: SkillTableConstants.rowHeight), margins: margins, backgroundColor: viewModel.darkColor, borderColor: nil, borderWidth: nil, labelMaker: labelMaker)
+        
+        return view.container
+    }
+    
+    private func headerLabel(frame: CGRect, text: String) -> UILabel {
+        let label = UILabel(frame: frame)
+        label.font = viewModel.headerFont
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = viewModel.darkColor
+        label.textColor = viewModel.lightColor
+        label.text = text
+        label.textAlignment = .center
+        label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
+        
+        return label
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        
+        if let cell = cell as? SkillTableViewCell, let section = SkillTableSections(rawValue: indexPath.section), let listing = sections[section]?[indexPath.row] {
+            cell.prepareForFirstTimeSetup(with: listing, viewModel: cellModel)
+        }
+        
+        return cell
+    }
+    
     private func createObservers() {
         // TODO: Set up observers for the following:
         //        skillPointsDidChange
@@ -89,16 +141,6 @@ final class SkillTableViewController: UITableViewController {
         //        skillPointModifierDidChange
         //        skillPointStatModifierDidChange
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
 
     /*
     // Override to support conditional editing of the table view.

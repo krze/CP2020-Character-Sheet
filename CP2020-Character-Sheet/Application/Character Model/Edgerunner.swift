@@ -99,11 +99,11 @@ final class Edgerunner: Codable, SkillManager {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             
-            self.skills.removeAll(where: { skillListing in
-                return skillListing.skill == newSkill.skill
-            })
-            
-            self.skills.append(newSkill)
+            if let existingSkill = self.skills.first(where: { $0.skill == newSkill.skill }) {
+                existingSkill.update(points: newSkill.points)
+            } else {
+                self.skills.append(newSkill)
+            }
             
             NotificationCenter.default.post(name: .newSkillAdded, object: newSkill)
         }

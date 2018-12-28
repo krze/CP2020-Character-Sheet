@@ -29,4 +29,23 @@ enum SkillTableSections: Int, CaseIterable {
             return SkillTableSections.SpecialAbility
         }
     }
+    
+    func string() -> String {
+        switch self {
+        case .SpecialAbility:
+            return "Special Ability"
+        case .Attractiveness:
+            return Stat.Attractiveness.rawValue
+        case .Body:
+            return Stat.Body.rawValue
+        case .Cool:
+            return Stat.Cool.rawValue
+        case .Intelligence:
+            return Stat.Intelligence.rawValue
+        case .Reflex:
+            return Stat.Reflex.rawValue
+        case .Tech:
+            return Stat.Tech.rawValue
+        }
+    }
 }

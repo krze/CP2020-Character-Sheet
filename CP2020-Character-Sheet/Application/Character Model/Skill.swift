@@ -37,16 +37,6 @@ struct Skill: Codable, Equatable {
     /// the rulebook get a multiplier of 1.
     let IPMultiplier: Int
     
-    private var hash: Int {
-        var hasher = Hasher()
-        
-        hasher.combine(name)
-        hasher.combine(nameExtension)
-        hasher.combine(linkedStat?.rawValue)
-        
-        return hasher.finalize()
-    }
-    
     enum CodingKeys: String, CodingKey {
         case nameExtension = "name_extension"
         case isSpecialAbility = "special_ability"
@@ -57,6 +47,6 @@ struct Skill: Codable, Equatable {
     }
     
     static func == (lhs: Skill, rhs: Skill) -> Bool {
-        return lhs.hash == rhs.hash
+        return lhs.name == rhs.name && lhs.description == rhs.description && lhs.linkedStat == rhs.linkedStat
     }
 }
