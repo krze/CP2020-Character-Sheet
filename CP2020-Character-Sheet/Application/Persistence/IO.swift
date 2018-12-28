@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum IOError: Error {
+    case NoSuchFile
+}
+
 /// Serial disk operation. Handles the saving and loading of the JSONs for the character sheet.
 /// File operations are synchronous.
 final class IO {
@@ -30,6 +34,7 @@ final class IO {
     func load(_ file: JSONFile, completion: (Data?, Error?) -> Void) {
         queue.sync {
             guard let url = Bundle.main.url(forResource: file.name(), withExtension: file.extension()) else {
+                completion(nil, IOError.NoSuchFile)
                 return
             }
             
@@ -51,19 +56,28 @@ final class IO {
     ///   - completion: A completion handler for the result
     func save(_ data: Data, to file: JSONFile, completion: (Error?) -> Void) {
         queue.sync {
-            guard let url = Bundle.main.url(forResource: file.name(), withExtension: file.extension()) else {
-                return
-            }
             
-            do {
-                // TODO: Safer save operation to check for space and deletion, creates backup before deleting, etc
-                try FileManager.default.removeItem(at: url)
-                try data.write(to: url)
-                completion(nil)
-            }
-            catch let error {
-                completion(error)
-            }
+            // TODO: Save to documents to not override the default bundle items.
+            
+            fatalError("Save not yet implemented")
+//            if let url = Bundle.main.url(forResource: file.name(), withExtension: file.extension()) {
+//                do {
+//                    try FileManager.default.removeItem(at: url)
+//                }
+//                catch let error {
+//                    completion(error)
+//                }
+//            }
+            
+            
+//            do {
+//                // TODO: Safer save operation to check for space and deletion, creates backup before deleting, etc
+//                try data.write(to: url)
+//                completion(nil)
+//            }
+//            catch let error {
+//                completion(error)
+//            }
         }
     }
     

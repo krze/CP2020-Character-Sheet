@@ -43,6 +43,7 @@ final class CharacterSheetCoordinator: CharacterSheetControllerCoordinator {
     init(with layout: UICollectionViewFlowLayout, fileHandler: CharacterSheetFileHandler = CharacterSheetFileHandler()) {
         modelManager = ModelManager(with: fileHandler)
 
+        // NEXT: Figure out handling the SkillsController loading thing.
         characterSheetViewController = CharacterSheetViewController(collectionViewLayout: layout)
         navigationController = UINavigationController(rootViewController:characterSheetViewController)
         characterSheetViewController.coordinator = self

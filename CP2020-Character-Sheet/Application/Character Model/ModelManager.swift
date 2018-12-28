@@ -31,6 +31,9 @@ final class ModelManager: ModelReceiver {
     }
     
     func edgerunnerFailedToLoad(with error: Error) {
+        if let error = error as? IOError, error == .NoSuchFile {
+            // TODO: Create new edgerunner
+        }
         print(error)
     }
     
