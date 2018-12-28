@@ -15,7 +15,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Cyberpunk 2020"
+        navigationItem.title = "Character Sheet"
         collectionView.backgroundColor = StyleConstants.Color.dark
         collectionView.register(RoleDescriptionViewCell.self,
                                 forCellWithReuseIdentifier: CharacterSheetSections.CharacterDescription.cellReuseID())

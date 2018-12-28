@@ -57,27 +57,10 @@ final class IO {
     func save(_ data: Data, to file: JSONFile, completion: (Error?) -> Void) {
         queue.sync {
             
+            
             // TODO: Save to documents to not override the default bundle items.
             
             fatalError("Save not yet implemented")
-//            if let url = Bundle.main.url(forResource: file.name(), withExtension: file.extension()) {
-//                do {
-//                    try FileManager.default.removeItem(at: url)
-//                }
-//                catch let error {
-//                    completion(error)
-//                }
-//            }
-            
-            
-//            do {
-//                // TODO: Safer save operation to check for space and deletion, creates backup before deleting, etc
-//                try data.write(to: url)
-//                completion(nil)
-//            }
-//            catch let error {
-//                completion(error)
-//            }
         }
     }
     
