@@ -8,11 +8,10 @@
 
 import UIKit
 
-/// A simple view containing a static label and a textview for user input
-/// Used for things like character name
-final class UserEntryView: UIView, UITextFieldDelegate {
+/// A simple view containing a static label and a label controlled by user data.
+final class UserEntryView: UIView {
     private let viewModel: UserEntryViewModel
-    private var inputField: UITextField?
+    private(set) var inputField: UILabel?
     
     init(frame: CGRect, viewModel: UserEntryViewModel) {
         self.viewModel = viewModel
@@ -50,7 +49,6 @@ final class UserEntryView: UIView, UITextFieldDelegate {
             ])
         
         self.inputField = inputField
-        self.inputField?.delegate = self
     }
     
     private func label(frame: CGRect) -> UILabel {
@@ -66,19 +64,15 @@ final class UserEntryView: UIView, UITextFieldDelegate {
         return label
     }
     
-    private func inputField(frame: CGRect) -> UITextField {
-        let field = UITextField(frame: frame)
+    private func inputField(frame: CGRect) -> UILabel {
+        let field = UILabel(frame: frame)
         field.font = viewModel.inputFont
-        field.minimumFontSize = viewModel.inputMinimumSize
         field.adjustsFontSizeToFitWidth = false
-        field.autocorrectionType = .no
         field.layer.borderColor = viewModel.darkColor.cgColor
         field.layer.borderWidth = StyleConstants.SizeConstants.borderWidth
-        
-        
-        let leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: frame.width * 0.05, height: 0.0))
-        field.leftView = leftView
-        field.leftViewMode = .always
+        field.backgroundColor = viewModel.lightColor
+        field.textColor = viewModel.darkColor
+        field.textAlignment = .left
         
         return field
     }

@@ -18,7 +18,7 @@ final class RoleDescriptionViewCell: UICollectionViewCell {
         var topAnchor = safeAreaLayoutGuide.topAnchor
         let subviewFrame = CGRect(x: safeAreaLayoutGuide.layoutFrame.minX, y: safeAreaLayoutGuide.layoutFrame.minY, width: safeAreaLayoutGuide.layoutFrame.width, height: subviewHeight)
         
-        // MARK: User Entry views
+        // MARK: Name and Handle fields
         
         userEntryViewModels.enumerated().forEach { index, viewModel in
             let userEntryView = UserEntryView(frame: subviewFrame, viewModel: viewModel)

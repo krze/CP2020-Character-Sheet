@@ -9,7 +9,10 @@
 import Foundation
 
 /// The model for the player character
-final class Edgerunner: Codable, SkillManager {
+final class Edgerunner: Codable, RoleDescriptionManager, SkillManager {
+    
+    private(set) var name: String
+    private(set) var handle: String
     
     /// The player stats assigned at creation. These stats are immutable according to game rules; you must
     /// update the stat via set(stats: Stats). These are the raw, base stats. Use value(for: Stat) to retrieve
@@ -49,8 +52,12 @@ final class Edgerunner: Codable, SkillManager {
         self.role = role
         self.humanityCost = humanityCost
         damage = 0
+        name = ""
+        handle = ""
+        
         self.skills = [SkillListing]() // This is necessary so we can set it on the next line and preserve this class as Codable.
         self.skills = skills.map({ SkillListing(skill: $0, points: 0, modifier: 0, statModifier: value(for: $0.linkedStat))})
+
     }
     
     /// Retrieves the value for the stat requested
@@ -133,6 +140,19 @@ final class Edgerunner: Codable, SkillManager {
     /// - Parameter role: The new player role
     func set(role: Role) {
         self.role = role
+        
+        NotificationCenter.default.post(name: .roleDidChange, object: nil)
+    }
+    
+    func set(name: String, handle: String) {
+        guard name != self.name && handle != self.handle else {
+            return
+        }
+        
+        self.name = name
+        self.handle = handle
+        
+        NotificationCenter.default.post(name: .nameAndHandleDidChange, object: nil)
     }
     
     /// Updates the stat modifiers for each skill
