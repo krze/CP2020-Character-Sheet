@@ -11,9 +11,12 @@ import UIKit
 /// A simple view containing a static label and a label controlled by user data.
 final class UserEntryView: UIView {
     private let viewModel: UserEntryViewModel
+    
+    private(set) var fieldDescription: CharacterDescriptionConstants.Text
     private(set) var inputField: UILabel?
     
     init(frame: CGRect, viewModel: UserEntryViewModel) {
+        self.fieldDescription = viewModel.labelText
         self.viewModel = viewModel
         super.init(frame: frame)
         
@@ -57,7 +60,7 @@ final class UserEntryView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = viewModel.darkColor
         label.textColor = viewModel.lightColor
-        label.text = viewModel.labelText
+        label.text = viewModel.labelText.rawValue
         label.textAlignment = .center
         label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
         

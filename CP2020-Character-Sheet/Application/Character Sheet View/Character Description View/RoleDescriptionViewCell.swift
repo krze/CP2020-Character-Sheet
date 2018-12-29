@@ -8,7 +8,11 @@
 
 import UIKit
 
-final class RoleDescriptionViewCell: UICollectionViewCell {
+final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionControllerDelegate {
+    
+    private weak var nameLabel: UILabel?
+    private weak var handleLabel: UILabel?
+    private weak var roleLabel: UILabel?
     
     func setup(with userEntryViewModels: [UserEntryViewModel], classViewModel: RoleViewModel) {
         /// This is only going to have 3 fields for now
@@ -32,6 +36,15 @@ final class RoleDescriptionViewCell: UICollectionViewCell {
                 ])
             
             topAnchor = userEntryView.bottomAnchor
+            
+            switch userEntryView.fieldDescription {
+            case CharacterDescriptionConstants.Text.name:
+                nameLabel = userEntryView.inputField
+            case CharacterDescriptionConstants.Text.handle:
+                handleLabel = userEntryView.inputField
+            case CharacterDescriptionConstants.Text.characterClass:
+                roleLabel = userEntryView.inputField
+            }
         }
         
         // MARK: Character Class view
@@ -45,6 +58,20 @@ final class RoleDescriptionViewCell: UICollectionViewCell {
             classView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             classView.topAnchor.constraint(equalTo: topAnchor)
             ])
+        
+        roleLabel = classView.classLabel
+    }
+    
+    func update(name: String, handle: String) {
+        self.nameLabel?.text = name
+        self.nameLabel?.fitTextToBounds()
+        self.handleLabel?.text = handle
+        self.handleLabel?.fitTextToBounds()
+    }
+    
+    func update(role: Role) {
+        self.roleLabel?.text = role.rawValue
+        self.roleLabel?.fitTextToBounds()
     }
     
     override init(frame: CGRect) {

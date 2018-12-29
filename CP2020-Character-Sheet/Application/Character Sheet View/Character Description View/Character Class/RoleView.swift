@@ -10,6 +10,7 @@ import UIKit
 
 final class RoleView: UIView {
     private let viewModel: RoleViewModel
+    private (set) var classLabel: UILabel?
     
     init(frame: CGRect, viewModel: RoleViewModel) {
         self.viewModel = viewModel
@@ -50,6 +51,7 @@ final class RoleView: UIView {
             classDescriptionLabel.container.topAnchor.constraint(equalTo: topAnchor)
             ])
         
+        self.classLabel = classDescriptionLabel.label
     }
     
     private func classLabel(frame: CGRect) -> UILabel {
@@ -58,7 +60,7 @@ final class RoleView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = viewModel.darkColor
         label.textColor = viewModel.lightColor
-        label.text = viewModel.classLabelText
+        label.text = viewModel.classLabelText.rawValue
         label.textAlignment = .center
         label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
         

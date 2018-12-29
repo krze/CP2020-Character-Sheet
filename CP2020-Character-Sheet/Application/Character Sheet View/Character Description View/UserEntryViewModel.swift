@@ -11,7 +11,7 @@ import UIKit
 struct UserEntryViewModel: MarginCreator {
     let paddingRatio: CGFloat
     
-    let labelText: String
+    let labelText: CharacterDescriptionConstants.Text
     let labelWidthRatio: CGFloat
     var inputWidthRatio: CGFloat {
         return 1.0 - labelWidthRatio

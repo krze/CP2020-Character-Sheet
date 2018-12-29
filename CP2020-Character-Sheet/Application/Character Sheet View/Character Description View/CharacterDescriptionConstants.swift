@@ -12,10 +12,10 @@ import Foundation
 struct CharacterDescriptionConstants {
     
     /// Strings used in the Character Description View
-    struct Text {
-        static let name = "NAME"
-        static let handle = "HANDLE"
-        static let characterClass = "ROLE"
+    enum Text: String {
+        case name = "NAME"
+        case handle = "HANDLE"
+        case characterClass = "ROLE"
     }
 
 }
