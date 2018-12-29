@@ -182,6 +182,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D004E2E21D80A6D004DFA4D /* Popover View */ = {
+			isa = PBXGroup;
+			children = (
+				9D004E2A21D6E282004DFA4D /* PrinterPaperView.swift */,
+				9D004E2C21D6E37C004DFA4D /* PrinterPaperViewModel.swift */,
+			);
+			path = "Popover View";
+			sourceTree = "<group>";
+		};
+		9D004E2F21D80A9C004DFA4D /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				9D2CFA0321C5921A00EC76D7 /* CharacterSheetCoordinator.swift */,
+				9DFA19EA21CE979F0092A450 /* CharacterSheetControllerCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		9D5C1F1D21A06CE700B3D493 = {
 			isa = PBXGroup;
 			children = (
@@ -236,13 +254,11 @@
 			isa = PBXGroup;
 			children = (
 				9D5C1F2921A06CE700B3D493 /* AppDelegate.swift */,
-				9D2CFA0321C5921A00EC76D7 /* CharacterSheetCoordinator.swift */,
-				9DFA19EA21CE979F0092A450 /* CharacterSheetControllerCoordinator.swift */,
-				9D004E2A21D6E282004DFA4D /* PrinterPaperView.swift */,
-				9D004E2C21D6E37C004DFA4D /* PrinterPaperViewModel.swift */,
-				9DFCB7AC21D0724B00F99798 /* Persistence */,
 				9DFA19F621CF25E40092A450 /* Data */,
 				9DCD370E21CC240600EE00D9 /* App Constants */,
+				9D004E2F21D80A9C004DFA4D /* Coordinator */,
+				9D004E2E21D80A6D004DFA4D /* Popover View */,
+				9DFCB7AC21D0724B00F99798 /* Persistence */,
 				9DFA19ED21CE9C210092A450 /* Character Model */,
 				9D5C1F5821A0712E00B3D493 /* Character Sheet View */,
 				9DCD370C21CC23C000EE00D9 /* Skill Table View */,
