@@ -12,6 +12,9 @@ final class CharacterDescriptionEditorViewController: UIViewController {
     private let charaterDescriptionController: CharacterDescriptionController
     
     init(with characterDescriptionController: CharacterDescriptionController) {
+        
+        // NEXT: Create a view model for this. Made the model calculate the height based on the number of items.
+        
         self.charaterDescriptionController = characterDescriptionController
         super.init(nibName: nil, bundle: nil)
     }
