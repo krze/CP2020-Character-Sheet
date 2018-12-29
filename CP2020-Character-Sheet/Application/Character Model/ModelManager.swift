@@ -11,7 +11,13 @@ import Foundation
 /// Manages the loading and storing of models.
 final class ModelManager: ModelReceiver {
     
-    private(set) var edgerunner: Edgerunner?
+    private(set) var edgerunner: Edgerunner? {
+        didSet {
+            guard let edgerunner = edgerunner else { return }
+            NotificationCenter.default.post(name: .edgerunnerLoaded, object: edgerunner)
+            setDelegateControllers(with: edgerunner)
+        }
+    }
     private(set) var skills: [Skill]?
     private let handler: CharacterSheetFileHandler
     weak var coordinator: CharacterSheetControllerCoordinator?
@@ -25,8 +31,6 @@ final class ModelManager: ModelReceiver {
     }
     
     func edgerunnerLoaded(_ edgerunner: Edgerunner) {
-        coordinator?.skillsController = SkillsController(model: edgerunner)
-
         self.edgerunner = edgerunner
     }
     
@@ -43,7 +47,6 @@ final class ModelManager: ModelReceiver {
             let skills = self.skills ?? [Skill]()
             let edgerunner = Edgerunner(baseStats: stats, role: .Netrunner, humanityCost: 0, skills: skills)
             
-            coordinator?.skillsController = SkillsController(model: edgerunner)
             self.edgerunner = edgerunner
             
             return
@@ -55,5 +58,9 @@ final class ModelManager: ModelReceiver {
         print(error)
     }
     
+    private func setDelegateControllers(with edgerunner: Edgerunner) {
+        coordinator?.skillsController = SkillsController(model: edgerunner)
+        coordinator?.charaterDescriptionController = CharacterDescriptionController(model: edgerunner)
+    }
     
 }

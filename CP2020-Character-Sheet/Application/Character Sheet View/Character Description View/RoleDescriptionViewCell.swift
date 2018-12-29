@@ -11,11 +11,14 @@ import UIKit
 final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionControllerDelegate, UsedOnce {
     
     private (set) var wasSetUp: Bool = false
+
     private weak var nameLabel: UILabel?
     private weak var handleLabel: UILabel?
     private weak var roleLabel: UILabel?
+    private var controller: CharacterDescriptionController?
     
     func setup(with userEntryViewModels: [UserEntryViewModel], classViewModel: RoleViewModel) {
+        NotificationCenter.default.addObserver(self, selector: #selector(edgerunnerLoaded(notification:)), name: .edgerunnerLoaded, object: nil)
         /// This is only going to have 3 fields for now
         // If this changes in the future, we'll need a viewmodel for this cell.
         let subviewHeight = safeAreaLayoutGuide.layoutFrame.height / 3
@@ -27,7 +30,7 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionC
         
         userEntryViewModels.enumerated().forEach { index, viewModel in
             let userEntryView = UserEntryView(frame: subviewFrame, viewModel: viewModel)
-            addSubview(userEntryView)
+            contentView.addSubview(userEntryView)
             
             NSLayoutConstraint.activate([
                 userEntryView.widthAnchor.constraint(lessThanOrEqualToConstant: subviewFrame.width),
@@ -52,7 +55,7 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionC
         
         let classView = RoleView(frame: subviewFrame, viewModel: classViewModel)
         
-        addSubview(classView)
+        contentView.addSubview(classView)
         NSLayoutConstraint.activate([
             classView.widthAnchor.constraint(lessThanOrEqualToConstant: subviewFrame.width),
             classView.heightAnchor.constraint(equalToConstant: subviewFrame.height),
@@ -61,6 +64,7 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionC
             ])
         
         roleLabel = classView.classLabel
+        setupGestureRecognizers()
         wasSetUp = true
     }
     
@@ -78,16 +82,20 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionC
     
     private func setupGestureRecognizers() {
         // Single tap on the entire cell
-        let singleTap = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(RoleDescriptionViewCell.cellTapped))
         singleTap.cancelsTouchesInView = false
         singleTap.numberOfTouchesRequired = 1
         contentView.addGestureRecognizer(singleTap)
     }
     
     @objc private func cellTapped() {
-        
+        print("Tapped.")
     }
     
+    @objc private func edgerunnerLoaded(notification: Notification) {
+        guard let model = notification.object as? CharacterDescriptionModel else { return }
+        self.controller = CharacterDescriptionController(model: model)
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -108,5 +116,6 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionC
         super.prepareForReuse()
         // TODO: Test cell re-use and see if it needs anything here
     }
+    
     
 }

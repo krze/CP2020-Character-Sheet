@@ -26,4 +26,7 @@ protocol CharacterSheetControllerCoordinator: class {
     /// HighlightedSkillViewCellController that belongs to the HighlightedSkillViewCell
     var highlightedSkillViewCellController: HighlightedSkillViewCellController? { get set }
     
+    /// CharacterDescriptionController that belongs to the RoleDescriptionViewCell
+    var charaterDescriptionController: CharacterDescriptionController? { get set }
+    
 }
