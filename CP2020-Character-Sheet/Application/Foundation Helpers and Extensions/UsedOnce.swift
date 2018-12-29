@@ -9,7 +9,7 @@
 import UIKit
 
 /// Used for unique UICollectionViewCells that are only used once but dequeued.
-protocol UsedOnce {
+protocol UsedOnce where Self: UICollectionViewCell {
     
     var wasSetUp: Bool { get }
     
