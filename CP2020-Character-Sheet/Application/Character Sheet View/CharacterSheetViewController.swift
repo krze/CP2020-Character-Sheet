@@ -43,7 +43,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
         // Maybe standardize the setup calls and make a protocol.
         // Or use a layoutsubviews one-time dispatch call inside of each Cell, instead of calling setup externally
         
-        if let cell = cell as? DamageViewCell {
+        if let cell = cell as? DamageViewCell, !cell.wasSetUp {
             let viewModel = DamageSectionViewModel(startingDamageCellNumber: 1, totalDamage: 40, woundType: .Light, typeRatio: 0.3, cellRatio: 0.3, cellHorizontalPaddingSpace: 0.2, cellVerticalPaddingSpace: 0.2, cellBorderThickness: 1.0, cellCount: 4, stunRatio: 0.4, darkColor: StyleConstants.Color.dark, lightColor: StyleConstants.Color.light)
             let totalDamageController = TotalDamageController(maxDamage: viewModel.totalDamage)
             totalDamageController.delegate = cell
@@ -51,17 +51,17 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
             cell.setup(with: viewModel, rows: 2, damageController: totalDamageController)
             coordinator?.totalDamageController = totalDamageController
         }
-        else if let cell = cell as? DamageModifierViewCell {
+        else if let cell = cell as? DamageModifierViewCell, !cell.wasSetUp {
             let viewModel = DamageModifierViewModel(cellWidthRatio: 0.25, cellHeightRatio: 1.0, labelHeightRatio: 0.4, paddingRatio: 0.05)
             cell.setup(with: viewModel)
         }
-        else if let cell = cell as? StatsViewCell {
+        else if let cell = cell as? StatsViewCell, !cell.wasSetUp {
             let viewModel = StatsViewCellModel(paddingRatio: 0.0, statsPerRow: 3, statViewWidthRatio: CGFloat(1.0 / 3))
             let statViewModels = Stat.allCases.map { StatViewModel.model(for: $0, baseValue: 10, currentValue: 10) }
             
             cell.setup(with: viewModel, statViewModels: statViewModels)
         }
-        else if let cell = cell as? RoleDescriptionViewCell {
+        else if let cell = cell as? RoleDescriptionViewCell, !cell.wasSetUp {
             let userEntryViewModels = [
                 UserEntryViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
                                    labelText: CharacterDescriptionConstants.Text.name,
@@ -76,7 +76,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
                                                                   roleType: .Solo, classLabelWidthRatio: 0.2)
             cell.setup(with: userEntryViewModels, classViewModel: characterClassViewModel)
         }
-        else if let cell = cell as? HighlightedSkillViewCell {
+        else if let cell = cell as? HighlightedSkillViewCell, !cell.wasSetUp {
             let skillViewCellModel = HighlightedSkillViewCellModel(cellDescriptionLabelWidthRatio: 0.55)
             let highlightedSkillViewCellController = HighlightedSkillViewCellController()
             

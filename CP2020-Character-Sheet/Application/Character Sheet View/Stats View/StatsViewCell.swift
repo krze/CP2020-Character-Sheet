@@ -8,7 +8,9 @@
 
 import UIKit
 
-final class StatsViewCell: UICollectionViewCell {
+final class StatsViewCell: UICollectionViewCell, UsedOnce {
+    
+    private (set) var wasSetUp: Bool = false
     private var statViews = [StatView]()
     private var model: StatsViewCellModel?
     
@@ -79,7 +81,8 @@ final class StatsViewCell: UICollectionViewCell {
                                height: height)
             }
         }
-                
+        
+        wasSetUp = true
     }
     
     override init(frame: CGRect) {

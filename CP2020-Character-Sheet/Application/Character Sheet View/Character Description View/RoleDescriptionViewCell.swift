@@ -8,8 +8,9 @@
 
 import UIKit
 
-final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionControllerDelegate {
+final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionControllerDelegate, UsedOnce {
     
+    private (set) var wasSetUp: Bool = false
     private weak var nameLabel: UILabel?
     private weak var handleLabel: UILabel?
     private weak var roleLabel: UILabel?
@@ -60,6 +61,7 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionC
             ])
         
         roleLabel = classView.classLabel
+        wasSetUp = true
     }
     
     func update(name: String, handle: String) {
@@ -73,6 +75,19 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionC
         self.roleLabel?.text = role.rawValue
         self.roleLabel?.fitTextToBounds()
     }
+    
+    private func setupGestureRecognizers() {
+        // Single tap on the entire cell
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
+        singleTap.cancelsTouchesInView = false
+        singleTap.numberOfTouchesRequired = 1
+        contentView.addGestureRecognizer(singleTap)
+    }
+    
+    @objc private func cellTapped() {
+        
+    }
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)

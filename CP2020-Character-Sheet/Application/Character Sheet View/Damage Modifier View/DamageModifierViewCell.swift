@@ -8,8 +8,10 @@
 
 import UIKit
 
-final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControllerDelegate {
+final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControllerDelegate, UsedOnce {
     
+    private (set) var wasSetUp: Bool = false
+
     private var model: DamageModifierViewModel?
     private var controller: DamageModifierController? // TODO: When this is implemented, make it non-optional
     
@@ -57,6 +59,7 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControll
             leadingAnchor = cell.trailingAnchor
         }
 
+        wasSetUp = true
     }
     
     override init(frame: CGRect) {

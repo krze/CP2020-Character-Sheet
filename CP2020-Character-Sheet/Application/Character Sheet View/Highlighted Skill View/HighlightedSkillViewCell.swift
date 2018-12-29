@@ -8,7 +8,9 @@
 
 import UIKit
 
-final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSource, UITableViewDelegate {
+final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSource, UITableViewDelegate, UsedOnce {
+    
+    private (set) var wasSetUp: Bool = false
     
     private var controller: HighlightedSkillViewCellController?
     
@@ -100,6 +102,7 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
             ])
         
         setupGestureRecognizers()
+        wasSetUp = true
     }
     
     

@@ -8,7 +8,8 @@
 
 import UIKit
 
-final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate {
+final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate, UsedOnce {
+    private (set) var wasSetUp: Bool = false
     
     private var damageController: TotalDamageController?
 
@@ -94,6 +95,7 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate 
         // This is in place to ensure we never misalign these totals
         assert(damageCells.count == totalDamage ?? 0, "Cell count an unexpected amount.")
         setupGestureRecognizers()
+        wasSetUp = true
     }
     
     func updateCells(to newDamage: Int) {

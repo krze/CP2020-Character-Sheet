@@ -14,6 +14,7 @@
 		9D004E3121D80C5F004DFA4D /* CharacterDescriptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E3021D80C5F004DFA4D /* CharacterDescriptionController.swift */; };
 		9D004E3321D80DB5004DFA4D /* CharacterDescriptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E3221D80DB5004DFA4D /* CharacterDescriptionModel.swift */; };
 		9D004E3521D8114B004DFA4D /* CharacterDescriptionControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E3421D8114B004DFA4D /* CharacterDescriptionControllerDelegate.swift */; };
+		9D004E3821D81BC5004DFA4D /* UsedOnce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E3721D81BC5004DFA4D /* UsedOnce.swift */; };
 		9D11763821BDCE0300E297BA /* UILabel+LabelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */; };
 		9D24375421A085DE0084E77D /* WoundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24375321A085DE0084E77D /* WoundType.swift */; };
 		9D24375621A091AF0084E77D /* CharacterSheetSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24375521A091AE0084E77D /* CharacterSheetSections.swift */; };
@@ -98,6 +99,7 @@
 		9D004E3021D80C5F004DFA4D /* CharacterDescriptionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionController.swift; sourceTree = "<group>"; };
 		9D004E3221D80DB5004DFA4D /* CharacterDescriptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionModel.swift; sourceTree = "<group>"; };
 		9D004E3421D8114B004DFA4D /* CharacterDescriptionControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionControllerDelegate.swift; sourceTree = "<group>"; };
+		9D004E3721D81BC5004DFA4D /* UsedOnce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsedOnce.swift; sourceTree = "<group>"; };
 		9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+LabelContainer.swift"; sourceTree = "<group>"; };
 		9D24375321A085DE0084E77D /* WoundType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoundType.swift; sourceTree = "<group>"; };
 		9D24375521A091AE0084E77D /* CharacterSheetSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSheetSections.swift; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 			children = (
 				9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */,
 				9D552CFB21ACE775008B90E9 /* UIFont+BestFit.swift */,
+				9D004E3721D81BC5004DFA4D /* UsedOnce.swift */,
 				9D2CFA0521C593D200EC76D7 /* MarginCreator.swift */,
 				9DFA19F021CE9EE10092A450 /* Notification+Cyberpunk.swift */,
 				9DFA19F221CF1F260092A450 /* JSONFactory.swift */,
@@ -658,6 +661,7 @@
 				9D004E2521D59B9E004DFA4D /* SkillsControllerDelegate.swift in Sources */,
 				9DE335AA21A9F27400180927 /* TotalDamageController.swift in Sources */,
 				9D5C1F5A21A0775B00B3D493 /* DamageViewCell.swift in Sources */,
+				9D004E3821D81BC5004DFA4D /* UsedOnce.swift in Sources */,
 				9D004E3321D80DB5004DFA4D /* CharacterDescriptionModel.swift in Sources */,
 				9DCD371121CC246300EE00D9 /* SkillTableViewCell.swift in Sources */,
 				9D2CFA0421C5921A00EC76D7 /* CharacterSheetCoordinator.swift in Sources */,
