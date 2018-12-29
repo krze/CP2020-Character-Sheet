@@ -10,15 +10,15 @@ The character sheet app is planned out for the following phases:
 - [x] Stats
 - [x] Damage track
 - [x] Highlighted skill list
-- [ ] Full skill list view
+- [x] Full skill list view
 #### Data layer:
-- [ ] Persistence
+- [x] Persistence
 - [ ] Editable values for each section
-- [ ] Character Model
+- [x] Character Model
   - [x] Character info
   - [x] Damage
-  - [ ] Skills
-- [ ] Skill models
+  - [x] Skills
+- [x] Skill models
 
 ### Phase 2:
 #### UI:
