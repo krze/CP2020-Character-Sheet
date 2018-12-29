@@ -11,7 +11,7 @@ import Foundation
 /// Manages the array of skills to display in skill tables and signals the model to update
 /// when values have changed
 final class SkillsController {
-    private let manager: SkillManager
+    private let model: SkillModel
     private var allSkills = [SkillListing]()
     private var characterSkills = [SkillListing]() {
         didSet {
@@ -21,8 +21,8 @@ final class SkillsController {
     
     weak var delegate: SkillsControllerDelegate?
     
-    init(manager: SkillManager) {
-        self.manager = manager
+    init(model: SkillModel) {
+        self.model = model
         allSkills = getAllSkills()
         createObservers()
     }
@@ -39,7 +39,7 @@ final class SkillsController {
     ///
     /// - Parameter newSkill: The new skill to add
     func add(skill newSkill: SkillListing) {
-        manager.add(skill: newSkill)
+        model.add(skill: newSkill)
     }
     
     private func createObservers() {
@@ -64,7 +64,7 @@ final class SkillsController {
     ///
     /// - Returns: Every skill listing potentially relevent to the player based on the character role.
     private func getAllSkills() -> [SkillListing] {
-        return manager.skills.filter { !$0.skill.isSpecialAbility || $0.skill.name == manager.role.specialAbility() }
+        return model.skills.filter { !$0.skill.isSpecialAbility || $0.skill.name == model.role.specialAbility() }
     }
     
     /// Accepts an array of skills and reduces it to a listing of skills that show root skills if there's no skill with an

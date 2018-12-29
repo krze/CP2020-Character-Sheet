@@ -1,5 +1,5 @@
 //
-//  RoleDescriptionManager.swift
+//  CharacterDescriptionModel.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 12/29/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol RoleDescriptionManager {
+protocol CharacterDescriptionModel {
     
     var name: String { get }
     var handle: String { get }

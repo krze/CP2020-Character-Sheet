@@ -1,5 +1,5 @@
 //
-//  SkillManager.swift
+//  SkillModel.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 12/24/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol SkillManager {
+protocol SkillModel {
     
     var role: Role { get }
     var skills: [SkillListing] { get }

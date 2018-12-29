@@ -25,7 +25,7 @@ final class ModelManager: ModelReceiver {
     }
     
     func edgerunnerLoaded(_ edgerunner: Edgerunner) {
-        coordinator?.skillsController = SkillsController(manager: edgerunner)
+        coordinator?.skillsController = SkillsController(model: edgerunner)
 
         self.edgerunner = edgerunner
     }
@@ -43,7 +43,7 @@ final class ModelManager: ModelReceiver {
             let skills = self.skills ?? [Skill]()
             let edgerunner = Edgerunner(baseStats: stats, role: .Netrunner, humanityCost: 0, skills: skills)
             
-            coordinator?.skillsController = SkillsController(manager: edgerunner)
+            coordinator?.skillsController = SkillsController(model: edgerunner)
             self.edgerunner = edgerunner
             
             return
