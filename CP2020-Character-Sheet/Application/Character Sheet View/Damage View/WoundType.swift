@@ -14,17 +14,13 @@ import Foundation
 /// - Serious: Serious wound
 /// - Critical: Critical wound
 /// - Mortal: Mortal Wound
-enum WoundType: String {
+enum WoundType: String, CaseIterable {
     case Light, Serious, Critical, Mortal
 }
-
-extension WoundType: CaseIterable {}
 
 /// Categories of Stun effects.
 ///
 /// - Stun: Stun effect
-enum StunType: String {
+enum StunType: String, CaseIterable {
     case Stun
 }
-
-extension StunType: CaseIterable {}

@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Stat: String, Codable {
+enum Stat: String, Codable, CaseIterable {
     case Intelligence, Tech, Cool, Reflex, Attractiveness, Luck, MovementAllowance, Body, Empathy, Run, Leap, Lift, Humanity, Reputation
     
     /// Indicates whether the stat is calculated or not. i.e. Run
@@ -71,5 +71,3 @@ enum Stat: String, Codable {
         }
     }
 }
-
-extension Stat: CaseIterable {}

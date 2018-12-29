@@ -9,7 +9,7 @@
 import UIKit
 
 /// Enum for managing the character sheet sections in the collection view.
-enum CharacterSheetSections: Int {
+enum CharacterSheetSections: Int, CaseIterable {
     // This ordering is strict!
     case CharacterDescription, Stats, DamageModifier, Damage, Skill
     
@@ -41,5 +41,3 @@ enum CharacterSheetSections: Int {
         }
     }
 }
-
-extension CharacterSheetSections: CaseIterable {}
