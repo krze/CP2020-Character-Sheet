@@ -9,10 +9,12 @@
 import UIKit
 
 struct UserEntryViewModel: MarginCreator {
-    let paddingRatio: CGFloat = StyleConstants.SizeConstants.textPaddingRatio
     
-    var labelText: String?
+    let type: UserEntryView.EntryType
+    let labelText: String
     let labelWidthRatio: CGFloat
+    let inputMinimumSize: CGFloat
+
     var inputWidthRatio: CGFloat {
         return 1.0 - labelWidthRatio
     }
@@ -23,11 +25,15 @@ struct UserEntryViewModel: MarginCreator {
     
     let labelFont: UIFont? = StyleConstants.Font.defaultBold
     let inputFont: UIFont? = StyleConstants.Font.defaultFont
-    let inputMinimumSize: CGFloat
-    
-    init(labelWidthRatio: CGFloat, inputMinimumSize: CGFloat = StyleConstants.Font.minimumSize) {
+    let paddingRatio: CGFloat = StyleConstants.SizeConstants.textPaddingRatio
+
+    init(type: UserEntryView.EntryType,
+         labelText: String,
+         labelWidthRatio: CGFloat,
+         inputMinimumSize: CGFloat = StyleConstants.Font.minimumSize) {
+        self.type = type
         self.labelWidthRatio = labelWidthRatio
-        self.labelText = nil
+        self.labelText = labelText
         self.inputMinimumSize = inputMinimumSize
     }
 }
