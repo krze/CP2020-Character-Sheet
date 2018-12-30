@@ -23,8 +23,8 @@
 		9D11763821BDCE0300E297BA /* UILabel+LabelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */; };
 		9D24375421A085DE0084E77D /* WoundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24375321A085DE0084E77D /* WoundType.swift */; };
 		9D24375621A091AF0084E77D /* CharacterSheetSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24375521A091AE0084E77D /* CharacterSheetSections.swift */; };
-		9D2CF9FE21C4336900EC76D7 /* UserEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CF9FD21C4336900EC76D7 /* UserEntryView.swift */; };
-		9D2CFA0021C433C500EC76D7 /* UserEntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CF9FF21C433C500EC76D7 /* UserEntryViewModel.swift */; };
+		9D2CF9FE21C4336900EC76D7 /* CharacterDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CF9FD21C4336900EC76D7 /* CharacterDescriptionView.swift */; };
+		9D2CFA0021C433C500EC76D7 /* CharacterDescriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CF9FF21C433C500EC76D7 /* CharacterDescriptionViewModel.swift */; };
 		9D2CFA0221C5913100EC76D7 /* CharacterDescriptionConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CFA0121C5913100EC76D7 /* CharacterDescriptionConstants.swift */; };
 		9D2CFA0421C5921A00EC76D7 /* CharacterSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CFA0321C5921A00EC76D7 /* CharacterSheetCoordinator.swift */; };
 		9D2CFA0621C593D200EC76D7 /* MarginCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CFA0521C593D200EC76D7 /* MarginCreator.swift */; };
@@ -113,8 +113,8 @@
 		9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+LabelContainer.swift"; sourceTree = "<group>"; };
 		9D24375321A085DE0084E77D /* WoundType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoundType.swift; sourceTree = "<group>"; };
 		9D24375521A091AE0084E77D /* CharacterSheetSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSheetSections.swift; sourceTree = "<group>"; };
-		9D2CF9FD21C4336900EC76D7 /* UserEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntryView.swift; sourceTree = "<group>"; };
-		9D2CF9FF21C433C500EC76D7 /* UserEntryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntryViewModel.swift; sourceTree = "<group>"; };
+		9D2CF9FD21C4336900EC76D7 /* CharacterDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionView.swift; sourceTree = "<group>"; };
+		9D2CF9FF21C433C500EC76D7 /* CharacterDescriptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionViewModel.swift; sourceTree = "<group>"; };
 		9D2CFA0121C5913100EC76D7 /* CharacterDescriptionConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionConstants.swift; sourceTree = "<group>"; };
 		9D2CFA0321C5921A00EC76D7 /* CharacterSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSheetCoordinator.swift; sourceTree = "<group>"; };
 		9D2CFA0521C593D200EC76D7 /* MarginCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarginCreator.swift; sourceTree = "<group>"; };
@@ -402,8 +402,8 @@
 				9D2CFA0121C5913100EC76D7 /* CharacterDescriptionConstants.swift */,
 				9D004E3621D8125E004DFA4D /* Data Source */,
 				9DE335A021A9EA7900180927 /* RoleDescriptionViewCell.swift */,
-				9D2CF9FD21C4336900EC76D7 /* UserEntryView.swift */,
-				9D2CF9FF21C433C500EC76D7 /* UserEntryViewModel.swift */,
+				9D2CF9FD21C4336900EC76D7 /* CharacterDescriptionView.swift */,
+				9D2CF9FF21C433C500EC76D7 /* CharacterDescriptionViewModel.swift */,
 				9DCD370321CC065500EE00D9 /* Character Class */,
 			);
 			path = "Character Description View";
@@ -668,11 +668,11 @@
 				9D2CFA0A21C59BEA00EC76D7 /* RoleViewModel.swift in Sources */,
 				9DFE711121BD92C9000561B0 /* StatView.swift in Sources */,
 				9DFA19EB21CE979F0092A450 /* CharacterSheetDataSourceCoordinator.swift in Sources */,
-				9D2CF9FE21C4336900EC76D7 /* UserEntryView.swift in Sources */,
+				9D2CF9FE21C4336900EC76D7 /* CharacterDescriptionView.swift in Sources */,
 				9D2CFA0621C593D200EC76D7 /* MarginCreator.swift in Sources */,
 				9DE335AC21A9F2C800180927 /* TotalDamageDataSourceDelegate.swift in Sources */,
 				9DCD371521CD598D00EE00D9 /* SkillTableViewCellModel.swift in Sources */,
-				9D2CFA0021C433C500EC76D7 /* UserEntryViewModel.swift in Sources */,
+				9D2CFA0021C433C500EC76D7 /* CharacterDescriptionViewModel.swift in Sources */,
 				9D24375421A085DE0084E77D /* WoundType.swift in Sources */,
 				9D5C1F2A21A06CE700B3D493 /* AppDelegate.swift in Sources */,
 				9D004E3B21D82BCC004DFA4D /* EditorViewController.swift in Sources */,

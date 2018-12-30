@@ -17,7 +17,7 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
     private weak var roleLabel: UILabel?
     private var dataSource: CharacterDescriptionDataSource?
     
-    func setup(with userEntryViewModels: [UserEntryViewModel], classViewModel: RoleViewModel) {
+    func setup(with descriptionViewModels: [CharacterDescriptionViewModel], classViewModel: RoleViewModel) {
         NotificationCenter.default.addObserver(self, selector: #selector(edgerunnerLoaded(notification:)), name: .edgerunnerLoaded, object: nil)
         /// This is only going to have 3 fields for now
         // If this changes in the future, we'll need a viewmodel for this cell.
@@ -28,26 +28,26 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
         
         // MARK: Name and Handle fields
         
-        userEntryViewModels.enumerated().forEach { index, viewModel in
-            let userEntryView = UserEntryView(frame: subviewFrame, viewModel: viewModel)
-            contentView.addSubview(userEntryView)
+        descriptionViewModels.enumerated().forEach { index, viewModel in
+            let descriptionView = CharacterDescriptionView(frame: subviewFrame, viewModel: viewModel)
+            contentView.addSubview(descriptionView)
             
             NSLayoutConstraint.activate([
-                userEntryView.widthAnchor.constraint(lessThanOrEqualToConstant: subviewFrame.width),
-                userEntryView.heightAnchor.constraint(equalToConstant: subviewFrame.height),
-                userEntryView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-                userEntryView.topAnchor.constraint(equalTo: topAnchor)
+                descriptionView.widthAnchor.constraint(lessThanOrEqualToConstant: subviewFrame.width),
+                descriptionView.heightAnchor.constraint(equalToConstant: subviewFrame.height),
+                descriptionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+                descriptionView.topAnchor.constraint(equalTo: topAnchor)
                 ])
             
-            topAnchor = userEntryView.bottomAnchor
+            topAnchor = descriptionView.bottomAnchor
             
-            switch userEntryView.fieldDescription {
+            switch descriptionView.fieldDescription {
             case CharacterDescriptionConstants.Text.name:
-                nameLabel = userEntryView.inputField
+                nameLabel = descriptionView.inputField
             case CharacterDescriptionConstants.Text.handle:
-                handleLabel = userEntryView.inputField
+                handleLabel = descriptionView.inputField
             case CharacterDescriptionConstants.Text.characterClass:
-                roleLabel = userEntryView.inputField
+                roleLabel = descriptionView.inputField
             }
         }
         

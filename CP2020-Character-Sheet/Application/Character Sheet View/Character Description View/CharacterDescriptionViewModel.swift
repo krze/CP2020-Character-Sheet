@@ -1,5 +1,5 @@
 //
-//  UserEntryViewModel.swift
+//  CharacterDescriptionViewModel.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 12/14/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct UserEntryViewModel: MarginCreator {
+struct CharacterDescriptionViewModel: MarginCreator {
     let paddingRatio: CGFloat
     
     let labelText: CharacterDescriptionConstants.Text

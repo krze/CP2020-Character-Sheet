@@ -63,14 +63,14 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
         }
         else if let cell = cell as? RoleDescriptionViewCell, !cell.wasSetUp {
             let userEntryViewModels = [
-                UserEntryViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
-                                   labelText: CharacterDescriptionConstants.Text.name,
-                                   labelWidthRatio: 0.2,
-                                   inputMinimumSize: 10.0),
-                UserEntryViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
-                                   labelText: CharacterDescriptionConstants.Text.handle,
-                                   labelWidthRatio: 0.2,
-                                   inputMinimumSize: 10.0)
+                CharacterDescriptionViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
+                                              labelText: CharacterDescriptionConstants.Text.name,
+                                              labelWidthRatio: 0.2,
+                                              inputMinimumSize: 10.0),
+                CharacterDescriptionViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
+                                              labelText: CharacterDescriptionConstants.Text.handle,
+                                              labelWidthRatio: 0.2,
+                                              inputMinimumSize: 10.0)
             ]
             let characterClassViewModel = RoleViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
                                                                   roleType: .Solo, classLabelWidthRatio: 0.2)
