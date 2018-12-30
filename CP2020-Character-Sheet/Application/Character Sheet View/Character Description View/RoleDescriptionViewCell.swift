@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionControllerDelegate, UsedOnce {
+final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionDataSourceDelegate, UsedOnce {
     
     private (set) var wasSetUp: Bool = false
 
@@ -94,7 +94,8 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionC
     
     @objc private func edgerunnerLoaded(notification: Notification) {
         guard let model = notification.object as? CharacterDescriptionModel else { return }
-        self.dataSource = CharacterDescriptionDataSource(model: model)
+        dataSource = CharacterDescriptionDataSource(model: model)
+        dataSource?.delegate = self
     }
     
     override init(frame: CGRect) {

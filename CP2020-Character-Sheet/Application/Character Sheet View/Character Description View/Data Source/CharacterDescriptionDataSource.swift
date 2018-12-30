@@ -10,6 +10,7 @@ import Foundation
 
 final class CharacterDescriptionDataSource {
     private let model: CharacterDescriptionModel
+    weak var delegate: CharacterDescriptionDataSourceDelegate?
     
     init(model: CharacterDescriptionModel) {
         self.model = model
@@ -23,11 +24,12 @@ final class CharacterDescriptionDataSource {
     }
     
     @objc private func nameDidChange(notification: Notification) {
+        fatalError("")
         
     }
     
     @objc private func roleDidChange(notification: Notification) {
-        
+        fatalError("")
     }
     
 }

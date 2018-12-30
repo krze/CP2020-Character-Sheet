@@ -21,7 +21,7 @@ final class CharacterSheetCoordinator: CharacterSheetControllerCoordinator {
     var skillsController: SkillsController?
     var characterDescriptionDataSource: CharacterDescriptionDataSource?
 
-    weak var damageModifierController: DamageModifierController?
+    weak var damageModifierDataSource: DamageModifierDataSource?
     
     weak var totalDamageController: TotalDamageController?
     

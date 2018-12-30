@@ -1,5 +1,5 @@
 //
-//  CharacterDescriptionControllerDelegate.swift
+//  CharacterDescriptionDataSourceDelegate.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 12/29/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol CharacterDescriptionControllerDelegate {
+protocol CharacterDescriptionDataSourceDelegate: class {
     
     func update(name: String, handle: String)
     

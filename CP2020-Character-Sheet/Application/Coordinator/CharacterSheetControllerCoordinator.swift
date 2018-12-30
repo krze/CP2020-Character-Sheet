@@ -18,7 +18,7 @@ protocol CharacterSheetControllerCoordinator: class {
     var skillsController: SkillsController? { get set }
     
     /// DamageModifierController that belongs to the DamageModifierViewCell
-    var damageModifierController: DamageModifierController? { get set }
+    var damageModifierDataSource: DamageModifierDataSource? { get set }
     
     /// TotalDamageController that belongs to the DamageViewCell
     var totalDamageController: TotalDamageController? { get set }
