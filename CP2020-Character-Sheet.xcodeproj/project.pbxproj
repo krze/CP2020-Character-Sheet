@@ -263,6 +263,7 @@
 				9D5C1F3221A06CE800B3D493 /* LaunchScreen.storyboard */,
 				9D5C1F3521A06CE800B3D493 /* Info.plist */,
 				9D5C1F3021A06CE800B3D493 /* Assets.xcassets */,
+				9DFA19F621CF25E40092A450 /* Data */,
 				9D5C1F5721A0712100B3D493 /* Application */,
 			);
 			path = "CP2020-Character-Sheet";
@@ -291,7 +292,6 @@
 			isa = PBXGroup;
 			children = (
 				9D5C1F2921A06CE700B3D493 /* AppDelegate.swift */,
-				9DFA19F621CF25E40092A450 /* Data */,
 				9DCD370E21CC240600EE00D9 /* App Constants */,
 				9D004E2F21D80A9C004DFA4D /* Coordinator */,
 				9D004E2E21D80A6D004DFA4D /* Popover Views */,
