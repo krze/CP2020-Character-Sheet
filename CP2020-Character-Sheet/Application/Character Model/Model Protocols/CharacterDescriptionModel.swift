@@ -12,6 +12,7 @@ protocol CharacterDescriptionModel {
     
     var name: String { get }
     var handle: String { get }
+    var role: Role { get }
     
     func set(name: String, handle: String)
     

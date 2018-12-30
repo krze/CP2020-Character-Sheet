@@ -1,5 +1,5 @@
 //
-//  CharacterDescriptionEditorViewModel.swift
+//  PopoverEditorViewModel.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 12/30/18.

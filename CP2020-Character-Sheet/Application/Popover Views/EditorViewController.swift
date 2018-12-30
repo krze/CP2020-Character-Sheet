@@ -1,5 +1,5 @@
 //
-//  CharacterDescriptionEditorViewController.swift
+//  EditorViewController.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 12/29/18.
@@ -8,19 +8,20 @@
 
 import UIKit
 
-final class CharacterDescriptionEditorViewController: UIViewController {
+final class EditorViewController: UIViewController {
     private let popoverFrame: CGRect
     private let keyboardHiddenOrigin: CGFloat
-    private let dataSource: CharacterDescriptionDataSource
+    private let receiver: EditorValueReciever
+    private let currentValues = [String]()
     
-    init(with dataSource: CharacterDescriptionDataSource,
+    init(with receiver: EditorValueReciever,
          windowFrame: CGRect,
          viewModel: PopoverEditorViewModel) {
         
         popoverFrame = viewModel.adjustedWindowForNumberOfRows(windowFrame)
         keyboardHiddenOrigin = popoverFrame.minY
         
-        self.dataSource = dataSource
+        self.receiver = receiver
         super.init(nibName: nil, bundle: nil)
         
         subscribeToKeyboard()
@@ -35,10 +36,10 @@ final class CharacterDescriptionEditorViewController: UIViewController {
     
     private func subscribeToKeyboard() {
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(CharacterDescriptionEditorViewController.keyboardWillShow(notification:)),
+                                               selector: #selector(EditorViewController.keyboardWillShow(notification:)),
                                                name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(CharacterDescriptionEditorViewController.keyboardWillHide(notification:)),
+                                               selector: #selector(EditorViewController.keyboardWillHide(notification:)),
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
