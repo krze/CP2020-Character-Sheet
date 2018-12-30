@@ -58,7 +58,7 @@
 		9DE335A721A9EB5B00180927 /* HighlightedSkillViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335A621A9EB5B00180927 /* HighlightedSkillViewCell.swift */; };
 		9DE335AA21A9F27400180927 /* TotalDamageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335A921A9F27400180927 /* TotalDamageDataSource.swift */; };
 		9DE335AC21A9F2C800180927 /* TotalDamageDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335AB21A9F2C800180927 /* TotalDamageDataSourceDelegate.swift */; };
-		9DFA19EB21CE979F0092A450 /* CharacterSheetControllerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19EA21CE979F0092A450 /* CharacterSheetControllerCoordinator.swift */; };
+		9DFA19EB21CE979F0092A450 /* CharacterSheetDataSourceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19EA21CE979F0092A450 /* CharacterSheetDataSourceCoordinator.swift */; };
 		9DFA19EF21CE9D920092A450 /* HighlightedSkillViewCellDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19EE21CE9D920092A450 /* HighlightedSkillViewCellDataSource.swift */; };
 		9DFA19F121CE9EE10092A450 /* Notification+Cyberpunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19F021CE9EE10092A450 /* Notification+Cyberpunk.swift */; };
 		9DFA19F321CF1F260092A450 /* JSONFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19F221CF1F260092A450 /* JSONFactory.swift */; };
@@ -153,7 +153,7 @@
 		9DE335A621A9EB5B00180927 /* HighlightedSkillViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedSkillViewCell.swift; sourceTree = "<group>"; };
 		9DE335A921A9F27400180927 /* TotalDamageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDamageDataSource.swift; sourceTree = "<group>"; };
 		9DE335AB21A9F2C800180927 /* TotalDamageDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDamageDataSourceDelegate.swift; sourceTree = "<group>"; };
-		9DFA19EA21CE979F0092A450 /* CharacterSheetControllerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSheetControllerCoordinator.swift; sourceTree = "<group>"; };
+		9DFA19EA21CE979F0092A450 /* CharacterSheetDataSourceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSheetDataSourceCoordinator.swift; sourceTree = "<group>"; };
 		9DFA19EE21CE9D920092A450 /* HighlightedSkillViewCellDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedSkillViewCellDataSource.swift; sourceTree = "<group>"; };
 		9DFA19F021CE9EE10092A450 /* Notification+Cyberpunk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Cyberpunk.swift"; sourceTree = "<group>"; };
 		9DFA19F221CF1F260092A450 /* JSONFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONFactory.swift; sourceTree = "<group>"; };
@@ -213,7 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				9D2CFA0321C5921A00EC76D7 /* CharacterSheetCoordinator.swift */,
-				9DFA19EA21CE979F0092A450 /* CharacterSheetControllerCoordinator.swift */,
+				9DFA19EA21CE979F0092A450 /* CharacterSheetDataSourceCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -664,7 +664,7 @@
 				9D5C1F5C21A0794400B3D493 /* DamageSectionView.swift in Sources */,
 				9D2CFA0A21C59BEA00EC76D7 /* RoleViewModel.swift in Sources */,
 				9DFE711121BD92C9000561B0 /* StatView.swift in Sources */,
-				9DFA19EB21CE979F0092A450 /* CharacterSheetControllerCoordinator.swift in Sources */,
+				9DFA19EB21CE979F0092A450 /* CharacterSheetDataSourceCoordinator.swift in Sources */,
 				9D2CF9FE21C4336900EC76D7 /* UserEntryView.swift in Sources */,
 				9D2CFA0621C593D200EC76D7 /* MarginCreator.swift in Sources */,
 				9DE335AC21A9F2C800180927 /* TotalDamageDataSourceDelegate.swift in Sources */,

@@ -10,7 +10,7 @@ import UIKit
 
 final class CharacterSheetViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    weak var coordinator: CharacterSheetControllerCoordinator?
+    weak var coordinator: CharacterSheetDataSourceCoordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()

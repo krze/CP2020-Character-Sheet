@@ -20,7 +20,7 @@ final class ModelManager: ModelReceiver {
     }
     private(set) var skills: [Skill]?
     private let handler: CharacterSheetFileHandler
-    weak var coordinator: CharacterSheetControllerCoordinator?
+    weak var coordinator: CharacterSheetDataSourceCoordinator?
     
     init(with handler: CharacterSheetFileHandler) {
         self.handler = handler
