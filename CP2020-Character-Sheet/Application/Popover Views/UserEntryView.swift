@@ -18,7 +18,7 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
     
     // Picker view variables
     
-    var pickerDelegate: UserEntryPickerViewDelegate?
+    var delegate: UserEntryViewDelegate?
     
     private let pickerChoices: [String]?
     private let pickerFrame: CGRect?
@@ -85,6 +85,7 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         userInputValue = textField.text
+        delegate?.textFieldDidFinishEditing(identifier: identifier)
     }
     
     // MARK: Private
@@ -214,7 +215,7 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
             return
         }
         
-        pickerDelegate?.pickerViewWillDisplay(pickerView)
+        delegate?.pickerViewWillDisplay(identifier: identifier, pickerView: pickerView)
     }
     
     required init?(coder aDecoder: NSCoder) {

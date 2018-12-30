@@ -8,7 +8,9 @@
 
 import UIKit
 
-final class EditorViewController: UIViewController {
+final class EditorViewController: UIViewController, UserEntryViewDelegate {
+
+    
     private let popoverFrame: CGRect
     private let keyboardHiddenOrigin: CGFloat
     private let receiver: EditorValueReciever
@@ -30,9 +32,21 @@ final class EditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let popoverView = PrinterPaperView(frame: popoverFrame, viewModel: PrinterPaperViewModel())
-        
+        // TODO: fill popoverview with User Entry Views.
         view = popoverView
     }
+    
+    // MARK: UserEntryViewDelegate
+    
+    func pickerViewWillDisplay(identifier: String, pickerView: UIPickerView) {
+        print("fuck")
+    }
+    
+    func textFieldDidFinishEditing(identifier: String) {
+        print("shit")
+    }
+    
+    // MARK: Private
     
     private func subscribeToKeyboard() {
         NotificationCenter.default.addObserver(self,
