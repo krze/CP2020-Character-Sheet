@@ -50,8 +50,21 @@ struct StyleConstants {
     }
     
     struct SizeConstants {
-        static let borderWidth: CGFloat = 2.0
+        
+        /// The thickness of borders
+        static let borderWidth: CGFloat = 2
+        
+        /// The amount of padding space to provide around text
         static let textPaddingRatio: CGFloat = 0.05
+        
+        /// The percentage of a view's height to take up with a popover
+        static let popoverViewHeightRatio: CGFloat = 0.6
+        
+        /// The percentage of a view's height to take up with padding to provide for a popover
+        static let popoverTopPaddingRatio: CGFloat = 0.075
+        
+        /// The row height for the editor views
+        static let editorRowHeight: CGFloat = 44
     }
 
 }

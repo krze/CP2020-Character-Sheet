@@ -16,6 +16,9 @@
 		9D004E3521D8114B004DFA4D /* CharacterDescriptionControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E3421D8114B004DFA4D /* CharacterDescriptionControllerDelegate.swift */; };
 		9D004E3821D81BC5004DFA4D /* UsedOnce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E3721D81BC5004DFA4D /* UsedOnce.swift */; };
 		9D004E3B21D82BCC004DFA4D /* CharacterDescriptionEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E3A21D82BCC004DFA4D /* CharacterDescriptionEditorViewController.swift */; };
+		9D004E3F21D92F8C004DFA4D /* CharacterDescriptionEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E3E21D92F8C004DFA4D /* CharacterDescriptionEditorViewModel.swift */; };
+		9D004E4121D93074004DFA4D /* PopoverViewFrameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E4021D93074004DFA4D /* PopoverViewFrameProvider.swift */; };
+		9D004E4521D935D7004DFA4D /* EditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E4421D935D7004DFA4D /* EditorViewModel.swift */; };
 		9D11763821BDCE0300E297BA /* UILabel+LabelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */; };
 		9D24375421A085DE0084E77D /* WoundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24375321A085DE0084E77D /* WoundType.swift */; };
 		9D24375621A091AF0084E77D /* CharacterSheetSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24375521A091AE0084E77D /* CharacterSheetSections.swift */; };
@@ -102,6 +105,9 @@
 		9D004E3421D8114B004DFA4D /* CharacterDescriptionControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionControllerDelegate.swift; sourceTree = "<group>"; };
 		9D004E3721D81BC5004DFA4D /* UsedOnce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsedOnce.swift; sourceTree = "<group>"; };
 		9D004E3A21D82BCC004DFA4D /* CharacterDescriptionEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionEditorViewController.swift; sourceTree = "<group>"; };
+		9D004E3E21D92F8C004DFA4D /* CharacterDescriptionEditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionEditorViewModel.swift; sourceTree = "<group>"; };
+		9D004E4021D93074004DFA4D /* PopoverViewFrameProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewFrameProvider.swift; sourceTree = "<group>"; };
+		9D004E4421D935D7004DFA4D /* EditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewModel.swift; sourceTree = "<group>"; };
 		9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+LabelContainer.swift"; sourceTree = "<group>"; };
 		9D24375321A085DE0084E77D /* WoundType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoundType.swift; sourceTree = "<group>"; };
 		9D24375521A091AE0084E77D /* CharacterSheetSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSheetSections.swift; sourceTree = "<group>"; };
@@ -196,6 +202,8 @@
 			isa = PBXGroup;
 			children = (
 				9D004E3A21D82BCC004DFA4D /* CharacterDescriptionEditorViewController.swift */,
+				9D004E3E21D92F8C004DFA4D /* CharacterDescriptionEditorViewModel.swift */,
+				9D004E4421D935D7004DFA4D /* EditorViewModel.swift */,
 				9D004E3921D82B8D004DFA4D /* Decoration View */,
 			);
 			path = "Popover Views";
@@ -224,6 +232,7 @@
 			children = (
 				9D004E2A21D6E282004DFA4D /* PrinterPaperView.swift */,
 				9D004E2C21D6E37C004DFA4D /* PrinterPaperViewModel.swift */,
+				9D004E4021D93074004DFA4D /* PopoverViewFrameProvider.swift */,
 			);
 			path = "Decoration View";
 			sourceTree = "<group>";
@@ -639,6 +648,7 @@
 				9D552CFC21ACE775008B90E9 /* UIFont+BestFit.swift in Sources */,
 				9DCD370521CC105900EE00D9 /* Skill.swift in Sources */,
 				9DCD370121CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift in Sources */,
+				9D004E4521D935D7004DFA4D /* EditorViewModel.swift in Sources */,
 				9D5C1F2C21A06CE700B3D493 /* CharacterSheetViewController.swift in Sources */,
 				9DFCB7B621D17AD000F99798 /* SkillTableSections.swift in Sources */,
 				9DE335A721A9EB5B00180927 /* HighlightedSkillViewCell.swift in Sources */,
@@ -665,8 +675,10 @@
 				9D004E3B21D82BCC004DFA4D /* CharacterDescriptionEditorViewController.swift in Sources */,
 				9D2CFA0221C5913100EC76D7 /* CharacterDescriptionConstants.swift in Sources */,
 				9D552CF821AC899C008B90E9 /* DamageModifierController.swift in Sources */,
+				9D004E4121D93074004DFA4D /* PopoverViewFrameProvider.swift in Sources */,
 				9DCD370721CC135A00EE00D9 /* SkillListing.swift in Sources */,
 				9D004E2B21D6E282004DFA4D /* PrinterPaperView.swift in Sources */,
+				9D004E3F21D92F8C004DFA4D /* CharacterDescriptionEditorViewModel.swift in Sources */,
 				9DFCB7A721D0666100F99798 /* Edgerunner.swift in Sources */,
 				9DE335A121A9EA7900180927 /* RoleDescriptionViewCell.swift in Sources */,
 				9DCD371721CD6E5B00EE00D9 /* SkillTableConstants.swift in Sources */,
