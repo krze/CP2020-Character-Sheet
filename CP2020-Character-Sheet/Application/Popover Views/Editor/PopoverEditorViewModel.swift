@@ -12,21 +12,37 @@ struct PopoverEditorViewModel: PopoverViewFrameProvider, EditorViewModel, Margin
     
     typealias RowType = UserEntryView.EntryType
     let numberOfRows: Int
-    let rowTypes: [RowType]
+    let rowsWithIdentifiers: [String: RowType]
+    let numberOfColumns: Int
+    let labelWidthRatio: CGFloat
     
     let paddingRatio: CGFloat = StyleConstants.SizeConstants.textPaddingRatio
     let minimumRowHeight: CGFloat = StyleConstants.SizeConstants.editorRowHeight
     let popoverYSpacingRatio: CGFloat = StyleConstants.SizeConstants.popoverTopPaddingRatio
     let popoverHeightRatio: CGFloat = StyleConstants.SizeConstants.popoverViewHeightRatio
     
-    init(numberOfRows: Int, rowTypes: [RowType]) {
+    var minimumHeightForAllRows: CGFloat {
+        return CGFloat(requiredRowCount) * minimumRowHeight
+    }
+    
+    private let requiredRowCount: Int
+    
+    init(numberOfColumns: Int = 1, numberOfRows: Int, rowsWithIdentifiers: [String: RowType], labelWidthRatio: CGFloat) {
+        self.numberOfColumns = numberOfColumns
         self.numberOfRows = numberOfRows
+        self.labelWidthRatio = labelWidthRatio
         
-        // TODO: Fix this for columns
-        if rowTypes.count != numberOfRows {
-            fatalError("The number of rows must equal the count of rowTypes")
+        requiredRowCount = {
+            let extraRowForRemainder = rowsWithIdentifiers.count % numberOfRows > 0
+            let rowsNeeded = rowsWithIdentifiers.count / numberOfRows + (extraRowForRemainder ? 1 : 0)
+            
+            return rowsNeeded
+        }()
+        
+        if requiredRowCount != numberOfRows {
+            fatalError("The number of rows must account for the amount of space necessary to accomodate the rows.")
         }
         
-        self.rowTypes = rowTypes
+        self.rowsWithIdentifiers = rowsWithIdentifiers
     }
 }
