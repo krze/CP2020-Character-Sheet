@@ -30,6 +30,8 @@ struct StyleConstants {
         static let lightItalic = UIFont(name: "AvenirNext-RegularItalic", size: 18)
         
         static let maximumSize: CGFloat = 20
+        
+        static let minimumSize: CGFloat = 12
     }
 
     /// Colors to use for any element requiring color, including black and white
