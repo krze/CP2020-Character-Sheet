@@ -45,11 +45,11 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
         
         if let cell = cell as? DamageViewCell, !cell.wasSetUp {
             let viewModel = DamageSectionViewModel(startingDamageCellNumber: 1, totalDamage: 40, woundType: .Light, typeRatio: 0.3, cellRatio: 0.3, cellHorizontalPaddingSpace: 0.2, cellVerticalPaddingSpace: 0.2, cellBorderThickness: 1.0, cellCount: 4, stunRatio: 0.4, darkColor: StyleConstants.Color.dark, lightColor: StyleConstants.Color.light)
-            let totalDamageController = TotalDamageController(maxDamage: viewModel.totalDamage)
-            totalDamageController.delegate = cell
+            let totalDamageDataSource = TotalDamageDataSource(maxDamage: viewModel.totalDamage)
+            totalDamageDataSource.delegate = cell
             
-            cell.setup(with: viewModel, rows: 2, damageController: totalDamageController)
-            coordinator?.totalDamageController = totalDamageController
+            cell.setup(with: viewModel, rows: 2, damageController: totalDamageDataSource)
+            coordinator?.totalDamageDataSource = totalDamageDataSource
         }
         else if let cell = cell as? DamageModifierViewCell, !cell.wasSetUp {
             let viewModel = DamageModifierViewModel(cellWidthRatio: 0.25, cellHeightRatio: 1.0, labelHeightRatio: 0.4, paddingRatio: 0.05)

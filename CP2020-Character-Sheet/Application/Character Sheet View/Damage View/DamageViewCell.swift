@@ -8,10 +8,10 @@
 
 import UIKit
 
-final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate, UsedOnce {
+final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate, UsedOnce {
     private (set) var wasSetUp: Bool = false
     
-    private var damageController: TotalDamageController?
+    private var damageController: TotalDamageDataSource?
 
     private var totalDamage: Int?
     private(set) var damageCells = [UIView]()
@@ -27,7 +27,7 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageControllerDelegate,
     /// - Parameters:
     ///   - viewModel: The initial DamageSectionViewModel
     ///   - rows: The number of rows
-    func setup(with viewModel: DamageSectionViewModel, rows: Int, damageController: TotalDamageController) {
+    func setup(with viewModel: DamageSectionViewModel, rows: Int, damageController: TotalDamageDataSource) {
         self.damageController = damageController
         self.totalDamage = viewModel.totalDamage
         var viewModel = viewModel

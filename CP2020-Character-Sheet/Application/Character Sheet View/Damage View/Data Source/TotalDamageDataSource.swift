@@ -1,5 +1,5 @@
 //
-//  TotalDamageController.swift
+//  TotalDamageDataSource.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 11/24/18.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-final class TotalDamageController {
+final class TotalDamageDataSource {
     let maxDamage: Int
     private(set) var currentDamage: Int = 0
-    weak var delegate: TotalDamageControllerDelegate?
+    weak var delegate: TotalDamageDataSourceDelegate?
     
     init(maxDamage: Int) {
         self.maxDamage = maxDamage

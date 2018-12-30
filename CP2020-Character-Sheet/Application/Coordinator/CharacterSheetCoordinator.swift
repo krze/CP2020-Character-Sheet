@@ -23,7 +23,7 @@ final class CharacterSheetCoordinator: CharacterSheetControllerCoordinator {
 
     weak var damageModifierDataSource: DamageModifierDataSource?
     
-    weak var totalDamageController: TotalDamageController?
+    weak var totalDamageDataSource: TotalDamageDataSource?
     
     weak var highlightedSkillViewCellController: HighlightedSkillViewCellController?
     
