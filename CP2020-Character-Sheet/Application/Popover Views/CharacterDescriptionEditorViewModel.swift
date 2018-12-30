@@ -8,10 +8,10 @@
 
 import UIKit
 
-struct CharacterDescriptionEditorViewModel: PopoverViewFrameProvider, EditorViewModel, MarginCreator {
+struct PopoverEditorViewModel: PopoverViewFrameProvider, EditorViewModel, MarginCreator {
     
+    let numberOfRows: Int
     let paddingRatio: CGFloat = StyleConstants.SizeConstants.textPaddingRatio
-    let numberOfRows: Int = 3
     let minimumRowHeight: CGFloat = StyleConstants.SizeConstants.editorRowHeight
     let popoverYSpacingRatio: CGFloat = StyleConstants.SizeConstants.popoverTopPaddingRatio
     let popoverHeightRatio: CGFloat = StyleConstants.SizeConstants.popoverViewHeightRatio

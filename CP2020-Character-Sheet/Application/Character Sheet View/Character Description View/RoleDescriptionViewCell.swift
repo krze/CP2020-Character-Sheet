@@ -15,7 +15,7 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionC
     private weak var nameLabel: UILabel?
     private weak var handleLabel: UILabel?
     private weak var roleLabel: UILabel?
-    private var controller: CharacterDescriptionController?
+    private var dataSource: CharacterDescriptionDataSource?
     
     func setup(with userEntryViewModels: [UserEntryViewModel], classViewModel: RoleViewModel) {
         NotificationCenter.default.addObserver(self, selector: #selector(edgerunnerLoaded(notification:)), name: .edgerunnerLoaded, object: nil)
@@ -94,7 +94,7 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionC
     
     @objc private func edgerunnerLoaded(notification: Notification) {
         guard let model = notification.object as? CharacterDescriptionModel else { return }
-        self.controller = CharacterDescriptionController(model: model)
+        self.dataSource = CharacterDescriptionDataSource(model: model)
     }
     
     override init(frame: CGRect) {

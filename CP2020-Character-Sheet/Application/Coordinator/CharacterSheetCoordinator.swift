@@ -19,7 +19,7 @@ import UIKit
 final class CharacterSheetCoordinator: CharacterSheetControllerCoordinator {
     
     var skillsController: SkillsController?
-    var charaterDescriptionController: CharacterDescriptionController?
+    var characterDescriptionDataSource: CharacterDescriptionDataSource?
 
     weak var damageModifierController: DamageModifierController?
     

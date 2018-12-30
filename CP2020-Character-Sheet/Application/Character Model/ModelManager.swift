@@ -60,7 +60,7 @@ final class ModelManager: ModelReceiver {
     
     private func setDelegateControllers(with edgerunner: Edgerunner) {
         coordinator?.skillsController = SkillsController(model: edgerunner)
-        coordinator?.charaterDescriptionController = CharacterDescriptionController(model: edgerunner)
+        coordinator?.characterDescriptionDataSource = CharacterDescriptionDataSource(model: edgerunner)
     }
     
 }

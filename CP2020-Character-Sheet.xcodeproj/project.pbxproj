@@ -11,7 +11,7 @@
 		9D004E2721D5A97D004DFA4D /* ModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E2621D5A97D004DFA4D /* ModelManager.swift */; };
 		9D004E2B21D6E282004DFA4D /* PrinterPaperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E2A21D6E282004DFA4D /* PrinterPaperView.swift */; };
 		9D004E2D21D6E37C004DFA4D /* PrinterPaperViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E2C21D6E37C004DFA4D /* PrinterPaperViewModel.swift */; };
-		9D004E3121D80C5F004DFA4D /* CharacterDescriptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E3021D80C5F004DFA4D /* CharacterDescriptionController.swift */; };
+		9D004E3121D80C5F004DFA4D /* CharacterDescriptionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E3021D80C5F004DFA4D /* CharacterDescriptionDataSource.swift */; };
 		9D004E3321D80DB5004DFA4D /* CharacterDescriptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E3221D80DB5004DFA4D /* CharacterDescriptionModel.swift */; };
 		9D004E3521D8114B004DFA4D /* CharacterDescriptionControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E3421D8114B004DFA4D /* CharacterDescriptionControllerDelegate.swift */; };
 		9D004E3821D81BC5004DFA4D /* UsedOnce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E3721D81BC5004DFA4D /* UsedOnce.swift */; };
@@ -100,7 +100,7 @@
 		9D004E2621D5A97D004DFA4D /* ModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelManager.swift; sourceTree = "<group>"; };
 		9D004E2A21D6E282004DFA4D /* PrinterPaperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterPaperView.swift; sourceTree = "<group>"; };
 		9D004E2C21D6E37C004DFA4D /* PrinterPaperViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterPaperViewModel.swift; sourceTree = "<group>"; };
-		9D004E3021D80C5F004DFA4D /* CharacterDescriptionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionController.swift; sourceTree = "<group>"; };
+		9D004E3021D80C5F004DFA4D /* CharacterDescriptionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionDataSource.swift; sourceTree = "<group>"; };
 		9D004E3221D80DB5004DFA4D /* CharacterDescriptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionModel.swift; sourceTree = "<group>"; };
 		9D004E3421D8114B004DFA4D /* CharacterDescriptionControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionControllerDelegate.swift; sourceTree = "<group>"; };
 		9D004E3721D81BC5004DFA4D /* UsedOnce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsedOnce.swift; sourceTree = "<group>"; };
@@ -221,7 +221,7 @@
 		9D004E3621D8125E004DFA4D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				9D004E3021D80C5F004DFA4D /* CharacterDescriptionController.swift */,
+				9D004E3021D80C5F004DFA4D /* CharacterDescriptionDataSource.swift */,
 				9D004E3421D8114B004DFA4D /* CharacterDescriptionControllerDelegate.swift */,
 			);
 			path = Controller;
@@ -657,7 +657,7 @@
 				9D5C1F5E21A07E1500B3D493 /* DamageSectionViewModel.swift in Sources */,
 				9DFE711521BD94FD000561B0 /* Stat.swift in Sources */,
 				9DFCB7BA21D298E000F99798 /* SkillTableViewModel.swift in Sources */,
-				9D004E3121D80C5F004DFA4D /* CharacterDescriptionController.swift in Sources */,
+				9D004E3121D80C5F004DFA4D /* CharacterDescriptionDataSource.swift in Sources */,
 				9D004E2721D5A97D004DFA4D /* ModelManager.swift in Sources */,
 				9DFA19EF21CE9D920092A450 /* HighlightedSkillViewCellController.swift in Sources */,
 				9DFCB7B021D1506C00F99798 /* SkillModel.swift in Sources */,

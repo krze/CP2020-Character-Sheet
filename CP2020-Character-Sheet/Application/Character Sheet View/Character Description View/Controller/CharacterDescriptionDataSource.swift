@@ -1,5 +1,5 @@
 //
-//  CharacterDescriptionController.swift
+//  CharacterDescriptionDataSource.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 12/29/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class CharacterDescriptionController {
+final class CharacterDescriptionDataSource {
     private let model: CharacterDescriptionModel
     
     init(model: CharacterDescriptionModel) {

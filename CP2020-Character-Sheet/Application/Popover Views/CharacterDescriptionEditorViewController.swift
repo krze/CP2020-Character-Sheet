@@ -11,16 +11,16 @@ import UIKit
 final class CharacterDescriptionEditorViewController: UIViewController {
     private let popoverFrame: CGRect
     private let keyboardHiddenOrigin: CGFloat
-    private let charaterDescriptionController: CharacterDescriptionController
+    private let dataSource: CharacterDescriptionDataSource
     
-    init(with characterDescriptionController: CharacterDescriptionController,
+    init(with dataSource: CharacterDescriptionDataSource,
          windowFrame: CGRect,
-         viewModel: CharacterDescriptionEditorViewModel = CharacterDescriptionEditorViewModel()) {
+         viewModel: PopoverEditorViewModel) {
         
         popoverFrame = viewModel.adjustedWindowForNumberOfRows(windowFrame)
         keyboardHiddenOrigin = popoverFrame.minY
         
-        self.charaterDescriptionController = characterDescriptionController
+        self.dataSource = dataSource
         super.init(nibName: nil, bundle: nil)
         
         subscribeToKeyboard()
