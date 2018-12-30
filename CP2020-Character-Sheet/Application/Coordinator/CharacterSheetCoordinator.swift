@@ -18,7 +18,7 @@ import UIKit
 /// Use this class in the same way you'd use an application coordinator
 final class CharacterSheetCoordinator: CharacterSheetControllerCoordinator {
     
-    var skillsController: SkillsController?
+    var skillsDataSource: SkillsDataSource?
     var characterDescriptionDataSource: CharacterDescriptionDataSource?
 
     weak var damageModifierDataSource: DamageModifierDataSource?
@@ -31,8 +31,8 @@ final class CharacterSheetCoordinator: CharacterSheetControllerCoordinator {
     let characterSheetViewController: CharacterSheetViewController
     
     private lazy var skillTableViewController: SkillTableViewController? = {
-        if let skillsController = skillsController {
-            return SkillTableViewController(with: skillsController,
+        if let skillsDataSource = skillsDataSource {
+            return SkillTableViewController(with: skillsDataSource,
                                             viewModel: SkillTableViewModel(),
                                             tableViewCellModel: SkillTableViewCellModel())
         }

@@ -1,5 +1,5 @@
 //
-//  SkillsControllerDelegate.swift
+//  SkillsDataSourceDelegate.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 12/27/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol SkillsControllerDelegate: class {
+protocol SkillsDataSourceDelegate: class {
     
     func skillsDidUpdate(skills: [SkillListing])
 }

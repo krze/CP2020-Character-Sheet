@@ -1,5 +1,5 @@
 //
-//  SkillsController.swift
+//  SkillsDataSource.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 12/24/18.
@@ -10,7 +10,7 @@ import Foundation
 
 /// Manages the array of skills to display in skill tables and signals the model to update
 /// when values have changed
-final class SkillsController {
+final class SkillsDataSource {
     private let model: SkillModel
     private var allSkills = [SkillListing]()
     private var characterSkills = [SkillListing]() {
@@ -19,7 +19,7 @@ final class SkillsController {
         }
     }
     
-    weak var delegate: SkillsControllerDelegate?
+    weak var delegate: SkillsDataSourceDelegate?
     
     init(model: SkillModel) {
         self.model = model

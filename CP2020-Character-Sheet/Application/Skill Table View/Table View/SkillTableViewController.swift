@@ -9,9 +9,9 @@
 import UIKit
 
 /// The table view containing the full listing of every skill available to the player
-final class SkillTableViewController: UITableViewController, SkillsControllerDelegate {
+final class SkillTableViewController: UITableViewController, SkillsDataSourceDelegate {
 
-    private let skillsController: SkillsController
+    private let dataSource: SkillsDataSource
     
     private let viewModel: SkillTableViewModel
     private let cellModel: SkillTableViewCellModel
@@ -21,16 +21,16 @@ final class SkillTableViewController: UITableViewController, SkillsControllerDel
     
     private var skillListings = [SkillListing]()
 
-    init(with skillsController: SkillsController,
+    init(with skillsController: SkillsDataSource,
          viewModel: SkillTableViewModel,
          tableViewCellModel: SkillTableViewCellModel) {
-        self.skillsController = skillsController
+        self.dataSource = skillsController
         self.viewModel = viewModel
         cellModel = tableViewCellModel
         
         super.init(style: .plain)
-        self.skillsController.delegate = self
-        self.skillsController.getCharacterSkills()
+        self.dataSource.delegate = self
+        self.dataSource.getCharacterSkills()
     }
     
     override func viewDidLoad() {

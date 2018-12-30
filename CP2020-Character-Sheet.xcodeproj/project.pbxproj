@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9D004E2521D59B9E004DFA4D /* SkillsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E2421D59B9E004DFA4D /* SkillsControllerDelegate.swift */; };
+		9D004E2521D59B9E004DFA4D /* SkillsDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E2421D59B9E004DFA4D /* SkillsDataSourceDelegate.swift */; };
 		9D004E2721D5A97D004DFA4D /* ModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E2621D5A97D004DFA4D /* ModelManager.swift */; };
 		9D004E2B21D6E282004DFA4D /* PrinterPaperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E2A21D6E282004DFA4D /* PrinterPaperView.swift */; };
 		9D004E2D21D6E37C004DFA4D /* PrinterPaperViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E2C21D6E37C004DFA4D /* PrinterPaperViewModel.swift */; };
@@ -66,7 +66,7 @@
 		9DFCB7A721D0666100F99798 /* Edgerunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7A621D0666100F99798 /* Edgerunner.swift */; };
 		9DFCB7A921D0674A00F99798 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7A821D0674A00F99798 /* Stats.swift */; };
 		9DFCB7AB21D071EE00F99798 /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7AA21D071EE00F99798 /* IO.swift */; };
-		9DFCB7AE21D14EC400F99798 /* SkillsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7AD21D14EC400F99798 /* SkillsController.swift */; };
+		9DFCB7AE21D14EC400F99798 /* SkillsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7AD21D14EC400F99798 /* SkillsDataSource.swift */; };
 		9DFCB7B021D1506C00F99798 /* SkillModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7AF21D1506C00F99798 /* SkillModel.swift */; };
 		9DFCB7B621D17AD000F99798 /* SkillTableSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7B521D17AD000F99798 /* SkillTableSections.swift */; };
 		9DFCB7BA21D298E000F99798 /* SkillTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB7B921D298E000F99798 /* SkillTableViewModel.swift */; };
@@ -96,7 +96,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9D004E2421D59B9E004DFA4D /* SkillsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsControllerDelegate.swift; sourceTree = "<group>"; };
+		9D004E2421D59B9E004DFA4D /* SkillsDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsDataSourceDelegate.swift; sourceTree = "<group>"; };
 		9D004E2621D5A97D004DFA4D /* ModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelManager.swift; sourceTree = "<group>"; };
 		9D004E2A21D6E282004DFA4D /* PrinterPaperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterPaperView.swift; sourceTree = "<group>"; };
 		9D004E2C21D6E37C004DFA4D /* PrinterPaperViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterPaperViewModel.swift; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 		9DFCB7A621D0666100F99798 /* Edgerunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edgerunner.swift; sourceTree = "<group>"; };
 		9DFCB7A821D0674A00F99798 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		9DFCB7AA21D071EE00F99798 /* IO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
-		9DFCB7AD21D14EC400F99798 /* SkillsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsController.swift; sourceTree = "<group>"; };
+		9DFCB7AD21D14EC400F99798 /* SkillsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsDataSource.swift; sourceTree = "<group>"; };
 		9DFCB7AF21D1506C00F99798 /* SkillModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillModel.swift; sourceTree = "<group>"; };
 		9DFCB7B521D17AD000F99798 /* SkillTableSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillTableSections.swift; sourceTree = "<group>"; };
 		9DFCB7B921D298E000F99798 /* SkillTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillTableViewModel.swift; sourceTree = "<group>"; };
@@ -343,7 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				9DFCB7B721D298A300F99798 /* Table View */,
-				9DFCB7B421D16D5800F99798 /* Controller */,
+				9DFCB7B421D16D5800F99798 /* Data Source */,
 				9DFCB7B821D298B100F99798 /* Table Cell */,
 				9DCD371621CD6E5B00EE00D9 /* SkillTableConstants.swift */,
 			);
@@ -467,13 +467,13 @@
 			path = "Model Protocols";
 			sourceTree = "<group>";
 		};
-		9DFCB7B421D16D5800F99798 /* Controller */ = {
+		9DFCB7B421D16D5800F99798 /* Data Source */ = {
 			isa = PBXGroup;
 			children = (
-				9DFCB7AD21D14EC400F99798 /* SkillsController.swift */,
-				9D004E2421D59B9E004DFA4D /* SkillsControllerDelegate.swift */,
+				9DFCB7AD21D14EC400F99798 /* SkillsDataSource.swift */,
+				9D004E2421D59B9E004DFA4D /* SkillsDataSourceDelegate.swift */,
 			);
-			path = Controller;
+			path = "Data Source";
 			sourceTree = "<group>";
 		};
 		9DFCB7B721D298A300F99798 /* Table View */ = {
@@ -644,7 +644,7 @@
 				9DFA19F321CF1F260092A450 /* JSONFactory.swift in Sources */,
 				9D2CFA0C21C59D7900EC76D7 /* Role.swift in Sources */,
 				9D24375621A091AF0084E77D /* CharacterSheetSections.swift in Sources */,
-				9DFCB7AE21D14EC400F99798 /* SkillsController.swift in Sources */,
+				9DFCB7AE21D14EC400F99798 /* SkillsDataSource.swift in Sources */,
 				9D552CFC21ACE775008B90E9 /* UIFont+BestFit.swift in Sources */,
 				9DCD370521CC105900EE00D9 /* Skill.swift in Sources */,
 				9DCD370121CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift in Sources */,
@@ -682,7 +682,7 @@
 				9DFCB7A721D0666100F99798 /* Edgerunner.swift in Sources */,
 				9DE335A121A9EA7900180927 /* RoleDescriptionViewCell.swift in Sources */,
 				9DCD371721CD6E5B00EE00D9 /* SkillTableConstants.swift in Sources */,
-				9D004E2521D59B9E004DFA4D /* SkillsControllerDelegate.swift in Sources */,
+				9D004E2521D59B9E004DFA4D /* SkillsDataSourceDelegate.swift in Sources */,
 				9DE335AA21A9F27400180927 /* TotalDamageDataSource.swift in Sources */,
 				9D5C1F5A21A0775B00B3D493 /* DamageViewCell.swift in Sources */,
 				9D004E3821D81BC5004DFA4D /* UsedOnce.swift in Sources */,

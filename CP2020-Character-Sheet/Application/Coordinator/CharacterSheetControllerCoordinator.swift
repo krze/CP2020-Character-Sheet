@@ -15,7 +15,7 @@ import Foundation
 protocol CharacterSheetControllerCoordinator: class {
     
     /// Skills controller that belongs to the SkillTableViewController
-    var skillsController: SkillsController? { get set }
+    var skillsDataSource: SkillsDataSource? { get set }
     
     /// DamageModifierController that belongs to the DamageModifierViewCell
     var damageModifierDataSource: DamageModifierDataSource? { get set }
