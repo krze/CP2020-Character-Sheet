@@ -1,5 +1,5 @@
 //
-//  HighlightedSkillViewCellController.swift
+//  HighlightedSkillViewCellDataSource.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 12/22/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class HighlightedSkillViewCellController {
+final class HighlightedSkillViewCellDataSource {
     
     func showSkillTable() {
         NotificationCenter.default.post(name: .showSkillTable, object: nil)

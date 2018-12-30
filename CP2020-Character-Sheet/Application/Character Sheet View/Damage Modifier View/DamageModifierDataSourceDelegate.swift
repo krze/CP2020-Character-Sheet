@@ -1,5 +1,5 @@
 //
-//  DamageModifierControllerDelegate.swift
+//  DamageModifierDataSourceDelegate.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 11/26/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol DamageModifierControllerDelegate: class {
+protocol DamageModifierDataSourceDelegate: class {
     // TODO: Determine the callbacks necessary when the controller wants to modify the view
 
 }

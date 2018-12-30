@@ -78,10 +78,10 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
         }
         else if let cell = cell as? HighlightedSkillViewCell, !cell.wasSetUp {
             let skillViewCellModel = HighlightedSkillViewCellModel(cellDescriptionLabelWidthRatio: 0.55)
-            let highlightedSkillViewCellController = HighlightedSkillViewCellController()
+            let dataSource = HighlightedSkillViewCellDataSource()
             
-            cell.setup(viewModel: skillViewCellModel, controller: highlightedSkillViewCellController)
-            coordinator?.highlightedSkillViewCellController = highlightedSkillViewCellController
+            cell.setup(viewModel: skillViewCellModel, dataSource: dataSource)
+            coordinator?.highlightedSkillViewCellDataSource = dataSource
         }
         
         return cell

@@ -24,7 +24,7 @@ protocol CharacterSheetControllerCoordinator: class {
     var totalDamageDataSource: TotalDamageDataSource? { get set }
     
     /// HighlightedSkillViewCellController that belongs to the HighlightedSkillViewCell
-    var highlightedSkillViewCellController: HighlightedSkillViewCellController? { get set }
+    var highlightedSkillViewCellDataSource: HighlightedSkillViewCellDataSource? { get set }
     
     /// CharacterDescriptionController that belongs to the RoleDescriptionViewCell
     var characterDescriptionDataSource: CharacterDescriptionDataSource? { get set }

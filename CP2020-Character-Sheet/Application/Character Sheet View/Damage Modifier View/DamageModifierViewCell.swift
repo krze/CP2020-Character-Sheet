@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class DamageModifierViewCell: UICollectionViewCell, DamageModifierControllerDelegate, UsedOnce {
+final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSourceDelegate, UsedOnce {
     
     private (set) var wasSetUp: Bool = false
 

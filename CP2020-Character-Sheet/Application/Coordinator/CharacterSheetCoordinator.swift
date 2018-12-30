@@ -25,7 +25,7 @@ final class CharacterSheetCoordinator: CharacterSheetControllerCoordinator {
     
     weak var totalDamageDataSource: TotalDamageDataSource?
     
-    weak var highlightedSkillViewCellController: HighlightedSkillViewCellController?
+    weak var highlightedSkillViewCellDataSource: HighlightedSkillViewCellDataSource?
     
     let navigationController: UINavigationController
     let characterSheetViewController: CharacterSheetViewController

@@ -12,7 +12,7 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     
     private (set) var wasSetUp: Bool = false
     
-    private var controller: HighlightedSkillViewCellController?
+    private var dataSource: HighlightedSkillViewCellDataSource?
     
     // MARK: Tableview fields
     
@@ -23,9 +23,9 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     private var viewModel: HighlightedSkillViewCellModel?
     private var tableView = UITableView()
     
-    func setup(viewModel: HighlightedSkillViewCellModel, controller: HighlightedSkillViewCellController) {
+    func setup(viewModel: HighlightedSkillViewCellModel, dataSource: HighlightedSkillViewCellDataSource) {
         self.viewModel = viewModel
-        self.controller = controller
+        self.dataSource = dataSource
         let safeFrame = contentView.safeAreaLayoutGuide.layoutFrame
         let cellDescriptionLabelFrame = CGRect(x: safeFrame.minX, y: safeFrame.minY,
                                                width: safeFrame.width * viewModel.cellDescriptionLabelWidthRatio,
@@ -144,7 +144,7 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     }
     
     @objc private func cellTapped() {
-        controller?.showSkillTable()
+        dataSource?.showSkillTable()
     }
     
     private func descriptionLabel(frame: CGRect) -> UILabel {

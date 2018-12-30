@@ -10,7 +10,7 @@ import Foundation
 
 /// Manages the status of the characters' damage modifiers in order to make UI updates to the DamageModifierViewCell
 final class DamageModifierDataSource {
-    private weak var delegate: DamageModifierControllerDelegate?
+    private weak var delegate: DamageModifierDataSourceDelegate?
 
     // TODO: Fill this out to modify the cell values within this section
     
