@@ -1,5 +1,5 @@
 //
-//  CharacterDescriptionConstants.swift
+//  RoleFieldLabel.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 12/15/18.
@@ -9,7 +9,7 @@
 import Foundation
 
 /// Strings used in the Character Description View
-enum RoleFieldLabel: String, EntryTypeProvider {
+enum RoleFieldLabel: String, EntryTypeProvider, CaseIterable {
     
     func identifier() -> String {
         return self.rawValue

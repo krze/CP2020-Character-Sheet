@@ -40,7 +40,7 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
         return nil
     }()
     
-    private var characterDescriptionEditor: EditorViewController?
+    private var popoverEditor: EditorViewController?
     
     private let modelManager: ModelManager
     private let window: UIWindow
@@ -65,7 +65,7 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
     
     private func createObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(showSkillTable(notification:)), name: .showSkillTable, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showSkillTable(notification:)), name: .showEditor, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showEditor(notification:)), name: .showEditor, object: nil)
     }
     
     @objc private func showSkillTable(notification: Notification) {
@@ -77,6 +77,22 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
             
             self.navigationController.pushViewController(skillTableViewController, animated: true)
         }
+    }
+    
+    @objc private func showEditor(notification: Notification) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self,
+                let constructor = notification.object as? EditorConstructor else {
+                    return
+            }
+            
+            let editor = constructor.createEditor(withWindow: self.window.frame)
+            self.popoverEditor = editor
+            
+            // NEXT: This needs to be a popover, not a new VC
+            self.navigationController.pushViewController(editor, animated: true)
+        }
+
     }
         
     // TODO: Create a method for sending messages between the damage cells and the damage modifier view

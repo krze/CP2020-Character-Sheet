@@ -34,3 +34,20 @@ protocol EntryTypeProvider {
     func entryType() -> EntryType
     
 }
+
+// Yuck, but can't do this with an extension on arrays with EntryTypeProviders.
+struct IdentifiersWithPlaceholdersAdapter {
+    
+    static func rowsWithIdentifiers(from identifiersWithPlaceholders: [String: String],
+                             entryTypeProviders: [EntryTypeProvider]) -> [String: EntryType] {
+        var rowsWithIdentifiers = [String: EntryType]()
+        
+        entryTypeProviders.forEach { provider in
+            let identifier = provider.identifier()
+            rowsWithIdentifiers[identifier] = provider.entryType()
+        }
+        
+        return rowsWithIdentifiers
+    }
+    
+}

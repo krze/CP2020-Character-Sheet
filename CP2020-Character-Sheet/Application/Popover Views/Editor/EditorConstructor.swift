@@ -19,7 +19,7 @@ struct EditorConstructor {
         self.dataSource = dataSource
     }
     
-    func createEditor(with window: CGRect) -> EditorViewController {
+    func createEditor(withWindow window: CGRect) -> EditorViewController {
         return EditorViewController(with: dataSource, windowFrame: window, viewModel: viewModel)
     }
 }

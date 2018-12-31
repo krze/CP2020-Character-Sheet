@@ -8,7 +8,8 @@
 
 import Foundation
 
-final class CharacterDescriptionDataSource: EditorValueReciever {    
+final class CharacterDescriptionDataSource: EditorValueReciever, NotifiesEditorNeeded {
+    
     private let model: CharacterDescriptionModel
     weak var delegate: CharacterDescriptionDataSourceDelegate?
     
@@ -45,6 +46,19 @@ final class CharacterDescriptionDataSource: EditorValueReciever {
         }
         
         model.set(role: role)
+    }
+    
+    func editorRequested(placeholdersWithIdentifiers: [String : String], entryTypes: [EntryTypeProvider]) {
+        let rowsWithIdentifiers = IdentifiersWithPlaceholdersAdapter.rowsWithIdentifiers(from: placeholdersWithIdentifiers,
+                                                                                         entryTypeProviders: entryTypes)
+        
+        let popoverViewModel = PopoverEditorViewModel(numberOfRows: entryTypes.count,
+                                                      rowsWithIdentifiers: rowsWithIdentifiers,
+                                                      placeholdersWithIdentifiers: placeholdersWithIdentifiers,
+                                                      labelWidthRatio: 0.3)
+        let editorConstructor = EditorConstructor(dataSource: self, viewModel: popoverViewModel)
+        
+        NotificationCenter.default.post(name: .showEditor, object: editorConstructor)
     }
     
     @objc private func nameDidChange(notification: Notification) {

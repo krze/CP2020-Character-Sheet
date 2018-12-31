@@ -12,9 +12,7 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
     
     private (set) var wasSetUp: Bool = false
 
-    private weak var nameLabel: UILabel?
-    private weak var handleLabel: UILabel?
-    private weak var roleLabel: UILabel?
+    private var fields = [RoleFieldLabel: UILabel]()
     private var dataSource: CharacterDescriptionDataSource?
     
     func setup(with descriptionViewModels: [CharacterDescriptionViewModel], classViewModel: RoleViewModel) {
@@ -41,14 +39,7 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
             
             topAnchor = descriptionView.bottomAnchor
             
-            switch descriptionView.fieldDescription {
-            case .name:
-                nameLabel = descriptionView.inputField
-            case .handle:
-                handleLabel = descriptionView.inputField
-            case .characterClass:
-                roleLabel = descriptionView.inputField
-            }
+            fields[descriptionView.fieldDescription] = descriptionView.inputField
         }
         
         // MARK: Character Class view
@@ -63,21 +54,22 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
             classView.topAnchor.constraint(equalTo: topAnchor)
             ])
         
-        roleLabel = classView.classLabel
+        fields[classViewModel.classLabel] = classView.classLabel
         setupGestureRecognizers()
         wasSetUp = true
     }
     
     func update(name: String, handle: String) {
-        self.nameLabel?.text = name
-        self.nameLabel?.fitTextToBounds()
-        self.handleLabel?.text = handle
-        self.handleLabel?.fitTextToBounds()
+        fields[.name]?.text = name
+        fields[.name]?.fitTextToBounds()
+        
+        fields[.handle]?.text = name
+        fields[.handle]?.fitTextToBounds()
     }
     
     func update(role: Role) {
-        self.roleLabel?.text = role.rawValue
-        self.roleLabel?.fitTextToBounds()
+        fields[.characterClass]?.text = role.rawValue
+        fields[.characterClass]?.fitTextToBounds()
     }
     
     private func setupGestureRecognizers() {
@@ -89,7 +81,9 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
     }
     
     @objc private func cellTapped() {
-        print("Tapped.")
+        var placeholders = [String: String]()
+        fields.forEach { placeholders[$0.key.identifier()] = $0.value.text }
+        dataSource?.editorRequested(placeholdersWithIdentifiers: placeholders, entryTypes: RoleFieldLabel.allCases)
     }
     
     @objc private func edgerunnerLoaded(notification: Notification) {
