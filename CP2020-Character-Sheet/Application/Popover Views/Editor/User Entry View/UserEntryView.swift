@@ -79,29 +79,35 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
     // MARK: Private
     
     private func setupSubviews() {
+        let labelViewWidth = frame.width * viewModel.labelWidthRatio
         let labelViewFrame = CGRect(x: frame.minX,
                                     y: frame.minY,
-                                    width: frame.width * viewModel.labelWidthRatio,
+                                    width: labelViewWidth,
                                     height: frame.height)
         let labelViewMargins = viewModel.createInsets(with: labelViewFrame)
         let labelView = UILabel.container(frame: labelViewFrame, margins: labelViewMargins, backgroundColor: viewModel.lightColor, borderColor: nil, borderWidth: nil, labelMaker: label)
         
+        addUnderline(to: labelView.container)
+        
         addSubview(labelView.container)
         NSLayoutConstraint.activate([
             labelView.container.heightAnchor.constraint(equalToConstant: frame.height),
+            labelView.container.widthAnchor.constraint(equalToConstant: labelViewWidth),
             labelView.container.leadingAnchor.constraint(equalTo: leadingAnchor),
             labelView.container.topAnchor.constraint(equalTo: topAnchor)
             ])
         
+        let inputViewWidth = frame.width * viewModel.inputWidthRatio
         let inputViewFrame = CGRect(x: labelViewFrame.width,
                                     y: frame.height,
-                                    width: frame.width * viewModel.inputWidthRatio,
+                                    width: inputViewWidth,
                                     height: frame.height)
         let inputView = createInputView(for: type, frame: inputViewFrame)
         
         addSubview(inputView)
         NSLayoutConstraint.activate([
             inputView.heightAnchor.constraint(equalToConstant: frame.height),
+            inputView.widthAnchor.constraint(equalToConstant: inputViewWidth),
             inputView.leadingAnchor.constraint(equalTo: labelView.container.trailingAnchor),
             inputView.topAnchor.constraint(equalTo: topAnchor)
             ])
@@ -137,8 +143,8 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
         label.font = viewModel.labelFont
         label.backgroundColor = viewModel.lightColor
         label.textColor = viewModel.darkColor
-        label.text = viewModel.labelText
-        label.textAlignment = .center
+        label.text = "\(viewModel.labelText):"
+        label.textAlignment = .right
         label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
         
         return label
@@ -159,17 +165,7 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
         field.autocorrectionType = .no
         field.autocapitalizationType = .none
         
-        let border = CALayer()
-        let width = StyleConstants.SizeConstants.borderWidth
-        border.borderColor = viewModel.darkColor.cgColor
-        border.frame = CGRect(x: frame.minX,
-                              y: frame.height - width,
-                              width: frame.width,
-                              height: frame.height)
-        
-        border.borderWidth = width
-        field.layer.addSublayer(border)
-        field.layer.masksToBounds = true
+        addUnderline(to: field)
         field.delegate = self
         
         return field
@@ -185,14 +181,20 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
     }
     
     private func pickerButton(frame: CGRect) -> UIButton {
+        let bgView = UIView(frame: frame)
+        addUnderline(to: bgView)
+        
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.directionalLayoutMargins = viewModel.createInsets(with: frame)
+        button.setTitle("Choose a class", for: .normal)
+        button.setTitleColor(viewModel.highlightColor, for: .normal)
+        button.setBackgroundImage(bgView.asImage(), for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.backgroundColor = viewModel.lightColor
         button.titleLabel?.font = viewModel.labelFont
         button.titleLabel?.backgroundColor = viewModel.lightColor
         button.titleLabel?.textColor = viewModel.highlightColor
-        button.titleLabel?.text = "Choose a class"
-        button.titleLabel?.textAlignment = .left
         button.titleLabel?.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
         
         return button
@@ -210,4 +212,33 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// Adds a bottom underline to the desired view
+    ///
+    /// - Parameter view: The view to add the border to
+    private func addUnderline(to view: UIView) {
+        let border = CALayer()
+        let borderWidth = StyleConstants.SizeConstants.borderWidth
+        border.borderColor = viewModel.darkColor.cgColor
+        border.frame = CGRect(x: 0,
+                              y: view.frame.height - borderWidth,
+                              width: view.frame.width,
+                              height: view.frame.height)
+        
+        border.borderWidth = borderWidth
+        view.layer.addSublayer(border)
+        view.layer.masksToBounds = true
+    }
+    
+}
+
+extension UIView {
+    
+    // Using a function since `var image` might conflict with an existing variable
+    // (like on `UIImageView`)
+    func asImage() -> UIImage {
+        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+        return renderer.image { rendererContext in
+            layer.render(in: rendererContext.cgContext)
+        }
+    }
 }

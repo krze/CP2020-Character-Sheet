@@ -28,7 +28,7 @@ struct UserEntryViewCollectionFactory {
     /// - Returns: An array of created UserEntryViews
     func addUserEntryViews(to targetView: UIView, windowForPicker pickerWindow: CGRect?) -> [UserEntryView] {
         let width = targetView.frame.width / CGFloat(viewModel.numberOfColumns)
-        let height = targetView.frame.height
+        let height = targetView.frame.height / CGFloat(viewModel.numberOfRows)
         
         let multipleColumns = viewModel.numberOfColumns > 1
         var mutableRowsWithIdentifiers = viewModel.rowsWithIdentifiers
@@ -55,7 +55,7 @@ struct UserEntryViewCollectionFactory {
             NSLayoutConstraint.activate([
                 userEntryView.leadingAnchor.constraint(equalTo: leadingAnchor),
                 userEntryView.topAnchor.constraint(equalTo: topAnchor),
-                userEntryView.widthAnchor.constraint(equalToConstant: width),
+                userEntryView.widthAnchor.constraint(lessThanOrEqualToConstant: width),
                 userEntryView.heightAnchor.constraint(equalToConstant: height)
                 ])
             

@@ -25,7 +25,7 @@ final class PrinterPaperView: UIView {
                                      y: frame.minY,
                                      width: borderFrameWidth,
                                      height: frame.height)
-        let leftBorder = feedBorder(frame: leftBorderFrame)
+        let leftBorder = feedBorder(frame: leftBorderFrame, side: .Left)
         
         addSubview(leftBorder)
         NSLayoutConstraint.activate([
@@ -39,7 +39,7 @@ final class PrinterPaperView: UIView {
                                       y: frame.minY,
                                       width: borderFrameWidth,
                                       height: frame.height)
-        let rightBorder = feedBorder(frame: rightBorderFrame)
+        let rightBorder = feedBorder(frame: rightBorderFrame, side: .Right)
         
         addSubview(rightBorder)
         NSLayoutConstraint.activate([
@@ -58,30 +58,42 @@ final class PrinterPaperView: UIView {
         
         addSubview(contentView)
         NSLayoutConstraint.activate([
-            contentView.leadingAnchor.constraint(equalTo: leftBorder.trailingAnchor),
             contentView.topAnchor.constraint(equalTo: topAnchor),
-            contentView.widthAnchor.constraint(equalToConstant: contentViewWidth),
+            contentView.widthAnchor.constraint(lessThanOrEqualToConstant: contentViewWidth),
+            contentView.leadingAnchor.constraint(equalTo: leftBorder.trailingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: rightBorder.leadingAnchor),
             contentView.heightAnchor.constraint(equalToConstant: frame.height)
             ])
         
         self.contentView = contentView
+        self.backgroundColor = viewModel.lightColor
     }
     
-    private func feedBorder(frame: CGRect) -> UIView {
+    private func feedBorder(frame: CGRect, side: Side) -> UIView {
         let container = UIView(frame: frame)
         container.translatesAutoresizingMaskIntoConstraints = false
-        container.layer.borderColor = viewModel.darkColor.cgColor
-        container.layer.borderWidth = viewModel.lineThickness
+
+        let feedBorderBorder = CALayer()
+        feedBorderBorder.borderColor = viewModel.darkColor.cgColor
+        feedBorderBorder.frame = CGRect(x: side == .Left ? frame.width - viewModel.lineThickness : 0,
+                                        y: 0,
+                                        width: viewModel.lineThickness,
+                                        height: frame.height)
+        feedBorderBorder.borderWidth = viewModel.lineThickness
+        container.layer.addSublayer(feedBorderBorder)
+        
+        container.layer.masksToBounds = true
+
         
         let radius = (container.frame.width * viewModel.printerHoleWidthRatio) / 2
         let spacing = container.frame.height * viewModel.printerHoleSpacingRatio
-        var circleY = container.frame.minY
+        var circleY = CGFloat(0)
         var center: CGPoint {
-            return CGPoint(x: container.frame.midX, y: circleY)
+            return CGPoint(x: container.frame.width / 2, y: circleY)
         }
         
         /// Continue adding punch holes until we run past the last potentially visible punch hole
-        while circleY < container.frame.maxY + radius {
+        while circleY < container.frame.height + radius {
             let circle = makeCircle(center: center, radius: radius)
             
             container.layer.addSublayer(circle)
@@ -106,5 +118,9 @@ final class PrinterPaperView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private enum Side {
+        case Left, Right
     }
 }

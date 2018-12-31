@@ -11,9 +11,12 @@ import UIKit
 final class EditorViewController: UIViewController, UserEntryViewDelegate {
     
     private let popoverFrame: CGRect
+    private var popoverView: PrinterPaperView?
     private let keyboardHiddenOrigin: CGFloat
     private let receiver: EditorValueReciever
     private let currentValues = [String]()
+    private let viewModel: PopoverEditorViewModel
+    private var userEntryViews = [UserEntryView]()
     
     init(with receiver: EditorValueReciever,
          windowFrame: CGRect,
@@ -23,6 +26,7 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate {
         keyboardHiddenOrigin = popoverFrame.minY
         
         self.receiver = receiver
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.preferredContentSize = popoverFrame.size
         
@@ -31,9 +35,24 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let popoverView = PrinterPaperView(frame: popoverFrame, viewModel: PrinterPaperViewModel())
+        popoverView = PrinterPaperView(frame: popoverFrame, viewModel: PrinterPaperViewModel())
         // TODO: fill popoverview with User Entry Views using the UserEntryViewCollectionFactory
         view = popoverView
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let contentView = popoverView?.contentView else { return }
+        let factory = UserEntryViewCollectionFactory(viewModel: viewModel)
+        userEntryViews = factory.addUserEntryViews(to: contentView, windowForPicker: view.frame)
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            self.userEntryViews.forEach { userEntryView in
+                userEntryView.delegate = self
+            }
+        }
     }
     
     // MARK: UserEntryViewDelegate
