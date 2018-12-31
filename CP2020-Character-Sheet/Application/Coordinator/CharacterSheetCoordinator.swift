@@ -40,9 +40,19 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
         return nil
     }()
     
+    private var characterDescriptionEditor: EditorViewController?
+    
     private let modelManager: ModelManager
+    private let window: UIWindow
 
-    init(with layout: UICollectionViewFlowLayout, fileHandler: CharacterSheetFileHandler = CharacterSheetFileHandler()) {
+    init(with layout: UICollectionViewFlowLayout,
+         window: UIWindow?,
+         fileHandler: CharacterSheetFileHandler = CharacterSheetFileHandler()) {
+        guard let window = window else {
+            fatalError("Could not get the main window. But the app would crash before this is ever hit.")
+        }
+        
+        self.window = window
         modelManager = ModelManager(with: fileHandler)
         characterSheetViewController = CharacterSheetViewController(collectionViewLayout: layout)
         navigationController = UINavigationController(rootViewController:characterSheetViewController)
@@ -55,6 +65,7 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
     
     private func createObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(showSkillTable(notification:)), name: .showSkillTable, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showSkillTable(notification:)), name: .showEditor, object: nil)
     }
     
     @objc private func showSkillTable(notification: Notification) {

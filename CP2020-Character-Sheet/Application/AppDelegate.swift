@@ -25,7 +25,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         
-        coordinator = CharacterSheetCoordinator(with: layout)
+        coordinator = CharacterSheetCoordinator(with: layout, window: window)
         
         window?.rootViewController = coordinator?.navigationController
         

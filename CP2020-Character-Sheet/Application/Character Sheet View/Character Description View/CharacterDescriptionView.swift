@@ -12,7 +12,7 @@ import UIKit
 final class CharacterDescriptionView: UIView {
     private let viewModel: CharacterDescriptionViewModel
     
-    private(set) var fieldDescription: CharacterDescriptionConstants.Text
+    private(set) var fieldDescription: RoleFieldLabel
     private(set) var inputField: UILabel?
     
     init(frame: CGRect, viewModel: CharacterDescriptionViewModel) {

@@ -8,9 +8,7 @@
 
 import Foundation
 
-final class CharacterDescriptionDataSource: EditorValueReciever {
-    typealias Constants = CharacterDescriptionConstants.Text
-    
+final class CharacterDescriptionDataSource: EditorValueReciever {    
     private let model: CharacterDescriptionModel
     weak var delegate: CharacterDescriptionDataSourceDelegate?
     
@@ -22,9 +20,9 @@ final class CharacterDescriptionDataSource: EditorValueReciever {
     }
     
     func valuesFromEditorDidChange(_ values: [String: String]) {
-        let newName = values[Constants.name.rawValue]
-        let newHandle = values[Constants.handle.rawValue]
-        let newRole = values[Constants.handle.rawValue]
+        let newName = values[RoleFieldLabel.name.rawValue]
+        let newHandle = values[RoleFieldLabel.handle.rawValue]
+        let newRole = values[RoleFieldLabel.handle.rawValue]
         
         if let newName = newName,
             let newHandle = newHandle,

@@ -64,11 +64,11 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
         else if let cell = cell as? RoleDescriptionViewCell, !cell.wasSetUp {
             let userEntryViewModels = [
                 CharacterDescriptionViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
-                                              labelText: CharacterDescriptionConstants.Text.name,
+                                              labelText: .name,
                                               labelWidthRatio: 0.2,
                                               inputMinimumSize: 10.0),
                 CharacterDescriptionViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
-                                              labelText: CharacterDescriptionConstants.Text.handle,
+                                              labelText: .handle,
                                               labelWidthRatio: 0.2,
                                               inputMinimumSize: 10.0)
             ]

@@ -11,7 +11,7 @@ import UIKit
 struct CharacterDescriptionViewModel: MarginCreator {
     let paddingRatio: CGFloat
     
-    let labelText: CharacterDescriptionConstants.Text
+    let labelText: RoleFieldLabel
     let labelWidthRatio: CGFloat
     var inputWidthRatio: CGFloat {
         return 1.0 - labelWidthRatio

@@ -10,9 +10,9 @@ import UIKit
 
 struct PopoverEditorViewModel: PopoverViewFrameProvider, EditorViewModel, MarginCreator {
     
-    typealias RowType = UserEntryView.EntryType
     let numberOfRows: Int
-    let rowsWithIdentifiers: [String: RowType]
+    let rowsWithIdentifiers: [String: EntryType]
+    let placeholdersWithIdentifiers: [String: String]?
     let numberOfColumns: Int
     let labelWidthRatio: CGFloat
     
@@ -27,11 +27,15 @@ struct PopoverEditorViewModel: PopoverViewFrameProvider, EditorViewModel, Margin
     
     private let requiredRowCount: Int
     
-    init(numberOfColumns: Int = 1, numberOfRows: Int, rowsWithIdentifiers: [String: RowType], labelWidthRatio: CGFloat) {
+    init(numberOfColumns: Int = 1,
+         numberOfRows: Int,
+         rowsWithIdentifiers: [String: EntryType],
+         placeholdersWithIdentifiers: [String: String]?,
+         labelWidthRatio: CGFloat) {
         self.numberOfColumns = numberOfColumns
         self.numberOfRows = numberOfRows
         self.labelWidthRatio = labelWidthRatio
-        
+
         requiredRowCount = {
             let extraRowForRemainder = rowsWithIdentifiers.count % numberOfRows > 0
             let rowsNeeded = rowsWithIdentifiers.count / numberOfRows + (extraRowForRemainder ? 1 : 0)
@@ -44,5 +48,6 @@ struct PopoverEditorViewModel: PopoverViewFrameProvider, EditorViewModel, Margin
         }
         
         self.rowsWithIdentifiers = rowsWithIdentifiers
+        self.placeholdersWithIdentifiers = placeholdersWithIdentifiers
     }
 }

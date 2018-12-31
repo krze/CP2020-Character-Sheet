@@ -20,5 +20,5 @@ extension Notification.Name {
     static let skillPointModifierDidChange = Notification.Name("skillPointModifierDidChange")
     static let skillPointStatModifierDidChange = Notification.Name("skillPointStatModifierDidChange")
     static let nameAndHandleDidChange = Notification.Name("nameAndHandleDidChange")
-    
+    static let showEditor = Notification.Name("showEditor")
 }

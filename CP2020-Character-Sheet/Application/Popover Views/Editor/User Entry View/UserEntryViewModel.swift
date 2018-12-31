@@ -10,7 +10,7 @@ import UIKit
 
 struct UserEntryViewModel: MarginCreator {
     
-    let type: UserEntryView.EntryType
+    let type: EntryType
     let labelText: String
     let labelWidthRatio: CGFloat
     let inputMinimumSize: CGFloat
@@ -27,7 +27,7 @@ struct UserEntryViewModel: MarginCreator {
     let inputFont: UIFont? = StyleConstants.Font.defaultFont
     let paddingRatio: CGFloat = StyleConstants.SizeConstants.textPaddingRatio
 
-    init(type: UserEntryView.EntryType,
+    init(type: EntryType,
          labelText: String,
          labelWidthRatio: CGFloat,
          inputMinimumSize: CGFloat = StyleConstants.Font.minimumSize) {

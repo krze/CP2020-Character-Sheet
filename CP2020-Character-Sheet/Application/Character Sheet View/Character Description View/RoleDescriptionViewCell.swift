@@ -42,11 +42,11 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
             topAnchor = descriptionView.bottomAnchor
             
             switch descriptionView.fieldDescription {
-            case CharacterDescriptionConstants.Text.name:
+            case .name:
                 nameLabel = descriptionView.inputField
-            case CharacterDescriptionConstants.Text.handle:
+            case .handle:
                 handleLabel = descriptionView.inputField
-            case CharacterDescriptionConstants.Text.characterClass:
+            case .characterClass:
                 roleLabel = descriptionView.inputField
             }
         }

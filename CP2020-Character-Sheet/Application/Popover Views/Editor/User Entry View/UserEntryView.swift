@@ -25,27 +25,15 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
     private var pickerView: UIPickerView?
     
     private let viewModel: UserEntryViewModel
-    
-    enum EntryType {
-        
-        /// Raw text entry. Will undergo no validation. Spell checking is not enforced.
-        case Text
-        
-        /// Integer entry. Values entered will be confirmed as an Integer and converted.
-        case Integer
-        
-        /// Picker for an array of Strings.
-        case Picker([String], CGRect)
-    }
-    
-    init(viewModel: UserEntryViewModel, frame: CGRect) {
+
+    init(viewModel: UserEntryViewModel, frame: CGRect, windowForPicker: CGRect?) {
         type = viewModel.type
         identifier = viewModel.labelText
         
         switch type {
-        case .Picker(let strings, let frame):
+        case .Picker(let strings):
             pickerChoices = strings
-            pickerFrame = frame
+            pickerFrame = windowForPicker
         default:
             pickerChoices = nil
             pickerFrame = nil

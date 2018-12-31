@@ -24,8 +24,9 @@ struct UserEntryViewCollectionFactory {
     /// Adds the UserEntryViews to the targetView provided.
     ///
     /// - Parameter targetView: The view to which you want to add a collection of UserEntryViews
+    /// - Parameter windowForPicker: The frame representing the window in case a picker needs to be presented.
     /// - Returns: An array of created UserEntryViews
-    func addUserEntryViews(to targetView: UIView) -> [UserEntryView] {
+    func addUserEntryViews(to targetView: UIView, windowForPicker pickerWindow: CGRect?) -> [UserEntryView] {
         let width = targetView.frame.width / CGFloat(viewModel.numberOfColumns)
         let height = targetView.frame.height
         
@@ -46,7 +47,7 @@ struct UserEntryViewCollectionFactory {
                                                         labelText: labelText,
                                                         labelWidthRatio: viewModel.labelWidthRatio)
             let frame = CGRect(x: x, y: y, width: width, height: height)
-            let userEntryView = UserEntryView(viewModel: userEntryViewModel, frame: frame)
+            let userEntryView = UserEntryView(viewModel: userEntryViewModel, frame: frame, windowForPicker: pickerWindow)
             
             userEntryView.translatesAutoresizingMaskIntoConstraints = false
             

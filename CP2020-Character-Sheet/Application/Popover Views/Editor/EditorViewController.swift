@@ -9,7 +9,6 @@
 import UIKit
 
 final class EditorViewController: UIViewController, UserEntryViewDelegate {
-
     
     private let popoverFrame: CGRect
     private let keyboardHiddenOrigin: CGFloat
@@ -32,7 +31,7 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         let popoverView = PrinterPaperView(frame: popoverFrame, viewModel: PrinterPaperViewModel())
-        // TODO: fill popoverview with User Entry Views.
+        // TODO: fill popoverview with User Entry Views using the UserEntryViewCollectionFactory
         view = popoverView
     }
     

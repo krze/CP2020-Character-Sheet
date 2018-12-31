@@ -8,14 +8,26 @@
 
 import Foundation
 
-/// Constants for the Character Description view
-struct CharacterDescriptionConstants {
+/// Strings used in the Character Description View
+enum RoleFieldLabel: String, EntryTypeProvider {
     
-    /// Strings used in the Character Description View
-    enum Text: String {
-        case name = "NAME"
-        case handle = "HANDLE"
-        case characterClass = "ROLE"
+    func identifier() -> String {
+        return self.rawValue
     }
-
+    
+    func entryType() -> EntryType {
+        switch self {
+        case .name, .handle:
+            return .Text
+        case .characterClass:
+            let classes = Role.allCases.map { $0.rawValue }
+            return .Picker(classes)
+        }
+    }
+    
+    
+    
+    case name = "NAME"
+    case handle = "HANDLE"
+    case characterClass = "ROLE"
 }
