@@ -22,10 +22,8 @@ struct PopoverEditorViewModel: PopoverViewFrameProvider, EditorViewModel, Margin
     let popoverHeightRatio: CGFloat = StyleConstants.SizeConstants.popoverViewHeightRatio
     
     var minimumHeightForAllRows: CGFloat {
-        return CGFloat(requiredRowCount) * minimumRowHeight
+        return CGFloat(numberOfRows) * minimumRowHeight
     }
-    
-    private let requiredRowCount: Int
     
     init(numberOfColumns: Int = 1,
          numberOfRows: Int,
@@ -36,14 +34,9 @@ struct PopoverEditorViewModel: PopoverViewFrameProvider, EditorViewModel, Margin
         self.numberOfRows = numberOfRows
         self.labelWidthRatio = labelWidthRatio
 
-        requiredRowCount = {
-            let extraRowForRemainder = rowsWithIdentifiers.count % numberOfRows > 0
-            let rowsNeeded = rowsWithIdentifiers.count / numberOfRows + (extraRowForRemainder ? 1 : 0)
-            
-            return rowsNeeded
-        }()
+        let enoughSpace = numberOfColumns * numberOfRows >= rowsWithIdentifiers.count
         
-        if requiredRowCount != numberOfRows {
+        if !enoughSpace {
             fatalError("The number of rows must account for the amount of space necessary to accomodate the rows.")
         }
         

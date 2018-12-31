@@ -24,6 +24,7 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate {
         
         self.receiver = receiver
         super.init(nibName: nil, bundle: nil)
+        self.preferredContentSize = popoverFrame.size
         
         subscribeToKeyboard()
     }

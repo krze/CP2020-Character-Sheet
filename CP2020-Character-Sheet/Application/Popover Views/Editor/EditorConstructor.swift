@@ -12,11 +12,13 @@ import UIKit
 struct EditorConstructor {
     
     private let viewModel: PopoverEditorViewModel
-    private let dataSource: EditorValueReciever
+    let dataSource: EditorValueReciever
+    let popoverSourceView: UIView
     
-    init(dataSource: EditorValueReciever, viewModel: PopoverEditorViewModel) {
+    init(dataSource: EditorValueReciever, viewModel: PopoverEditorViewModel, popoverSourceView: UIView) {
         self.viewModel = viewModel
         self.dataSource = dataSource
+        self.popoverSourceView = popoverSourceView
     }
     
     func createEditor(withWindow window: CGRect) -> EditorViewController {

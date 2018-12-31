@@ -6,15 +6,16 @@
 //  Copyright © 2018 Ken Krzeminski. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-final class CharacterDescriptionDataSource: EditorValueReciever, NotifiesEditorNeeded {
+final class CharacterDescriptionDataSource: NSObject, EditorValueReciever, NotifiesEditorNeeded {
     
     private let model: CharacterDescriptionModel
     weak var delegate: CharacterDescriptionDataSourceDelegate?
     
     init(model: CharacterDescriptionModel) {
         self.model = model
+        super.init()
         
         NotificationCenter.default.addObserver(self, selector: #selector(nameDidChange(notification:)), name: .nameAndHandleDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(roleDidChange(notification:)), name: .roleDidChange, object: nil)
@@ -48,7 +49,7 @@ final class CharacterDescriptionDataSource: EditorValueReciever, NotifiesEditorN
         model.set(role: role)
     }
     
-    func editorRequested(placeholdersWithIdentifiers: [String : String], entryTypes: [EntryTypeProvider]) {
+    func editorRequested(placeholdersWithIdentifiers: [String : String], entryTypes: [EntryTypeProvider], sourceView: UIView) {
         let rowsWithIdentifiers = IdentifiersWithPlaceholdersAdapter.rowsWithIdentifiers(from: placeholdersWithIdentifiers,
                                                                                          entryTypeProviders: entryTypes)
         
@@ -56,7 +57,7 @@ final class CharacterDescriptionDataSource: EditorValueReciever, NotifiesEditorN
                                                       rowsWithIdentifiers: rowsWithIdentifiers,
                                                       placeholdersWithIdentifiers: placeholdersWithIdentifiers,
                                                       labelWidthRatio: 0.3)
-        let editorConstructor = EditorConstructor(dataSource: self, viewModel: popoverViewModel)
+        let editorConstructor = EditorConstructor(dataSource: self, viewModel: popoverViewModel, popoverSourceView: sourceView)
         
         NotificationCenter.default.post(name: .showEditor, object: editorConstructor)
     }
@@ -67,6 +68,12 @@ final class CharacterDescriptionDataSource: EditorValueReciever, NotifiesEditorN
     
     @objc private func roleDidChange(notification: Notification) {
         fatalError("Need to update static views with the new value")
+    }
+    
+    // MARK: UIPresentationControllerDelegate
+    
+    @objc func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
     }
     
 }

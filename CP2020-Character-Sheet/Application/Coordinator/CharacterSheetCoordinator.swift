@@ -87,10 +87,16 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
             }
             
             let editor = constructor.createEditor(withWindow: self.window.frame)
+            
+            editor.modalPresentationStyle = .popover
+            editor.popoverPresentationController?.permittedArrowDirections = .any
+            editor.popoverPresentationController?.delegate = constructor.dataSource
+            editor.popoverPresentationController?.sourceView = constructor.popoverSourceView
+            editor.popoverPresentationController?.sourceRect = constructor.popoverSourceView.bounds
+            
             self.popoverEditor = editor
             
-            // NEXT: This needs to be a popover, not a new VC
-            self.navigationController.pushViewController(editor, animated: true)
+            self.navigationController.present(editor, animated: true)
         }
 
     }
