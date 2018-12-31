@@ -27,6 +27,7 @@
 		9D004E5521DA7BCD004DFA4D /* EditorConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E5421DA7BCD004DFA4D /* EditorConstructor.swift */; };
 		9D004E5721DA7ED9004DFA4D /* NotifiesEditorNeeded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E5621DA7ED9004DFA4D /* NotifiesEditorNeeded.swift */; };
 		9D004E5921DA7FE1004DFA4D /* EntryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E5821DA7FE1004DFA4D /* EntryType.swift */; };
+		9D004E5B21DADCC3004DFA4D /* UIView+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E5A21DADCC3004DFA4D /* UIView+Image.swift */; };
 		9D11763821BDCE0300E297BA /* UILabel+LabelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */; };
 		9D24375421A085DE0084E77D /* WoundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24375321A085DE0084E77D /* WoundType.swift */; };
 		9D24375621A091AF0084E77D /* CharacterSheetSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24375521A091AE0084E77D /* CharacterSheetSections.swift */; };
@@ -124,6 +125,7 @@
 		9D004E5421DA7BCD004DFA4D /* EditorConstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorConstructor.swift; sourceTree = "<group>"; };
 		9D004E5621DA7ED9004DFA4D /* NotifiesEditorNeeded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifiesEditorNeeded.swift; sourceTree = "<group>"; };
 		9D004E5821DA7FE1004DFA4D /* EntryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryType.swift; sourceTree = "<group>"; };
+		9D004E5A21DADCC3004DFA4D /* UIView+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Image.swift"; sourceTree = "<group>"; };
 		9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+LabelContainer.swift"; sourceTree = "<group>"; };
 		9D24375321A085DE0084E77D /* WoundType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoundType.swift; sourceTree = "<group>"; };
 		9D24375521A091AE0084E77D /* CharacterSheetSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSheetSections.swift; sourceTree = "<group>"; };
@@ -395,6 +397,7 @@
 			children = (
 				9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */,
 				9D552CFB21ACE775008B90E9 /* UIFont+BestFit.swift */,
+				9D004E5A21DADCC3004DFA4D /* UIView+Image.swift */,
 				9D004E3721D81BC5004DFA4D /* UsedOnce.swift */,
 				9D2CFA0521C593D200EC76D7 /* MarginCreator.swift */,
 				9DFA19F021CE9EE10092A450 /* Notification+Cyberpunk.swift */,
@@ -681,6 +684,7 @@
 				9D2CFA0821C59B9400EC76D7 /* RoleView.swift in Sources */,
 				9D552CF221AB0E69008B90E9 /* StyleConstants.swift in Sources */,
 				9DFCB7BC21D5121A00F99798 /* CharacterSheetFileHandler.swift in Sources */,
+				9D004E5B21DADCC3004DFA4D /* UIView+Image.swift in Sources */,
 				9D004E5321D977AA004DFA4D /* UserEntryViewCollectionFactory.swift in Sources */,
 				9D004E3521D8114B004DFA4D /* CharacterDescriptionDataSourceDelegate.swift in Sources */,
 				9D004E5921DA7FE1004DFA4D /* EntryType.swift in Sources */,
