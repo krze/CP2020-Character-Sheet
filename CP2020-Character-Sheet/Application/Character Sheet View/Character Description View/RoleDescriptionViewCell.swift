@@ -81,9 +81,13 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
     }
     
     @objc private func cellTapped() {
-        var placeholders = [String: String]()
-        fields.forEach { placeholders[$0.key.identifier()] = $0.value.text }
-        dataSource?.editorRequested(placeholdersWithIdentifiers: placeholders, entryTypes: RoleFieldLabel.allCases, enforcedOrder: RoleFieldLabel.enforcedOrder(), sourceView: self)
+        let currentFieldStates = fields.map { CurrentFieldState(identifier: $0.key.identifier(),
+                                                                currentValue: $0.value.text ?? "",
+                                                                entryType: $0.key.entryType()) }
+        
+        dataSource?.editorRequested(currentFieldStates: currentFieldStates,
+                                    enforcedOrder: RoleFieldLabel.enforcedOrder(),
+                                    sourceView: self)
     }
     
     @objc private func edgerunnerLoaded(notification: Notification) {

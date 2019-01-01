@@ -49,11 +49,21 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever, Notif
         model.set(role: role)
     }
     
-    func editorRequested(placeholdersWithIdentifiers: [String : String], entryTypes: [EntryTypeProvider], enforcedOrder: [String], sourceView: UIView) {
-        let rowsWithIdentifiers = IdentifiersWithPlaceholdersAdapter.rowsWithIdentifiers(from: placeholdersWithIdentifiers,
-                                                                                         entryTypeProviders: entryTypes)
+    func editorRequested(currentFieldStates: [CurrentFieldState], enforcedOrder: [String], sourceView: UIView) {
+        var rowsWithIdentifiers = [String: EntryType]()
+        var entryTypes = [EntryType]()
+        var placeholdersWithIdentifiers = [String: String]()
         
-        let popoverViewModel = PopoverEditorViewModel(numberOfRows: entryTypes.count,
+        currentFieldStates.forEach { fieldState in
+            let identifier = fieldState.identifier
+            let entryType = fieldState.entryType
+            
+            rowsWithIdentifiers[identifier] = entryType
+            placeholdersWithIdentifiers[identifier] = fieldState.currentValue
+            entryTypes.append(entryType)
+        }
+        
+        let popoverViewModel = PopoverEditorViewModel(numberOfRows: currentFieldStates.count,
                                                       rowsWithIdentifiers: rowsWithIdentifiers,
                                                       placeholdersWithIdentifiers: placeholdersWithIdentifiers,
                                                       enforcedOrder: enforcedOrder,
