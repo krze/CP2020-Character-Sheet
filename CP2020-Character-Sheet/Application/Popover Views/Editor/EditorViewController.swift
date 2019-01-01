@@ -53,7 +53,7 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate {
         guard let contentView = popoverView?.contentView else { return }
         let factory = UserEntryViewCollectionFactory(viewModel: viewModel)
         userEntryViews = factory.addUserEntryViews(to: contentView, windowForPicker: view.frame)
-        
+        userEntryViews.first(where: { $0.textField != nil })?.textField?.becomeFirstResponder()
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             

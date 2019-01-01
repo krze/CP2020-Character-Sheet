@@ -18,7 +18,7 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
     var delegate: UserEntryViewDelegate?
     
     // Text field Variables
-    private var textField: UITextField?
+    private (set) var textField: UITextField?
     
     // Picker view variables
     

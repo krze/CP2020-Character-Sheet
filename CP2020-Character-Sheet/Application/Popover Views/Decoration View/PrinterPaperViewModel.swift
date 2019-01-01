@@ -13,8 +13,8 @@ struct PrinterPaperViewModel {
     let lightColor = StyleConstants.Color.light
     let darkColor = StyleConstants.Color.dark
     let lineThickness: CGFloat = 2.0
-    let printerHoleWidthRatio: CGFloat = 0.15
+    let printerHoleWidthRatio: CGFloat = 0.20
     let printerFeedStripsWidthRatio: CGFloat = 0.1
-    let printerHoleSpacingRatio: CGFloat = 0.08
+    let printerHoleSpacingRatio: CGFloat = 0.15
     
 }
