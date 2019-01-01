@@ -10,10 +10,10 @@ import UIKit
 
 protocol UserEntryViewDelegate {
     
-    func pickerViewWillClose(identifier: String, dismissablePickerView: DismissablePickerView)
+    func pickerViewWillClose(identifier: Identifier, dismissablePickerView: DismissablePickerView)
     
-    func pickerViewWillDisplay(identifier: String, dismissablePickerView: DismissablePickerView)
+    func pickerViewWillDisplay(identifier: Identifier, dismissablePickerView: DismissablePickerView)
     
-    func textFieldDidFinishEditing(identifier: String)
+    func textFieldDidFinishEditing(identifier: Identifier)
     
 }

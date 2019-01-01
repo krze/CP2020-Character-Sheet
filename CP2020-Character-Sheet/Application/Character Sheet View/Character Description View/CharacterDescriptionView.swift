@@ -35,6 +35,7 @@ final class CharacterDescriptionView: UIView {
         
         addSubview(label.container)
         NSLayoutConstraint.activate([
+            label.container.widthAnchor.constraint(equalToConstant: labelWidth),
             label.container.heightAnchor.constraint(equalToConstant: frame.height),
             label.container.leadingAnchor.constraint(equalTo: leadingAnchor),
             label.container.topAnchor.constraint(equalTo: topAnchor)
@@ -42,16 +43,22 @@ final class CharacterDescriptionView: UIView {
         
         let inputFieldWidth = frame.width * viewModel.inputWidthRatio
         let inputFieldFrame = CGRect(x: labelFrame.width, y: frame.minY, width: inputFieldWidth, height: frame.height)
-        let inputField = self.inputField(frame: inputFieldFrame)
+        let inputField = UILabel.container(frame: inputFieldFrame,
+                                           margins: viewModel.createInsets(with: inputFieldFrame),
+                                           backgroundColor: viewModel.lightColor,
+                                           borderColor: viewModel.darkColor,
+                                           borderWidth: StyleConstants.SizeConstants.borderWidth,
+                                           labelMaker: self.inputField)
         
-        addSubview(inputField)
+        addSubview(inputField.container)
         NSLayoutConstraint.activate([
-            inputField.heightAnchor.constraint(equalToConstant: frame.height),
-            inputField.leadingAnchor.constraint(equalTo: label.container.trailingAnchor),
-            inputField.topAnchor.constraint(equalTo: topAnchor)
+            inputField.container.widthAnchor.constraint(equalToConstant: inputFieldWidth),
+            inputField.container.heightAnchor.constraint(equalToConstant: frame.height),
+            inputField.container.leadingAnchor.constraint(equalTo: label.container.trailingAnchor),
+            inputField.container.topAnchor.constraint(equalTo: topAnchor)
             ])
         
-        self.inputField = inputField
+        self.inputField = inputField.label
     }
     
     private func label(frame: CGRect) -> UILabel {
@@ -69,10 +76,10 @@ final class CharacterDescriptionView: UIView {
     
     private func inputField(frame: CGRect) -> UILabel {
         let field = UILabel(frame: frame)
+        field.translatesAutoresizingMaskIntoConstraints = false
+
         field.font = viewModel.inputFont
         field.adjustsFontSizeToFitWidth = false
-        field.layer.borderColor = viewModel.darkColor.cgColor
-        field.layer.borderWidth = StyleConstants.SizeConstants.borderWidth
         field.backgroundColor = viewModel.lightColor
         field.textColor = viewModel.darkColor
         field.textAlignment = .left

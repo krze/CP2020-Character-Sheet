@@ -73,7 +73,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
                                               inputMinimumSize: 10.0)
             ]
             let characterClassViewModel = RoleViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
-                                                                  roleType: .Solo, classLabelWidthRatio: 0.2)
+                                                                  roleType: nil, classLabelWidthRatio: 0.2)
             cell.setup(with: userEntryViewModels, classViewModel: characterClassViewModel)
         }
         else if let cell = cell as? HighlightedSkillViewCell, !cell.wasSetUp {

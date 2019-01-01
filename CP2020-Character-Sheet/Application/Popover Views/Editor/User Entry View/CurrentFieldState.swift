@@ -10,7 +10,7 @@ import Foundation
 
 struct CurrentFieldState {
     
-    let identifier: String
+    let identifier: Identifier
     let currentValue: String
     let entryType: EntryType
     
@@ -18,8 +18,8 @@ struct CurrentFieldState {
 
 extension Array where Element == CurrentFieldState {
     
-    func popoverViewModelParameters() -> (rowsWithIdentifiers: [String: EntryType], entryTypes: [EntryType], placeholdersWithIdentifiers: [String: String]){
-        var rowsWithIdentifiers = [String: EntryType]()
+    func popoverViewModelParameters() -> (rowsWithIdentifiers: [String: EntryType], entryTypes: [EntryType], placeholdersWithIdentifiers: [Identifier: String]){
+        var rowsWithIdentifiers = [Identifier: EntryType]()
         var entryTypes = [EntryType]()
         var placeholdersWithIdentifiers = [String: String]()
         

@@ -21,10 +21,10 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever, Notif
         NotificationCenter.default.addObserver(self, selector: #selector(roleDidChange(notification:)), name: .roleDidChange, object: nil)
     }
     
-    func valuesFromEditorDidChange(_ values: [String: String]) {
-        let newName = values[RoleFieldLabel.name.rawValue]
-        let newHandle = values[RoleFieldLabel.handle.rawValue]
-        let newRole = values[RoleFieldLabel.handle.rawValue]
+    func valuesFromEditorDidChange(_ values: [Identifier: String]) {
+        let newName = values[RoleFieldLabel.name.identifier()]
+        let newHandle = values[RoleFieldLabel.handle.identifier()]
+        let newRole = values[RoleFieldLabel.characterClass.identifier()]
         
         if let newName = newName,
             let newHandle = newHandle,
@@ -64,11 +64,11 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever, Notif
     }
     
     @objc private func nameDidChange(notification: Notification) {
-        fatalError("Need to update static views with the new value")
+        delegate?.update(name: model.name, handle: model.handle)
     }
     
     @objc private func roleDidChange(notification: Notification) {
-        fatalError("Need to update static views with the new value")
+        delegate?.update(role: model.role)
     }
     
     // MARK: UIPresentationControllerDelegate

@@ -73,7 +73,7 @@ final class RoleView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = viewModel.lightColor
         label.textColor = viewModel.darkColor
-        label.text = viewModel.roleType.rawValue
+        label.text = viewModel.roleType?.rawValue ?? ""
         label.textAlignment = .left
         label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
         

@@ -8,6 +8,7 @@
 
 import UIKit
 
+typealias Identifier = String
 
 enum EntryType {
     
@@ -26,7 +27,7 @@ protocol EntryTypeProvider {
     /// Provides the identifier for the user entry view
     ///
     /// - Returns: An identifier for user entry view
-    func identifier() -> String
+    func identifier() -> Identifier
     
     /// Provides the entry type for user input
     ///

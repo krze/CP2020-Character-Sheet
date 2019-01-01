@@ -17,7 +17,7 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate {
     private var userEntryViews = [UserEntryView]()
 
     private var valuesDidChange = false
-    private var currentValues = [String: String]() {
+    private var currentValues = [Identifier: String]() {
         didSet {
             valuesDidChange = true
         }
@@ -64,6 +64,10 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        userEntryViews.forEach { entryView in
+            entryView.forceEndEdting()
+        }
+        
         super.viewWillDisappear(animated)
         
         if valuesDidChange {
@@ -74,22 +78,22 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate {
     
     // MARK: UserEntryViewDelegate
     
-    func pickerViewWillDisplay(identifier: String, dismissablePickerView: DismissablePickerView) {
+    func pickerViewWillDisplay(identifier: Identifier, dismissablePickerView: DismissablePickerView) {
         view.addSubview(dismissablePickerView)
         activePickerView = dismissablePickerView
     }
     
-    func pickerViewWillClose(identifier: String, dismissablePickerView: DismissablePickerView) {
+    func pickerViewWillClose(identifier: Identifier, dismissablePickerView: DismissablePickerView) {
         activePickerView?.removeFromSuperview()
         
         setLatestValueIfUpdated(for: identifier)
     }
     
-    func textFieldDidFinishEditing(identifier: String) {
+    func textFieldDidFinishEditing(identifier: Identifier) {
         setLatestValueIfUpdated(for: identifier)
     }
     
-    private func setLatestValueIfUpdated(for identifier: String) {
+    private func setLatestValueIfUpdated(for identifier: Identifier) {
         guard let value = userEntryViews.first(where: { $0.identifier == identifier })?.userInputValue else {
             return
         }

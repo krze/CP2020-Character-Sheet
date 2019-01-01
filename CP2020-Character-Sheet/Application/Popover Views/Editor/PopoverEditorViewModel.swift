@@ -11,9 +11,9 @@ import UIKit
 struct PopoverEditorViewModel: PopoverViewFrameProvider, EditorViewModel, MarginCreator {
     
     let numberOfRows: Int
-    let rowsWithIdentifiers: [String: EntryType]
-    let placeholdersWithIdentifiers: [String: String]?
-    let enforcedOrder: [String]
+    let rowsWithIdentifiers: [Identifier: EntryType]
+    let placeholdersWithIdentifiers: [Identifier: String]?
+    let enforcedOrder: [Identifier]
     let numberOfColumns: Int
     let labelWidthRatio: CGFloat
     
@@ -28,9 +28,9 @@ struct PopoverEditorViewModel: PopoverViewFrameProvider, EditorViewModel, Margin
     
     init(numberOfColumns: Int = 1,
          numberOfRows: Int,
-         rowsWithIdentifiers: [String: EntryType],
-         placeholdersWithIdentifiers: [String: String]?,
-         enforcedOrder: [String],
+         rowsWithIdentifiers: [Identifier: EntryType],
+         placeholdersWithIdentifiers: [Identifier: String]?,
+         enforcedOrder: [Identifier],
          labelWidthRatio: CGFloat) {
         self.numberOfColumns = numberOfColumns
         self.numberOfRows = numberOfRows

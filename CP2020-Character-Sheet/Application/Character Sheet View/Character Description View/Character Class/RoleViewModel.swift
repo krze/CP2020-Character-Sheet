@@ -12,7 +12,7 @@ struct RoleViewModel: MarginCreator {
     
     let paddingRatio: CGFloat
     let classLabel = RoleFieldLabel.characterClass
-    let roleType: Role
+    let roleType: Role?
     let classLabelWidthRatio: CGFloat
     var classDescriptionWidthRatio: CGFloat {
         return 1.0 - classLabelWidthRatio

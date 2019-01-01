@@ -12,10 +12,13 @@ import UIKit
 /// an input field that allows user input in various forms, all returnable as a String.
 final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     let type: EntryType
-    let identifier: String
+    let identifier: Identifier
     
     private(set) var userInputValue: String?
     var delegate: UserEntryViewDelegate?
+    
+    // Text field Variables
+    private var textField: UITextField?
     
     // Picker view variables
     
@@ -47,6 +50,11 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
         setupSubviews()
     }
     
+    func forceEndEdting() {
+        self.textField?.endEditing(true)
+        self.dismissablePickerView?.pickerView?.endEditing(true)
+    }
+    
     // MARK: UIPickerViewDataSource
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -75,7 +83,7 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
         userInputValue = textField.text
         delegate?.textFieldDidFinishEditing(identifier: identifier)
     }
-    
+        
     // MARK: Private
     
     private func setupSubviews() {
@@ -116,11 +124,15 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
     private func createInputView(for: EntryType, frame: CGRect) -> UIView {
         switch type {
         case .Text:
-            return textField(frame: frame)
+            let textField = self.textField(frame: frame)
+            self.textField = textField
+            
+            return textField
         case .Integer:
             let integerField = textField(frame: frame)
-            
             integerField.keyboardType = .numberPad
+            textField = integerField
+
             return integerField
         case .Picker:
             guard let pickerFrame = pickerFrame else {
