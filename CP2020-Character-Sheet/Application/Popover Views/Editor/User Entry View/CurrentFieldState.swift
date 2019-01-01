@@ -15,3 +15,23 @@ struct CurrentFieldState {
     let entryType: EntryType
     
 }
+
+extension Array where Element == CurrentFieldState {
+    
+    func popoverViewModelParameters() -> (rowsWithIdentifiers: [String: EntryType], entryTypes: [EntryType], placeholdersWithIdentifiers: [String: String]){
+        var rowsWithIdentifiers = [String: EntryType]()
+        var entryTypes = [EntryType]()
+        var placeholdersWithIdentifiers = [String: String]()
+        
+        self.forEach { fieldState in
+            let identifier = fieldState.identifier
+            let entryType = fieldState.entryType
+            
+            rowsWithIdentifiers[identifier] = entryType
+            placeholdersWithIdentifiers[identifier] = fieldState.currentValue
+            entryTypes.append(entryType)
+        }
+        
+        return (rowsWithIdentifiers, entryTypes, placeholdersWithIdentifiers)
+    }
+}

@@ -50,22 +50,10 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever, Notif
     }
     
     func editorRequested(currentFieldStates: [CurrentFieldState], enforcedOrder: [String], sourceView: UIView) {
-        var rowsWithIdentifiers = [String: EntryType]()
-        var entryTypes = [EntryType]()
-        var placeholdersWithIdentifiers = [String: String]()
-        
-        currentFieldStates.forEach { fieldState in
-            let identifier = fieldState.identifier
-            let entryType = fieldState.entryType
-            
-            rowsWithIdentifiers[identifier] = entryType
-            placeholdersWithIdentifiers[identifier] = fieldState.currentValue
-            entryTypes.append(entryType)
-        }
-        
-        let popoverViewModel = PopoverEditorViewModel(numberOfRows: currentFieldStates.count,
-                                                      rowsWithIdentifiers: rowsWithIdentifiers,
-                                                      placeholdersWithIdentifiers: placeholdersWithIdentifiers,
+        let parameters = currentFieldStates.popoverViewModelParameters()
+        let popoverViewModel = PopoverEditorViewModel(numberOfRows: parameters.entryTypes.count,
+                                                      rowsWithIdentifiers: parameters.rowsWithIdentifiers,
+                                                      placeholdersWithIdentifiers: parameters.placeholdersWithIdentifiers,
                                                       enforcedOrder: enforcedOrder,
                                                       labelWidthRatio: 0.3)
         let editorConstructor = EditorConstructor(dataSource: self, viewModel: popoverViewModel, popoverSourceView: sourceView)
