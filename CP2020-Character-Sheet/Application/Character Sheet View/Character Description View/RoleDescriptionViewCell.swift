@@ -63,7 +63,7 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
         fields[.name]?.text = name
         fields[.name]?.fitTextToBounds()
         
-        fields[.handle]?.text = name
+        fields[.handle]?.text = handle
         fields[.handle]?.fitTextToBounds()
     }
     
