@@ -32,7 +32,6 @@ struct UserEntryViewCollectionFactory {
         
         let multipleColumns = viewModel.numberOfColumns > 1
         
-        
         var reversedSortedMutableRowsWithIdentifiers = viewModel.rowsWithIdentifiers.sorted(by: { this, next in
             guard let thisIndex = viewModel.enforcedOrder.firstIndex(of: this.key),
                 let nextIndex = viewModel.enforcedOrder.firstIndex(of: next.key) else {
