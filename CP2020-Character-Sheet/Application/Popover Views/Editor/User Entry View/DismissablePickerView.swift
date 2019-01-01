@@ -60,7 +60,7 @@ final class DismissablePickerView: UIView {
     private func picker(frame: CGRect) -> UIPickerView {
         let pickerView = UIPickerView(frame: frame)
         pickerView.backgroundColor = viewModel.lightColor
-        
+        pickerView.showsSelectionIndicator = true
         return pickerView
     }
     
@@ -69,7 +69,7 @@ final class DismissablePickerView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         
         button.directionalLayoutMargins = viewModel.createInsets(with: frame)
-        button.setTitle("Close", for: .normal)
+        button.setTitle("Confirm", for: .normal)
         button.setTitleColor(viewModel.highlightColor, for: .normal)
         
         button.backgroundColor = viewModel.lightColor

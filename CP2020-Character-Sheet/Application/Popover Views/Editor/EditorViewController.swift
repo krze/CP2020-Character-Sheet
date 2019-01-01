@@ -14,9 +14,16 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate {
     private var popoverView: PrinterPaperView?
     private let keyboardHiddenOrigin: CGFloat
     private let receiver: EditorValueReciever
-    private let currentValues = [String]()
-    private let viewModel: PopoverEditorViewModel
     private var userEntryViews = [UserEntryView]()
+
+    private var valuesDidChange = false
+    private var currentValues = [String: String]() {
+        didSet {
+            valuesDidChange = true
+        }
+    }
+    
+    private let viewModel: PopoverEditorViewModel
     private weak var activePickerView: DismissablePickerView?
     
     init(with receiver: EditorValueReciever,
@@ -56,24 +63,40 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if valuesDidChange {
+            receiver.valuesFromEditorDidChange(currentValues)
+        }
+        
+    }
+    
     // MARK: UserEntryViewDelegate
     
     func pickerViewWillDisplay(identifier: String, dismissablePickerView: DismissablePickerView) {
-        // NEXT: There needs to be a way to dismiss the picker. Probably need to make a DismissablePickerView that adds a done button in a space that does not overlap the UIPickerView
         view.addSubview(dismissablePickerView)
-        
         activePickerView = dismissablePickerView
-        print("fuck")
     }
     
     func pickerViewWillClose(identifier: String, dismissablePickerView: DismissablePickerView) {
         activePickerView?.removeFromSuperview()
-        print("GOODBYE")
         
+        setLatestValueIfUpdated(for: identifier)
     }
     
     func textFieldDidFinishEditing(identifier: String) {
-        print("shit")
+        setLatestValueIfUpdated(for: identifier)
+    }
+    
+    private func setLatestValueIfUpdated(for identifier: String) {
+        guard let value = userEntryViews.first(where: { $0.identifier == identifier })?.userInputValue else {
+            return
+        }
+        
+        if currentValues[identifier] != value {
+            currentValues[identifier] = value
+        }
     }
     
     // MARK: Private

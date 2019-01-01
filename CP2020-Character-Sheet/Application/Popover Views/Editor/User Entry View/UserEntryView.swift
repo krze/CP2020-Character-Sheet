@@ -15,14 +15,14 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
     let identifier: String
     
     private(set) var userInputValue: String?
+    var delegate: UserEntryViewDelegate?
     
     // Picker view variables
-    
-    var delegate: UserEntryViewDelegate?
     
     private let pickerChoices: [String]?
     private let pickerFrame: CGRect?
     private var dismissablePickerView: DismissablePickerView?
+    private var roleButton: UIButton?
     
     private let viewModel: UserEntryViewModel
 
@@ -135,7 +135,7 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
             let button = pickerButton(frame: frame)
             
             button.addTarget(self, action: #selector(pickerButtonWasPressed), for: .touchUpInside)
-            
+            roleButton = button
             return button
         }
     }
@@ -182,7 +182,7 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.directionalLayoutMargins = viewModel.createInsets(with: frame)
-        button.setTitle("Choose a class", for: .normal)
+        button.setTitle("Tap to Choose", for: .normal)
         button.setTitleColor(viewModel.highlightColor, for: .normal)
         button.setBackgroundImage(bgView.asImage(), for: .normal)
         button.contentHorizontalAlignment = .left
@@ -204,9 +204,13 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
     }
     
     @objc private func pickerWasClosed() {
-        guard let dismissablePickerView = dismissablePickerView else {
+        guard let dismissablePickerView = dismissablePickerView,
+            let chosenRole = userInputValue else {
             return
         }
+        
+        roleButton?.setTitle(chosenRole, for: .normal)
+        roleButton?.titleLabel?.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
         
         delegate?.pickerViewWillClose(identifier: identifier, dismissablePickerView: dismissablePickerView)
     }
