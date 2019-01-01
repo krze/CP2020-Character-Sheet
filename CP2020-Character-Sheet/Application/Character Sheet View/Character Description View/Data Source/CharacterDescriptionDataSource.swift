@@ -56,7 +56,9 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever, Notif
                                                       placeholdersWithIdentifiers: parameters.placeholdersWithIdentifiers,
                                                       enforcedOrder: enforcedOrder,
                                                       labelWidthRatio: 0.3)
-        let editorConstructor = EditorConstructor(dataSource: self, viewModel: popoverViewModel, popoverSourceView: sourceView)
+        let editorConstructor = EditorConstructor(dataSource: self,
+                                                  viewModel: popoverViewModel,
+                                                  popoverSourceView: sourceView)
         
         NotificationCenter.default.post(name: .showEditor, object: editorConstructor)
     }

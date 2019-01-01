@@ -22,7 +22,7 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
     
     private let pickerChoices: [String]?
     private let pickerFrame: CGRect?
-    private var pickerView: UIPickerView?
+    private var dismissablePickerView: DismissablePickerView?
     
     private let viewModel: UserEntryViewModel
 
@@ -127,7 +127,11 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
                 return UIView()
             }
             
-            pickerView = picker(frame: pickerFrame)
+            dismissablePickerView = DismissablePickerView(frame: pickerFrame, viewModel: viewModel)
+            dismissablePickerView?.pickerView?.delegate = self
+            dismissablePickerView?.pickerView?.dataSource = self
+            dismissablePickerView?.dismissButton?.addTarget(self, action: #selector(pickerWasClosed), for: .touchUpInside)
+            
             let button = pickerButton(frame: frame)
             
             button.addTarget(self, action: #selector(pickerButtonWasPressed), for: .touchUpInside)
@@ -171,33 +175,6 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
         return field
     }
     
-    private func picker(frame: CGRect) -> UIPickerView {
-        let pickerView = UIPickerView(frame: frame)
-        
-        pickerView.backgroundColor = viewModel.lightColor
-        
-        let closePickerButtonWidth = frame.width * 0.2
-        let closePickerButtonHeight = closePickerButtonWidth * 0.5
-        let closePickerButtonFrame = CGRect(x: frame.width - closePickerButtonWidth, y: 0,
-                                            width: closePickerButtonWidth, height: closePickerButtonHeight)
-        let dismissButton = dismissPickerButton(frame: closePickerButtonFrame)
-        
-        dismissButton.addTarget(self, action: #selector(pickerWasClosed), for: .touchUpInside)
-        
-        pickerView.addSubview(dismissButton)
-        NSLayoutConstraint.activate([
-            dismissButton.widthAnchor.constraint(equalToConstant: closePickerButtonWidth),
-            dismissButton.heightAnchor.constraint(equalToConstant: closePickerButtonHeight),
-            dismissButton.topAnchor.constraint(equalTo: pickerView.topAnchor),
-            dismissButton.trailingAnchor.constraint(equalTo: pickerView.trailingAnchor)
-            ])
-        
-        pickerView.dataSource = self
-        pickerView.delegate = self
-        
-        return pickerView
-    }
-    
     private func pickerButton(frame: CGRect) -> UIButton {
         let bgView = UIView(frame: frame)
         addUnderline(to: bgView)
@@ -218,37 +195,20 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
         return button
     }
     
-    private func dismissPickerButton(frame: CGRect) -> UIButton {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        button.directionalLayoutMargins = viewModel.createInsets(with: frame)
-        button.setTitle("Close", for: .normal)
-        button.setTitleColor(viewModel.highlightColor, for: .normal)
-        
-        button.backgroundColor = viewModel.lightColor
-        button.titleLabel?.font = viewModel.labelFont
-        button.titleLabel?.backgroundColor = viewModel.lightColor
-        button.titleLabel?.textColor = viewModel.highlightColor
-        button.titleLabel?.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
-
-        return button
-    }
-    
     @objc private func pickerButtonWasPressed() {
-        guard let pickerView = pickerView else {
+        guard let dismissablePickerView = dismissablePickerView else {
             return
         }
         
-        delegate?.pickerViewWillDisplay(identifier: identifier, pickerView: pickerView)
+        delegate?.pickerViewWillDisplay(identifier: identifier, dismissablePickerView: dismissablePickerView)
     }
     
     @objc private func pickerWasClosed() {
-        guard let pickerView = pickerView else {
+        guard let dismissablePickerView = dismissablePickerView else {
             return
         }
         
-        delegate?.pickerViewWillClose(identifier: identifier, pickerView: pickerView)
+        delegate?.pickerViewWillClose(identifier: identifier, dismissablePickerView: dismissablePickerView)
     }
     
     required init?(coder aDecoder: NSCoder) {

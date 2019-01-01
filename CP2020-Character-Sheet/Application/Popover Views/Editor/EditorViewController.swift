@@ -17,7 +17,7 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate {
     private let currentValues = [String]()
     private let viewModel: PopoverEditorViewModel
     private var userEntryViews = [UserEntryView]()
-    private weak var activePickerView: UIPickerView?
+    private weak var activePickerView: DismissablePickerView?
     
     init(with receiver: EditorValueReciever,
          windowFrame: CGRect,
@@ -58,15 +58,15 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate {
     
     // MARK: UserEntryViewDelegate
     
-    func pickerViewWillDisplay(identifier: String, pickerView: UIPickerView) {
+    func pickerViewWillDisplay(identifier: String, dismissablePickerView: DismissablePickerView) {
         // NEXT: There needs to be a way to dismiss the picker. Probably need to make a DismissablePickerView that adds a done button in a space that does not overlap the UIPickerView
-        view.addSubview(pickerView)
+        view.addSubview(dismissablePickerView)
         
-        activePickerView = pickerView
+        activePickerView = dismissablePickerView
         print("fuck")
     }
     
-    func pickerViewWillClose(identifier: String, pickerView: UIPickerView) {
+    func pickerViewWillClose(identifier: String, dismissablePickerView: DismissablePickerView) {
         activePickerView?.removeFromSuperview()
         print("GOODBYE")
         
