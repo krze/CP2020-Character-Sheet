@@ -17,6 +17,7 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate {
     private let currentValues = [String]()
     private let viewModel: PopoverEditorViewModel
     private var userEntryViews = [UserEntryView]()
+    private weak var activePickerView: UIPickerView?
     
     init(with receiver: EditorValueReciever,
          windowFrame: CGRect,
@@ -58,10 +59,17 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate {
     // MARK: UserEntryViewDelegate
     
     func pickerViewWillDisplay(identifier: String, pickerView: UIPickerView) {
-        // NEXT: Fix this. The picker needs to be transparent. The fonts need to match our fonts. There needs to be a way
-        // to dismiss the picker.
+        // NEXT: There needs to be a way to dismiss the picker. Probably need to make a DismissablePickerView that adds a done button in a space that does not overlap the UIPickerView
         view.addSubview(pickerView)
+        
+        activePickerView = pickerView
         print("fuck")
+    }
+    
+    func pickerViewWillClose(identifier: String, pickerView: UIPickerView) {
+        activePickerView?.removeFromSuperview()
+        print("GOODBYE")
+        
     }
     
     func textFieldDidFinishEditing(identifier: String) {

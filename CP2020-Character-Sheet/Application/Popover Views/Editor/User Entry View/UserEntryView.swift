@@ -174,6 +174,24 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
     private func picker(frame: CGRect) -> UIPickerView {
         let pickerView = UIPickerView(frame: frame)
         
+        pickerView.backgroundColor = viewModel.lightColor
+        
+        let closePickerButtonWidth = frame.width * 0.2
+        let closePickerButtonHeight = closePickerButtonWidth * 0.5
+        let closePickerButtonFrame = CGRect(x: frame.width - closePickerButtonWidth, y: 0,
+                                            width: closePickerButtonWidth, height: closePickerButtonHeight)
+        let dismissButton = dismissPickerButton(frame: closePickerButtonFrame)
+        
+        dismissButton.addTarget(self, action: #selector(pickerWasClosed), for: .touchUpInside)
+        
+        pickerView.addSubview(dismissButton)
+        NSLayoutConstraint.activate([
+            dismissButton.widthAnchor.constraint(equalToConstant: closePickerButtonWidth),
+            dismissButton.heightAnchor.constraint(equalToConstant: closePickerButtonHeight),
+            dismissButton.topAnchor.constraint(equalTo: pickerView.topAnchor),
+            dismissButton.trailingAnchor.constraint(equalTo: pickerView.trailingAnchor)
+            ])
+        
         pickerView.dataSource = self
         pickerView.delegate = self
         
@@ -200,12 +218,37 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
         return button
     }
     
+    private func dismissPickerButton(frame: CGRect) -> UIButton {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.directionalLayoutMargins = viewModel.createInsets(with: frame)
+        button.setTitle("Close", for: .normal)
+        button.setTitleColor(viewModel.highlightColor, for: .normal)
+        
+        button.backgroundColor = viewModel.lightColor
+        button.titleLabel?.font = viewModel.labelFont
+        button.titleLabel?.backgroundColor = viewModel.lightColor
+        button.titleLabel?.textColor = viewModel.highlightColor
+        button.titleLabel?.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
+
+        return button
+    }
+    
     @objc private func pickerButtonWasPressed() {
         guard let pickerView = pickerView else {
             return
         }
         
         delegate?.pickerViewWillDisplay(identifier: identifier, pickerView: pickerView)
+    }
+    
+    @objc private func pickerWasClosed() {
+        guard let pickerView = pickerView else {
+            return
+        }
+        
+        delegate?.pickerViewWillClose(identifier: identifier, pickerView: pickerView)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -229,4 +272,19 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
         view.layer.masksToBounds = true
     }
     
+    // MARK: UIPickerViewDelegate
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let pickerLabel = view as? UILabel ?? {
+            let pickerLabel = UILabel()
+            pickerLabel.font = viewModel.inputFont
+            pickerLabel.textAlignment = .center
+            
+            return pickerLabel
+        }()
+        
+        pickerLabel.text = pickerChoices?[row]
+        
+        return pickerLabel
+    }
 }
