@@ -25,7 +25,11 @@ enum RoleFieldLabel: String, EntryTypeProvider, CaseIterable {
         }
     }
     
+    static func enforcedOrder() -> [String] {
+        return RoleFieldLabel.allCases.map { $0.identifier() }
+    }
     
+    /// NOTE: ORDERING IS ENFORCED. DO NOT CHANGE THE ORDER
     
     case name = "NAME"
     case handle = "HANDLE"

@@ -14,6 +14,6 @@ protocol NotifiesEditorNeeded {
     /// Used to initiate a notification an EditorViewController needs to be shown.
     ///
     /// - Parameter identifiersWithPlaceholders: The identifiers for each editor field, and the placeholder values for each field.
-    func editorRequested(placeholdersWithIdentifiers: [String: String], entryTypes: [EntryTypeProvider], sourceView: UIView)
+    func editorRequested(placeholdersWithIdentifiers: [String: String], entryTypes: [EntryTypeProvider], enforcedOrder: [String], sourceView: UIView)
     
 }

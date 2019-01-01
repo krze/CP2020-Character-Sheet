@@ -31,7 +31,15 @@ struct UserEntryViewCollectionFactory {
         let height = targetView.frame.height / CGFloat(viewModel.numberOfRows)
         
         let multipleColumns = viewModel.numberOfColumns > 1
-        var mutableRowsWithIdentifiers = viewModel.rowsWithIdentifiers
+        
+        
+        var reversedSortedMutableRowsWithIdentifiers = viewModel.rowsWithIdentifiers.sorted(by: { this, next in
+            guard let thisIndex = viewModel.enforcedOrder.firstIndex(of: this.key),
+                let nextIndex = viewModel.enforcedOrder.firstIndex(of: next.key) else {
+                    return false
+            }
+            return thisIndex < nextIndex
+        }).reversed().map { $0 }
         
         var views = [UserEntryView]()
         var leadingAnchor = targetView.leadingAnchor
@@ -40,8 +48,8 @@ struct UserEntryViewCollectionFactory {
         var y = targetView.frame.minY
         var columnNumber = 1
         
-        while !mutableRowsWithIdentifiers.isEmpty {
-            guard let (labelText, type) = mutableRowsWithIdentifiers.popFirst() else { break }
+        while !reversedSortedMutableRowsWithIdentifiers.isEmpty {
+            guard let (labelText, type) = reversedSortedMutableRowsWithIdentifiers.popLast() else { break }
             
             let userEntryViewModel = UserEntryViewModel(type: type,
                                                         labelText: labelText,

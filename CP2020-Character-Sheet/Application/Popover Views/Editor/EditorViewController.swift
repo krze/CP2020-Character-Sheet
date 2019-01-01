@@ -58,6 +58,7 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate {
     // MARK: UserEntryViewDelegate
     
     func pickerViewWillDisplay(identifier: String, pickerView: UIPickerView) {
+        view.addSubview(pickerView)
         print("fuck")
     }
     

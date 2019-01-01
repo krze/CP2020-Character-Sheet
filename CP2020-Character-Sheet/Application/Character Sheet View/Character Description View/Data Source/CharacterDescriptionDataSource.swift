@@ -49,13 +49,14 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever, Notif
         model.set(role: role)
     }
     
-    func editorRequested(placeholdersWithIdentifiers: [String : String], entryTypes: [EntryTypeProvider], sourceView: UIView) {
+    func editorRequested(placeholdersWithIdentifiers: [String : String], entryTypes: [EntryTypeProvider], enforcedOrder: [String], sourceView: UIView) {
         let rowsWithIdentifiers = IdentifiersWithPlaceholdersAdapter.rowsWithIdentifiers(from: placeholdersWithIdentifiers,
                                                                                          entryTypeProviders: entryTypes)
         
         let popoverViewModel = PopoverEditorViewModel(numberOfRows: entryTypes.count,
                                                       rowsWithIdentifiers: rowsWithIdentifiers,
                                                       placeholdersWithIdentifiers: placeholdersWithIdentifiers,
+                                                      enforcedOrder: enforcedOrder,
                                                       labelWidthRatio: 0.3)
         let editorConstructor = EditorConstructor(dataSource: self, viewModel: popoverViewModel, popoverSourceView: sourceView)
         

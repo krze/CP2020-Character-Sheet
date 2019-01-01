@@ -10,8 +10,9 @@ import UIKit
 
 extension UIView {
     
-    // Using a function since `var image` might conflict with an existing variable
-    // (like on `UIImageView`)
+    /// Converts a UIView to a UIImage
+    ///
+    /// - Returns: UIImage from the view
     func asImage() -> UIImage {
         let renderer = UIGraphicsImageRenderer(bounds: bounds)
         return renderer.image { rendererContext in

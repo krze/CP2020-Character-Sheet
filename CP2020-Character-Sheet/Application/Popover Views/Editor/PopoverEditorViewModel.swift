@@ -13,6 +13,7 @@ struct PopoverEditorViewModel: PopoverViewFrameProvider, EditorViewModel, Margin
     let numberOfRows: Int
     let rowsWithIdentifiers: [String: EntryType]
     let placeholdersWithIdentifiers: [String: String]?
+    let enforcedOrder: [String]
     let numberOfColumns: Int
     let labelWidthRatio: CGFloat
     
@@ -29,6 +30,7 @@ struct PopoverEditorViewModel: PopoverViewFrameProvider, EditorViewModel, Margin
          numberOfRows: Int,
          rowsWithIdentifiers: [String: EntryType],
          placeholdersWithIdentifiers: [String: String]?,
+         enforcedOrder: [String],
          labelWidthRatio: CGFloat) {
         self.numberOfColumns = numberOfColumns
         self.numberOfRows = numberOfRows
@@ -42,5 +44,6 @@ struct PopoverEditorViewModel: PopoverViewFrameProvider, EditorViewModel, Margin
         
         self.rowsWithIdentifiers = rowsWithIdentifiers
         self.placeholdersWithIdentifiers = placeholdersWithIdentifiers
+        self.enforcedOrder = enforcedOrder
     }
 }

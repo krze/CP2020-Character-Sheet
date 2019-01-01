@@ -33,6 +33,11 @@ protocol EntryTypeProvider {
     /// - Returns: EntryType
     func entryType() -> EntryType
     
+    /// The order in which the entry views should appear
+    ///
+    /// - Returns: An array of all identifiers that indicate the ordering of the views
+    static func enforcedOrder() -> [String]
+    
 }
 
 // Yuck, but can't do this with an extension on arrays with EntryTypeProviders.
