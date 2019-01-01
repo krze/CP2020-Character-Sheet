@@ -58,6 +58,8 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate {
     // MARK: UserEntryViewDelegate
     
     func pickerViewWillDisplay(identifier: String, pickerView: UIPickerView) {
+        // NEXT: Fix this. The picker needs to be transparent. The fonts need to match our fonts. There needs to be a way
+        // to dismiss the picker.
         view.addSubview(pickerView)
         print("fuck")
     }
