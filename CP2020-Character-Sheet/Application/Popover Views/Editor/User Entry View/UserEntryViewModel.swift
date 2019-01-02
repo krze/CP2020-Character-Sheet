@@ -14,6 +14,7 @@ struct UserEntryViewModel: MarginCreator {
     let labelText: String
     let labelWidthRatio: CGFloat
     let inputMinimumSize: CGFloat
+    let placeholder: String
 
     var inputWidthRatio: CGFloat {
         return 1.0 - labelWidthRatio
@@ -30,10 +31,12 @@ struct UserEntryViewModel: MarginCreator {
     init(type: EntryType,
          labelText: String,
          labelWidthRatio: CGFloat,
+         placeholder: String,
          inputMinimumSize: CGFloat = StyleConstants.Font.minimumSize) {
         self.type = type
         self.labelWidthRatio = labelWidthRatio
         self.labelText = labelText
         self.inputMinimumSize = inputMinimumSize
+        self.placeholder = placeholder
     }
 }

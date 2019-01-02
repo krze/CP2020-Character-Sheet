@@ -261,9 +261,9 @@
 		9D004E5021D97777004DFA4D /* Editor */ = {
 			isa = PBXGroup;
 			children = (
-				9D004E3E21D92F8C004DFA4D /* PopoverEditorViewModel.swift */,
 				9D004E3A21D82BCC004DFA4D /* EditorViewController.swift */,
 				9D004E4421D935D7004DFA4D /* EditorViewModel.swift */,
+				9D004E3E21D92F8C004DFA4D /* PopoverEditorViewModel.swift */,
 				9D004E4821D945FB004DFA4D /* EditorValueReciever.swift */,
 				9D004E5421DA7BCD004DFA4D /* EditorConstructor.swift */,
 				9D004E5121D97781004DFA4D /* User Entry View */,

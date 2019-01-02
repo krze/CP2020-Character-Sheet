@@ -145,10 +145,6 @@ final class Edgerunner: Codable, CharacterDescriptionModel, SkillModel {
     }
     
     func set(name: String, handle: String) {
-        guard name != self.name && handle != self.handle else {
-            return
-        }
-        
         self.name = name
         self.handle = handle
         

@@ -10,12 +10,22 @@ import UIKit
 
 /// A custom view that allows for user entry. Provides a label that describes the user input, and
 /// an input field that allows user input in various forms, all returnable as a String.
-final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+final class UserEntryView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     let type: EntryType
     let identifier: Identifier
     
-    private(set) var userInputValue: String?
-    var delegate: UserEntryViewDelegate?
+    var userInputValue: String? {
+        if let selectedRow = selectedRow {
+            return pickerChoices?[selectedRow]
+        }
+        
+        return textField?.text
+    }
+    var delegate: UserEntryViewDelegate? {
+        didSet {
+            textField?.delegate = delegate
+        }
+    }
     
     // Text field Variables
     private (set) var textField: UITextField?
@@ -26,6 +36,7 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
     private let pickerFrame: CGRect?
     private var dismissablePickerView: DismissablePickerView?
     private var roleButton: UIButton?
+    private var selectedRow: Int?
     
     private let viewModel: UserEntryViewModel
 
@@ -74,16 +85,9 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        userInputValue = pickerChoices?[row]
+        selectedRow = row
     }
     
-    // MARK: UITextFieldDelegate
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        userInputValue = textField.text
-        delegate?.textFieldDidFinishEditing(identifier: identifier)
-    }
-        
     // MARK: Private
     
     private func setupSubviews() {
@@ -143,6 +147,7 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
             dismissablePickerView?.pickerView?.delegate = self
             dismissablePickerView?.pickerView?.dataSource = self
             dismissablePickerView?.dismissButton?.addTarget(self, action: #selector(pickerWasClosed), for: .touchUpInside)
+            dismissablePickerView?.pickerView?.selectRow(pickerChoices?.firstIndex(of: viewModel.placeholder) ?? 0, inComponent: 0, animated: true)
             
             let button = pickerButton(frame: frame)
             
@@ -177,12 +182,13 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
         field.textColor = viewModel.darkColor
         field.textAlignment = .left
         field.leftView = UIView(frame: CGRect(x: frame.minX, y: frame.minY, width: frame.width * viewModel.paddingRatio, height: frame.height))
-        
+        field.text = viewModel.placeholder
         field.autocorrectionType = .no
         field.autocapitalizationType = .none
+        field.clearButtonMode = .whileEditing
+        field.returnKeyType = .done
         
         addUnderline(to: field)
-        field.delegate = self
         
         return field
     }
@@ -194,7 +200,7 @@ final class UserEntryView: UIView, UITextFieldDelegate, UIPickerViewDelegate, UI
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.directionalLayoutMargins = viewModel.createInsets(with: frame)
-        button.setTitle("Tap to Choose", for: .normal)
+        button.setTitle(viewModel.placeholder.isEmpty ? "Tap to Choose" : viewModel.placeholder, for: .normal)
         button.setTitleColor(viewModel.highlightColor, for: .normal)
         button.setBackgroundImage(bgView.asImage(), for: .normal)
         button.contentHorizontalAlignment = .left

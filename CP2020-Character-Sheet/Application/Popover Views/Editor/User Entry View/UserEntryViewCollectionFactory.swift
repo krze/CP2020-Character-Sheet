@@ -48,11 +48,13 @@ struct UserEntryViewCollectionFactory {
         var columnNumber = 1
         
         while !reversedSortedMutableRowsWithIdentifiers.isEmpty {
-            guard let (labelText, type) = reversedSortedMutableRowsWithIdentifiers.popLast() else { break }
+            guard let (labelText, type) = reversedSortedMutableRowsWithIdentifiers.popLast(),
+                let placeholder = viewModel.placeholdersWithIdentifiers?[labelText] else { break }
             
             let userEntryViewModel = UserEntryViewModel(type: type,
                                                         labelText: labelText,
-                                                        labelWidthRatio: viewModel.labelWidthRatio)
+                                                        labelWidthRatio: viewModel.labelWidthRatio,
+                                                        placeholder: placeholder)
             let frame = CGRect(x: x, y: y, width: width, height: height)
             let userEntryView = UserEntryView(viewModel: userEntryViewModel, frame: frame, windowForPicker: pickerWindow)
             

@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class EditorViewController: UIViewController, UserEntryViewDelegate {
+final class EditorViewController: UIViewController, UserEntryViewDelegate, UITextViewDelegate {
     
     private let popoverFrame: CGRect
     private var popoverView: PrinterPaperView?
@@ -53,7 +53,7 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate {
         guard let contentView = popoverView?.contentView else { return }
         let factory = UserEntryViewCollectionFactory(viewModel: viewModel)
         userEntryViews = factory.addUserEntryViews(to: contentView, windowForPicker: view.frame)
-        userEntryViews.first(where: { $0.textField != nil })?.textField?.becomeFirstResponder()
+        makeNextBlankFieldFirstResponder()
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             
@@ -89,8 +89,19 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate {
         setLatestValueIfUpdated(for: identifier)
     }
     
-    func textFieldDidFinishEditing(identifier: Identifier) {
-        setLatestValueIfUpdated(for: identifier)
+    // MARK: UITextFieldDelegate
+    
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        makeNextBlankFieldFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let identifier = userEntryViews.first(where: { $0.textField == textField})?.identifier {
+            setLatestValueIfUpdated(for: identifier)
+        }
     }
     
     private func setLatestValueIfUpdated(for identifier: Identifier) {
@@ -112,6 +123,10 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(EditorViewController.keyboardWillHide(notification:)),
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func makeNextBlankFieldFirstResponder() {
+        userEntryViews.first(where: { $0.textField?.text?.isEmpty == true })?.textField?.becomeFirstResponder()
     }
     
     

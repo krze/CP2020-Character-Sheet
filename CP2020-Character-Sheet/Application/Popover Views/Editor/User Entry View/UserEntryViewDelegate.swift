@@ -8,12 +8,10 @@
 
 import UIKit
 
-protocol UserEntryViewDelegate {
+protocol UserEntryViewDelegate: UITextFieldDelegate {
     
     func pickerViewWillClose(identifier: Identifier, dismissablePickerView: DismissablePickerView)
     
     func pickerViewWillDisplay(identifier: Identifier, dismissablePickerView: DismissablePickerView)
-    
-    func textFieldDidFinishEditing(identifier: Identifier)
     
 }

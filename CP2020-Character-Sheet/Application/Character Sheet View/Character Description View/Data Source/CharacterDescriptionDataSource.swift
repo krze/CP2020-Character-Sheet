@@ -26,10 +26,8 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever, Notif
         let newHandle = values[RoleFieldLabel.handle.identifier()]
         let newRole = values[RoleFieldLabel.characterClass.identifier()]
         
-        if let newName = newName,
-            let newHandle = newHandle,
-            (newName != model.name || newHandle != model.handle) {
-            change(name: newName, handle: newHandle)
+        if (newName != model.name || newHandle != model.handle) {
+            change(name: newName ?? model.name, handle: newHandle ?? model.handle)
         }
         
         if let newRole = newRole, newRole != model.role.rawValue {
