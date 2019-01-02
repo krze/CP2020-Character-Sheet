@@ -44,7 +44,6 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate, UIPop
     override func viewDidLoad() {
         super.viewDidLoad()
         popoverView = PrinterPaperView(frame: popoverFrame, viewModel: PrinterPaperViewModel())
-        // TODO: fill popoverview with User Entry Views using the UserEntryViewCollectionFactory
         view = popoverView
     }
     

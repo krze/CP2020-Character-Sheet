@@ -63,6 +63,7 @@ final class Edgerunner: Codable, CharacterDescriptionModel, StatsModel, SkillMod
     // - Respond to that by coloring in the stat as a different color
     // - Stopgap: Add an additional entry view for Humanity Loss until cyberwear is ready
     // - also the popover view doesn't work. Make a dismissable view that appears from the bottom and blurs the whole frame.
+    // - Oh yeah add initiative to the damagemodifierview 
     
     /// Retrieves the value for the stat requested
     ///
