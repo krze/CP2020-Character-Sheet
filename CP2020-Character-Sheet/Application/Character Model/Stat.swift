@@ -8,7 +8,8 @@
 
 import Foundation
 
-enum Stat: String, Codable, CaseIterable {
+enum Stat: String, Codable, CaseIterable, EntryTypeProvider {
+    
     case Intelligence, Tech, Cool, Reflex, Attractiveness, Luck, MovementAllowance, Body, Empathy, Run, Leap, Lift, Humanity, Reputation
     
     /// Indicates whether the stat is calculated or not. i.e. Run
@@ -70,4 +71,19 @@ enum Stat: String, Codable, CaseIterable {
             return rawValue.uppercased()
         }
     }
+    
+    // MARK: EntryTypeProvider
+    
+    func identifier() -> Identifier {
+        return self.abbreviation()
+    }
+    
+    func entryType() -> EntryType {
+        return .Integer
+    }
+    
+    static func enforcedOrder() -> [String] {
+        return allCases.map { $0.rawValue }
+    }
+    
 }

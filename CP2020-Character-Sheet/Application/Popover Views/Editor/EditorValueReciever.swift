@@ -9,7 +9,7 @@
 import UIKit
 
 /// A delegate that handles when the user input is returned from an editor
-protocol EditorValueReciever: UIPopoverPresentationControllerDelegate {
+protocol EditorValueReciever {
     
     func valuesFromEditorDidChange(_ values: [Identifier: String])
     

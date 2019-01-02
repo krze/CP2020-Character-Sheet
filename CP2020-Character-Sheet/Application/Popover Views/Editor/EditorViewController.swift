@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class EditorViewController: UIViewController, UserEntryViewDelegate, UITextViewDelegate {
+final class EditorViewController: UIViewController, UserEntryViewDelegate, UIPopoverPresentationControllerDelegate, UITextViewDelegate {
     
     private let popoverFrame: CGRect
     private var popoverView: PrinterPaperView?
@@ -147,5 +147,11 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate, UITex
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    // MARK: UIPresentationControllerDelegate
+    
+    @objc func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
+    }
+    
 }

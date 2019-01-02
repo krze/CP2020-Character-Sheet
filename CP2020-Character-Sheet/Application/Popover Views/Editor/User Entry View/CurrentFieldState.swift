@@ -34,4 +34,14 @@ extension Array where Element == CurrentFieldState {
         
         return (rowsWithIdentifiers, entryTypes, placeholdersWithIdentifiers)
     }
+    
+}
+
+extension Array where Element == EntryType {
+    
+    func rowsNecessaryForColumn(count columns: Int) -> Int {
+        let remainder = count % columns
+        
+        return count / columns + (remainder > 0 ? 1 : 0)
+    }
 }

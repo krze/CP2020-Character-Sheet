@@ -13,6 +13,7 @@ final class StatsViewCell: UICollectionViewCell, UsedOnce {
     private (set) var wasSetUp: Bool = false
     private var statViews = [StatView]()
     private var model: StatsViewCellModel?
+    private var dataSource: StatsDataSource?
     
     func setup(with viewModel: StatsViewCellModel, statViewModels: [StatViewModel]) {
         model = viewModel        
@@ -82,13 +83,40 @@ final class StatsViewCell: UICollectionViewCell, UsedOnce {
             }
         }
         
+        setupGestureRecognizers()
         wasSetUp = true
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(edgerunnerLoader(notification:)), name: .edgerunnerLoaded, object: nil)
         self.contentView.backgroundColor = StyleConstants.Color.light
+    }
+    
+    private func setupGestureRecognizers() {
+        // Single tap on the entire cell
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
+        singleTap.cancelsTouchesInView = false
+        singleTap.numberOfTouchesRequired = 1
+        contentView.addGestureRecognizer(singleTap)
+    }
+    
+    @objc private func cellTapped() {
+        let currentFieldStates = statViews.map { CurrentFieldState(identifier: $0.stat.identifier(),
+                                                                   currentValue: $0.currentValue ?? "",
+                                                                   entryType: $0.stat.entryType()) }
+        
+        dataSource?.editorRequested(currentFieldStates: currentFieldStates,
+                                    enforcedOrder: Stat.enforcedOrder(),
+                                    sourceView: self)
+    }
+    
+    @objc private func edgerunnerLoader(notification: Notification) {
+        guard let statsModel = notification.object as? StatsModel else {
+            return
+        }
+        
+        self.dataSource = StatsDataSource(statsModel: statsModel)
     }
     
     required init?(coder aDecoder: NSCoder) {

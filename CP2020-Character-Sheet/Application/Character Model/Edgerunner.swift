@@ -9,7 +9,7 @@
 import Foundation
 
 /// The model for the player character
-final class Edgerunner: Codable, CharacterDescriptionModel, SkillModel {
+final class Edgerunner: Codable, CharacterDescriptionModel, StatsModel, SkillModel {
     
     private(set) var name: String
     private(set) var handle: String

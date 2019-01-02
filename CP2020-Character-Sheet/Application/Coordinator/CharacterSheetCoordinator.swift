@@ -90,7 +90,7 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
             
             editor.modalPresentationStyle = .popover
             editor.popoverPresentationController?.permittedArrowDirections = .any
-            editor.popoverPresentationController?.delegate = constructor.dataSource
+            editor.popoverPresentationController?.delegate = editor
             editor.popoverPresentationController?.sourceView = constructor.popoverSourceView
             editor.popoverPresentationController?.sourceRect = constructor.popoverSourceView.bounds
             

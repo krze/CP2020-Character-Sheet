@@ -69,10 +69,4 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever, Notif
         delegate?.update(role: model.role)
     }
     
-    // MARK: UIPresentationControllerDelegate
-    
-    @objc func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.none
-    }
-    
 }

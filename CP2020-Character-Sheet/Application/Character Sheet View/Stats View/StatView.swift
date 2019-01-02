@@ -15,9 +15,14 @@ final class StatView: UIView {
     
     private var statNameLabel: UILabel?
     private var valueLabel: UILabel?
+    let stat: Stat
+    var currentValue: String? {
+        return valueLabel?.text
+    }
     
     init(frame: CGRect, viewModel: StatViewModel) {
         model = viewModel
+        stat = viewModel.stat
         super.init(frame: frame)
         
         translatesAutoresizingMaskIntoConstraints = false
