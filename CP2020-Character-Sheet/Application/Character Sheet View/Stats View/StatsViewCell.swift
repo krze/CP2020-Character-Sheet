@@ -102,9 +102,10 @@ final class StatsViewCell: UICollectionViewCell, UsedOnce {
     }
     
     @objc private func cellTapped() {
-        let currentFieldStates = statViews.map { CurrentFieldState(identifier: $0.stat.identifier(),
-                                                                   currentValue: $0.currentValue ?? "",
-                                                                   entryType: $0.stat.entryType()) }
+        let editableStatViews = statViews.filter { $0.stat.isCoreStat() }
+        let currentFieldStates = editableStatViews.map { CurrentFieldState(identifier: $0.stat.identifier(),
+                                                                           currentValue: $0.currentValue ?? "",
+                                                                           entryType: $0.stat.entryType()) }
         
         dataSource?.editorRequested(currentFieldStates: currentFieldStates,
                                     enforcedOrder: Stat.enforcedOrder(),

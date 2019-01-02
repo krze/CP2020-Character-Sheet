@@ -21,10 +21,9 @@ final class StatsDataSource: NSObject, EditorValueReciever, NotifiesEditorNeeded
     }
     
     func editorRequested(currentFieldStates: [CurrentFieldState], enforcedOrder: [String], sourceView: UIView) {
-        let columns = 3
         let parameters = currentFieldStates.popoverViewModelParameters()
-        let popoverViewModel = PopoverEditorViewModel(numberOfColumns: columns,
-                                                      numberOfRows: parameters.entryTypes.rowsNecessaryForColumn(count: columns),
+        let popoverViewModel = PopoverEditorViewModel(numberOfColumns: 2,
+                                                      numberOfRows: parameters.entryTypes.rowsNecessaryForColumn(count: 2),
                                                       rowsWithIdentifiers: parameters.rowsWithIdentifiers,
                                                       placeholdersWithIdentifiers: parameters.placeholdersWithIdentifiers,
                                                       enforcedOrder: enforcedOrder,
