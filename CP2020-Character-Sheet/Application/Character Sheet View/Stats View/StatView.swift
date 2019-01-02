@@ -95,16 +95,7 @@ final class StatView: UIView {
         label.backgroundColor = model.lightColor
         label.textColor = model.darkColor
         label.text = {
-            var value = ""
-            
-            if model.stat.hasBaseState() {
-                value = "\(model.statCurrentValue ?? model.statValue)\(divider)\(model.statValue)"
-            }
-            else {
-                value = "\(model.statValue)"
-            }
-            
-            return value
+            return model.stat.hasBaseState() ? "\(model.statCurrentValue ?? model.statValue)" : "\(model.statValue)"
         }()
         label.textAlignment = .center
         label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)

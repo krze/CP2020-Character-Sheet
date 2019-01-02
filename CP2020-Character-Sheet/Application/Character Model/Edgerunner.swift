@@ -57,8 +57,11 @@ final class Edgerunner: Codable, CharacterDescriptionModel, StatsModel, SkillMod
         
         self.skills = [SkillListing]() // This is necessary so we can set it on the next line and preserve this class as Codable.
         self.skills = skills.map({ SkillListing(skill: $0, points: 0, modifier: 0, statModifier: value(for: $0.linkedStat))})
-
     }
+    
+    // NEXT: Tweak stat value to indicate it's penalized (i.e. humanity loss reduces empahty)
+    // - Respond to that by coloring in the stat as a different color
+    // - Stopgap: Add an additional entry view for Humanity Loss until cyberwear is ready
     
     /// Retrieves the value for the stat requested
     ///
@@ -88,7 +91,7 @@ final class Edgerunner: Codable, CharacterDescriptionModel, StatsModel, SkillMod
             // TODO: Cyberpsychosis
             let empathy = value(for: .Humanity) / 10
             
-            return empathy > 0 ? empathy : 1
+            return empathy < 0 ? 0 : empathy
         case .Run:
             return baseStats.ma * 3
         case .Leap:

@@ -28,9 +28,7 @@ struct StatViewModel: MarginCreator {
     let highlightColor: UIColor
     
     static func model(for stat: Stat, baseValue: Int, currentValue: Int?) -> StatViewModel {
-        let valueRatio: CGFloat = {
-            return stat.hasBaseState() ? 0.5 : 0.25
-        }()
+        let valueRatio: CGFloat =  0.25
 
         return StatViewModel(stat: stat,
                              statValue: baseValue,
