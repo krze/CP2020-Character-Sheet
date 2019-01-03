@@ -88,7 +88,7 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
             
             let editor = constructor.createEditor(withWindow: self.window.frame)
             
-            editor.modalPresentationStyle = .popover
+            editor.modalPresentationStyle = .overCurrentContext
             editor.popoverPresentationController?.permittedArrowDirections = .any
             editor.popoverPresentationController?.delegate = editor
             editor.popoverPresentationController?.sourceView = constructor.popoverSourceView

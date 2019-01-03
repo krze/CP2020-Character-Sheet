@@ -43,15 +43,30 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate, UIPop
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        popoverView = PrinterPaperView(frame: popoverFrame, viewModel: PrinterPaperViewModel())
-        view = popoverView
+        
+        let blurView = UIVisualEffectView()
+        blurView.frame = view.frame
+        blurView.effect = UIBlurEffect(style: .dark)
+        
+        // Temporary until dismiss buttons added.
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(close))
+        singleTap.cancelsTouchesInView = false
+        singleTap.numberOfTouchesRequired = 1
+        blurView.addGestureRecognizer(singleTap)
+        
+        view.addSubview(blurView)
+        
+        let popoverView = PrinterPaperView(frame: popoverFrame, viewModel: PrinterPaperViewModel())
+        view.addSubview(popoverView)
+        
+        self.popoverView = popoverView
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard let contentView = popoverView?.contentView else { return }
         let factory = UserEntryViewCollectionFactory(viewModel: viewModel)
-        userEntryViews = factory.addUserEntryViews(to: contentView, windowForPicker: view.frame)
+        userEntryViews = factory.addUserEntryViews(to: contentView, windowForPicker: contentView.frame)
         makeNextBlankFieldFirstResponder()
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -103,6 +118,8 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate, UIPop
         }
     }
     
+    // MARK: Private
+    
     private func setLatestValueIfUpdated(for identifier: Identifier) {
         guard let value = userEntryViews.first(where: { $0.identifier == identifier })?.userInputValue else {
             return
@@ -113,7 +130,9 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate, UIPop
         }
     }
     
-    // MARK: Private
+    @objc private func close() {
+        dismiss(animated: true, completion: nil)
+    }
     
     private func subscribeToKeyboard() {
         NotificationCenter.default.addObserver(self,

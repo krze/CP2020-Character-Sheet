@@ -66,18 +66,20 @@ final class DismissablePickerView: UIView {
     
     private func dismissPickerButton(frame: CGRect) -> UIButton {
         let button = UIButton(type: .system)
+        
         button.translatesAutoresizingMaskIntoConstraints = false
-        
-        button.directionalLayoutMargins = viewModel.createInsets(with: frame)
-        button.setTitle("Confirm", for: .normal)
-        button.setTitleColor(viewModel.highlightColor, for: .normal)
-        
         button.backgroundColor = viewModel.lightColor
         button.titleLabel?.font = viewModel.labelFont
         button.titleLabel?.backgroundColor = viewModel.lightColor
         button.titleLabel?.textColor = viewModel.highlightColor
-        button.titleLabel?.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
         
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+
+        button.directionalLayoutMargins = viewModel.createInsets(with: frame)
+        button.setTitle("Confirm", for: .normal)
+        button.setTitleColor(viewModel.highlightColor, for: .normal)
+        
+
         return button
     }
 }

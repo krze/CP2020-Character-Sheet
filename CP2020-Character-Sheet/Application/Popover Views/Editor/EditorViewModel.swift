@@ -30,7 +30,7 @@ extension EditorViewModel where Self: PopoverViewFrameProvider {
         let necessaryHeight = CGFloat(numberOfRows) * minimumRowHeight
         
         if newFrame.height > necessaryHeight {
-            return CGRect(x: newFrame.minX, y: newFrame.minY, width: newFrame.width - 20, height: necessaryHeight)
+            return CGRect(x: newFrame.minX, y: newFrame.minY, width: newFrame.width, height: necessaryHeight)
         }
         
         return newFrame
