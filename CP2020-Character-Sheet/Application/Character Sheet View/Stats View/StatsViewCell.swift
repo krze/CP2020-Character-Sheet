@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class StatsViewCell: UICollectionViewCell, UsedOnce {
+final class StatsViewCell: UICollectionViewCell, StatsDataSourceDelegate, UsedOnce {
     
     private (set) var wasSetUp: Bool = false
     private var statViews = [StatView]()
@@ -93,6 +93,16 @@ final class StatsViewCell: UICollectionViewCell, UsedOnce {
         self.contentView.backgroundColor = StyleConstants.Color.light
     }
     
+    func statsDidUpdate(stats: [Stat: (baseValue: Int, displayValue: Int)]) {
+        statViews.forEach { view in
+            guard let values = stats[view.stat] else {
+                return
+            }
+            
+            view.updateValue(newValue: values.displayValue, baseValue: values.baseValue)
+        }
+    }
+    
     private func setupGestureRecognizers() {
         // Single tap on the entire cell
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
@@ -103,12 +113,21 @@ final class StatsViewCell: UICollectionViewCell, UsedOnce {
     
     @objc private func cellTapped() {
         let editableStatViews = statViews.filter { $0.stat.isCoreStat() }
-        let currentFieldStates = editableStatViews.map { CurrentFieldState(identifier: $0.stat.identifier(),
+        var currentFieldStates = editableStatViews.map { CurrentFieldState(identifier: $0.stat.identifier(),
                                                                            currentValue: $0.currentValue ?? "",
                                                                            entryType: $0.stat.entryType()) }
+        var enforcedOrder = Stat.enforcedOrder()
+        
+        // TODO: Remove this when humanity loss is calculated by cyberwear
+        let humanityLossIdentifier = "Humanity Loss"
+        currentFieldStates.append(CurrentFieldState(identifier: humanityLossIdentifier,
+                                                    currentValue: "\(dataSource?.humanityLoss ?? 0)",
+                                                    entryType: .Integer))
+        
+        enforcedOrder.append(humanityLossIdentifier)
         
         dataSource?.editorRequested(currentFieldStates: currentFieldStates,
-                                    enforcedOrder: Stat.enforcedOrder(),
+                                    enforcedOrder: enforcedOrder,
                                     sourceView: self)
     }
     
@@ -118,6 +137,7 @@ final class StatsViewCell: UICollectionViewCell, UsedOnce {
         }
         
         self.dataSource = StatsDataSource(statsModel: statsModel)
+        self.dataSource?.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {

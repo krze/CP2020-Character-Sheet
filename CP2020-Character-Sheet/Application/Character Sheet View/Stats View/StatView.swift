@@ -19,10 +19,12 @@ final class StatView: UIView {
     var currentValue: String? {
         return valueLabel?.text
     }
+    var baseValue: Int
     
     init(frame: CGRect, viewModel: StatViewModel) {
         model = viewModel
         stat = viewModel.stat
+        baseValue = viewModel.baseValue
         super.init(frame: frame)
         
         translatesAutoresizingMaskIntoConstraints = false
@@ -75,6 +77,11 @@ final class StatView: UIView {
         valueLabel = statLabel.label
     }
     
+    func updateValue(newValue: Int, baseValue: Int) {
+        guard let valueLabel = valueLabel else { return }
+        setTextAndColor(on: valueLabel, hasBaseState: true, currentValue: newValue, baseValue: baseValue)
+    }
+    
     private func nameLabel(frame: CGRect) -> UILabel {
         let label = UILabel(frame: frame)
         label.font = model.statNameFont
@@ -93,18 +100,23 @@ final class StatView: UIView {
         label.font = model.statValueFont
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = model.lightColor
-        label.textColor = model.darkColor
-        label.text = {
-            return model.stat.hasBaseState() ? "\(model.statCurrentValue ?? model.statValue)" : "\(model.statValue)"
-        }()
-        label.textAlignment = .center
-        label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
+        
+        setTextAndColor(on: label, hasBaseState: model.stat.hasBaseState(),
+                        currentValue: model.statCurrentValue ?? baseValue, baseValue: baseValue)
         
         return label
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setTextAndColor(on label: UILabel, hasBaseState: Bool, currentValue: Int, baseValue: Int) {
+        let labelValue = hasBaseState ? currentValue : baseValue
+        label.text = "\(labelValue)"
+        label.textColor = hasBaseState && labelValue < baseValue ? model.badColor : model.darkColor
+        label.textAlignment = .center
+        label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
     }
     
 }

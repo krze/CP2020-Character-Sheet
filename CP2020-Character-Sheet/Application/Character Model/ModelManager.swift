@@ -45,7 +45,7 @@ final class ModelManager: ModelReceiver {
             error == .NoSuchFile {
             let stats = Stats(int: 0, ref: 0, tech: 0, cool: 0, attr: 0, luck: 0, ma: 0, body: 0, emp: 0, rep: 0)
             let skills = self.skills ?? [Skill]()
-            let edgerunner = Edgerunner(baseStats: stats, role: .Netrunner, humanityCost: 0, skills: skills)
+            let edgerunner = Edgerunner(baseStats: stats, role: .Netrunner, humanityLoss: 0, skills: skills)
             
             self.edgerunner = edgerunner
             

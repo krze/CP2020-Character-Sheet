@@ -57,7 +57,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
         }
         else if let cell = cell as? StatsViewCell, !cell.wasSetUp {
             let viewModel = StatsViewCellModel(paddingRatio: 0.0, statsPerRow: 3, statViewWidthRatio: CGFloat(1.0 / 3))
-            let statViewModels = Stat.allCases.map { StatViewModel.model(for: $0, baseValue: 10, currentValue: 10) }
+            let statViewModels = Stat.allCases.map { StatViewModel.model(for: $0, baseValue: 0, currentValue: 0) }
             
             cell.setup(with: viewModel, statViewModels: statViewModels)
         }

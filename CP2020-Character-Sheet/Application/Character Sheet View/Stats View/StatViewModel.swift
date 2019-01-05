@@ -13,7 +13,7 @@ struct StatViewModel: MarginCreator {
     let statNameFont = StyleConstants.Font.defaultBold
     
     /// The full value of the stat
-    let statValue: Int
+    let baseValue: Int
     let statValueRatio: CGFloat
     let statValueFont = StyleConstants.Font.defaultFont
     let statValueBorder: CGFloat
@@ -25,21 +25,22 @@ struct StatViewModel: MarginCreator {
     let paddingRatio: CGFloat
     let lightColor: UIColor
     let darkColor: UIColor
-    let confirmColor: UIColor
-    let dismissColor: UIColor
+    
+    /// Color for a beneficial stat effect
+    let goodColor: UIColor
+    /// Color for a detremental stat effect
+    let badColor: UIColor
     
     static func model(for stat: Stat, baseValue: Int, currentValue: Int?) -> StatViewModel {
-        let valueRatio: CGFloat =  0.25
-
         return StatViewModel(stat: stat,
-                             statValue: baseValue,
-                             statValueRatio: valueRatio,
+                             baseValue: baseValue,
+                             statValueRatio: 0.25,
                              statValueBorder: StyleConstants.SizeConstants.borderWidth,
                              statCurrentValue: currentValue,
                              paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
                              lightColor: StyleConstants.Color.light,
                              darkColor: StyleConstants.Color.dark,
-                             confirmColor: StyleConstants.Color.blue,
-                             dismissColor: StyleConstants.Color.red)
+                             goodColor: StyleConstants.Color.blue,
+                             badColor: StyleConstants.Color.red)
     }
 }

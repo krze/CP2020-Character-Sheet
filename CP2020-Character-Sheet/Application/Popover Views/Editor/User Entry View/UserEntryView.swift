@@ -135,6 +135,12 @@ final class UserEntryView: UIView, UIPickerViewDelegate, UIPickerViewDataSource 
         case .Integer:
             let integerField = textField(frame: frame)
             integerField.keyboardType = .numberPad
+            
+            if viewModel.placeholder == String("\(0)") {
+                integerField.text = ""
+                integerField.placeholder = viewModel.placeholder
+            }
+            
             textField = integerField
 
             return integerField
@@ -173,11 +179,9 @@ final class UserEntryView: UIView, UIPickerViewDelegate, UIPickerViewDataSource 
     
     private func textField(frame: CGRect) -> UITextField {
         let field = UITextField(frame: frame)
-        let margins = viewModel.createInsets(with: frame)
-        
+
         field.translatesAutoresizingMaskIntoConstraints = false
-        field.directionalLayoutMargins = margins
-        field.font = viewModel.inputFont
+        field.font = viewModel.inputFont?.withSize(frame.height / 2)
         field.backgroundColor = viewModel.lightColor
         field.textColor = viewModel.darkColor
         field.textAlignment = .left

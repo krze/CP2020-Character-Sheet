@@ -86,7 +86,7 @@ final class PrinterPaperView: UIView {
 
         
         let radius = (container.frame.width * viewModel.printerHoleWidthRatio) / 2
-        let spacing = container.frame.height * viewModel.printerHoleSpacingRatio
+        let spacing = (radius * 2) * viewModel.printerHoleSpacingConstantMultiplier
         var circleY = CGFloat(0)
         var center: CGPoint {
             return CGPoint(x: container.frame.width / 2, y: circleY)

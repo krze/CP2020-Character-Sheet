@@ -15,6 +15,6 @@ struct PrinterPaperViewModel {
     let lineThickness: CGFloat = 2.0
     let printerHoleWidthRatio: CGFloat = 0.20
     let printerFeedStripsWidthRatio: CGFloat = 0.1
-    let printerHoleSpacingRatio: CGFloat = 0.15
+    let printerHoleSpacingConstantMultiplier: CGFloat = 3
     
 }

@@ -31,7 +31,7 @@ enum Stat: String, Codable, CaseIterable, EntryTypeProvider {
     /// - Returns: True if the stat is a core stat
     func isCoreStat() -> Bool {
         switch self {
-        case .Run, .Leap, .Lift, .Humanity, .Reputation, .MovementAllowance, .Luck:
+        case .Run, .Leap, .Lift, .Humanity, .Luck:
             return false
         default:
             return true
@@ -75,7 +75,12 @@ enum Stat: String, Codable, CaseIterable, EntryTypeProvider {
     // MARK: EntryTypeProvider
     
     func identifier() -> Identifier {
-        return self.abbreviation()
+        switch self {
+        case .MovementAllowance:
+            return "Move. Allowance"
+        default:
+            return rawValue
+        }
     }
     
     func entryType() -> EntryType {
@@ -83,7 +88,7 @@ enum Stat: String, Codable, CaseIterable, EntryTypeProvider {
     }
     
     static func enforcedOrder() -> [String] {
-        return allCases.map { $0.rawValue }
+        return allCases.map { $0.identifier() }
     }
     
 }

@@ -37,7 +37,13 @@ final class Edgerunner: Codable, CharacterDescriptionModel, StatsModel, SkillMod
     }
     
     /// The humanity deficit incurred by Cyberware
-    private var humanityCost: Int
+    private(set) var humanityLoss: Int
+    
+    /// To be used in the future for when you can spend luck points.
+    private var spentLuck: Int = 0
+    
+    // To be used in the future for when you have a MA penalty for armor. Will be calculated most likely.
+    private var movementAllowancePenalty: Int = 0
     
     /// Creates a character with the input provided. Skills are not assigned via this initalizer, and
     /// must be set by using `add(skill: SkillListing)`. This initializer is intended to be used by
@@ -46,58 +52,61 @@ final class Edgerunner: Codable, CharacterDescriptionModel, StatsModel, SkillMod
     /// - Parameters:
     ///   - baseStats: Character stats object representing the base stat values
     ///   - role: The role of the character
-    ///   - humanityCost: The humanity cost from cyberware (NOTE: This will be a computed property when cyberware is supported)
-    init(baseStats: Stats, role: Role, humanityCost: Int, skills: [Skill]) {
+    ///   - humanityLoss: The humanity loss from cyberware (NOTE: This will be a computed property when cyberware is supported)
+    init(baseStats: Stats, role: Role, humanityLoss: Int, skills: [Skill]) {
         self.baseStats = baseStats
         self.role = role
-        self.humanityCost = humanityCost
+        self.humanityLoss = humanityLoss
         damage = 0
         name = ""
         handle = ""
         
         self.skills = [SkillListing]() // This is necessary so we can set it on the next line and preserve this class as Codable.
-        self.skills = skills.map({ SkillListing(skill: $0, points: 0, modifier: 0, statModifier: value(for: $0.linkedStat))})
+        self.skills = skills.map({ SkillListing(skill: $0, points: 0, modifier: 0, statModifier: value(for: $0.linkedStat).displayValue)})
     }
     
     /// Retrieves the value for the stat requested
     ///
     /// - Parameter stat: The stat you want
     /// - Returns: The value for the requested stat
-    func value(for stat: Stat?) -> Int {
-        guard let stat = stat else { return 0 }
+    func value(for stat: Stat?) -> (baseValue: Int, displayValue: Int) {
+        guard let stat = stat else { return (baseValue: 0, displayValue: 0) }
         
         switch stat {
         case .Intelligence:
-            return baseStats.int
+            return (baseValue: baseStats.int, displayValue: baseStats.int)
         case .Reflex:
-            return baseStats.ref - reflexPentalty
+            return (baseValue: baseStats.ref, displayValue: baseStats.ref - reflexPentalty)
         case .Tech:
-            return baseStats.tech
+            return (baseValue: baseStats.tech, displayValue: baseStats.tech)
         case .Cool:
-            return baseStats.cool
+            return (baseValue: baseStats.cool, displayValue: baseStats.cool)
         case .Attractiveness:
-            return baseStats.attr
+            return (baseValue: baseStats.attr, displayValue: baseStats.attr)
         case .Luck:
-            return baseStats.luck
+            return (baseValue: baseStats.luck, displayValue: baseStats.luck - spentLuck)
         case .MovementAllowance:
-            return baseStats.ma
+            return (baseValue: baseStats.ma, displayValue: baseStats.ma - movementAllowancePenalty)
         case .Body:
-            return baseStats.body
+            return (baseValue: baseStats.body, displayValue: baseStats.body)
         case .Empathy:
             // TODO: Cyberpsychosis
-            let empathy = value(for: .Humanity) / 10
+            let empathy = value(for: .Humanity).displayValue / 10
             
-            return empathy < 0 ? 0 : empathy
+            return (baseValue: baseStats.emp, displayValue: empathy < 0 ? 0 : empathy)
         case .Run:
-            return baseStats.ma * 3
+            let runValue = value(for: .MovementAllowance).displayValue * 3
+            return (baseValue: runValue, displayValue: runValue)
         case .Leap:
-            return value(for: .Run) / 4
+            let leapValue = value(for: .Run).displayValue / 4
+            return (baseValue: leapValue, displayValue: leapValue)
         case .Lift:
-            return value(for: .Body) * 40
+            let liftValue = value(for: .Body).displayValue * 40
+            return (baseValue: liftValue, displayValue: liftValue)
         case .Reputation:
-            return baseStats.rep
+            return (baseValue: baseStats.rep, displayValue: baseStats.rep)
         case .Humanity:
-            return baseHumanity - humanityCost
+            return (baseValue: baseHumanity, displayValue: baseHumanity - humanityLoss)
         }
     }
     
@@ -122,11 +131,11 @@ final class Edgerunner: Codable, CharacterDescriptionModel, StatsModel, SkillMod
     /// Stats are immutable during normal gameplay.
     ///
     /// - Parameter baseStats: The new Stats object
-    func set(baseStats: Stats) {
+    func set(baseStats: Stats, humanityLoss: Int) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.baseStats = baseStats
-            
+            self.humanityLoss = humanityLoss
             self.updateStatModifiers()
             
             NotificationCenter.default.post(name: .statsDidChange, object: nil)
@@ -154,11 +163,11 @@ final class Edgerunner: Codable, CharacterDescriptionModel, StatsModel, SkillMod
     private func updateStatModifiers() {
         for skillListing in skills {
             guard let stat = skillListing.skill.linkedStat,
-                skillListing.statModifier != value(for: stat) else {
+                skillListing.statModifier != value(for: stat).displayValue else {
                 continue
             }
             
-            skillListing.update(statModifierPoints: value(for: stat))
+            skillListing.update(statModifierPoints: value(for: stat).displayValue)
         }
     }
     

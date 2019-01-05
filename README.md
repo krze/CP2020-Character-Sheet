@@ -9,13 +9,15 @@ The character sheet app is planned out for the following phases:
 - [x] Class description
 - [x] Stats
 - [x] Damage track
-- [x] Highlighted skill list
+- [ ] Highlighted skill list
+  - [x] Placeholder view
+  - [ ] Highlighted list that filters skills
 - [x] Full skill list view
 #### Data layer:
 - [ ] Persistence
 - [ ] Editable values for each section
   - [x] Character Description
-  - [ ] Stats
+  - [x] Stats
   - [ ] Skills
 - [x] Character Model
   - [x] Character info

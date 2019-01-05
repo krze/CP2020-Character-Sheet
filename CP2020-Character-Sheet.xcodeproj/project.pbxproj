@@ -44,6 +44,7 @@
 		9D2CFA0821C59B9400EC76D7 /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CFA0721C59B9400EC76D7 /* RoleView.swift */; };
 		9D2CFA0A21C59BEA00EC76D7 /* RoleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CFA0921C59BEA00EC76D7 /* RoleViewModel.swift */; };
 		9D2CFA0C21C59D7900EC76D7 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CFA0B21C59D7900EC76D7 /* Role.swift */; };
+		9D3761E421E16AA20027513E /* StatsDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3761E321E16AA20027513E /* StatsDataSourceDelegate.swift */; };
 		9D552CF221AB0E69008B90E9 /* StyleConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D552CF121AB0E69008B90E9 /* StyleConstants.swift */; };
 		9D552CF421AB1050008B90E9 /* DamageControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D552CF321AB1050008B90E9 /* DamageControllerTests.swift */; };
 		9D552CF621AB266F008B90E9 /* DamageModifierViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D552CF521AB266F008B90E9 /* DamageModifierViewModel.swift */; };
@@ -147,6 +148,7 @@
 		9D2CFA0721C59B9400EC76D7 /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
 		9D2CFA0921C59BEA00EC76D7 /* RoleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleViewModel.swift; sourceTree = "<group>"; };
 		9D2CFA0B21C59D7900EC76D7 /* Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
+		9D3761E321E16AA20027513E /* StatsDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsDataSourceDelegate.swift; sourceTree = "<group>"; };
 		9D552CF121AB0E69008B90E9 /* StyleConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConstants.swift; sourceTree = "<group>"; };
 		9D552CF321AB1050008B90E9 /* DamageControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageControllerTests.swift; sourceTree = "<group>"; };
 		9D552CF521AB266F008B90E9 /* DamageModifierViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageModifierViewModel.swift; sourceTree = "<group>"; };
@@ -446,6 +448,7 @@
 				9DFE711021BD92C9000561B0 /* StatView.swift */,
 				9DFE711221BD933A000561B0 /* StatViewModel.swift */,
 				9D004E6021DC44F5004DFA4D /* StatsDataSource.swift */,
+				9D3761E321E16AA20027513E /* StatsDataSourceDelegate.swift */,
 			);
 			path = "Stats View";
 			sourceTree = "<group>";
@@ -734,6 +737,7 @@
 				9D2CF9FE21C4336900EC76D7 /* CharacterDescriptionView.swift in Sources */,
 				9D2CFA0621C593D200EC76D7 /* MarginCreator.swift in Sources */,
 				9D004E5D21DBDACD004DFA4D /* CurrentFieldState.swift in Sources */,
+				9D3761E421E16AA20027513E /* StatsDataSourceDelegate.swift in Sources */,
 				9D004E5721DA7ED9004DFA4D /* NotifiesEditorNeeded.swift in Sources */,
 				9DE335AC21A9F2C800180927 /* TotalDamageDataSourceDelegate.swift in Sources */,
 				9DCD371521CD598D00EE00D9 /* SkillTableViewCellModel.swift in Sources */,

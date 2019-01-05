@@ -21,10 +21,11 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate, UIPop
     private let receiver: EditorValueReciever
     private var userEntryViews = [UserEntryView]()
 
-    private var shouldSaveValues = false
+    private var dismissingWithoutSaving = false
+    private var valuesChanged = false
     private var currentValues = [Identifier: String]() {
         didSet {
-            shouldSaveValues = true
+            valuesChanged = true
         }
     }
     
@@ -112,7 +113,7 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate, UIPop
         
         super.viewWillDisappear(animated)
         
-        if shouldSaveValues {
+        if !dismissingWithoutSaving && valuesChanged {
             receiver.valuesFromEditorDidChange(currentValues)
         }
     }
@@ -162,7 +163,7 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate, UIPop
     }
     
     @objc private func dismissClearingChanges() {
-        shouldSaveValues = false
+        dismissingWithoutSaving = true
         dismissView()
     }
     

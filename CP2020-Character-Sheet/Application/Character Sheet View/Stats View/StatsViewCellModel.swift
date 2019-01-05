@@ -9,6 +9,7 @@
 import UIKit
 
 struct StatsViewCellModel {
+    
     let paddingRatio: CGFloat
     let statsPerRow: Int
     
