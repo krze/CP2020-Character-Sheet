@@ -30,6 +30,8 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
     let navigationController: UINavigationController
     let characterSheetViewController: CharacterSheetViewController
     
+    // Child views
+    
     private lazy var skillTableViewController: SkillTableViewController? = {
         if let skillsDataSource = skillsDataSource {
             return SkillTableViewController(with: skillsDataSource,
@@ -39,8 +41,12 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
         
         return nil
     }()
-    
     private var popoverEditor: EditorViewController?
+    
+    /// Check this to prevent multiple view controllers from being presented
+    private var childViewIsPresenting: Bool {
+        return skillTableViewController?.isBeingPresented == true || popoverEditor?.isBeingPresented == true
+    }
     
     private let modelManager: ModelManager
     private let window: UIWindow
@@ -70,7 +76,7 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
     
     @objc private func showSkillTable(notification: Notification) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self,
+            guard let self = self, !self.childViewIsPresenting,
                 let skillTableViewController = self.skillTableViewController else {
                 return
             }
@@ -81,7 +87,7 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
     
     @objc private func showEditor(notification: Notification) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self,
+            guard let self = self, !self.childViewIsPresenting,
                 let constructor = notification.object as? EditorConstructor else {
                     return
             }
