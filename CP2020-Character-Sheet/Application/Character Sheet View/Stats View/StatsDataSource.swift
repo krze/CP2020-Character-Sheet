@@ -24,7 +24,7 @@ final class StatsDataSource: NSObject, EditorValueReciever, NotifiesEditorNeeded
         let parameters = currentFieldStates.popoverViewModelParameters()
         let popoverViewModel = PopoverEditorViewModel(numberOfColumns: 2,
                                                       numberOfRows: parameters.entryTypes.rowsNecessaryForColumn(count: 2),
-                                                      rowsWithIdentifiers: parameters.rowsWithIdentifiers,
+                                                      entryTypesForIdentifiers: parameters.rowsWithIdentifiers,
                                                       placeholdersWithIdentifiers: parameters.placeholdersWithIdentifiers,
                                                       enforcedOrder: enforcedOrder,
                                                       labelWidthRatio: 0.5)

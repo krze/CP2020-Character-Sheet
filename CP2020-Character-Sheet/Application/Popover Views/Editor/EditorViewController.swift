@@ -8,6 +8,11 @@
 
 import UIKit
 
+/// An editor view controller used for popups. In the future, this will need to be adapted to be used for single-view instead of
+/// popups, as there are hard-coded functions to dismiss the view when close or confirm buttons are tapped.
+///
+/// TODO: This class will be used for the character building flow on first launch, when implemented. It will not operate as a popover,
+/// but rather a sequence of views. This view will need to be adapted to segue between each step of the character creation flow
 final class EditorViewController: UIViewController, UserEntryViewDelegate, UIPopoverPresentationControllerDelegate, UITextViewDelegate {
     
     private let popoverFrame: CGRect
@@ -67,7 +72,9 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate, UIPop
         guard let contentView = popoverView?.contentView else { return }
         let factory = UserEntryViewCollectionFactory(viewModel: viewModel)
         userEntryViews = factory.addUserEntryViews(to: contentView, windowForPicker: contentView.frame)
+        
         makeNextBlankFieldFirstResponder()
+        
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             
@@ -120,6 +127,10 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate, UIPop
     
     // MARK: Private
     
+    /// Uses an identifier to find the view and checks the value against the current stored value. If the value
+    /// is different, its new value is stored for passing to the DataSource.
+    ///
+    /// - Parameter identifier: The identifier for the field that was updated
     private func setLatestValueIfUpdated(for identifier: Identifier) {
         guard let value = userEntryViews.first(where: { $0.identifier == identifier })?.userInputValue else {
             return
@@ -130,6 +141,7 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate, UIPop
         }
     }
     
+    /// Dismisses the popover view.
     @objc private func close() {
         dismiss(animated: true, completion: nil)
     }

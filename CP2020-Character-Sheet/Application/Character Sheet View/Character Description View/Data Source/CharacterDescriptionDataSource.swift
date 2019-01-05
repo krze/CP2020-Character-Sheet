@@ -50,7 +50,7 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever, Notif
     func editorRequested(currentFieldStates: [CurrentFieldState], enforcedOrder: [String], sourceView: UIView) {
         let parameters = currentFieldStates.popoverViewModelParameters()
         let popoverViewModel = PopoverEditorViewModel(numberOfRows: parameters.entryTypes.count,
-                                                      rowsWithIdentifiers: parameters.rowsWithIdentifiers,
+                                                      entryTypesForIdentifiers: parameters.rowsWithIdentifiers,
                                                       placeholdersWithIdentifiers: parameters.placeholdersWithIdentifiers,
                                                       enforcedOrder: enforcedOrder,
                                                       labelWidthRatio: 0.3)
