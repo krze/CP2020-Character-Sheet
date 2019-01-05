@@ -27,6 +27,7 @@ struct HighlightedSkillViewCellModel: MarginCreator {
     
     let lightColor = StyleConstants.Color.light
     let darkColor = StyleConstants.Color.dark
-    let highlightColor = StyleConstants.Color.red
+    let confirmColor = StyleConstants.Color.blue
+    let dismissColor = StyleConstants.Color.red
     
 }

@@ -37,18 +37,26 @@ struct StyleConstants {
     /// Colors to use for any element requiring color, including black and white
     struct Color {
         
+        /// Current palette:
+        /// https://coolors.co/060808-c9c0bb-fcfafc-ce050f-003d71
+        
         /// A dark color to be used in place of black. Especially for contrasting against light
-        static let dark = UIColor(red:0.11, green:0.15, blue:0.19, alpha:1.0)
+        static let dark = UIColor(red:0.02, green:0.03, blue:0.03, alpha:1.0)
         
         /// A light color to be used in place of white. Especially for contrasting against dark
-        static let light = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
-        
-        /// A shade of red, used for accents or attention-grabbing elements
-        static let red = UIColor(red:0.81, green:0.07, blue:0.15, alpha:1.0)
+        static let light = UIColor(red:0.99, green:0.98, blue:0.99, alpha:1.0)
         
         /// A shade of gray, used when a third color is needed to contrast dark and light.
         /// Use to convey disabled or unavailable items (if necessary)
-        static let gray = UIColor(red:0.55, green:0.54, blue:0.52, alpha:1.0)
+        static let gray = UIColor(red:0.79, green:0.75, blue:0.73, alpha:1.0)
+        
+        /// A shade of blue, used for confirm buttons or positive attention-grabbing elements
+        static let blue = UIColor(red:0.00, green:0.24, blue:0.44, alpha:1.0)
+        
+        /// A shade of red, used for cancel buttons or negative attention-grabbing elements
+        static let red = UIColor(red:0.81, green:0.02, blue:0.06, alpha:1.0)
+        
+
     }
     
     struct SizeConstants {

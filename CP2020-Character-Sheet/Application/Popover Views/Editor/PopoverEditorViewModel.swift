@@ -25,6 +25,8 @@ struct PopoverEditorViewModel: PopoverViewFrameProvider, EditorViewModel, Margin
     /// The number of columns in the view
     let numberOfColumns: Int
     
+    let includeSpaceForButtons: Bool
+    
     /// The width of the label for each entry view. The width of the entry field next to the label will
     /// use the space remaining after the label. (i.e. if the labelWidthRatio is 0.3 (or 30% of the entry view),
     /// the entry field will have a value of 0.7)
@@ -56,7 +58,9 @@ struct PopoverEditorViewModel: PopoverViewFrameProvider, EditorViewModel, Margin
          entryTypesForIdentifiers: [Identifier: EntryType],
          placeholdersWithIdentifiers: [Identifier: String]?,
          enforcedOrder: [Identifier],
-         labelWidthRatio: CGFloat) {
+         labelWidthRatio: CGFloat,
+         includeSpaceForButtons: Bool) {
+        self.includeSpaceForButtons = includeSpaceForButtons
         self.numberOfColumns = numberOfColumns
         self.numberOfRows = numberOfRows
         self.labelWidthRatio = labelWidthRatio

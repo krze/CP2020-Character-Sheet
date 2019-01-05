@@ -71,13 +71,13 @@ final class DismissablePickerView: UIView {
         button.backgroundColor = viewModel.lightColor
         button.titleLabel?.font = viewModel.labelFont
         button.titleLabel?.backgroundColor = viewModel.lightColor
-        button.titleLabel?.textColor = viewModel.highlightColor
+        button.titleLabel?.textColor = viewModel.confirmColor
         
         button.titleLabel?.adjustsFontSizeToFitWidth = true
 
         button.directionalLayoutMargins = viewModel.createInsets(with: frame)
         button.setTitle("Confirm", for: .normal)
-        button.setTitleColor(viewModel.highlightColor, for: .normal)
+        button.setTitleColor(viewModel.confirmColor, for: .normal)
         
 
         return button

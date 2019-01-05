@@ -21,10 +21,10 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate, UIPop
     private let receiver: EditorValueReciever
     private var userEntryViews = [UserEntryView]()
 
-    private var valuesDidChange = false
+    private var shouldSaveValues = false
     private var currentValues = [Identifier: String]() {
         didSet {
-            valuesDidChange = true
+            shouldSaveValues = true
         }
     }
     
@@ -53,8 +53,7 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate, UIPop
         blurView.frame = view.frame
         blurView.effect = UIBlurEffect(style: .dark)
         
-        // Temporary until dismiss buttons added.
-        let singleTap = UITapGestureRecognizer(target: self, action: #selector(close))
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(dismissClearingChanges))
         singleTap.cancelsTouchesInView = false
         singleTap.numberOfTouchesRequired = 1
         blurView.addGestureRecognizer(singleTap)
@@ -70,8 +69,29 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate, UIPop
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard let contentView = popoverView?.contentView else { return }
-        let factory = UserEntryViewCollectionFactory(viewModel: viewModel)
+        var factory = UserEntryViewCollectionFactory(viewModel: viewModel)
         userEntryViews = factory.addUserEntryViews(to: contentView, windowForPicker: contentView.frame)
+        
+        if viewModel.includeSpaceForButtons,
+            let point = factory.buttonBarPoint,
+            let height = factory.buttonBarHeight,
+            let topAnchor = factory.bottomAnchorForLastRow {
+            let size = CGSize(width: contentView.frame.width, height: height)
+            let buttonBarFrame = CGRect(origin: point, size: size)
+            let buttonBar = EditorViewButtonBar(frame: buttonBarFrame)
+            
+            contentView.addSubview(buttonBar)
+            NSLayoutConstraint.activate([
+                buttonBar.widthAnchor.constraint(equalToConstant: size.width),
+                buttonBar.heightAnchor.constraint(equalToConstant: size.height),
+                buttonBar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                buttonBar.topAnchor.constraint(equalTo: topAnchor)
+                ])
+            
+            buttonBar.confirmButton.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
+            buttonBar.dismissButton.addTarget(self, action: #selector(dismissClearingChanges), for: .touchUpInside)
+        }
+
         
         makeNextBlankFieldFirstResponder()
         
@@ -85,16 +105,16 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate, UIPop
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        // Ensure that editing did end for every view, so that the values get added to currentValues
         userEntryViews.forEach { entryView in
             entryView.forceEndEdting()
         }
         
         super.viewWillDisappear(animated)
         
-        if valuesDidChange {
+        if shouldSaveValues {
             receiver.valuesFromEditorDidChange(currentValues)
         }
-        
     }
     
     // MARK: UserEntryViewDelegate
@@ -141,8 +161,13 @@ final class EditorViewController: UIViewController, UserEntryViewDelegate, UIPop
         }
     }
     
+    @objc private func dismissClearingChanges() {
+        shouldSaveValues = false
+        dismissView()
+    }
+    
     /// Dismisses the popover view.
-    @objc private func close() {
+    @objc private func dismissView() {
         dismiss(animated: true, completion: nil)
     }
     

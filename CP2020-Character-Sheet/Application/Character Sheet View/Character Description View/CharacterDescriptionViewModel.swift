@@ -19,7 +19,7 @@ struct CharacterDescriptionViewModel: MarginCreator {
     
     let lightColor = StyleConstants.Color.light
     let darkColor = StyleConstants.Color.dark
-    let highlightColor = StyleConstants.Color.red
+    let confirmColor = StyleConstants.Color.blue
     
     let labelFont: UIFont? = StyleConstants.Font.defaultBold
     let inputFont: UIFont? = StyleConstants.Font.defaultFont

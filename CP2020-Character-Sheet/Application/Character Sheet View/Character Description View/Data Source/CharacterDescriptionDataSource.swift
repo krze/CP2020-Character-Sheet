@@ -53,7 +53,8 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever, Notif
                                                       entryTypesForIdentifiers: parameters.rowsWithIdentifiers,
                                                       placeholdersWithIdentifiers: parameters.placeholdersWithIdentifiers,
                                                       enforcedOrder: enforcedOrder,
-                                                      labelWidthRatio: 0.3)
+                                                      labelWidthRatio: 0.3,
+                                                      includeSpaceForButtons: true)
         let editorConstructor = EditorConstructor(dataSource: self,
                                                   viewModel: popoverViewModel,
                                                   popoverSourceView: sourceView)

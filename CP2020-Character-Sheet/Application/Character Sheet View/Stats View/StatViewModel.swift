@@ -25,7 +25,8 @@ struct StatViewModel: MarginCreator {
     let paddingRatio: CGFloat
     let lightColor: UIColor
     let darkColor: UIColor
-    let highlightColor: UIColor
+    let confirmColor: UIColor
+    let dismissColor: UIColor
     
     static func model(for stat: Stat, baseValue: Int, currentValue: Int?) -> StatViewModel {
         let valueRatio: CGFloat =  0.25
@@ -38,6 +39,7 @@ struct StatViewModel: MarginCreator {
                              paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
                              lightColor: StyleConstants.Color.light,
                              darkColor: StyleConstants.Color.dark,
-                             highlightColor: StyleConstants.Color.red)
+                             confirmColor: StyleConstants.Color.blue,
+                             dismissColor: StyleConstants.Color.red)
     }
 }

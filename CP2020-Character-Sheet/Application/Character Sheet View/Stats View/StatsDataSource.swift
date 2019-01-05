@@ -27,7 +27,8 @@ final class StatsDataSource: NSObject, EditorValueReciever, NotifiesEditorNeeded
                                                       entryTypesForIdentifiers: parameters.rowsWithIdentifiers,
                                                       placeholdersWithIdentifiers: parameters.placeholdersWithIdentifiers,
                                                       enforcedOrder: enforcedOrder,
-                                                      labelWidthRatio: 0.5)
+                                                      labelWidthRatio: 0.5,
+                                                      includeSpaceForButtons: true)
         let editorConstructor = EditorConstructor(dataSource: self,
                                                   viewModel: popoverViewModel,
                                                   popoverSourceView: sourceView)

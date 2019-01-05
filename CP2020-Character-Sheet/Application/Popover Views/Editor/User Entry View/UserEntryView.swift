@@ -201,13 +201,12 @@ final class UserEntryView: UIView, UIPickerViewDelegate, UIPickerViewDataSource 
         button.translatesAutoresizingMaskIntoConstraints = false
         button.directionalLayoutMargins = viewModel.createInsets(with: frame)
         button.setTitle(viewModel.placeholder.isEmpty ? "Tap to Choose" : viewModel.placeholder, for: .normal)
-        button.setTitleColor(viewModel.highlightColor, for: .normal)
+        button.setTitleColor(viewModel.confirmColor, for: .normal)
         button.setBackgroundImage(bgView.asImage(), for: .normal)
         button.contentHorizontalAlignment = .left
         button.backgroundColor = viewModel.lightColor
         button.titleLabel?.font = viewModel.labelFont
         button.titleLabel?.backgroundColor = viewModel.lightColor
-        button.titleLabel?.textColor = viewModel.highlightColor
         button.titleLabel?.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
         
         return button
@@ -218,17 +217,23 @@ final class UserEntryView: UIView, UIPickerViewDelegate, UIPickerViewDataSource 
             return
         }
         
+        // If the picker appears and the user confirms the first choice without moving the picker, the choice
+        // wouldn't be recorded. This is to ensure that once the picker is opened for the first time, there will
+        // be an input value even if they do not scroll through the picker.
+        if userInputValue == nil {
+            selectedRow = 0
+        }
+        
         delegate?.pickerViewWillDisplay(identifier: identifier, dismissablePickerView: dismissablePickerView)
     }
     
     @objc private func pickerWasClosed() {
-        guard let dismissablePickerView = dismissablePickerView,
-            let chosenRole = userInputValue else {
-            return
-        }
+        guard let dismissablePickerView = dismissablePickerView else { return }
         
-        roleButton?.setTitle(chosenRole, for: .normal)
-        roleButton?.titleLabel?.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
+        if let chosenRole = userInputValue {
+            roleButton?.setTitle(chosenRole, for: .normal)
+            roleButton?.titleLabel?.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
+        }
         
         delegate?.pickerViewWillClose(identifier: identifier, dismissablePickerView: dismissablePickerView)
     }
