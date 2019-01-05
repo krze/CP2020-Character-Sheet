@@ -18,6 +18,12 @@ final class StatsDataSource: NSObject, EditorValueReciever, NotifiesEditorNeeded
     
     func valuesFromEditorDidChange(_ values: [Identifier : String]) {
         
+        // NEXT:
+        // - Fill this out
+        // - Tweak stat value to indicate it's penalized (i.e. humanity loss reduces empahty)
+        // - Respond to that by coloring in the stat as a different color
+        // - Stopgap: Add an additional entry view for Humanity Loss until cyberwear is ready
+        
     }
     
     func editorRequested(currentFieldStates: [CurrentFieldState], enforcedOrder: [String], sourceView: UIView) {

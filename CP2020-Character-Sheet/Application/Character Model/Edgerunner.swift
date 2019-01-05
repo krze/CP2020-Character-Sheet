@@ -59,12 +59,6 @@ final class Edgerunner: Codable, CharacterDescriptionModel, StatsModel, SkillMod
         self.skills = skills.map({ SkillListing(skill: $0, points: 0, modifier: 0, statModifier: value(for: $0.linkedStat))})
     }
     
-    // NEXT: Tweak stat value to indicate it's penalized (i.e. humanity loss reduces empahty)
-    // - Respond to that by coloring in the stat as a different color
-    // - Stopgap: Add an additional entry view for Humanity Loss until cyberwear is ready
-    // - also the popover view doesn't work. Make a dismissable view that appears from the bottom and blurs the whole frame.
-    // - Oh yeah add initiative to the damagemodifierview 
-    
     /// Retrieves the value for the stat requested
     ///
     /// - Parameter stat: The stat you want
