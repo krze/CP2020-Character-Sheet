@@ -187,6 +187,7 @@ final class UserEntryView: UIView, UIPickerViewDelegate, UIPickerViewDataSource 
         field.autocapitalizationType = .none
         field.clearButtonMode = .whileEditing
         field.returnKeyType = .done
+        field.keyboardAppearance = .dark
         
         addUnderline(to: field)
         
