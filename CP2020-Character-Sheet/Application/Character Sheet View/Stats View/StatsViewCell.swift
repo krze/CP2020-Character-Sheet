@@ -93,6 +93,8 @@ final class StatsViewCell: UICollectionViewCell, StatsDataSourceDelegate, UsedOn
         self.contentView.backgroundColor = StyleConstants.Color.light
     }
     
+    // MARK: StatsDataSourceDelegate
+    
     func statsDidUpdate(stats: [Stat: (baseValue: Int, displayValue: Int)]) {
         statViews.forEach { view in
             guard let values = stats[view.stat] else {
@@ -102,6 +104,8 @@ final class StatsViewCell: UICollectionViewCell, StatsDataSourceDelegate, UsedOn
             view.updateValue(newValue: values.displayValue, baseValue: values.baseValue)
         }
     }
+    
+    // MARK: Private
     
     private func setupGestureRecognizers() {
         // Single tap on the entire cell

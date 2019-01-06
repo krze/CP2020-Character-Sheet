@@ -21,6 +21,8 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever, Notif
         NotificationCenter.default.addObserver(self, selector: #selector(roleDidChange(notification:)), name: .roleDidChange, object: nil)
     }
     
+    // MARK: EditorValueReceiver
+    
     func valuesFromEditorDidChange(_ values: [Identifier: String]) {
         let newName = values[RoleFieldLabel.name.identifier()]
         let newHandle = values[RoleFieldLabel.handle.identifier()]
@@ -35,18 +37,8 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever, Notif
         }
     }
     
-    func change(name: String, handle: String) {
-        model.set(name: name, handle: handle)
-    }
-    
-    func change(role: String) {
-        guard let role = Role(rawValue: role) else {
-            return
-        }
-        
-        model.set(role: role)
-    }
-    
+    // MARK: NotifiesEditorNeeded
+
     func editorRequested(currentFieldStates: [CurrentFieldState], enforcedOrder: [String], sourceView: UIView) {
         let parameters = currentFieldStates.popoverViewModelParameters()
         let popoverViewModel = PopoverEditorViewModel(numberOfRows: parameters.entryTypes.count,
@@ -60,6 +52,26 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever, Notif
                                                   popoverSourceView: sourceView)
         
         NotificationCenter.default.post(name: .showEditor, object: editorConstructor)
+    }
+    
+    /// Changes the values for the name and handle on the model
+    ///
+    /// - Parameters:
+    ///   - name: The new name
+    ///   - handle: The new handle
+    private func change(name: String, handle: String) {
+        model.set(name: name, handle: handle)
+    }
+    
+    /// Changes the value for the role on the model
+    ///
+    /// - Parameter role: The new role as a string
+    private func change(role: String) {
+        guard let role = Role(rawValue: role) else {
+            return
+        }
+        
+        model.set(role: role)
     }
     
     @objc private func nameDidChange(notification: Notification) {
