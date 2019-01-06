@@ -151,6 +151,12 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // NEXT: Pop a view when a row is tapped to edit the skill.
+        // - Will need a skill edit view that contains the description. Should the whole view be mutable? Should it have an edit state?
+        print("I'm next!!")
+    }
+    
     private func createObservers() {
         // TODO: Set up observers for the following:
         //        skillPointsDidChange

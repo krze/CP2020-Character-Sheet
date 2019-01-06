@@ -38,13 +38,6 @@ final class StatsDataSource: NSObject, EditorValueReciever, NotifiesEditorNeeded
                           rep: values.statPoint(for: Stat.Reputation.identifier()) ?? statsModel.value(for: Stat.Reputation).baseValue)
         
         statsModel.set(baseStats: stats, humanityLoss: values.statPoint(for: "Humanity Loss") ?? statsModel.humanityLoss)
-        
-        // NEXT:
-        // - Fill this out
-        // - Tweak stat value to indicate it's penalized (i.e. humanity loss reduces empahty)
-        // - Respond to that by coloring in the stat as a different color
-        // - Stopgap: Add an additional entry view for Humanity Loss until cyberwear is ready
-        
     }
     
     func editorRequested(currentFieldStates: [CurrentFieldState], enforcedOrder: [String], sourceView: UIView) {
