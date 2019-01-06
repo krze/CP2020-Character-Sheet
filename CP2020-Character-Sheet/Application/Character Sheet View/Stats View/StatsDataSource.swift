@@ -64,14 +64,19 @@ final class StatsDataSource: NSObject, EditorValueReciever, NotifiesEditorNeeded
     }
     
     @objc private func updateStatsView() {
-        let statsToDisplay = Stat.allCases
-        var newValues = [Stat : (baseValue: Int, displayValue: Int)]()
-        
-        statsToDisplay.forEach { stat in
-            newValues[stat] = statsModel.value(for: stat)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            let statsToDisplay = Stat.allCases
+            var newValues = [Stat : (baseValue: Int, displayValue: Int)]()
+            
+            statsToDisplay.forEach { stat in
+                newValues[stat] = self.statsModel.value(for: stat)
+            }
+            
+            self.delegate?.statsDidUpdate(stats: newValues)
         }
         
-        delegate?.statsDidUpdate(stats: newValues)
     }
     
 }

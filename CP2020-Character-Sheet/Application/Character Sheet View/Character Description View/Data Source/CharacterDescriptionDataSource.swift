@@ -63,11 +63,19 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever, Notif
     }
     
     @objc private func nameDidChange(notification: Notification) {
-        delegate?.update(name: model.name, handle: model.handle)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            self.delegate?.update(name: self.model.name, handle: self.model.handle)
+        }
     }
     
     @objc private func roleDidChange(notification: Notification) {
-        delegate?.update(role: model.role)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            self.delegate?.update(role: self.model.role)
+        }
     }
     
 }
