@@ -114,7 +114,7 @@ final class StatsViewCell: UICollectionViewCell, StatsDataSourceDelegate, UsedOn
     @objc private func cellTapped() {
         let editableStatViews = statViews.filter { $0.stat.isCoreStat() }
         var currentFieldStates = editableStatViews.map { CurrentFieldState(identifier: $0.stat.identifier(),
-                                                                           currentValue: $0.currentValue ?? "",
+                                                                           currentValue: "\($0.baseValue)",
                                                                            entryType: $0.stat.entryType()) }
         var enforcedOrder = Stat.enforcedOrder()
         

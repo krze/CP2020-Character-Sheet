@@ -180,8 +180,17 @@ final class UserEntryView: UIView, UIPickerViewDelegate, UIPickerViewDataSource 
     private func textField(frame: CGRect) -> UITextField {
         let field = UITextField(frame: frame)
 
+        let inputFont: UIFont? = {
+            switch type {
+            case .Integer:
+                return viewModel.inputFont?.withSize(frame.height / 2)
+            default:
+                return viewModel.inputFont
+            }
+        }()
+        
         field.translatesAutoresizingMaskIntoConstraints = false
-        field.font = viewModel.inputFont?.withSize(frame.height / 2)
+        field.font = inputFont
         field.backgroundColor = viewModel.lightColor
         field.textColor = viewModel.darkColor
         field.textAlignment = .left

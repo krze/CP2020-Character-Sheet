@@ -19,7 +19,7 @@ final class StatView: UIView {
     var currentValue: String? {
         return valueLabel?.text
     }
-    var baseValue: Int
+    private(set) var baseValue: Int
     
     init(frame: CGRect, viewModel: StatViewModel) {
         model = viewModel
@@ -112,6 +112,8 @@ final class StatView: UIView {
     }
     
     private func setTextAndColor(on label: UILabel, hasBaseState: Bool, currentValue: Int, baseValue: Int) {
+        self.baseValue = baseValue
+        
         let labelValue = hasBaseState ? currentValue : baseValue
         label.text = "\(labelValue)"
         label.textColor = hasBaseState && labelValue < baseValue ? model.badColor : model.darkColor
