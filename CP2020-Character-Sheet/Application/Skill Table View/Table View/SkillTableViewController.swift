@@ -73,7 +73,6 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-        cell.selectionStyle = .none
         
         if let cell = cell as? SkillTableViewCell, let section = SkillTableSections(rawValue: indexPath.section),
             let listing = sections[section]?[indexPath.row] {
@@ -87,7 +86,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // NEXT: Pop a view when a row is tapped to edit the skill.
         // - Will need a skill edit view that contains the description. Should the whole view be mutable? Should it have an edit state?
-        guard let cell = self.tableView(self.tableView, cellForRowAt: indexPath) as? SkillTableViewCell else {
+        guard let cell = self.tableView.cellForRow(at: indexPath) as? SkillTableViewCell else {
             return
         }
         if selectedIndex == indexPath {

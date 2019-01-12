@@ -40,13 +40,11 @@ final class SkillTableViewCell: UITableViewCell {
         stack.addArrangedSubview(topView)
         let bottomView = descriptionView(frameAboveHeight: topView.frame.height)
         
-        
-        /// NEXT: Remove the damn stack and just do this manually
         NSLayoutConstraint.activate([
             stack.topAnchor.constraint(equalTo: contentView.topAnchor),
             stack.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             stack.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            stack.heightAnchor.constraint(equalToConstant: SkillTableConstants.rowHeight)
+            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             ])
         
         stack.axis = .vertical
@@ -86,12 +84,12 @@ final class SkillTableViewCell: UITableViewCell {
             let topView = topView else {
             return
         }
-//        CONTENT.addArrangedSubview(bottomView)
-        contentView.addSubview(bottomView)
+        stack.addArrangedSubview(bottomView)
+
         NSLayoutConstraint.activate([
             bottomView.topAnchor.constraint(equalTo: topView.bottomAnchor),
-            bottomView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            bottomView.widthAnchor.constraint(equalTo: contentView.widthAnchor)
+            bottomView.bottomAnchor.constraint(equalTo: stack.bottomAnchor),
+            bottomView.widthAnchor.constraint(equalTo: stack.widthAnchor)
             ])
         
         delegate?.cellHeightDidChange(self)
@@ -102,7 +100,7 @@ final class SkillTableViewCell: UITableViewCell {
             return
         }
         
-        bottomView.removeFromSuperview()
+        stack.removeArrangedSubview(bottomView)
         delegate?.cellHeightDidChange(self)
     }
     
