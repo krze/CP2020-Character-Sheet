@@ -20,7 +20,9 @@ final class SkillTableViewCell: UITableViewCell {
     private var modifier: UILabel?
     private var total: UILabel?
     private let stack = UIStackView()
-
+    
+    private var topView: UIView?
+    private var bottomView: UIView?
     
     private var skillDescription: UITextView?
     
@@ -30,30 +32,28 @@ final class SkillTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        contentView.autoresizingMask = UIView.AutoresizingMask.flexibleHeight
+//        contentView.autoresizingMask = UIView.AutoresizingMask.flexibleHeight
 
         stack.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(stack)
         let topView = topViewContainer()
         stack.addArrangedSubview(topView)
         let bottomView = descriptionView(frameAboveHeight: topView.frame.height)
-        stack.addArrangedSubview(bottomView)
+        
         NSLayoutConstraint.activate([
             stack.topAnchor.constraint(equalTo: contentView.topAnchor),
             stack.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             stack.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-            
-//            topView.heightAnchor.constraint(equalToConstant: SkillTableConstants.rowHeight),
-//            bottomView.heightAnchor.constraint(equalToConstant: SkillTableConstants.rowHeight * 3)
+            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             ])
         
         stack.axis = .vertical
-        stack.distribution = .fill
+        stack.distribution = .fillProportionally
         stack.alignment = .fill
         stack.spacing = 0
         
-        hideDescription()
+        self.topView = topView
+        self.bottomView = bottomView
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -80,12 +80,26 @@ final class SkillTableViewCell: UITableViewCell {
     }
     
     func showDescription() {
-        skillDescription?.isHidden = false
+        guard let bottomView = bottomView,
+            let topView = topView else {
+            return
+        }
+        stack.addArrangedSubview(bottomView)
+        NSLayoutConstraint.activate([
+            bottomView.topAnchor.constraint(equalTo: topView.bottomAnchor),
+            bottomView.heightAnchor.constraint(lessThanOrEqualToConstant: SkillTableConstants.rowHeight * 3),
+            bottomView.widthAnchor.constraint(equalTo: stack.widthAnchor)
+            ])
+        
         delegate?.cellHeightDidChange(self)
     }
     
     func hideDescription() {
-        skillDescription?.isHidden = true
+        guard let bottomView = bottomView else {
+            return
+        }
+        
+        stack.removeArrangedSubview(bottomView)
         delegate?.cellHeightDidChange(self)
     }
     
@@ -93,6 +107,7 @@ final class SkillTableViewCell: UITableViewCell {
         let descriptionHeight = contentView.frame.height * 4 - frameAboveHeight
         let descriptionFrame = CGRect(x: 0.0, y: frameAboveHeight, width: contentView.frame.width, height: descriptionHeight)
         let skillDescription = descriptionBox(frame: descriptionFrame)
+        skillDescription.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.skillDescription = skillDescription
         
         return skillDescription
@@ -183,7 +198,7 @@ final class SkillTableViewCell: UITableViewCell {
             nameView.container.leadingAnchor.constraint(equalTo: topViewContainer.leadingAnchor),
             nameView.container.topAnchor.constraint(equalTo: topViewContainer.topAnchor),
             nameView.container.widthAnchor.constraint(equalToConstant: nameFrameWidth),
-            nameView.container.heightAnchor.constraint(equalTo: topViewContainer.heightAnchor)
+            nameView.container.heightAnchor.constraint(equalToConstant: SkillTableConstants.rowHeight)
             ])
         
         // MARK: Numeric Column Construction
@@ -228,7 +243,7 @@ final class SkillTableViewCell: UITableViewCell {
                 numericView.container.trailingAnchor.constraint(equalTo: trailingAnchor),
                 numericView.container.topAnchor.constraint(equalTo: topViewContainer.topAnchor),
                 numericView.container.widthAnchor.constraint(equalTo: topViewContainer.widthAnchor, multiplier: numericCellWidthRatio),
-                numericView.container.heightAnchor.constraint(equalTo: topViewContainer.heightAnchor)
+                numericView.container.heightAnchor.constraint(equalToConstant: SkillTableConstants.rowHeight)
                 ])
             
             trailingAnchor = numericView.container.leadingAnchor

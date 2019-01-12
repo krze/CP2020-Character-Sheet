@@ -90,16 +90,14 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         guard let cell = self.tableView(self.tableView, cellForRowAt: indexPath) as? SkillTableViewCell else {
             return
         }
-        selectedIndex = indexPath
-        cell.showDescription()
-    }
-    
-    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        guard let cell = self.tableView(self.tableView, cellForRowAt: indexPath) as? SkillTableViewCell else {
-            return
+        if selectedIndex == indexPath {
+            selectedIndex = nil
+            cell.hideDescription()
         }
-        selectedIndex = nil
-        cell.hideDescription()
+        else {
+            selectedIndex = indexPath
+            cell.showDescription()
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
