@@ -99,7 +99,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
             cell.showDescription()
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if self.selectedIndex == indexPath {
             return expandedRowHeight

@@ -32,7 +32,7 @@ final class SkillTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-//        contentView.autoresizingMask = UIView.AutoresizingMask.flexibleHeight
+        contentView.autoresizingMask = UIView.AutoresizingMask.flexibleHeight
 
         stack.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(stack)
@@ -40,15 +40,17 @@ final class SkillTableViewCell: UITableViewCell {
         stack.addArrangedSubview(topView)
         let bottomView = descriptionView(frameAboveHeight: topView.frame.height)
         
+        
+        /// NEXT: Remove the damn stack and just do this manually
         NSLayoutConstraint.activate([
             stack.topAnchor.constraint(equalTo: contentView.topAnchor),
             stack.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             stack.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            stack.heightAnchor.constraint(equalToConstant: SkillTableConstants.rowHeight)
             ])
         
         stack.axis = .vertical
-        stack.distribution = .fillProportionally
+        stack.distribution = .fill
         stack.alignment = .fill
         stack.spacing = 0
         
@@ -84,11 +86,12 @@ final class SkillTableViewCell: UITableViewCell {
             let topView = topView else {
             return
         }
-        stack.addArrangedSubview(bottomView)
+//        CONTENT.addArrangedSubview(bottomView)
+        contentView.addSubview(bottomView)
         NSLayoutConstraint.activate([
             bottomView.topAnchor.constraint(equalTo: topView.bottomAnchor),
-            bottomView.heightAnchor.constraint(lessThanOrEqualToConstant: SkillTableConstants.rowHeight * 3),
-            bottomView.widthAnchor.constraint(equalTo: stack.widthAnchor)
+            bottomView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            bottomView.widthAnchor.constraint(equalTo: contentView.widthAnchor)
             ])
         
         delegate?.cellHeightDidChange(self)
@@ -99,7 +102,7 @@ final class SkillTableViewCell: UITableViewCell {
             return
         }
         
-        stack.removeArrangedSubview(bottomView)
+        bottomView.removeFromSuperview()
         delegate?.cellHeightDidChange(self)
     }
     
@@ -108,6 +111,8 @@ final class SkillTableViewCell: UITableViewCell {
         let descriptionFrame = CGRect(x: 0.0, y: frameAboveHeight, width: contentView.frame.width, height: descriptionHeight)
         let skillDescription = descriptionBox(frame: descriptionFrame)
         skillDescription.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        skillDescription.translatesAutoresizingMaskIntoConstraints = false
         self.skillDescription = skillDescription
         
         return skillDescription
