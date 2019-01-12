@@ -11,19 +11,49 @@ import UIKit
 /// Custom UITableViewCell which shows a skill listing in unlabeled columns.
 final class SkillTableViewCell: UITableViewCell {
     
+    weak var delegate: SkillTableViewCellDelegate?
+    
     // MARK: Fields for the cell
     
     private var name: UILabel?
     private var points: UILabel?
     private var modifier: UILabel?
     private var total: UILabel?
+    private let stack = UIStackView()
+
+    
+    private var skillDescription: UITextView?
     
     private var viewModel: SkillTableViewCellModel?
     private(set) var skillListing: SkillListing?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
         contentView.autoresizingMask = UIView.AutoresizingMask.flexibleHeight
+
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(stack)
+        let topView = topViewContainer()
+        stack.addArrangedSubview(topView)
+        let bottomView = descriptionView(frameAboveHeight: topView.frame.height)
+        stack.addArrangedSubview(bottomView)
+        NSLayoutConstraint.activate([
+            stack.topAnchor.constraint(equalTo: contentView.topAnchor),
+            stack.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            stack.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            
+//            topView.heightAnchor.constraint(equalToConstant: SkillTableConstants.rowHeight),
+//            bottomView.heightAnchor.constraint(equalToConstant: SkillTableConstants.rowHeight * 3)
+            ])
+        
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
+        stack.spacing = 0
+        
+        hideDescription()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -47,6 +77,25 @@ final class SkillTableViewCell: UITableViewCell {
     func update(skillListing: SkillListing) {
         self.skillListing = skillListing
         updateColumnValues()
+    }
+    
+    func showDescription() {
+        skillDescription?.isHidden = false
+        delegate?.cellHeightDidChange(self)
+    }
+    
+    func hideDescription() {
+        skillDescription?.isHidden = true
+        delegate?.cellHeightDidChange(self)
+    }
+    
+    private func descriptionView(frameAboveHeight: CGFloat) -> UIView {
+        let descriptionHeight = contentView.frame.height * 4 - frameAboveHeight
+        let descriptionFrame = CGRect(x: 0.0, y: frameAboveHeight, width: contentView.frame.width, height: descriptionHeight)
+        let skillDescription = descriptionBox(frame: descriptionFrame)
+        self.skillDescription = skillDescription
+        
+        return skillDescription
     }
     
     /// Update the skill listing for the table view.
@@ -78,6 +127,10 @@ final class SkillTableViewCell: UITableViewCell {
         total?.font = viewModel.totalFont
         total?.textAlignment = .center
         total?.fitTextToBounds(maximumSize: viewModel.fontSize)
+        
+        skillDescription?.text = skillListing.skill.description
+        skillDescription?.font = StyleConstants.Font.light?.withSize(StyleConstants.Font.minimumSize)
+        
     }
     
     private func columnLabel(frame: CGRect) -> UILabel {
@@ -94,26 +147,25 @@ final class SkillTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        if name == nil {
-            setup()
-        }
-        
         updateColumnValues()
     }
     
     /// This is a one-time called second stage initializer
-    private func setup() {
+    private func topViewContainer() -> UIView {
         let nameCellWidthRatio = CGFloat(0.55) // 55% of view width
         let numericCellWidthRatio = CGFloat(0.15) // 3 cells, 15% of width each
         
-        let safeFrame = contentView.safeAreaLayoutGuide.layoutFrame
+        let safeFrame = contentView.frame
         let totalWidth = safeFrame.width
         
+        let topViewContainer = UIView()
+        
+        topViewContainer.translatesAutoresizingMaskIntoConstraints = false
         // MARK: Name column construction
         
         let nameFrameWidth = totalWidth * nameCellWidthRatio
         let nameFrame = CGRect(x: safeFrame.minX, y: safeFrame.minY,
-                               width: nameFrameWidth, height: safeFrame.height)
+                               width: nameFrameWidth, height: SkillTableConstants.rowHeight)
         let nameMargins = NSDirectionalEdgeInsets(top: nameFrame.height * 0.05,
                                                   leading: nameFrame.width * 0.05,
                                                   bottom: nameFrame.height * 0.05,
@@ -125,18 +177,18 @@ final class SkillTableViewCell: UITableViewCell {
                                          borderColor: nil, borderWidth: nil,
                                          labelMaker: columnLabel)
         name = nameView.label
-        contentView.addSubview(nameView.container)
+        topViewContainer.addSubview(nameView.container)
         
         NSLayoutConstraint.activate([
-            nameView.container.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
-            nameView.container.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
+            nameView.container.leadingAnchor.constraint(equalTo: topViewContainer.leadingAnchor),
+            nameView.container.topAnchor.constraint(equalTo: topViewContainer.topAnchor),
             nameView.container.widthAnchor.constraint(equalToConstant: nameFrameWidth),
-            nameView.container.heightAnchor.constraint(equalToConstant: safeFrame.height)
+            nameView.container.heightAnchor.constraint(equalTo: topViewContainer.heightAnchor)
             ])
         
         // MARK: Numeric Column Construction
         
-        var leadingAnchor = nameView.container.trailingAnchor
+        var trailingAnchor = topViewContainer.trailingAnchor
         var count = 0
         
         for numericColumn in 1...3 {
@@ -160,28 +212,36 @@ final class SkillTableViewCell: UITableViewCell {
             
             // Store the labels on the object to be edited by the update function
             switch numericColumn {
-            case 1:
+            case 3:
                 points = numericView.label
             case 2:
                 modifier = numericView.label
-            case 3:
+            case 1:
                 total = numericView.label
             default:
                 break
             }
             
-            contentView.addSubview(numericView.container)
+            topViewContainer.addSubview(numericView.container)
             
             NSLayoutConstraint.activate([
-                numericView.container.leadingAnchor.constraint(equalTo: leadingAnchor),
-                numericView.container.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
-                numericView.container.widthAnchor.constraint(equalToConstant: numericFrameWidth),
-                numericView.container.heightAnchor.constraint(equalToConstant: safeFrame.height)
+                numericView.container.trailingAnchor.constraint(equalTo: trailingAnchor),
+                numericView.container.topAnchor.constraint(equalTo: topViewContainer.topAnchor),
+                numericView.container.widthAnchor.constraint(equalTo: topViewContainer.widthAnchor, multiplier: numericCellWidthRatio),
+                numericView.container.heightAnchor.constraint(equalTo: topViewContainer.heightAnchor)
                 ])
             
-            leadingAnchor = numericView.container.trailingAnchor
+            trailingAnchor = numericView.container.leadingAnchor
             count += 1
         }
+        return topViewContainer
+    }
+    
+    private func descriptionBox(frame: CGRect) -> UITextView {
+        let textView = UITextView(frame: frame)
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return textView
     }
     
     override func prepareForReuse() {

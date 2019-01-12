@@ -37,8 +37,8 @@ extension UILabel {
         container.addSubview(label)
         
         NSLayoutConstraint.activate([
-            label.widthAnchor.constraint(equalToConstant: labelFrame.width),
-            label.heightAnchor.constraint(equalToConstant: labelFrame.height),
+            label.widthAnchor.constraint(equalTo: container.layoutMarginsGuide.widthAnchor),
+            label.heightAnchor.constraint(equalTo: container.layoutMarginsGuide.heightAnchor),
             label.leadingAnchor.constraint(equalTo: container.layoutMarginsGuide.leadingAnchor),
             label.topAnchor.constraint(equalTo: container.layoutMarginsGuide.topAnchor)
             ])

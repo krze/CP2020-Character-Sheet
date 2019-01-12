@@ -9,7 +9,7 @@
 import UIKit
 
 /// The table view containing the full listing of every skill available to the player
-final class SkillTableViewController: UITableViewController, SkillsDataSourceDelegate {
+final class SkillTableViewController: UITableViewController, SkillsDataSourceDelegate, SkillTableViewCellDelegate {
 
     private let dataSource: SkillsDataSource
     
@@ -20,12 +20,18 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
     private let identifier = SkillTableConstants.identifier
     
     private var skillListings = [SkillListing]()
+    
+    // MARK: Cell expansion
+    
+    private let expandedRowHeight: CGFloat
+    private var selectedIndex: IndexPath?
 
     init(with skillsController: SkillsDataSource,
          viewModel: SkillTableViewModel,
          tableViewCellModel: SkillTableViewCellModel) {
         self.dataSource = skillsController
         self.viewModel = viewModel
+        self.expandedRowHeight = SkillTableConstants.rowHeight * 4
         cellModel = tableViewCellModel
         
         super.init(style: .plain)
@@ -39,68 +45,6 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
 
         tableView.rowHeight = SkillTableConstants.rowHeight
         tableView.sectionHeaderHeight = SkillTableConstants.rowHeight
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let section = SkillTableSections(rawValue: section) {
-            return sections[section]?.count ?? 0
-        }
-        
-        return 0
-    }
-    
-    // MARK: SkillsControllerDelegate
-    
-    func skillsDidUpdate(skills: [SkillListing]) {
-        skillListings = skills
-        updateSections()
-        tableView.reloadData()
-    }
-    
-    
-    /// Reflreshes the sections dictionary. This is a O(1) operation.
-    ///
-    /// This function does not take into account skills that are not special abilities that have no linked
-    /// stats. This controller is expected to recieve a filtered array of stats relevent to the character's
-    /// role to begin with, so only one Special Ability will be chosen from the skills.
-    private func updateSections() {
-        var sections: [SkillTableSections: [SkillListing]] = [
-            .SpecialAbility: [SkillListing](),
-            .Attractiveness: [SkillListing](),
-            .Body: [SkillListing](),
-            .Cool: [SkillListing](),
-            .Empathy: [SkillListing](),
-            .Intelligence: [SkillListing](),
-            .Reflex: [SkillListing](),
-            .Tech: [SkillListing]()
-            ]
-        
-        if let specialIndex = skillListings.firstIndex(where: { $0.skill.isSpecialAbility }) {
-            sections[.SpecialAbility] = [skillListings.remove(at: specialIndex)]
-        }
-        
-        while !skillListings.isEmpty {
-            if let listing = skillListings.popLast(),
-                let linkedStat = listing.skill.linkedStat {
-                sections[SkillTableSections.section(for: linkedStat)]?.append(listing)
-            }
-        }
-        
-        sections.forEach { (key, value) in
-            let sortedListing = value.sorted { (first, next) -> Bool in
-                return first.skill.name < next.skill.name
-            }
-            
-            sections[key] = sortedListing
-        }
-        
-        self.sections = sections
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -127,6 +71,81 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         return view
     }
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        cell.selectionStyle = .none
+        
+        if let cell = cell as? SkillTableViewCell, let section = SkillTableSections(rawValue: indexPath.section),
+            let listing = sections[section]?[indexPath.row] {
+            cell.prepare(with: listing, viewModel: cellModel)
+            cell.delegate = self
+        }
+        
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // NEXT: Pop a view when a row is tapped to edit the skill.
+        // - Will need a skill edit view that contains the description. Should the whole view be mutable? Should it have an edit state?
+        guard let cell = self.tableView(self.tableView, cellForRowAt: indexPath) as? SkillTableViewCell else {
+            return
+        }
+        selectedIndex = indexPath
+        cell.showDescription()
+    }
+    
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        guard let cell = self.tableView(self.tableView, cellForRowAt: indexPath) as? SkillTableViewCell else {
+            return
+        }
+        selectedIndex = nil
+        cell.hideDescription()
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if self.selectedIndex == indexPath {
+            return expandedRowHeight
+        }
+        else{
+            return SkillTableConstants.rowHeight
+        }
+    }
+    
+    // MARK: - TableViewDataSource
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let section = SkillTableSections(rawValue: section) {
+            return sections[section]?.count ?? 0
+        }
+        
+        return 0
+    }
+    
+    // MARK: SkillsDataSourceDelegate
+    
+    func skillsDidUpdate(skills: [SkillListing]) {
+        skillListings = skills
+        updateSections()
+        tableView.reloadData()
+    }
+    
+    
+    // MARK: SkillTableViewCellDelegate
+    
+    func cellHeightDidChange(_ cell: SkillTableViewCell) {
+        refreshTableAfterHeightChange()
+    }
+    
+    private func refreshTableAfterHeightChange() {
+        tableView.beginUpdates()
+        tableView.setNeedsDisplay()
+        tableView.endUpdates()
+    }
+    
     private func headerLabel(frame: CGRect, text: String) -> UILabel {
         let label = UILabel(frame: frame)
         label.font = viewModel.headerFont
@@ -139,22 +158,44 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         
         return label
     }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+
+    /// Reflreshes the sections dictionary. This is a O(1) operation.
+    ///
+    /// This function does not take into account skills that are not special abilities that have no linked
+    /// stats. This controller is expected to recieve a filtered array of stats relevent to the character's
+    /// role to begin with, so only one Special Ability will be chosen from the skills.
+    private func updateSections() {
+        var sections: [SkillTableSections: [SkillListing]] = [
+            .SpecialAbility: [SkillListing](),
+            .Attractiveness: [SkillListing](),
+            .Body: [SkillListing](),
+            .Cool: [SkillListing](),
+            .Empathy: [SkillListing](),
+            .Intelligence: [SkillListing](),
+            .Reflex: [SkillListing](),
+            .Tech: [SkillListing]()
+        ]
         
-        if let cell = cell as? SkillTableViewCell, let section = SkillTableSections(rawValue: indexPath.section),
-            let listing = sections[section]?[indexPath.row] {
-            cell.prepare(with: listing, viewModel: cellModel)
+        if let specialIndex = skillListings.firstIndex(where: { $0.skill.isSpecialAbility }) {
+            sections[.SpecialAbility] = [skillListings.remove(at: specialIndex)]
         }
         
-        return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // NEXT: Pop a view when a row is tapped to edit the skill.
-        // - Will need a skill edit view that contains the description. Should the whole view be mutable? Should it have an edit state?
-        print("I'm next!!")
+        while !skillListings.isEmpty {
+            if let listing = skillListings.popLast(),
+                let linkedStat = listing.skill.linkedStat {
+                sections[SkillTableSections.section(for: linkedStat)]?.append(listing)
+            }
+        }
+        
+        sections.forEach { (key, value) in
+            let sortedListing = value.sorted { (first, next) -> Bool in
+                return first.skill.name < next.skill.name
+            }
+            
+            sections[key] = sortedListing
+        }
+        
+        self.sections = sections
     }
     
     private func createObservers() {
