@@ -88,11 +88,23 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         guard let cell = self.tableView.cellForRow(at: indexPath) as? SkillTableViewCell else {
             return
         }
+        
+        // Deselect
         if selectedIndex == indexPath {
             selectedIndex = nil
             cell.hideDescription()
         }
         else {
+            // Select
+            
+            // Already selected cells need to collapse
+            if let selectedIndex = selectedIndex,
+                let selectedCell = self.tableView.cellForRow(at: selectedIndex) as? SkillTableViewCell {
+                self.selectedIndex = nil
+                selectedCell.hideDescription()
+            }
+            
+            // Select new index
             selectedIndex = indexPath
             cell.showDescription()
         }

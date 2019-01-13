@@ -37,7 +37,7 @@ final class StatsDataSource: NSObject, EditorValueReciever, NotifiesEditorNeeded
                           emp: values.statPoint(for: Stat.Empathy.identifier()) ?? statsModel.value(for: Stat.Empathy).baseValue,
                           rep: values.statPoint(for: Stat.Reputation.identifier()) ?? statsModel.value(for: Stat.Reputation).baseValue)
         
-        statsModel.set(baseStats: stats, humanityLoss: values.statPoint(for: "Humanity Loss") ?? statsModel.humanityLoss)
+        statsModel.set(baseStats: stats, humanityLoss: values.statPoint(for: "HU. LOSS") ?? statsModel.humanityLoss)
     }
     
     func editorRequested(currentFieldStates: [CurrentFieldState], enforcedOrder: [String], sourceView: UIView) {
@@ -47,7 +47,7 @@ final class StatsDataSource: NSObject, EditorValueReciever, NotifiesEditorNeeded
                                                       entryTypesForIdentifiers: parameters.rowsWithIdentifiers,
                                                       placeholdersWithIdentifiers: parameters.placeholdersWithIdentifiers,
                                                       enforcedOrder: enforcedOrder,
-                                                      labelWidthRatio: 0.7,
+                                                      labelWidthRatio: 0.5,
                                                       includeSpaceForButtons: true)
         let editorConstructor = EditorConstructor(dataSource: self,
                                                   viewModel: popoverViewModel,
