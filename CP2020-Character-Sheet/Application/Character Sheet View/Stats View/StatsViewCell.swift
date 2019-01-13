@@ -123,7 +123,7 @@ final class StatsViewCell: UICollectionViewCell, StatsDataSourceDelegate, UsedOn
         var enforcedOrder = Stat.enforcedOrder()
         
         // TODO: Remove this when humanity loss is calculated by cyberwear
-        let humanityLossIdentifier = "Humanity Loss"
+        let humanityLossIdentifier = "Hu. Loss"
         currentFieldStates.append(CurrentFieldState(identifier: humanityLossIdentifier,
                                                     currentValue: "\(dataSource?.humanityLoss ?? 0)",
                                                     entryType: .Integer))

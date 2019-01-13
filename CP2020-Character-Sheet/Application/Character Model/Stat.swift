@@ -75,9 +75,9 @@ enum Stat: String, Codable, CaseIterable, EntryTypeProvider {
     // MARK: EntryTypeProvider
     
     func identifier() -> Identifier {
-        switch self {
-        case .MovementAllowance:
-            return "Move. Allowance"
+        switch self.rawValue {
+        case let string where string.count > 5:
+            return abbreviation()
         default:
             return rawValue
         }

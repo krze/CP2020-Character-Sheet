@@ -37,6 +37,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         super.init(style: .plain)
         self.dataSource.delegate = self
         self.dataSource.getCharacterSkills()
+        addObservers()
     }
     
     override func viewDidLoad() {
@@ -197,15 +198,20 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         self.sections = sections
     }
     
-    private func createObservers() {
-        // TODO: Set up observers for the following:
-        //        skillPointsDidChange
-        //        statsDidChange (maybe? I dont think this controller will be alive during this notification)
-        //        roleDidChange (maybe? See above)
-        //        newSkillAdded
-        //        improvementPointsAdded
-        //        skillPointModifierDidChange
-        //        skillPointStatModifierDidChange
+    private func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(forceRefresh), name: .statsDidChange, object: nil)
+    }
+    
+    @objc private func forceRefresh() {
+        
+        /// Ensures descriptions are hid again in case they were left open
+        if let indexPath = selectedIndex,
+            let cell = self.tableView.cellForRow(at: indexPath) as? SkillTableViewCell {
+            cell.hideDescription()
+            selectedIndex = nil
+        }
+        
+        tableView.reloadData()
     }
 
     /*
