@@ -23,7 +23,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
     
     // MARK: Cell expansion
     
-    private let expandedRowHeight: CGFloat
+    private var expandedRowHeight: CGFloat
     private var selectedIndex: IndexPath?
 
     init(with skillsController: SkillsDataSource,
@@ -84,8 +84,6 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // NEXT: Pop a view when a row is tapped to edit the skill.
-        // - Will need a skill edit view that contains the description. Should the whole view be mutable? Should it have an edit state?
         guard let cell = self.tableView.cellForRow(at: indexPath) as? SkillTableViewCell else {
             return
         }
@@ -134,6 +132,10 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
     // MARK: SkillTableViewCellDelegate
     
     func cellHeightDidChange(_ cell: SkillTableViewCell) {
+        if let rowHeight = cell.heightForDescriptionAboutToDisplay() {
+            expandedRowHeight = rowHeight + SkillTableConstants.rowHeight
+        }
+        
         refreshTableAfterHeightChange()
     }
     

@@ -24,7 +24,7 @@ final class SkillTableViewCell: UITableViewCell {
     private var topView: UIView?
     private var bottomView: UIView?
     
-    private var skillDescription: UITextView?
+    private var skillDescription: UILabel?
     
     private var viewModel: SkillTableViewCellModel?
     private(set) var skillListing: SkillListing?
@@ -39,14 +39,22 @@ final class SkillTableViewCell: UITableViewCell {
         let topView = topViewContainer()
         stack.addArrangedSubview(topView)
         let bottomView = descriptionView(frameAboveHeight: topView.frame.height)
+        stack.addArrangedSubview(bottomView)
+        
+        let topViewHeightConstraint = topView.heightAnchor.constraint(equalToConstant: SkillTableConstants.rowHeight)
+        topViewHeightConstraint.priority = .defaultLow
         
         NSLayoutConstraint.activate([
             stack.topAnchor.constraint(equalTo: contentView.topAnchor),
             stack.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             stack.rightAnchor.constraint(equalTo: contentView.rightAnchor),
             stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            topView.topAnchor.constraint(equalTo: stack.topAnchor),
+            topViewHeightConstraint,
+            bottomView.topAnchor.constraint(equalTo: topView.bottomAnchor)
             ])
         
+        bottomView.isHidden = true
         stack.axis = .vertical
         stack.distribution = .fill
         stack.alignment = .fill
@@ -79,41 +87,34 @@ final class SkillTableViewCell: UITableViewCell {
         updateColumnValues()
     }
     
+    func heightForDescriptionAboutToDisplay() -> CGFloat? {
+        skillDescription?.sizeToFit()
+        return skillDescription?.frame.height
+    }
+    
     func showDescription() {
-        guard let bottomView = bottomView,
-            let topView = topView else {
-            return
-        }
-        stack.addArrangedSubview(bottomView)
-
-        NSLayoutConstraint.activate([
-            bottomView.topAnchor.constraint(equalTo: topView.bottomAnchor),
-            bottomView.bottomAnchor.constraint(equalTo: stack.bottomAnchor),
-            bottomView.widthAnchor.constraint(equalTo: stack.widthAnchor)
-            ])
-        
+        bottomView?.isHidden = false
         delegate?.cellHeightDidChange(self)
     }
     
     func hideDescription() {
-        guard let bottomView = bottomView else {
-            return
-        }
-        
-        stack.removeArrangedSubview(bottomView)
+        bottomView?.isHidden = true
         delegate?.cellHeightDidChange(self)
     }
     
     private func descriptionView(frameAboveHeight: CGFloat) -> UIView {
         let descriptionHeight = contentView.frame.height * 4 - frameAboveHeight
         let descriptionFrame = CGRect(x: 0.0, y: frameAboveHeight, width: contentView.frame.width, height: descriptionHeight)
-        let skillDescription = descriptionBox(frame: descriptionFrame)
-        skillDescription.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        let margins = NSDirectionalEdgeInsets(top: 0,
+                                              leading: descriptionFrame.width * StyleConstants.SizeConstants.textPaddingRatio,
+                                              bottom: 0,
+                                              trailing: descriptionFrame.width * StyleConstants.SizeConstants.textPaddingRatio)
+        let skillDescription = UILabel.container(frame: descriptionFrame, margins: margins, backgroundColor: StyleConstants.Color.light, borderColor: nil, borderWidth: nil, labelMaker: descriptionBox)
         
-        skillDescription.translatesAutoresizingMaskIntoConstraints = false
-        self.skillDescription = skillDescription
+        skillDescription.container.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        skillDescription.container.translatesAutoresizingMaskIntoConstraints = false
         
-        return skillDescription
+        return skillDescription.container
     }
     
     /// Update the skill listing for the table view.
@@ -147,8 +148,7 @@ final class SkillTableViewCell: UITableViewCell {
         total?.fitTextToBounds(maximumSize: viewModel.fontSize)
         
         skillDescription?.text = skillListing.skill.description
-        skillDescription?.font = StyleConstants.Font.light?.withSize(StyleConstants.Font.minimumSize)
-        
+        skillDescription?.font = StyleConstants.Font.defaultFont?.withSize(StyleConstants.Font.minimumSize)
     }
     
     private func columnLabel(frame: CGRect) -> UILabel {
@@ -255,11 +255,13 @@ final class SkillTableViewCell: UITableViewCell {
         return topViewContainer
     }
     
-    private func descriptionBox(frame: CGRect) -> UITextView {
-        let textView = UITextView(frame: frame)
-        textView.translatesAutoresizingMaskIntoConstraints = false
+    private func descriptionBox(frame: CGRect) -> UILabel {
+        let descriptionBox = UILabel(frame: frame)
+        descriptionBox.translatesAutoresizingMaskIntoConstraints = false
+        descriptionBox.numberOfLines = 0
+        skillDescription = descriptionBox
         
-        return textView
+        return descriptionBox
     }
     
     override func prepareForReuse() {
