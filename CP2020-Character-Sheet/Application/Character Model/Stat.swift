@@ -76,10 +76,10 @@ enum Stat: String, Codable, CaseIterable, EntryTypeProvider {
     
     func identifier() -> Identifier {
         switch self.rawValue {
-        case let string where string.count > 5:
+        case let string where string.count > 8:
             return abbreviation()
         default:
-            return rawValue
+            return rawValue.uppercased()
         }
     }
     
