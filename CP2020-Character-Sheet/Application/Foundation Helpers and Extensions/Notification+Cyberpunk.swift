@@ -11,7 +11,6 @@ import Foundation
 extension Notification.Name {
     
     static let edgerunnerLoaded = Notification.Name("edgerunnerLoaded")
-    static let showSkillTable = Notification.Name("showSkillTable")
     static let skillPointsDidChange = Notification.Name("skillPointsDidChange")
     static let statsDidChange = Notification.Name("statsDidChange")
     static let roleDidChange = Notification.Name("roleDidChange")
@@ -20,5 +19,12 @@ extension Notification.Name {
     static let skillPointModifierDidChange = Notification.Name("skillPointModifierDidChange")
     static let skillPointStatModifierDidChange = Notification.Name("skillPointStatModifierDidChange")
     static let nameAndHandleDidChange = Notification.Name("nameAndHandleDidChange")
+    
+    // Popovers
     static let showEditor = Notification.Name("showEditor")
+    static let showSkillDetail = Notification.Name("showSkillDetail")
+    
+    // Navigation
+    static let showSkillTable = Notification.Name("showSkillTable")
+
 }

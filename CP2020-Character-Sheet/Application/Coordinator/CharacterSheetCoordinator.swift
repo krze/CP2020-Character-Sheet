@@ -72,6 +72,7 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
     private func createObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(showSkillTable(notification:)), name: .showSkillTable, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showEditor(notification:)), name: .showEditor, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showSkillDetail), name: .showSkillDetail, object: nil)
     }
     
     @objc private func showSkillTable(notification: Notification) {
@@ -95,10 +96,7 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
             let editor = constructor.createEditor(withWindow: self.window.frame)
             
             editor.modalPresentationStyle = .overCurrentContext
-            editor.popoverPresentationController?.permittedArrowDirections = .any
             editor.popoverPresentationController?.delegate = editor
-            editor.popoverPresentationController?.sourceView = constructor.popoverSourceView
-            editor.popoverPresentationController?.sourceRect = constructor.popoverSourceView.bounds
             
             self.popoverEditor = editor
             
@@ -106,7 +104,20 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
         }
 
     }
-        
+    
+    @objc private func showSkillDetail(notification: Notification) {
+        DispatchQueue.main.async {
+            
+            let skillDetail = EditableSkillScrollViewController()
+            
+            skillDetail.modalPresentationStyle = .overCurrentContext
+            skillDetail.popoverPresentationController?.permittedArrowDirections = .any
+            skillDetail.popoverPresentationController?.delegate = skillDetail
+
+            self.navigationController.present(skillDetail, animated: true)
+        }
+    }
+    
     // TODO: Create a method for sending messages between the damage cells and the damage modifier view
     
     // TODO: Create a method for sending messages between the stat view and the skill view
