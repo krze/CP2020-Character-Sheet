@@ -19,6 +19,8 @@ struct PopoverEditorViewModel: PopoverViewFrameProvider, EditorViewModel, Stacke
     /// A representation of the placeholder values for the entry views
     let placeholdersWithIdentifiers: [Identifier: String]?
     
+    let descriptionsWithIdentifiers: [Identifier : String]? = nil
+    
     /// An array representing the order of the editable cells
     let enforcedOrder: [Identifier]
     

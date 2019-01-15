@@ -108,13 +108,13 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
     @objc private func showSkillDetail(notification: Notification) {
         DispatchQueue.main.async {
             
-            let skillDetail = EditableScrollViewController()
-            
-            skillDetail.modalPresentationStyle = .overCurrentContext
-            skillDetail.popoverPresentationController?.permittedArrowDirections = .any
-            skillDetail.popoverPresentationController?.delegate = skillDetail
-
-            self.navigationController.present(skillDetail, animated: true)
+//            let skillDetail = EditableScrollViewController()
+//            
+//            skillDetail.modalPresentationStyle = .overCurrentContext
+//            skillDetail.popoverPresentationController?.permittedArrowDirections = .any
+//            skillDetail.popoverPresentationController?.delegate = skillDetail
+//
+//            self.navigationController.present(skillDetail, animated: true)
         }
     }
     

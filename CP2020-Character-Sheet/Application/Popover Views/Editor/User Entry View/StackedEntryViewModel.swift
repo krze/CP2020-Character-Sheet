@@ -19,6 +19,9 @@ protocol StackedEntryViewModel {
     /// A dictionary of Identifiers associated with the placeholder text for that field.
     var placeholdersWithIdentifiers: [Identifier: String]? { get }
     
+    /// A dictionary of Identifiers associated with helper descriptions
+    var descriptionsWithIdentifiers: [Identifier: String]? { get }
+    
     /// The enforced order of the rows, using identifiers.
     var enforcedOrder: [Identifier] { get }
     

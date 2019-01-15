@@ -37,13 +37,7 @@ struct UserEntryViewCollectionFactory {
         let entryViewSize = userEntrySize(fromView: targetView, includeButtonHeight: viewModel.includeSpaceForButtons)
         let multipleColumns = viewModel.numberOfColumns > 1
         
-        var reversedSortedMutableRowsWithIdentifiers = viewModel.entryTypesForIdentifiers.sorted(by: { this, next in
-            guard let thisIndex = viewModel.enforcedOrder.firstIndex(of: this.key),
-                let nextIndex = viewModel.enforcedOrder.firstIndex(of: next.key) else {
-                    return false
-            }
-            return thisIndex < nextIndex
-        }).reversed().map { $0 }
+        var reversedSortedMutableRowsWithIdentifiers = reversedSortedEntryRows()
         
         var views = [UserEntryView]()
         var leadingAnchor = targetView.leadingAnchor
@@ -102,6 +96,37 @@ struct UserEntryViewCollectionFactory {
         }
         
         return views
+    }
+    
+    
+    mutating func stackedEntryRows(frame: CGRect, windowForPicker pickerWindow: CGRect?) -> (stackView: UIStackView, entryRows: [UserEntryView]) {
+        var reversedSortedEntryRows = self.reversedSortedEntryRows()
+        var entryRows = [UserEntryView]()
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        while !reversedSortedEntryRows.isEmpty {
+            guard let (identifierText, type) = reversedSortedEntryRows.popLast(),
+                let placeholder = viewModel.placeholdersWithIdentifiers?[identifierText],
+                let description = viewModel.descriptionsWithIdentifiers?[identifierText] else { break }
+            
+            let stackedUserEntryViewModel = UserEntryViewModel(type: type, headerText: identifierText, descriptionText: description, placeholderText: placeholder)
+            let userEntryView = UserEntryView(viewModel: stackedUserEntryViewModel, frame: frame, windowForPicker: pickerWindow)
+
+        }
+        
+        
+        return (stackView: stackView, entryRows: entryRows)
+    }
+    
+    private func reversedSortedEntryRows() -> [(key: Identifier, value: EntryType)] {
+        return viewModel.entryTypesForIdentifiers.sorted(by: { this, next in
+            guard let thisIndex = viewModel.enforcedOrder.firstIndex(of: this.key),
+                let nextIndex = viewModel.enforcedOrder.firstIndex(of: next.key) else {
+                    return false
+            }
+            return thisIndex < nextIndex
+        }).reversed().map { $0 }
     }
     
     /// Creates a frame for the user entry views

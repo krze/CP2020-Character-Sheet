@@ -8,7 +8,25 @@
 
 import UIKit
 
-struct EditableScrollViewModel: MarginCreator {
+struct EditableScrollViewModel: StackedEntryViewModel, MarginCreator {
+    
+
+    let entryTypesForIdentifiers: [Identifier : EntryType]
+    
+    let placeholdersWithIdentifiers: [Identifier : String]?
+    let descriptionsWithIdentifiers: [Identifier : String]?
+
+    let enforcedOrder: [Identifier]
+    
+    let labelWidthRatio: CGFloat = 1.0
+    
+    let numberOfColumns: Int = 1
+    
+    let numberOfRows: Int
+    
+    let includeSpaceForButtons: Bool
+    
+    let minimumHeightForAllRows: CGFloat
     
     let paddingRatio: CGFloat = StyleConstants.SizeConstants.textPaddingRatio
     
@@ -17,9 +35,6 @@ struct EditableScrollViewModel: MarginCreator {
     let blueColor = StyleConstants.Color.blue
     let redColor = StyleConstants.Color.red
     
-    func userEntryViewModel(for entryType: EntryType, header: String, description: String = "", placeholder: String = "") -> UserEntryViewModel {
-        return UserEntryViewModel(type: entryType, headerText: header, descriptionText: description, placeholderText: placeholder)
-    }
 }
 
 struct EditableScrollViewModelConstants {
