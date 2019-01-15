@@ -20,6 +20,9 @@ enum EntryType {
     
     /// Picker for an array of Strings.
     case Picker([String])
+    
+    /// Raw text entry that needs more than one line. Spell checking is not enforced.
+    case LongFormText
 }
 
 protocol EntryTypeProvider {

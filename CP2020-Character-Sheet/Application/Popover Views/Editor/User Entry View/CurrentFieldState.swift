@@ -11,9 +11,16 @@ import Foundation
 struct CurrentFieldState {
     
     let identifier: Identifier
+    let description: String?
     let currentValue: String
     let entryType: EntryType
     
+    init(identifier: Identifier, currentValue: String, entryType: EntryType) {
+        self.identifier = identifier
+        self.currentValue = currentValue
+        self.entryType = entryType
+        self.description = nil
+    }
 }
 
 extension Array where Element == CurrentFieldState {

@@ -42,7 +42,7 @@ final class UserEntryView: UIView, UIPickerViewDelegate, UIPickerViewDataSource 
 
     init(viewModel: UserEntryViewModel, frame: CGRect, windowForPicker: CGRect?) {
         type = viewModel.type
-        identifier = viewModel.labelText
+        identifier = viewModel.identifierText
         
         switch type {
         case .Picker(let strings):
@@ -88,46 +88,114 @@ final class UserEntryView: UIView, UIPickerViewDelegate, UIPickerViewDataSource 
         selectedRow = row
     }
     
+    // MARK: UIPickerViewDelegate
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let pickerLabel = view as? UILabel ?? {
+            let pickerLabel = UILabel()
+            pickerLabel.font = viewModel.inputFont
+            pickerLabel.textAlignment = .center
+            
+            return pickerLabel
+            }()
+        
+        pickerLabel.text = pickerChoices?[row]
+        
+        return pickerLabel
+    }
+    
     // MARK: Private
     
     private func setupSubviews() {
-        let labelViewWidth = frame.width * viewModel.labelWidthRatio
-        let labelViewFrame = CGRect(x: frame.minX,
-                                    y: frame.minY,
-                                    width: labelViewWidth,
-                                    height: frame.height)
-        let labelViewMargins = viewModel.createInsets(with: labelViewFrame)
-        let labelView = UILabel.container(frame: labelViewFrame, margins: labelViewMargins, backgroundColor: viewModel.lightColor, borderColor: nil, borderWidth: nil, labelMaker: label)
+        let stacked = viewModel.stacked
         
-        addUnderline(to: labelView.container)
+        let headerWidth = frame.width * viewModel.identifierWidthRatio
+        let headerHeight = stacked ? viewModel.headerHeight + viewModel.descriptionHeight : frame.height
+        let labelSize = CGSize(width: headerWidth, height: headerHeight)
         
-        addSubview(labelView.container)
+        let labelView = stacked && !viewModel.descriptionText.isEmpty ? stackedHeaderWithDescription(sizeForBothViews: labelSize) : headerView(size: labelSize)
+        
+        if !stacked {
+            addUnderline(to: labelView)
+        }
+        
+        addSubview(labelView)
         NSLayoutConstraint.activate([
-            labelView.container.heightAnchor.constraint(equalToConstant: frame.height),
-            labelView.container.widthAnchor.constraint(equalToConstant: labelViewWidth),
-            labelView.container.leadingAnchor.constraint(equalTo: leadingAnchor),
-            labelView.container.topAnchor.constraint(equalTo: topAnchor)
+            labelView.heightAnchor.constraint(equalToConstant: headerHeight),
+            labelView.widthAnchor.constraint(equalToConstant: headerWidth),
+            labelView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            labelView.topAnchor.constraint(equalTo: topAnchor)
             ])
         
+        let inputViewHeight = stacked ? viewModel.inputHeight : frame.height
         let inputViewWidth = frame.width * viewModel.inputWidthRatio
-        let inputViewFrame = CGRect(x: labelViewFrame.width,
-                                    y: frame.height,
+        let inputViewFrame = CGRect(x: headerWidth,
+                                    y: headerHeight,
                                     width: inputViewWidth,
-                                    height: frame.height)
+                                    height: inputViewHeight)
         let inputView = createInputView(for: type, frame: inputViewFrame)
-        
+        let inputViewTopAnchor = stacked ? labelView.bottomAnchor : topAnchor
+        let inputViewLeadingAnchor = stacked ? leadingAnchor : labelView.trailingAnchor
         addSubview(inputView)
         NSLayoutConstraint.activate([
-            inputView.heightAnchor.constraint(equalToConstant: frame.height),
+            inputView.heightAnchor.constraint(equalToConstant: inputViewHeight),
             inputView.widthAnchor.constraint(equalToConstant: inputViewWidth),
-            inputView.leadingAnchor.constraint(equalTo: labelView.container.trailingAnchor),
-            inputView.topAnchor.constraint(equalTo: topAnchor)
+            inputView.leadingAnchor.constraint(equalTo: inputViewLeadingAnchor),
+            inputView.topAnchor.constraint(equalTo: inputViewTopAnchor)
             ])
+    }
+    
+    private func stackedHeaderWithDescription(sizeForBothViews size: CGSize) -> UIView {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let header = headerView(size: CGSize(width: size.width, height: viewModel.headerHeight), fullHeight: true)
+        let description = descriptionView(size: CGSize(width: size.width, height: viewModel.descriptionHeight), fullHeight: true)
+        
+        stackView.addArrangedSubview(header)
+        stackView.addArrangedSubview(description.container)
+        
+        NSLayoutConstraint.activate([
+            header.heightAnchor.constraint(equalToConstant: viewModel.headerHeight),
+            description.container.heightAnchor.constraint(equalToConstant: viewModel.descriptionHeight)
+            ])
+        
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.spacing = 0
+        
+        return stackView
+    }
+    
+    private func headerView(size: CGSize, fullHeight: Bool = false) -> UIView {
+        let labelViewFrame = CGRect(x: 0,
+                                    y: 0,
+                                    width: size.width,
+                                    height: size.height)
+        let labelViewMargins = viewModel.createInsets(with: labelViewFrame, fullHeight: fullHeight)
+        let labelView = UILabel.container(frame: labelViewFrame, margins: labelViewMargins, backgroundColor: viewModel.lightColor, borderColor: nil, borderWidth: nil, labelMaker: headerLabel)
+        
+        return labelView.container
+    }
+    
+    private func descriptionView(size: CGSize, fullHeight: Bool = false) -> (container: UIView, label: UILabel) {
+        let labelViewFrame = CGRect(x: 0,
+                                    y: 0,
+                                    width: size.width,
+                                    height: size.height)
+        let labelViewMargins = viewModel.createInsets(with: labelViewFrame, fullHeight: fullHeight)
+        let labelView = UILabel.container(frame: labelViewFrame, margins: labelViewMargins, backgroundColor: viewModel.lightColor, borderColor: nil, borderWidth: nil, labelMaker: headerLabel)
+        labelView.label.text = viewModel.descriptionText
+        labelView.label.font = viewModel.descriptionFont?.withSize(12.0)
+        labelView.label.numberOfLines = 0
+        
+        return labelView
     }
     
     private func createInputView(for: EntryType, frame: CGRect) -> UIView {
         switch type {
-        case .Text:
+        case .Text, .LongFormText:
             let textField = self.textField(frame: frame)
             self.textField = textField
             
@@ -163,14 +231,14 @@ final class UserEntryView: UIView, UIPickerViewDelegate, UIPickerViewDataSource 
         }
     }
     
-    private func label(frame: CGRect) -> UILabel {
+    private func headerLabel(frame: CGRect) -> UILabel {
         let label = UILabel(frame: frame)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         label.font = viewModel.labelFont
         label.backgroundColor = viewModel.lightColor
         label.textColor = viewModel.darkColor
-        label.text = "\(viewModel.labelText):"
+        label.text = "\(viewModel.identifierText):"
         label.textAlignment = .right
         label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
         
@@ -273,19 +341,4 @@ final class UserEntryView: UIView, UIPickerViewDelegate, UIPickerViewDataSource 
         view.layer.masksToBounds = true
     }
     
-    // MARK: UIPickerViewDelegate
-    
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        let pickerLabel = view as? UILabel ?? {
-            let pickerLabel = UILabel()
-            pickerLabel.font = viewModel.inputFont
-            pickerLabel.textAlignment = .center
-            
-            return pickerLabel
-        }()
-        
-        pickerLabel.text = pickerChoices?[row]
-        
-        return pickerLabel
-    }
 }

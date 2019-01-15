@@ -10,12 +10,12 @@ import UIKit
 
 /// A helper factory to construct UserEntryView collections
 struct UserEntryViewCollectionFactory {
-    let viewModel: PopoverEditorViewModel // Eventually this will have to be more generic, maybe make the necessary items a protocol.
+    let viewModel: StackedEntryViewModel // Eventually this will have to be more generic, maybe make the necessary items a protocol.
     private(set) var bottomAnchorForLastRow: NSLayoutYAxisAnchor?
     private(set) var buttonBarPoint: CGPoint?
     private(set) var buttonBarHeight: CGFloat?
     
-    init(viewModel: PopoverEditorViewModel) {
+    init(viewModel: StackedEntryViewModel) {
         self.viewModel = viewModel
     }
     
@@ -53,12 +53,12 @@ struct UserEntryViewCollectionFactory {
         var columnNumber = 1
         
         while !reversedSortedMutableRowsWithIdentifiers.isEmpty {
-            guard let (labelText, type) = reversedSortedMutableRowsWithIdentifiers.popLast(),
-                let placeholder = viewModel.placeholdersWithIdentifiers?[labelText] else { break }
+            guard let (identifierText, type) = reversedSortedMutableRowsWithIdentifiers.popLast(),
+                let placeholder = viewModel.placeholdersWithIdentifiers?[identifierText] else { break }
             
             let userEntryViewModel = UserEntryViewModel(type: type,
-                                                        labelText: labelText,
-                                                        labelWidthRatio: viewModel.labelWidthRatio,
+                                                        identifierText: identifierText,
+                                                        identifierWidthRatio: viewModel.labelWidthRatio,
                                                         placeholder: placeholder)
             let frame = CGRect(x: x, y: y, width: entryViewSize.width, height: entryViewSize.height)
             let userEntryView = UserEntryView(viewModel: userEntryViewModel, frame: frame, windowForPicker: pickerWindow)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct PopoverEditorViewModel: PopoverViewFrameProvider, EditorViewModel, MarginCreator {
+struct PopoverEditorViewModel: PopoverViewFrameProvider, EditorViewModel, StackedEntryViewModel, MarginCreator {
     
     /// The number of editable rows
     let numberOfRows: Int

@@ -20,15 +20,18 @@ protocol MarginCreator {
     ///
     /// - Parameter frame: The frame on which the padding will be added to
     /// - Returns: NSDirectionalEdgeInsets for the padding/margins/insets/whatever
-    func createInsets(with frame: CGRect) -> NSDirectionalEdgeInsets
+    func createInsets(with frame: CGRect, fullHeight: Bool, fullWidth: Bool) -> NSDirectionalEdgeInsets
 }
 
 extension MarginCreator {
     
-    func createInsets(with frame: CGRect) -> NSDirectionalEdgeInsets {
-        return NSDirectionalEdgeInsets(top: frame.height * paddingRatio,
-                                       leading: frame.width * paddingRatio,
-                                       bottom: frame.height * paddingRatio,
-                                       trailing: frame.width * paddingRatio)
+    func createInsets(with frame: CGRect, fullHeight: Bool = false, fullWidth: Bool = false) -> NSDirectionalEdgeInsets {
+        let topAndBottomPadding = fullHeight ? frame.height : frame.height * paddingRatio
+        let sidePadding = fullWidth ? frame.width : frame.width * paddingRatio
+        
+        return NSDirectionalEdgeInsets(top: topAndBottomPadding,
+                                       leading: sidePadding,
+                                       bottom: topAndBottomPadding,
+                                       trailing: sidePadding)
     }
 }
