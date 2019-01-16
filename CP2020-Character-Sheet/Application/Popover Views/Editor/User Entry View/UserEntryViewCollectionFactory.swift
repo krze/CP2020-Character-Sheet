@@ -29,6 +29,7 @@ struct UserEntryViewCollectionFactory {
     }
     
     /// Adds the UserEntryViews to the targetView provided.
+    /// TODO: Deprecate this with EditorViewController when it is replaced.
     ///
     /// - Parameter targetView: The view to which you want to add a collection of UserEntryViews
     /// - Parameter windowForPicker: The frame representing the window in case a picker needs to be presented.
@@ -98,8 +99,13 @@ struct UserEntryViewCollectionFactory {
         return views
     }
     
-    
-    mutating func stackedEntryRows(frame: CGRect, windowForPicker pickerWindow: CGRect?) -> (stackView: UIStackView, entryRows: [UserEntryView]) {
+    /// Creates a vertical stack of full-width user entry views
+    ///
+    /// - Parameters:
+    ///   - frame: The frame to contain the stack
+    ///   - pickerWindow: The target picker window for picker wheel user entry fields
+    /// - Returns: Tuple containing the UIStackView with all the fields, and an array of UserEntryViews to grab their states.
+    func stackedEntryRows(frame: CGRect, windowForPicker pickerWindow: CGRect?) -> (stackView: UIStackView, entryRows: [UserEntryView]) {
         var reversedSortedEntryRows = self.reversedSortedEntryRows()
         var entryRows = [UserEntryView]()
         let stackView = UIStackView()
@@ -109,10 +115,13 @@ struct UserEntryViewCollectionFactory {
             guard let (identifierText, type) = reversedSortedEntryRows.popLast(),
                 let placeholder = viewModel.placeholdersWithIdentifiers?[identifierText],
                 let description = viewModel.descriptionsWithIdentifiers?[identifierText] else { break }
-            
             let stackedUserEntryViewModel = UserEntryViewModel(type: type, headerText: identifierText, descriptionText: description, placeholderText: placeholder)
+            let frame = CGRect(x: 0, y: 0, width: frame.width, height: stackedUserEntryViewModel.stackHeight)
             let userEntryView = UserEntryView(viewModel: stackedUserEntryViewModel, frame: frame, windowForPicker: pickerWindow)
-
+            
+            entryRows.append(userEntryView)
+            stackView.addArrangedSubview(userEntryView)
+            userEntryView.heightAnchor.constraint(equalToConstant: stackedUserEntryViewModel.stackHeight).isActive = true
         }
         
         

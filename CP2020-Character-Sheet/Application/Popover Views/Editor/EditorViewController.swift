@@ -11,8 +11,7 @@ import UIKit
 /// An editor view controller used for popups. In the future, this will need to be adapted to be used for single-view instead of
 /// popups, as there are hard-coded functions to dismiss the view when close or confirm buttons are tapped.
 ///
-/// TODO: This class will be used for the character building flow on first launch, when implemented. It will not operate as a popover,
-/// but rather a sequence of views. This view will need to be adapted to segue between each step of the character creation flow
+/// TODO: Deprecate this in favor of the new EditableScrollViewController
 final class EditorViewController: UIViewController, UserEntryViewDelegate, UIPopoverPresentationControllerDelegate, UITextViewDelegate {
     
     private let popoverFrame: CGRect

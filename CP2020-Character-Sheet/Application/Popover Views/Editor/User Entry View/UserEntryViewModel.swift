@@ -27,6 +27,10 @@ struct UserEntryViewModel: MarginCreator {
     let descriptionHeight: CGFloat
     let inputHeight: CGFloat
     
+    var stackHeight: CGFloat {
+        return headerHeight + descriptionHeight + inputHeight
+    }
+    
     let lightColor = StyleConstants.Color.light
     let darkColor = StyleConstants.Color.dark
     let confirmColor = StyleConstants.Color.blue
@@ -85,7 +89,14 @@ struct UserEntryViewModel: MarginCreator {
         self.stacked = true
         self.headerHeight = EditableScrollViewModelConstants.headerRowHeight
         self.descriptionHeight = EditableScrollViewModelConstants.descriptionRowHeight
-        self.inputHeight = EditableScrollViewModelConstants.editableSingleLineRowHeight
+        self.inputHeight = {
+            switch type {
+            case .LongFormText:
+                return EditableScrollViewModelConstants.editableMultiLineRowHeightMaximum
+            default:
+                return EditableScrollViewModelConstants.editableSingleLineRowHeight
+            }
+        }()
     }
     
 }

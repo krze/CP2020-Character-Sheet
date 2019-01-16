@@ -6,11 +6,12 @@
 //  Copyright © 2018 Ken Krzeminski. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /// Manages the array of skills to display in skill tables and signals the model to update
 /// when values have changed
-final class SkillsDataSource {
+final class SkillsDataSource: NotifiesEditorNeeded {
+    
     private let model: SkillModel
     private var allSkills = [SkillListing]()
     private var characterSkills = [SkillListing]() {
@@ -99,5 +100,9 @@ final class SkillsDataSource {
         }
         
         return skills
+    }
+    
+    func editorRequested(currentFieldStates: [CurrentFieldState], enforcedOrder: [String], sourceView: UIView) {
+        
     }
 }

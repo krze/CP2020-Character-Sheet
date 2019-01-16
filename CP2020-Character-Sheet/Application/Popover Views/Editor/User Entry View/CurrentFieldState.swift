@@ -25,7 +25,7 @@ struct CurrentFieldState {
 
 extension Array where Element == CurrentFieldState {
     
-    func popoverViewModelParameters() -> (rowsWithIdentifiers: [String: EntryType], entryTypes: [EntryType], placeholdersWithIdentifiers: [Identifier: String]){
+    func popoverViewModelParameters() -> (rowsWithIdentifiers: [String: EntryType], entryTypes: [EntryType], placeholdersWithIdentifiers: [Identifier: String]) {
         var rowsWithIdentifiers = [Identifier: EntryType]()
         var entryTypes = [EntryType]()
         var placeholdersWithIdentifiers = [String: String]()

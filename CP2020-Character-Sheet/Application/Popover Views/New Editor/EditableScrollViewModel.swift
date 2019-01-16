@@ -20,13 +20,25 @@ struct EditableScrollViewModel: StackedEntryViewModel, MarginCreator {
     
     let labelWidthRatio: CGFloat = 1.0
     
-    let numberOfColumns: Int = 1
+    let numberOfColumns: Int = 1 // TODO: Resolve the issue of multiple columns
     
     let numberOfRows: Int
     
     let includeSpaceForButtons: Bool
     
-    let minimumHeightForAllRows: CGFloat
+    var minimumHeightForAllRows: CGFloat {
+        var height: CGFloat = 0
+        entryTypesForIdentifiers.forEach { _, entryType in
+            switch entryType {
+            case .LongFormText:
+                height += EditableScrollViewModelConstants.editableMultiLineRowHeightMaximum
+            default:
+                height += EditableScrollViewModelConstants.editableSingleLineRowHeight
+            }
+        }
+        
+        return height
+    }
     
     let paddingRatio: CGFloat = StyleConstants.SizeConstants.textPaddingRatio
     
