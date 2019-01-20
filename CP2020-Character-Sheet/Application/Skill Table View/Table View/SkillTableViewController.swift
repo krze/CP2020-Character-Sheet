@@ -89,7 +89,11 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
             return
         }
         
-        NotificationCenter.default.post(name: .showSkillDetail, object: nil)
+        if let listing = cell.skillListing {
+            let viewModel = EditableScrollViewModel.model(from: listing)
+            NotificationCenter.default.post(name: .showSkillDetail, object: viewModel)
+        }
+
 //        // Deselect
 //        if selectedIndex == indexPath {
 //            selectedIndex = nil

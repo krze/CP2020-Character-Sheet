@@ -40,7 +40,7 @@ final class EditableScrollViewController: UIViewController, UIPopoverPresentatio
         self.viewModel = viewModel
         let placeholderFrame = CGRect(origin: CGPoint.zero, size: size)
         self.printerPaperView = PrinterPaperView(frame: placeholderFrame, viewModel: PrinterPaperViewModel())
-        let rows = UserEntryViewCollectionFactory(viewModel: viewModel).stackedEntryRows(frame: printerPaperView.contentView.frame, windowForPicker: nil)
+        let rows = UserEntryViewCollectionFactory(viewModel: viewModel).stackedEntryRows(frame: printerPaperView.contentView.frame, windowForPicker: printerPaperView.contentView.frame)
         self.stackView = rows.stackView
         self.fields = rows.entryRows
         super.init(nibName: nil, bundle: nil)

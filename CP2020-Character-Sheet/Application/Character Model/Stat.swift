@@ -91,4 +91,8 @@ enum Stat: String, Codable, CaseIterable, EntryTypeProvider {
         return allCases.map { $0.identifier() }
     }
     
+    static func linkedStats() -> [Stat] {
+        return [.Intelligence, .Tech, .Cool, .Reflex, .Attractiveness, .Body, .Empathy]
+    }
+    
 }

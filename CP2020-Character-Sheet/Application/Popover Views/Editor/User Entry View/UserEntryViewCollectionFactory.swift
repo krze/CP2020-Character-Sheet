@@ -111,6 +111,11 @@ struct UserEntryViewCollectionFactory {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.spacing = 0
+        
         while !reversedSortedEntryRows.isEmpty {
             guard let (identifierText, type) = reversedSortedEntryRows.popLast(),
                 let placeholder = viewModel.placeholdersWithIdentifiers?[identifierText],
@@ -121,7 +126,9 @@ struct UserEntryViewCollectionFactory {
             
             entryRows.append(userEntryView)
             stackView.addArrangedSubview(userEntryView)
+            
             userEntryView.heightAnchor.constraint(equalToConstant: stackedUserEntryViewModel.stackHeight).isActive = true
+            userEntryView.widthAnchor.constraint(equalToConstant: frame.width).isActive = true
         }
         
         

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D0003A021F4FC3C0044F84A /* EditableScrollViewModel+SkillListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D00039F21F4FC3C0044F84A /* EditableScrollViewModel+SkillListing.swift */; };
+		9D0003A221F4FD080044F84A /* SkillField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0003A121F4FD080044F84A /* SkillField.swift */; };
 		9D004E2521D59B9E004DFA4D /* SkillsDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E2421D59B9E004DFA4D /* SkillsDataSourceDelegate.swift */; };
 		9D004E2721D5A97D004DFA4D /* ModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E2621D5A97D004DFA4D /* ModelManager.swift */; };
 		9D004E2B21D6E282004DFA4D /* PrinterPaperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E2A21D6E282004DFA4D /* PrinterPaperView.swift */; };
@@ -117,6 +119,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D00039F21F4FC3C0044F84A /* EditableScrollViewModel+SkillListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditableScrollViewModel+SkillListing.swift"; sourceTree = "<group>"; };
+		9D0003A121F4FD080044F84A /* SkillField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillField.swift; sourceTree = "<group>"; };
 		9D004E2421D59B9E004DFA4D /* SkillsDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsDataSourceDelegate.swift; sourceTree = "<group>"; };
 		9D004E2621D5A97D004DFA4D /* ModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelManager.swift; sourceTree = "<group>"; };
 		9D004E2A21D6E282004DFA4D /* PrinterPaperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterPaperView.swift; sourceTree = "<group>"; };
@@ -313,6 +317,7 @@
 			children = (
 				9D3761E721EBFACE0027513E /* EditableScrollViewController.swift */,
 				9D3761EE21EE70AF0027513E /* EditableScrollViewModel.swift */,
+				9D00039F21F4FC3C0044F84A /* EditableScrollViewModel+SkillListing.swift */,
 			);
 			path = "New Editor";
 			sourceTree = "<group>";
@@ -519,6 +524,7 @@
 				9D2CFA0B21C59D7900EC76D7 /* Role.swift */,
 				9DCD370421CC105900EE00D9 /* Skill.swift */,
 				9DCD370621CC135A00EE00D9 /* SkillListing.swift */,
+				9D0003A121F4FD080044F84A /* SkillField.swift */,
 				9DFCB7B121D150D500F99798 /* Model Protocols */,
 			);
 			path = "Character Model";
@@ -740,6 +746,7 @@
 				9D004E6521E11CC3004DFA4D /* EditorViewButtonBar.swift in Sources */,
 				9D24375621A091AF0084E77D /* CharacterSheetSections.swift in Sources */,
 				9DFCB7AE21D14EC400F99798 /* SkillsDataSource.swift in Sources */,
+				9D0003A221F4FD080044F84A /* SkillField.swift in Sources */,
 				9D004E4F21D972C1004DFA4D /* UserEntryViewDelegate.swift in Sources */,
 				9D552CFC21ACE775008B90E9 /* UIFont+BestFit.swift in Sources */,
 				9DCD370521CC105900EE00D9 /* Skill.swift in Sources */,
@@ -787,6 +794,7 @@
 				9DFCB7A721D0666100F99798 /* Edgerunner.swift in Sources */,
 				9DE335A121A9EA7900180927 /* RoleDescriptionViewCell.swift in Sources */,
 				9D004E6121DC44F5004DFA4D /* StatsDataSource.swift in Sources */,
+				9D0003A021F4FC3C0044F84A /* EditableScrollViewModel+SkillListing.swift in Sources */,
 				9DCD371721CD6E5B00EE00D9 /* SkillTableConstants.swift in Sources */,
 				9D3761EB21EE704E0027513E /* SkillStrings.swift in Sources */,
 				9D004E2521D59B9E004DFA4D /* SkillsDataSourceDelegate.swift in Sources */,

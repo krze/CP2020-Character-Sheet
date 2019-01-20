@@ -153,11 +153,13 @@ final class UserEntryView: UIView, UIPickerViewDelegate, UIPickerViewDataSource 
         let description = descriptionView(size: CGSize(width: size.width, height: viewModel.descriptionHeight), fullHeight: true)
         
         stackView.addArrangedSubview(header)
-        stackView.addArrangedSubview(description.container)
+        stackView.addArrangedSubview(description)
         
         NSLayoutConstraint.activate([
             header.heightAnchor.constraint(equalToConstant: viewModel.headerHeight),
-            description.container.heightAnchor.constraint(equalToConstant: viewModel.descriptionHeight)
+            header.widthAnchor.constraint(equalToConstant: size.width),
+            description.heightAnchor.constraint(equalToConstant: viewModel.descriptionHeight),
+            description.widthAnchor.constraint(equalToConstant: size.width)
             ])
         
         stackView.axis = .vertical
@@ -176,10 +178,11 @@ final class UserEntryView: UIView, UIPickerViewDelegate, UIPickerViewDataSource 
         let labelViewMargins = viewModel.createInsets(with: labelViewFrame, fullHeight: fullHeight)
         let labelView = UILabel.container(frame: labelViewFrame, margins: labelViewMargins, backgroundColor: viewModel.lightColor, borderColor: nil, borderWidth: nil, labelMaker: headerLabel)
         
-        return labelView.container
+        labelView.label.textAlignment = .left
+        return labelView.label
     }
     
-    private func descriptionView(size: CGSize, fullHeight: Bool = false) -> (container: UIView, label: UILabel) {
+    private func descriptionView(size: CGSize, fullHeight: Bool = false) -> UIView {
         let labelViewFrame = CGRect(x: 0,
                                     y: 0,
                                     width: size.width,
@@ -189,8 +192,8 @@ final class UserEntryView: UIView, UIPickerViewDelegate, UIPickerViewDataSource 
         labelView.label.text = viewModel.descriptionText
         labelView.label.font = viewModel.descriptionFont?.withSize(12.0)
         labelView.label.numberOfLines = 0
-        
-        return labelView
+        labelView.label.textAlignment = .left
+        return labelView.label
     }
     
     private func createInputView(for: EntryType, frame: CGRect) -> UIView {
