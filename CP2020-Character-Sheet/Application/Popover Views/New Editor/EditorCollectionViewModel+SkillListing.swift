@@ -1,16 +1,16 @@
 //
-//  EditableScrollViewModel+SkillListing.swift
+//  EditorCollectionViewModel+SkillListing.swift
 //  CP2020-Character-Sheet
 //
-//  Created by Ken Krzeminski on 1/20/19.
+//  Created by Ken Krzeminski on 1/27/19.
 //  Copyright © 2019 Ken Krzeminski. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-extension EditableScrollViewModel {
+extension EditorCollectionViewModel {
     
-    static func model(from listing: SkillListing) -> EditableScrollViewModel {
+    static func model(from listing: SkillListing) -> EditorCollectionViewModel {
         var entryTypesForIdentifiers = [Identifier: EntryType]()
         var placeholdersWithIdentifiers = [Identifier: String]()
         var descriptionsWithIdentifiers = [Identifier: String]()
@@ -24,12 +24,15 @@ extension EditableScrollViewModel {
             descriptionsWithIdentifiers[identifier] = helpText(for: field)
         }
         
-        return EditableScrollViewModel(entryTypesForIdentifiers: entryTypesForIdentifiers,
-                                       placeholdersWithIdentifiers: placeholdersWithIdentifiers,
-                                       descriptionsWithIdentifiers: descriptionsWithIdentifiers,
-                                       enforcedOrder: SkillField.enforcedOrder(),
-                                       numberOfRows: fields.count,
-                                       includeSpaceForButtons: false)
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = 0
+        
+        return EditorCollectionViewModel(layout: layout,
+                                         entryTypesForIdentifiers: entryTypesForIdentifiers,
+                                         placeholdersWithIdentifiers: placeholdersWithIdentifiers,
+                                         descriptionsWithIdentifiers: descriptionsWithIdentifiers,
+                                         enforcedOrder: SkillField.enforcedOrder())
     }
     
     private static func helpText(for skillField: SkillField) -> String {

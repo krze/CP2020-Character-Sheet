@@ -7,8 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9D0003A021F4FC3C0044F84A /* EditableScrollViewModel+SkillListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D00039F21F4FC3C0044F84A /* EditableScrollViewModel+SkillListing.swift */; };
 		9D0003A221F4FD080044F84A /* SkillField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0003A121F4FD080044F84A /* SkillField.swift */; };
+		9D0003A421FE46000044F84A /* EditorCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0003A321FE46000044F84A /* EditorCollectionViewController.swift */; };
+		9D0003A921FE479D0044F84A /* UserEntryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0003A821FE479D0044F84A /* UserEntryCollectionViewCell.swift */; };
+		9D0003AB21FE48C20044F84A /* TextEntryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0003AA21FE48C20044F84A /* TextEntryCollectionViewCell.swift */; };
+		9D0003AD21FE48E60044F84A /* IntegerEntryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0003AC21FE48E60044F84A /* IntegerEntryCollectionViewCell.swift */; };
+		9D0003AF21FE491D0044F84A /* PickerEntryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0003AE21FE491D0044F84A /* PickerEntryCollectionViewCell.swift */; };
+		9D0003B121FE493C0044F84A /* LongFormTextEntryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0003B021FE493C0044F84A /* LongFormTextEntryCollectionViewCell.swift */; };
+		9D0003B321FE4E9D0044F84A /* EditorStyleConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0003B221FE4E9D0044F84A /* EditorStyleConstants.swift */; };
+		9D0003B521FE54CD0044F84A /* EditorCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0003B421FE54CD0044F84A /* EditorCollectionViewModel.swift */; };
+		9D0003B721FE5CC20044F84A /* EditorCollectionViewModel+SkillListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0003B621FE5CC20044F84A /* EditorCollectionViewModel+SkillListing.swift */; };
 		9D004E2521D59B9E004DFA4D /* SkillsDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E2421D59B9E004DFA4D /* SkillsDataSourceDelegate.swift */; };
 		9D004E2721D5A97D004DFA4D /* ModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E2621D5A97D004DFA4D /* ModelManager.swift */; };
 		9D004E2B21D6E282004DFA4D /* PrinterPaperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E2A21D6E282004DFA4D /* PrinterPaperView.swift */; };
@@ -48,10 +56,8 @@
 		9D2CFA0C21C59D7900EC76D7 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CFA0B21C59D7900EC76D7 /* Role.swift */; };
 		9D3761E421E16AA20027513E /* StatsDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3761E321E16AA20027513E /* StatsDataSourceDelegate.swift */; };
 		9D3761E621EA7AA50027513E /* SkillTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3761E521EA7AA50027513E /* SkillTableViewCellDelegate.swift */; };
-		9D3761E821EBFACE0027513E /* EditableScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3761E721EBFACE0027513E /* EditableScrollViewController.swift */; };
 		9D3761EB21EE704E0027513E /* SkillStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3761EA21EE704E0027513E /* SkillStrings.swift */; };
 		9D3761ED21EE70790027513E /* EditingSkillMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3761EC21EE70790027513E /* EditingSkillMode.swift */; };
-		9D3761EF21EE70AF0027513E /* EditableScrollViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3761EE21EE70AF0027513E /* EditableScrollViewModel.swift */; };
 		9D3761F521EE8B660027513E /* StackedEntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3761F421EE8B660027513E /* StackedEntryViewModel.swift */; };
 		9D552CF221AB0E69008B90E9 /* StyleConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D552CF121AB0E69008B90E9 /* StyleConstants.swift */; };
 		9D552CF421AB1050008B90E9 /* DamageControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D552CF321AB1050008B90E9 /* DamageControllerTests.swift */; };
@@ -119,8 +125,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9D00039F21F4FC3C0044F84A /* EditableScrollViewModel+SkillListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditableScrollViewModel+SkillListing.swift"; sourceTree = "<group>"; };
 		9D0003A121F4FD080044F84A /* SkillField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillField.swift; sourceTree = "<group>"; };
+		9D0003A321FE46000044F84A /* EditorCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCollectionViewController.swift; sourceTree = "<group>"; };
+		9D0003A821FE479D0044F84A /* UserEntryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntryCollectionViewCell.swift; sourceTree = "<group>"; };
+		9D0003AA21FE48C20044F84A /* TextEntryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEntryCollectionViewCell.swift; sourceTree = "<group>"; };
+		9D0003AC21FE48E60044F84A /* IntegerEntryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerEntryCollectionViewCell.swift; sourceTree = "<group>"; };
+		9D0003AE21FE491D0044F84A /* PickerEntryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerEntryCollectionViewCell.swift; sourceTree = "<group>"; };
+		9D0003B021FE493C0044F84A /* LongFormTextEntryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongFormTextEntryCollectionViewCell.swift; sourceTree = "<group>"; };
+		9D0003B221FE4E9D0044F84A /* EditorStyleConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorStyleConstants.swift; sourceTree = "<group>"; };
+		9D0003B421FE54CD0044F84A /* EditorCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCollectionViewModel.swift; sourceTree = "<group>"; };
+		9D0003B621FE5CC20044F84A /* EditorCollectionViewModel+SkillListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorCollectionViewModel+SkillListing.swift"; sourceTree = "<group>"; };
 		9D004E2421D59B9E004DFA4D /* SkillsDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsDataSourceDelegate.swift; sourceTree = "<group>"; };
 		9D004E2621D5A97D004DFA4D /* ModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelManager.swift; sourceTree = "<group>"; };
 		9D004E2A21D6E282004DFA4D /* PrinterPaperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterPaperView.swift; sourceTree = "<group>"; };
@@ -160,10 +174,8 @@
 		9D2CFA0B21C59D7900EC76D7 /* Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
 		9D3761E321E16AA20027513E /* StatsDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsDataSourceDelegate.swift; sourceTree = "<group>"; };
 		9D3761E521EA7AA50027513E /* SkillTableViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillTableViewCellDelegate.swift; sourceTree = "<group>"; };
-		9D3761E721EBFACE0027513E /* EditableScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableScrollViewController.swift; sourceTree = "<group>"; };
 		9D3761EA21EE704E0027513E /* SkillStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillStrings.swift; sourceTree = "<group>"; };
 		9D3761EC21EE70790027513E /* EditingSkillMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingSkillMode.swift; sourceTree = "<group>"; };
-		9D3761EE21EE70AF0027513E /* EditableScrollViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableScrollViewModel.swift; sourceTree = "<group>"; };
 		9D3761F421EE8B660027513E /* StackedEntryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedEntryViewModel.swift; sourceTree = "<group>"; };
 		9D552CF121AB0E69008B90E9 /* StyleConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConstants.swift; sourceTree = "<group>"; };
 		9D552CF321AB1050008B90E9 /* DamageControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageControllerTests.swift; sourceTree = "<group>"; };
@@ -244,6 +256,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D0003B921FE5FA30044F84A /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9D0003AA21FE48C20044F84A /* TextEntryCollectionViewCell.swift */,
+				9D0003AC21FE48E60044F84A /* IntegerEntryCollectionViewCell.swift */,
+				9D0003AE21FE491D0044F84A /* PickerEntryCollectionViewCell.swift */,
+				9D0003B021FE493C0044F84A /* LongFormTextEntryCollectionViewCell.swift */,
+				9D0003A821FE479D0044F84A /* UserEntryCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		9D004E2E21D80A6D004DFA4D /* Popover Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -315,9 +339,11 @@
 		9D3761E921EE702C0027513E /* New Editor */ = {
 			isa = PBXGroup;
 			children = (
-				9D3761E721EBFACE0027513E /* EditableScrollViewController.swift */,
-				9D3761EE21EE70AF0027513E /* EditableScrollViewModel.swift */,
-				9D00039F21F4FC3C0044F84A /* EditableScrollViewModel+SkillListing.swift */,
+				9D0003A321FE46000044F84A /* EditorCollectionViewController.swift */,
+				9D0003B421FE54CD0044F84A /* EditorCollectionViewModel.swift */,
+				9D0003B621FE5CC20044F84A /* EditorCollectionViewModel+SkillListing.swift */,
+				9D0003B221FE4E9D0044F84A /* EditorStyleConstants.swift */,
+				9D0003B921FE5FA30044F84A /* Cells */,
 			);
 			path = "New Editor";
 			sourceTree = "<group>";
@@ -729,13 +755,11 @@
 				9DCD370B21CC239B00EE00D9 /* SkillTableViewController.swift in Sources */,
 				9DFE711721BDA18B000561B0 /* StatsViewCellModel.swift in Sources */,
 				9DFE711321BD933A000561B0 /* StatViewModel.swift in Sources */,
-				9D3761E821EBFACE0027513E /* EditableScrollViewController.swift in Sources */,
 				9DFA19F121CE9EE10092A450 /* Notification+Cyberpunk.swift in Sources */,
 				9DFCB7BE21D5156A00F99798 /* ModelReceiver.swift in Sources */,
 				9D2CFA0821C59B9400EC76D7 /* RoleView.swift in Sources */,
 				9D552CF221AB0E69008B90E9 /* StyleConstants.swift in Sources */,
 				9DFCB7BC21D5121A00F99798 /* CharacterSheetFileHandler.swift in Sources */,
-				9D3761EF21EE70AF0027513E /* EditableScrollViewModel.swift in Sources */,
 				9D004E5B21DADCC3004DFA4D /* UIView+Image.swift in Sources */,
 				9D004E5F21DBDF85004DFA4D /* DismissablePickerView.swift in Sources */,
 				9D004E5321D977AA004DFA4D /* UserEntryViewCollectionFactory.swift in Sources */,
@@ -746,6 +770,7 @@
 				9D004E6521E11CC3004DFA4D /* EditorViewButtonBar.swift in Sources */,
 				9D24375621A091AF0084E77D /* CharacterSheetSections.swift in Sources */,
 				9DFCB7AE21D14EC400F99798 /* SkillsDataSource.swift in Sources */,
+				9D0003A421FE46000044F84A /* EditorCollectionViewController.swift in Sources */,
 				9D0003A221F4FD080044F84A /* SkillField.swift in Sources */,
 				9D004E4F21D972C1004DFA4D /* UserEntryViewDelegate.swift in Sources */,
 				9D552CFC21ACE775008B90E9 /* UIFont+BestFit.swift in Sources */,
@@ -760,7 +785,10 @@
 				9D11763821BDCE0300E297BA /* UILabel+LabelContainer.swift in Sources */,
 				9D552CF621AB266F008B90E9 /* DamageModifierViewModel.swift in Sources */,
 				9D3761E621EA7AA50027513E /* SkillTableViewCellDelegate.swift in Sources */,
+				9D0003B521FE54CD0044F84A /* EditorCollectionViewModel.swift in Sources */,
 				9D5C1F5E21A07E1500B3D493 /* DamageSectionViewModel.swift in Sources */,
+				9D0003B121FE493C0044F84A /* LongFormTextEntryCollectionViewCell.swift in Sources */,
+				9D0003AD21FE48E60044F84A /* IntegerEntryCollectionViewCell.swift in Sources */,
 				9DFE711521BD94FD000561B0 /* Stat.swift in Sources */,
 				9DFCB7BA21D298E000F99798 /* SkillTableViewModel.swift in Sources */,
 				9D004E3121D80C5F004DFA4D /* CharacterDescriptionDataSource.swift in Sources */,
@@ -770,7 +798,10 @@
 				9D5C1F5C21A0794400B3D493 /* DamageSectionView.swift in Sources */,
 				9D3761ED21EE70790027513E /* EditingSkillMode.swift in Sources */,
 				9D2CFA0A21C59BEA00EC76D7 /* RoleViewModel.swift in Sources */,
+				9D0003B721FE5CC20044F84A /* EditorCollectionViewModel+SkillListing.swift in Sources */,
+				9D0003AB21FE48C20044F84A /* TextEntryCollectionViewCell.swift in Sources */,
 				9DFE711121BD92C9000561B0 /* StatView.swift in Sources */,
+				9D0003A921FE479D0044F84A /* UserEntryCollectionViewCell.swift in Sources */,
 				9DFA19EB21CE979F0092A450 /* CharacterSheetDataSourceCoordinator.swift in Sources */,
 				9D2CF9FE21C4336900EC76D7 /* CharacterDescriptionView.swift in Sources */,
 				9D2CFA0621C593D200EC76D7 /* MarginCreator.swift in Sources */,
@@ -779,6 +810,7 @@
 				9D004E5721DA7ED9004DFA4D /* NotifiesEditorNeeded.swift in Sources */,
 				9DE335AC21A9F2C800180927 /* TotalDamageDataSourceDelegate.swift in Sources */,
 				9DCD371521CD598D00EE00D9 /* SkillTableViewCellModel.swift in Sources */,
+				9D0003AF21FE491D0044F84A /* PickerEntryCollectionViewCell.swift in Sources */,
 				9D2CFA0021C433C500EC76D7 /* CharacterDescriptionViewModel.swift in Sources */,
 				9D24375421A085DE0084E77D /* WoundType.swift in Sources */,
 				9D004E4B21D94C9B004DFA4D /* UserEntryView.swift in Sources */,
@@ -794,7 +826,6 @@
 				9DFCB7A721D0666100F99798 /* Edgerunner.swift in Sources */,
 				9DE335A121A9EA7900180927 /* RoleDescriptionViewCell.swift in Sources */,
 				9D004E6121DC44F5004DFA4D /* StatsDataSource.swift in Sources */,
-				9D0003A021F4FC3C0044F84A /* EditableScrollViewModel+SkillListing.swift in Sources */,
 				9DCD371721CD6E5B00EE00D9 /* SkillTableConstants.swift in Sources */,
 				9D3761EB21EE704E0027513E /* SkillStrings.swift in Sources */,
 				9D004E2521D59B9E004DFA4D /* SkillsDataSourceDelegate.swift in Sources */,
@@ -805,6 +836,7 @@
 				9DCD371121CC246300EE00D9 /* SkillTableViewCell.swift in Sources */,
 				9D2CFA0421C5921A00EC76D7 /* CharacterSheetCoordinator.swift in Sources */,
 				9DE3359E21A9EA4100180927 /* StatsViewCell.swift in Sources */,
+				9D0003B321FE4E9D0044F84A /* EditorStyleConstants.swift in Sources */,
 				9D004E6321DC45F2004DFA4D /* StatsModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

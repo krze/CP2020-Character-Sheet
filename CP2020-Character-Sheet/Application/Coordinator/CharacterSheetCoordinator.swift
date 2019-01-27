@@ -107,8 +107,8 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
     
     @objc private func showSkillDetail(notification: Notification) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self, let viewModel = notification.object as? EditableScrollViewModel else { return }
-            let skillDetail = EditableScrollViewController(viewModel: viewModel, size: self.window.frame.size)
+            guard let self = self, let viewModel = notification.object as? EditorCollectionViewModel else { return }
+            let skillDetail = EditorCollectionViewController(with: viewModel)
             
             skillDetail.modalPresentationStyle = .overCurrentContext
             skillDetail.popoverPresentationController?.permittedArrowDirections = .any

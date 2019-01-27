@@ -87,14 +87,14 @@ struct UserEntryViewModel: MarginCreator {
         self.identifierWidthRatio = 1.0
         self.inputMinimumSize = inputMinimumSize
         self.stacked = true
-        self.headerHeight = EditableScrollViewModelConstants.headerRowHeight
-        self.descriptionHeight = EditableScrollViewModelConstants.descriptionRowHeight
+        self.headerHeight = EditorCollectionViewConstants.headerRowHeight
+        self.descriptionHeight = 44
         self.inputHeight = {
             switch type {
             case .LongFormText:
-                return EditableScrollViewModelConstants.editableMultiLineRowHeightMaximum
+                return EditorCollectionViewConstants.editableMultiLineRowHeightMaximum
             default:
-                return EditableScrollViewModelConstants.editableSingleLineRowHeight
+                return EditorCollectionViewConstants.editableSingleLineRowHeight
             }
         }()
     }

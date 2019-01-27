@@ -23,6 +23,34 @@ enum EntryType {
     
     /// Raw text entry that needs more than one line. Spell checking is not enforced.
     case LongFormText
+    
+    /// Gets the cell reuse ID for use in a collection view. Ordering does not matter for this enum.
+    ///
+    /// - Returns: Reuse Identifier for use in a collection view
+    func cellReuseID() -> String {
+        switch self {
+        case .Text:
+            return "TextEntryCell"
+        case .Integer:
+            return "IntegerEntryCell"
+        case .LongFormText:
+            return "LongFormTextEntryCell"
+        case .Picker:
+            return "PickerEntryCell"
+        }
+    }
+    
+    /// Gets the height for the cell when used in a collection view
+    ///
+    /// - Returns: CGFloat height
+    func cellHeight() -> CGFloat {
+        switch self {
+        case .Text, .Integer, .Picker:
+            return EditorCollectionViewConstants.headerRowHeight + EditorCollectionViewConstants.editableSingleLineRowHeight
+        case .LongFormText:
+            return EditorCollectionViewConstants.headerRowHeight + EditorCollectionViewConstants.editableMultiLineRowHeightMaximum
+        }
+    }
 }
 
 protocol EntryTypeProvider {
