@@ -26,7 +26,7 @@ extension EditorCollectionViewModel {
         
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 5
-        layout.minimumInteritemSpacing = 0
+        layout.minimumInteritemSpacing = 2
         
         return EditorCollectionViewModel(layout: layout,
                                          entryTypesForIdentifiers: entryTypesForIdentifiers,
