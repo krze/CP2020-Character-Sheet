@@ -23,8 +23,6 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         self.entryTypes = viewModel.entryTypesForIdentifiers
         self.paddingRatio = viewModel.paddingRatio
         super.init(collectionViewLayout: viewModel.layout)
-        
-        self.collectionView.backgroundColor = StyleConstants.Color.light
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,10 +32,6 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let sidePadding = self.view.frame.width * paddingRatio
-        let insets = UIEdgeInsets(top: 0.0, left: sidePadding, bottom: 0.0, right: sidePadding)
-        self.additionalSafeAreaInsets = insets
-            
         // Register cell classes
         collectionView.register(TextEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.Text.cellReuseID())
         collectionView.register(IntegerEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.Integer.cellReuseID())

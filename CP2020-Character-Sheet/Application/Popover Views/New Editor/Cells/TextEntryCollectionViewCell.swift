@@ -27,13 +27,14 @@ final class TextEntryCollectionViewCell: UserEntryCollectionViewCell {
         self.fieldDescription = description
         
         let headerView = self.headerView(size: CGSize.zero)
-        
+        let sidePadding = self.contentView.frame.width * viewModel.paddingRatio
+
         contentView.addSubview(headerView)
         
         NSLayoutConstraint.activate([
-            headerView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
-            headerView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
-            headerView.widthAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.widthAnchor),
+            headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            headerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sidePadding),
+            headerView.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -(sidePadding * 2)),
             headerView.heightAnchor.constraint(equalToConstant: viewModel.headerHeight)
             ])
         
@@ -43,10 +44,12 @@ final class TextEntryCollectionViewCell: UserEntryCollectionViewCell {
         
         NSLayoutConstraint.activate([
             textField.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-            textField.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
-            textField.widthAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.widthAnchor),
+            textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sidePadding),
+            textField.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -(sidePadding * 2)),
             textField.heightAnchor.constraint(equalToConstant: viewModel.entryHeight)
             ])
+        
+        self.contentView.backgroundColor = viewModel.lightColor
     }
     
     private func headerView(size: CGSize, fullHeight: Bool = false) -> UIView {
