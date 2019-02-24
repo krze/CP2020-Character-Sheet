@@ -25,9 +25,7 @@ final class TextEntryCollectionViewCell: UserEntryCollectionViewCell {
         self.identifier = identifier
         self.placeholder = placeholder
         self.fieldDescription = description
-    }
-    
-    override func layoutSubviews() {
+        
         let headerView = self.headerView(size: CGSize.zero)
         
         contentView.addSubview(headerView)
