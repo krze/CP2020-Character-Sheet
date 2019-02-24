@@ -14,13 +14,17 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     private let entryTypes: [Identifier: EntryType]
     private let placeholderValues: [Identifier: String]
     private let descriptions: [Identifier: String]
+    private let paddingRatio: CGFloat
     
     init(with viewModel: EditorCollectionViewModel) {
         self.placeholderValues = viewModel.placeholdersWithIdentifiers ?? [Identifier: String]()
         self.enforcedOrder = viewModel.enforcedOrder
         self.descriptions = viewModel.descriptionsWithIdentifiers ?? [Identifier: String]()
         self.entryTypes = viewModel.entryTypesForIdentifiers
+        self.paddingRatio = viewModel.paddingRatio
         super.init(collectionViewLayout: viewModel.layout)
+        
+        self.collectionView.backgroundColor = StyleConstants.Color.light
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -29,7 +33,11 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let sidePadding = self.view.frame.width * paddingRatio
+        let insets = UIEdgeInsets(top: 0.0, left: sidePadding, bottom: 0.0, right: sidePadding)
+        self.additionalSafeAreaInsets = insets
+            
         // Register cell classes
         collectionView.register(TextEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.Text.cellReuseID())
         collectionView.register(IntegerEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.Integer.cellReuseID())
@@ -67,7 +75,6 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         default:
             return UICollectionViewCell()
         }
-
     
         // Configure the cell
     

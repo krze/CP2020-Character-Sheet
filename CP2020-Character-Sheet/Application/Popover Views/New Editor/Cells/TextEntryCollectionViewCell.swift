@@ -37,7 +37,7 @@ final class TextEntryCollectionViewCell: UserEntryCollectionViewCell {
             headerView.heightAnchor.constraint(equalToConstant: viewModel.headerHeight)
             ])
         
-        let textField = self.textField(frame: CGRect.zero)
+        let textField = self.textField(size: CGSize.zero)
         
         contentView.addSubview(textField)
         
@@ -75,8 +75,11 @@ final class TextEntryCollectionViewCell: UserEntryCollectionViewCell {
         return label
     }
     
-    private func textField(frame: CGRect) -> UITextField {
-        let field = UITextField(frame: frame)
+    private func textField(size: CGSize) -> UITextField {
+        let field = UITextField(frame: CGRect(x: 0,
+                                              y: 0,
+                                              width: size.width,
+                                              height: size.height))
         
         field.translatesAutoresizingMaskIntoConstraints = false
         field.font = viewModel.inputFont

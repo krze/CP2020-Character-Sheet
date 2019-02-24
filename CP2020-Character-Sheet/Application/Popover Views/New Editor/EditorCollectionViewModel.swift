@@ -8,8 +8,7 @@
 
 import UIKit
 
-struct EditorCollectionViewModel {
-    
+struct EditorCollectionViewModel: MarginCreator {
     let layout: UICollectionViewLayout
     let entryTypesForIdentifiers: [Identifier : EntryType]
     
@@ -21,6 +20,9 @@ struct EditorCollectionViewModel {
     var numberOfRows: Int {
         return enforcedOrder.count
     }
+    
+    let paddingRatio = StyleConstants.SizeConstants.textPaddingRatio
+
 }
 
 struct EditorCollectionViewConstants {
