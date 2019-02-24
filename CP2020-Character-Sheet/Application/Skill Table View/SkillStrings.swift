@@ -12,7 +12,6 @@ import Foundation
 struct SkillStrings {
     
     static let skillNameHelpText = "The name of the skill."
-    
     static let skillNameExtensionHelpText = "Optional extension to the skill name (i.e. the 'English' in 'Language: English'"
     
     static let associatedStatHelpText = "The player stat associated with this skill. The points in the stat are added to the total points for the skill."
@@ -27,6 +26,8 @@ struct SkillStrings {
     static let IPMultiplierHelpText = "An additional multiplier to the number of IP required to increase the number of skill points."
     
     static let descriptionHelpText = "Describes the valid usage of the skill."
+    
+    static let dismissHelpPopoverButtonText = "Dismiss"
     
     static let favorite = "Highlighted Skill"
     static let hideSkill = "Hide Skill"

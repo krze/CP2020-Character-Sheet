@@ -23,6 +23,7 @@ extension Notification.Name {
     // Popovers
     static let showEditor = Notification.Name("showEditor")
     static let showSkillDetail = Notification.Name("showSkillDetail")
+    static let showHelpTextAlert = Notification.Name("showHelpTextAlert")
     
     // Navigation
     static let showSkillTable = Notification.Name("showSkillTable")

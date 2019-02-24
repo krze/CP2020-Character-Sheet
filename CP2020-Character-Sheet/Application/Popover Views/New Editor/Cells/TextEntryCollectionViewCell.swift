@@ -38,6 +38,17 @@ final class TextEntryCollectionViewCell: UserEntryCollectionViewCell {
             headerView.heightAnchor.constraint(equalToConstant: viewModel.headerHeight)
             ])
         
+        let helpButton = self.helpButton(size: CGSize(width: viewModel.headerHeight, height: viewModel.headerHeight))
+        
+        headerView.addSubview(helpButton)
+        
+        NSLayoutConstraint.activate([
+            helpButton.topAnchor.constraint(equalTo: headerView.topAnchor),
+            helpButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
+            helpButton.widthAnchor.constraint(equalToConstant: viewModel.headerHeight),
+            helpButton.heightAnchor.constraint(equalToConstant: viewModel.headerHeight)
+            ])
+        
         let textField = self.textField(size: CGSize.zero)
         
         contentView.addSubview(textField)
@@ -92,11 +103,26 @@ final class TextEntryCollectionViewCell: UserEntryCollectionViewCell {
         field.leftView = UIView(frame: CGRect(x: frame.minX, y: frame.minY, width: frame.width * viewModel.paddingRatio, height: frame.height))
         field.text = placeholder
         field.autocorrectionType = .no
-        field.autocapitalizationType = .none
+        field.autocapitalizationType = .sentences
         field.clearButtonMode = .whileEditing
         field.returnKeyType = .done
         field.keyboardAppearance = .dark
         
         return field
+    }
+    
+    private func helpButton(size: CGSize) -> UIButton {
+        let button = UIButton(type: .infoDark)
+        button.frame.size = size
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.clipsToBounds = true
+        button.addTarget(self, action: #selector(presentHelpText), for: .touchUpInside)
+        return button
+    }
+    
+    @objc private func presentHelpText() {
+        let alert = UIAlertController(title: identifier, message: fieldDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: SkillStrings.dismissHelpPopoverButtonText, style: .default, handler: nil))
+        NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
     }
 }

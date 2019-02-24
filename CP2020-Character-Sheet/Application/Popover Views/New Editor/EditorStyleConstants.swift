@@ -10,7 +10,7 @@ import UIKit
 
 struct EditorStyleConstants: MarginCreator {
     
-    let paddingRatio: CGFloat = StyleConstants.SizeConstants.textPaddingRatio
+    let paddingRatio: CGFloat = 0.025
     
     let lightColor = StyleConstants.Color.light
     let darkColor = StyleConstants.Color.dark

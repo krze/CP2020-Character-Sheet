@@ -70,9 +70,10 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
     }
     
     private func createObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(showSkillTable(notification:)), name: .showSkillTable, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showEditor(notification:)), name: .showEditor, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showSkillTable), name: .showSkillTable, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showEditor), name: .showEditor, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showSkillDetail), name: .showSkillDetail, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showHelpTextAlert), name: .showHelpTextAlert, object: nil)
     }
     
     @objc private func showSkillTable(notification: Notification) {
@@ -115,6 +116,13 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
             skillDetail.popoverPresentationController?.delegate = skillDetail
 
             self.navigationController.present(skillDetail, animated: true)
+        }
+    }
+    
+    @objc private func showHelpTextAlert(notification: Notification) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self, let alertController = notification.object as? UIAlertController else { return }
+            self.window.rootViewController?.presentedViewController?.present(alertController, animated: true)
         }
     }
     
