@@ -10,15 +10,24 @@ import UIKit
 
 typealias Identifier = String
 
+/// Configures a user entry field to be set up to accept a certain type of input
 enum EntryType {
     
-    /// Raw text entry. Will undergo no validation. Spell checking is not enforced.
+    /// Raw single-line entry. Will undergo no validation. Spell checking is not enforced.
     case Text
     
-    /// Integer entry. Values entered will be confirmed as an Integer and converted.
+    /// Raw single-line text entry. Will suggest partial/full matches from array of strings,
+    /// but permits free user entry.
+    case SuggestedText([String])
+    
+    /// Raw single-line text entry. Requires the user to select from partial/full matches,
+    /// and does not permit the user free entry of text.
+    case EnforcedChoiceText([String])
+    
+    /// Integer entry. Values entered will be confirmed and converted to Integer
     case Integer
     
-    /// Picker for an array of Strings.
+    /// Picker for an array of Strings. TODO: Deprecate in favor of MatchingText. Picker is clunky.
     case Picker([String])
     
     /// Raw text entry that needs more than one line. Spell checking is not enforced.
@@ -37,6 +46,10 @@ enum EntryType {
             return "LongFormTextEntryCell"
         case .Picker:
             return "PickerEntryCell"
+        case .SuggestedText:
+            return "SuggestedTextEntryCell"
+        case .EnforcedChoiceText:
+            return "EnforcedChoiceTextEntryCell"
         }
     }
     
@@ -45,7 +58,7 @@ enum EntryType {
     /// - Returns: CGFloat height
     func cellHeight() -> CGFloat {
         switch self {
-        case .Text, .Integer, .Picker:
+        case .Text, .Integer, .Picker, .SuggestedText, .EnforcedChoiceText:
             return EditorCollectionViewConstants.headerRowHeight + EditorCollectionViewConstants.editableSingleLineRowHeight
         case .LongFormText:
             return EditorCollectionViewConstants.headerRowHeight + EditorCollectionViewConstants.editableMultiLineRowHeightMaximum
