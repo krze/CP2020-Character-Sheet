@@ -14,21 +14,21 @@ enum SkillTableSections: Int, CaseIterable {
     static func section(for stat: Stat) -> SkillTableSections {
         switch stat {
         case .Attractiveness:
-            return SkillTableSections.Attractiveness
+            return .Attractiveness
         case .Body:
-            return SkillTableSections.Body
+            return .Body
         case .Cool:
-            return SkillTableSections.Cool
+            return .Cool
         case .Empathy:
-            return SkillTableSections.Empathy
+            return .Empathy
         case .Intelligence:
-            return SkillTableSections.Intelligence
+            return .Intelligence
         case .Reflex:
-            return SkillTableSections.Reflex
+            return .Reflex
         case .Tech:
-            return SkillTableSections.Tech
+            return .Tech
         default:
-            return SkillTableSections.SpecialAbility
+            return .SpecialAbility
         }
     }
     

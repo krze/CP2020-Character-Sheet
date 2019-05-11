@@ -13,7 +13,7 @@ final class TextEntryCollectionViewCell: UserEntryCollectionViewCell {
         return textField.text
     }
     
-    var identifier = ""
+    private var identifier = ""
     
     private let textField = UITextField()
     private var header: UILabel?
