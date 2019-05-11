@@ -36,7 +36,8 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         collectionView.register(TextEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.Text.cellReuseID())
         collectionView.register(IntegerEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.Integer.cellReuseID())
         collectionView.register(LongFormTextEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.LongFormText.cellReuseID())
-        collectionView.register(PickerEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.Picker([]).cellReuseID())
+        collectionView.register(EnforcedTextCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.EnforcedChoiceText([]).cellReuseID())
+        collectionView.register(SuggestedTextCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.SuggestedText([]).cellReuseID())
     }
 
     // MARK: UICollectionViewDataSource

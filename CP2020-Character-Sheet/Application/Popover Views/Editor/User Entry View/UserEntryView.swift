@@ -231,6 +231,14 @@ final class UserEntryView: UIView, UIPickerViewDelegate, UIPickerViewDataSource 
             button.addTarget(self, action: #selector(pickerButtonWasPressed), for: .touchUpInside)
             roleButton = button
             return button
+        case .SuggestedText(let suggestions):
+            print("Not done yet")
+            print(suggestions)
+            return UIView()
+        case .EnforcedChoiceText(let requirements):
+            print("Not done yet")
+            print(requirements)
+            return UIView()
         }
     }
     
