@@ -10,6 +10,8 @@ import UIKit
 
 final class EditorCollectionViewController: UICollectionViewController, UIPopoverPresentationControllerDelegate, UICollectionViewDelegateFlowLayout {
     
+    private let titleBarIdentifier = "TitleBarIdentifier"
+    
     private let enforcedOrder: [Identifier]
     private let entryTypes: [Identifier: EntryType]
     private let placeholderValues: [Identifier: String]
@@ -17,8 +19,11 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     private let paddingRatio: CGFloat
     
     init(with viewModel: EditorCollectionViewModel) {
+        var enforcedOrder = [titleBarIdentifier]
+        enforcedOrder.append(contentsOf: viewModel.enforcedOrder)
+        
+        self.enforcedOrder = enforcedOrder
         self.placeholderValues = viewModel.placeholdersWithIdentifiers ?? [Identifier: String]()
-        self.enforcedOrder = viewModel.enforcedOrder
         self.descriptions = viewModel.descriptionsWithIdentifiers ?? [Identifier: String]()
         self.entryTypes = viewModel.entryTypesForIdentifiers
         self.paddingRatio = viewModel.paddingRatio
@@ -33,6 +38,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         super.viewDidLoad()
         
         // Register cell classes
+        collectionView.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: titleBarIdentifier)
         collectionView.register(TextEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.Text.cellReuseID())
         collectionView.register(IntegerEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.Integer.cellReuseID())
         collectionView.register(LongFormTextEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.LongFormText.cellReuseID())
@@ -52,6 +58,14 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         }
         
         let identifier = enforcedOrder[indexPath.row]
+        
+        if identifier == titleBarIdentifier,
+            let titleCell = collectionView.dequeueReusableCell(withReuseIdentifier: titleBarIdentifier, for: indexPath) as? TitleCollectionViewCell {
+            
+            titleCell.setup(with: "PlaceholderText", dismissal: dismissEditor)
+            
+            return titleCell
+        }
 
         guard let placeholder = placeholderValues[identifier],
             let description = descriptions[identifier],
@@ -126,5 +140,9 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         }
         
         return CGSize(width: view.safeAreaLayoutGuide.layoutFrame.width, height: entryType.cellHeight())
+    }
+    
+    private func dismissEditor() {
+        dismiss(animated: true, completion: nil)
     }
 }

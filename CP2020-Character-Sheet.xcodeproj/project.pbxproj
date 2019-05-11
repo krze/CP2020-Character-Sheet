@@ -265,8 +265,8 @@
 		9D0003B921FE5FA30044F84A /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				9D0003AA21FE48C20044F84A /* TextEntryCollectionViewCell.swift */,
 				9D31BC5722875C25002E6F4D /* TitleCollectionViewCell.swift */,
+				9D0003AA21FE48C20044F84A /* TextEntryCollectionViewCell.swift */,
 				9D0003AC21FE48E60044F84A /* IntegerEntryCollectionViewCell.swift */,
 				9D0003AE21FE491D0044F84A /* SuggestedTextCollectionViewCell.swift */,
 				9D31BC55228753BE002E6F4D /* EnforcedTextCollectionViewCell.swift */,

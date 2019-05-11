@@ -40,7 +40,7 @@ final class TitleCollectionViewCell: UICollectionViewCell {
         
         let titleWidth = contentView.frame.width * 0.50
         let titleLabel = CommonEntryConstructor.headerView(size: CGSize(width: titleWidth, height: elementHeight), text: title)
-        
+        contentView.addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.widthAnchor.constraint(equalToConstant: titleWidth),
             titleLabel.heightAnchor.constraint(equalToConstant: elementHeight),
