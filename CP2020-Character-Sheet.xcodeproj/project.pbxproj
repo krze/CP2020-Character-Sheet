@@ -688,14 +688,16 @@
 				TargetAttributes = {
 					9D5C1F2521A06CE700B3D493 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 					9D5C1F3921A06CE800B3D493 = {
 						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 						TestTargetID = 9D5C1F2521A06CE700B3D493;
 					};
 					9D5C1F4421A06CE800B3D493 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = 9D5C1F2521A06CE700B3D493;
 					};
 				};
@@ -1024,7 +1026,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "krze.CP2020-Character-Sheet";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1044,7 +1046,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "krze.CP2020-Character-Sheet";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1065,7 +1067,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "krze.CP2020-Character-SheetTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CP2020-Character-Sheet.app/CP2020-Character-Sheet";
 			};
@@ -1086,7 +1088,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "krze.CP2020-Character-SheetTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CP2020-Character-Sheet.app/CP2020-Character-Sheet";
 			};
@@ -1105,7 +1107,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "krze.CP2020-Character-SheetUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "CP2020-Character-Sheet";
 			};
@@ -1124,7 +1126,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "krze.CP2020-Character-SheetUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "CP2020-Character-Sheet";
 			};

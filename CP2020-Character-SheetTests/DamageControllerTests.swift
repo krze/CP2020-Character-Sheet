@@ -11,8 +11,10 @@ import XCTest
 
 final class DamageControllerTests: XCTestCase {
     
-    private func makeDamageController(with delegate: TestDamageControllerDelegate) -> TotalDamageController {
-        return TotalDamageController(maxDamage: 40, delegate: delegate)
+    private func makeDamageController(with delegate: TestDamageControllerDelegate) -> TotalDamageDataSource {
+        let dataSource = TotalDamageDataSource(maxDamage: 40)
+        dataSource.delegate = delegate
+        return dataSource
     }
     
     func testIterateDamageUp() {
@@ -106,7 +108,7 @@ final class DamageControllerTests: XCTestCase {
     }
 }
 
-private final class TestDamageControllerDelegate: TotalDamageControllerDelegate {
+private final class TestDamageControllerDelegate: TotalDamageDataSourceDelegate {
     private(set) var damageCells: [UIView] = [UIView]()
     
     init() {

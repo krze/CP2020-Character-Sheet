@@ -74,7 +74,7 @@ final class StatsDataSource: NSObject, EditorValueReciever, NotifiesEditorNeeded
     
 }
 
-extension Dictionary where Iterator.Element == (key: Identifier, value: String) {
+private extension Dictionary where Key == Identifier, Value == String {
     
     func statPoint(for identifier: Identifier) -> Int? {
         if let value = self[identifier] {
