@@ -13,7 +13,7 @@ final class IntegerEntryCollectionViewCell: UserEntryCollectionViewCell {
     var enteredValue: String?
     
     func setup(with identifier: Identifier, placeholder: String, description: String) {
-        
+        // NEXT: Build this
     }
     
 }
