@@ -36,7 +36,8 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
+        self.navigationItem.rightBarButtonItem = saveButton
         // Register cell classes
         collectionView.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: titleBarIdentifier)
         collectionView.register(TextEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.Text.cellReuseID())
@@ -143,6 +144,10 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     }
     
     private func dismissEditor() {
-        dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func save() {
+        dismissEditor()
     }
 }

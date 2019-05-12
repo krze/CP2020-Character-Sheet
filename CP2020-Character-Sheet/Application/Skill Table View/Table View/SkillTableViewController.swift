@@ -96,7 +96,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
             layout.minimumInteritemSpacing = 0
             
             let viewModel = EditorCollectionViewModel(layout: layout, entryTypesForIdentifiers: ["Test": .Text], placeholdersWithIdentifiers: ["Test": "This string was already there."], descriptionsWithIdentifiers: ["Test": "I'm a description."], enforcedOrder: ["Test"])
-            NotificationCenter.default.post(name: .showSkillDetail, object: viewModel)
+            showSkillDetail(viewModel: viewModel)
         }
 
 //        // Deselect
@@ -225,7 +225,6 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
     }
     
     @objc private func forceRefresh() {
-        
         /// Ensures descriptions are hid again in case they were left open
         if let indexPath = selectedIndex,
             let cell = self.tableView.cellForRow(at: indexPath) as? SkillTableViewCell {
@@ -234,6 +233,14 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         }
         
         tableView.reloadData()
+    }
+    
+    private func showSkillDetail(viewModel: EditorCollectionViewModel) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            let skillDetail = EditorCollectionViewController(with: viewModel)
+            self.navigationController?.pushViewController(skillDetail, animated: true)
+        }
     }
 
     /*
