@@ -67,8 +67,25 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
             guard let cell = cell as? TextEntryCollectionViewCell else { return UICollectionViewCell() }
             
             cell.setup(with: identifier, placeholder: placeholder, description: description)
-        default:
-            return UICollectionViewCell()
+        case .Integer:
+            guard let cell = cell as? IntegerEntryCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.setup(with: identifier, placeholder: placeholder, description: description)
+        case .LongFormText:
+            guard let cell = cell as? LongFormTextEntryCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.setup(with: identifier, placeholder: placeholder, description: description)
+        case .EnforcedChoiceText(let requiredChoices):
+            guard let cell = cell as? EnforcedTextCollectionViewCell else { return UICollectionViewCell() }
+            print(requiredChoices)
+            cell.setup(with: identifier, placeholder: placeholder, description: description)
+        case .SuggestedText(let suggestedChoices):
+            print(suggestedChoices)
+            guard let cell = cell as? SuggestedTextCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.setup(with: identifier, placeholder: placeholder, description: description)
+        case .Picker(_):
+            return UICollectionViewCell() // This will crash
         }
     
         // Configure the cell

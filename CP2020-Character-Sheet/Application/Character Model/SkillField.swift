@@ -36,7 +36,7 @@ enum SkillField: String, EntryTypeProvider, CaseIterable {
             var stats = CharacterStat.linkedStats().map { $0.rawValue }
             stats.append("None")
             
-            return .Picker(stats)
+            return .EnforcedChoiceText(stats)
         }
     }
     
