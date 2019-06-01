@@ -24,7 +24,7 @@ final class TextEntryCollectionViewCell: UserEntryCollectionViewCell {
         self.identifier = identifier
         self.fieldDescription = description
         
-        let headerView = CommonEntryConstructor.headerView(size: .zero, text: identifier, labelMaker: headerLabel)
+        let headerView = CommonEntryConstructor.headerView(size: .zero, text: identifier)
         let sidePadding = self.contentView.frame.width * viewModel.paddingRatio
 
         contentView.addSubview(headerView)
@@ -60,20 +60,6 @@ final class TextEntryCollectionViewCell: UserEntryCollectionViewCell {
 
         self.textField = textField
         self.contentView.backgroundColor = viewModel.lightColor
-    }
-
-    private func headerLabel(frame: CGRect) -> UILabel {
-        let label = UILabel(frame: frame)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        label.font = viewModel.labelFont
-        label.backgroundColor = viewModel.lightColor
-        label.textColor = viewModel.darkColor
-        label.textAlignment = .left
-        label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
-        
-        header = label
-        return label
     }
 
     private func helpButton(size: CGSize) -> UIButton {

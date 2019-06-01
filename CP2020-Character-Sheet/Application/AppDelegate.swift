@@ -11,15 +11,13 @@ import UIKit
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
-    
     /// Application coordinator that listens for model changes that require updates
     /// between view controllers
     private var coordinator: CharacterSheetCoordinator?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.makeKeyAndVisible()
         
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -27,7 +25,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         
         coordinator = CharacterSheetCoordinator(with: layout, window: window)
         
-        window?.rootViewController = coordinator?.navigationController
+        window.rootViewController = coordinator?.navigationController
         
         return true
     }

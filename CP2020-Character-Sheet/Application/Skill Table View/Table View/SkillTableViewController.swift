@@ -46,6 +46,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
 
         tableView.rowHeight = SkillTableConstants.rowHeight
         tableView.sectionHeaderHeight = SkillTableConstants.rowHeight
+        tableView.backgroundColor = viewModel.lightColor
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

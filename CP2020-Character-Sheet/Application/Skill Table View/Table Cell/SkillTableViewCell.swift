@@ -120,7 +120,7 @@ final class SkillTableViewCell: UITableViewCell {
     /// Update the skill listing for the table view.
     private func updateColumnValues() {
         guard let viewModel = viewModel, let skillListing = skillListing else { return }
-        
+        self.backgroundColor = StyleConstants.Color.light
         var name = skillListing.skill.name
         
         if let nameExtension = skillListing.skill.nameExtension {
