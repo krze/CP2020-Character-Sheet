@@ -106,9 +106,9 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
     }
     
     @objc private func showHelpTextAlert(notification: Notification) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self, let alertController = notification.object as? UIAlertController else { return }
-            self.window.rootViewController?.presentedViewController?.present(alertController, animated: true)
+        DispatchQueue.main.async {
+            guard let alertController = notification.object as? UIAlertController else { return }
+            self.window.rootViewController?.present(alertController, animated: true)
         }
     }
     
