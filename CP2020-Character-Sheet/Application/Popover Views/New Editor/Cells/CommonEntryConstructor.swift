@@ -21,13 +21,13 @@ struct CommonEntryConstructor {
     ///   - text: The text you wish to display in the label
     ///   - fullHeight: When true, the top and bottom margins will be set to 0
     /// - Returns: View containing the label
-    static func headerView(size: CGSize, text: String, fullHeight: Bool = false) -> UIView {
+    static func headerView(size: CGSize, text: String, fullHeight: Bool = false, margins: NSDirectionalEdgeInsets? = nil, labelMaker: ((CGRect) -> UILabel)? = nil) -> UIView {
         let labelViewFrame = CGRect(x: 0,
                                     y: 0,
                                     width: size.width,
                                     height: size.height)
-        let labelViewMargins = styleConstants.createInsets(with: labelViewFrame, fullHeight: fullHeight)
-        let labelView = UILabel.container(frame: labelViewFrame, margins: labelViewMargins, backgroundColor: styleConstants.lightColor, borderColor: nil, borderWidth: nil, labelMaker: headerLabel)
+        let labelViewMargins = margins ?? styleConstants.createInsets(with: labelViewFrame, fullHeight: fullHeight)
+        let labelView = UILabel.container(frame: labelViewFrame, margins: labelViewMargins, backgroundColor: styleConstants.lightColor, borderColor: nil, borderWidth: nil, labelMaker: labelMaker ?? headerLabel)
         labelView.label.text = "\(text):"
 
         return labelView.container
@@ -38,19 +38,17 @@ struct CommonEntryConstructor {
     /// - Parameters:
     ///   - frame: The frame in which to contain the textfield
     ///   - placeholder: The placeholder string to place in the textfield
+    ///   - leftView: Custom left view, optional
     /// - Returns: UITextField
-    static func textField(frame: CGRect, placeholder: String) -> UITextField {
-        let field = UITextField(frame: CGRect(x: 0,
-                                              y: 0,
-                                              width: frame.width,
-                                              height: frame.height)) // If something's screwed up check if dropping the size param broke this
+    static func textField(frame: CGRect, placeholder: String, leftView: UIView? = nil) -> UITextField {
+        let field = UITextField(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
         
         field.translatesAutoresizingMaskIntoConstraints = false
         field.font = styleConstants.inputFont
         field.backgroundColor = styleConstants.lightColor
         field.textColor = styleConstants.darkColor
         field.textAlignment = .left
-        field.leftView = UIView(frame: CGRect(x: frame.minX, y: frame.minY, width: frame.width * styleConstants.paddingRatio, height: frame.height))
+        field.leftView = leftView ?? UIView(frame: CGRect(x: frame.minX, y: frame.minY, width: frame.width * styleConstants.paddingRatio, height: frame.height))
         field.text = placeholder
         field.autocorrectionType = .no
         field.autocapitalizationType = .sentences
