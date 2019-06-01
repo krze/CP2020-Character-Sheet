@@ -79,11 +79,12 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
             guard let cell = cell as? EnforcedTextCollectionViewCell else { return UICollectionViewCell() }
             print(requiredChoices)
             cell.setup(with: identifier, placeholder: placeholder, description: description)
-        case .SuggestedText(let suggestedChoices):
-            print(suggestedChoices)
+        case .SuggestedText(let suggestedMatches):
+            print(suggestedMatches)
             guard let cell = cell as? SuggestedTextCollectionViewCell else { return UICollectionViewCell() }
             
             cell.setup(with: identifier, placeholder: placeholder, description: description)
+            cell.suggestedMatches = suggestedMatches
         case .Picker(_):
             return UICollectionViewCell() // This will crash
         }

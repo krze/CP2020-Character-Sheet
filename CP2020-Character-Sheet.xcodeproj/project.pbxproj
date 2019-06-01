@@ -274,14 +274,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		9D004E2E21D80A6D004DFA4D /* Popover Views */ = {
+		9D004E2E21D80A6D004DFA4D /* Detail Views */ = {
 			isa = PBXGroup;
 			children = (
 				9D3761E921EE702C0027513E /* New Editor */,
 				9D004E5021D97777004DFA4D /* Editor */,
 				9D004E3921D82B8D004DFA4D /* Decoration View */,
 			);
-			path = "Popover Views";
+			path = "Detail Views";
 			sourceTree = "<group>";
 		};
 		9D004E2F21D80A9C004DFA4D /* Coordinator */ = {
@@ -411,7 +411,7 @@
 				9D5C1F2921A06CE700B3D493 /* AppDelegate.swift */,
 				9DCD370E21CC240600EE00D9 /* App Constants */,
 				9D004E2F21D80A9C004DFA4D /* Coordinator */,
-				9D004E2E21D80A6D004DFA4D /* Popover Views */,
+				9D004E2E21D80A6D004DFA4D /* Detail Views */,
 				9DFCB7AC21D0724B00F99798 /* Persistence */,
 				9DFA19ED21CE9C210092A450 /* Character Model */,
 				9D5C1F5821A0712E00B3D493 /* Character Sheet View */,
