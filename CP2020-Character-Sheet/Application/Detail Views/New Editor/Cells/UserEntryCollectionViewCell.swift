@@ -12,6 +12,7 @@ typealias UserEntryCollectionViewCell = UICollectionViewCell & UserEntryValue
 
 protocol UserEntryValue {
     var enteredValue: String? { get }
+    var entryIsValid: Bool { get }
     
     func setup(with identifier: Identifier, placeholder: String, description: String)
 }

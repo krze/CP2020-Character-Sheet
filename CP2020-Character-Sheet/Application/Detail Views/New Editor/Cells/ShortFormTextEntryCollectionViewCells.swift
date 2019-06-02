@@ -1,5 +1,5 @@
 //
-//  SuggestedTextCollectionViewCell.swift
+//  ShortFormTextEntryCollectionViewCells.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 1/27/19.
@@ -8,55 +8,51 @@
 
 import UIKit
 
-/// A user entry view of EntryType.SuggestedText or EntryType.EnforcedChoiceText
-final class SuggestedTextCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDelegate {
-
+/// A single-line textfield that accepts user entry without validation
+class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDelegate {
     var enteredValue: String? {
         return textField?.text
     }
-    var suggestedMatches = [String]()
 
     private var identifier = ""
-
-    private var textField: UITextField?
     private var header: UILabel?
     private var fieldDescription = ""
-    private let viewModel = EditorStyleConstants()
 
-    private var autoCompleteCharacterCount = 0
-    private var timer = Timer()
+    fileprivate(set) var entryIsValid = true
+    fileprivate let viewModel = EditorStyleConstants()
+    fileprivate var textField: UITextField?
 
     func setup(with identifier: Identifier, placeholder: String, description: String) {
         self.identifier = identifier
         self.fieldDescription = description
-
+        
         let headerView = CommonEntryConstructor.headerView(size: .zero, text: identifier)
         let sidePadding = self.contentView.frame.width * viewModel.paddingRatio
 
         contentView.addSubview(headerView)
-
+        
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
             headerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sidePadding),
             headerView.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -(sidePadding * 2)),
             headerView.heightAnchor.constraint(equalToConstant: viewModel.headerHeight)
             ])
-
+        
         let helpButton = self.helpButton(size: CGSize(width: viewModel.headerHeight, height: viewModel.headerHeight))
-
+        
         headerView.addSubview(helpButton)
-
+        
         NSLayoutConstraint.activate([
             helpButton.topAnchor.constraint(equalTo: headerView.topAnchor),
             helpButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
             helpButton.widthAnchor.constraint(equalToConstant: viewModel.headerHeight),
             helpButton.heightAnchor.constraint(equalToConstant: viewModel.headerHeight)
             ])
-
+        
         let textField = CommonEntryConstructor.textField(frame: .zero, placeholder: placeholder)
-        textField.delegate = self
+        
         contentView.addSubview(textField)
-
+        
         NSLayoutConstraint.activate([
             textField.topAnchor.constraint(equalTo: headerView.bottomAnchor),
             textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sidePadding),
@@ -68,6 +64,14 @@ final class SuggestedTextCollectionViewCell: UserEntryCollectionViewCell, UIText
         self.contentView.backgroundColor = viewModel.lightColor
     }
 
+    // MARK: UITextFieldDelegate
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        hideWarning()
+    }
+
+    // MARK: Private
+
     private func helpButton(size: CGSize) -> UIButton {
         let button = UIButton(type: .infoDark)
         button.frame.size = size
@@ -76,12 +80,83 @@ final class SuggestedTextCollectionViewCell: UserEntryCollectionViewCell, UIText
         button.addTarget(self, action: #selector(presentHelpText), for: .touchUpInside)
         return button
     }
-
+    
     @objc private func presentHelpText() {
         let alert = UIAlertController(title: identifier, message: fieldDescription, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: SkillStrings.dismissHelpPopoverButtonText, style: .default, handler: nil))
         NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
     }
+
+    fileprivate func showWarning() {
+        textField?.backgroundColor = viewModel.redColor.withAlphaComponent(viewModel.fadedFillColorAlpha)
+    }
+
+    fileprivate func hideWarning() {
+        if textField?.backgroundColor != viewModel.lightColor {
+            textField?.backgroundColor = viewModel.lightColor
+        }
+    }
+}
+
+// MARK: IntegerEntryCollectionViewCell
+
+/// A single-line textfield that accepts user entry, validating the entry to be an integer
+final class IntegerEntryCollectionViewCell: TextEntryCollectionViewCell {
+
+    override func setup(with identifier: Identifier, placeholder: String, description: String) {
+        super.setup(with: identifier, placeholder: placeholder, description: description)
+        textField?.keyboardType = .numberPad
+        textField?.delegate = self
+
+        if let existingValue = textField?.text {
+            validate(userEntry: existingValue)
+        }
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let userEntry = textField.text else { return }
+
+        validate(userEntry: userEntry)
+    }
+
+    private func entryIsPositiveInteger(_ userEntry: String) -> Bool {
+        guard !userEntry.isEmpty else {
+            return false
+        }
+
+        if let userEntryValue = Int(userEntry), userEntryValue >= 0 {
+            return true
+        }
+
+        return false
+    }
+
+    private func validate(userEntry: String) {
+        guard entryIsPositiveInteger(userEntry) else {
+            entryIsValid = false
+            showWarning()
+            return
+        }
+
+        entryIsValid = true
+        hideWarning()
+    }
+
+}
+
+// MARK: SuggestedTextCollectionViewCell
+
+class SuggestedTextCollectionViewCell: TextEntryCollectionViewCell {
+    var suggestedMatches = [String]()
+    private var autoCompleteCharacterCount = 0
+    private var timer = Timer()
+
+    override func setup(with identifier: Identifier, placeholder: String, description: String) {
+        super.setup(with: identifier, placeholder: placeholder, description: description)
+        textField?.delegate = self
+    }
+
+    // MARK: UITextFieldDelegate
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text?.capitalized as NSString? else { return false }
@@ -94,6 +169,21 @@ final class SuggestedTextCollectionViewCell: UserEntryCollectionViewCell, UIText
         }
         return true
     }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        if reason == .committed, let acceptedChoice = textField.attributedText?.string {
+            textField.attributedText = nil
+            textField.text = acceptedChoice
+            textField.textColor = viewModel.darkColor
+        }
+    }
+
+    // MARK: Private
 
     private func format(subString: String) -> String {
         let formatted = String(subString.dropLast(autoCompleteCharacterCount)).lowercased().capitalized
@@ -133,9 +223,9 @@ final class SuggestedTextCollectionViewCell: UserEntryCollectionViewCell, UIText
     }
 
     private func putColourFormattedTextInTextField(autocompleteResult: String, userQuery: String) {
-        let colouredString: NSMutableAttributedString = NSMutableAttributedString(string: userQuery + autocompleteResult)
-        colouredString.addAttribute(.foregroundColor, value: viewModel.grayColor, range: NSRange(location: userQuery.count,length: autocompleteResult.count))
-        self.textField?.attributedText = colouredString
+        let styledString: NSMutableAttributedString = NSMutableAttributedString(string: userQuery + autocompleteResult)
+        styledString.addAttribute(.foregroundColor, value: viewModel.grayColor, range: NSRange(location: userQuery.count,length: autocompleteResult.count))
+        self.textField?.attributedText = styledString
     }
 
     private func moveCaretToEndOfUserQueryPosition(userQuery: String) {
@@ -143,10 +233,6 @@ final class SuggestedTextCollectionViewCell: UserEntryCollectionViewCell, UIText
 
         if let newPosition = textField?.position(from: beginning, offset: userQuery.count) {
             self.textField?.selectedTextRange = self.textField?.textRange(from: newPosition, to: newPosition)
-        }
-
-        if let selectedTextStart = textField?.selectedTextRange?.start {
-            textField?.offset(from: beginning, to: selectedTextStart)
         }
     }
 
@@ -160,4 +246,49 @@ final class SuggestedTextCollectionViewCell: UserEntryCollectionViewCell, UIText
         return autoCompleteResult
     }
 
+}
+
+final class EnforcedTextCollectionViewCell: SuggestedTextCollectionViewCell {
+
+    override func setup(with identifier: Identifier, placeholder: String, description: String) {
+        super.setup(with: identifier, placeholder: placeholder, description: description)
+    }
+
+    override func showWarning() {
+        super.showWarning()
+        guard let userEntry = textField?.text else { return }
+        var choices = ""
+
+        suggestedMatches.enumerated().forEach { index, choice in
+            choices.append(contentsOf: choice)
+
+            if suggestedMatches[index] != suggestedMatches.last {
+                choices.append(contentsOf: ", ")
+            }
+        }
+
+        let alert = UIAlertController(title: "\(userEntry) is an invalid choice", message: "Please select one of the following:\n\(choices)", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: SkillStrings.dismissHelpPopoverButtonText, style: .default, handler: nil))
+        NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
+    }
+
+    // MARK: UITextFieldDelegate
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let userEntry = textField.text else { return }
+        validate(userEntry: userEntry)
+    }
+
+    // MARK: Private
+
+    private func validate(userEntry: String) {
+        if suggestedMatches.contains(userEntry) {
+            entryIsValid = true
+            hideWarning()
+        }
+        else {
+            entryIsValid = false
+            showWarning()
+        }
+    }
 }

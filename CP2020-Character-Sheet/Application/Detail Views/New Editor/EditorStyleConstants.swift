@@ -17,6 +17,8 @@ struct EditorStyleConstants: MarginCreator {
     let grayColor = StyleConstants.Color.gray
     let blueColor = StyleConstants.Color.blue
     let redColor = StyleConstants.Color.red
+
+    let fadedFillColorAlpha: CGFloat = 0.5
     
     let labelFont = StyleConstants.Font.defaultBold
     let inputFont = StyleConstants.Font.defaultFont

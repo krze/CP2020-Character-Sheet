@@ -10,6 +10,7 @@ import UIKit
 
 final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell {
     var enteredValue: String?
+    let entryIsValid: Bool = true
     
     func setup(with identifier: Identifier, placeholder: String, description: String) {
         
