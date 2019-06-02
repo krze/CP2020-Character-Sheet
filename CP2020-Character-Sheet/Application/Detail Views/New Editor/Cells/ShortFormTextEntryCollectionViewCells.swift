@@ -159,6 +159,13 @@ class SuggestedTextCollectionViewCell: TextEntryCollectionViewCell {
     // MARK: UITextFieldDelegate
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let char = string.cString(using: String.Encoding.utf8) {
+            let isBackSpace = strcmp(char, "\\b")
+            if (isBackSpace == -92) {
+                return true
+            }
+        }
+
         guard let text = textField.text?.capitalized as NSString? else { return false }
         let subString = format(subString: text.replacingCharacters(in: range, with: string))
 
@@ -274,7 +281,8 @@ final class EnforcedTextCollectionViewCell: SuggestedTextCollectionViewCell {
 
     // MARK: UITextFieldDelegate
 
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    override func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        super.textFieldDidEndEditing(textField, reason: reason)
         guard let userEntry = textField.text else { return }
         validate(userEntry: userEntry)
     }
