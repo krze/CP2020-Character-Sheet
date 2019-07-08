@@ -33,6 +33,9 @@ enum EntryType {
     /// Raw text entry that needs more than one line. Spell checking is not enforced.
     case LongFormText
     
+    /// A field that simply displays text, without allowing the user to edit it
+    case Static
+    
     /// Gets the cell reuse ID for use in a collection view. Ordering does not matter for this enum.
     ///
     /// - Returns: Reuse Identifier for use in a collection view
@@ -50,6 +53,8 @@ enum EntryType {
             return "SuggestedTextEntryCell"
         case .EnforcedChoiceText:
             return "EnforcedChoiceTextEntryCell"
+        case .Static:
+            return "StaticEntryCell"
         }
     }
     
@@ -58,7 +63,7 @@ enum EntryType {
     /// - Returns: CGFloat height
     func cellHeight() -> CGFloat {
         switch self {
-        case .Text, .Integer, .Picker, .SuggestedText, .EnforcedChoiceText:
+        case .Text, .Integer, .Picker, .SuggestedText, .EnforcedChoiceText, .Static:
             return EditorCollectionViewConstants.headerRowHeight + EditorCollectionViewConstants.editableSingleLineRowHeight
         case .LongFormText:
             return EditorCollectionViewConstants.headerRowHeight + EditorCollectionViewConstants.editableMultiLineRowHeightMaximum

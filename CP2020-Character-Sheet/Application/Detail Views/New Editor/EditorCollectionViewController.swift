@@ -38,6 +38,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         collectionView.register(LongFormTextEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.LongFormText.cellReuseID())
         collectionView.register(EnforcedTextCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.EnforcedChoiceText([]).cellReuseID())
         collectionView.register(SuggestedTextCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.SuggestedText([]).cellReuseID())
+        collectionView.register(StaticEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.Static.cellReuseID())
     }
 
     // MARK: UICollectionViewDataSource
@@ -65,15 +66,12 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         switch entryType {
         case .Text:
             guard let cell = cell as? TextEntryCollectionViewCell else { return UICollectionViewCell() }
-            
             cell.setup(with: identifier, placeholder: placeholder, description: description)
         case .Integer:
             guard let cell = cell as? IntegerEntryCollectionViewCell else { return UICollectionViewCell() }
-            
             cell.setup(with: identifier, placeholder: placeholder, description: description)
         case .LongFormText:
             guard let cell = cell as? LongFormTextEntryCollectionViewCell else { return UICollectionViewCell() }
-            
             cell.setup(with: identifier, placeholder: placeholder, description: description)
         case .EnforcedChoiceText(let requiredChoices):
             guard let cell = cell as? EnforcedTextCollectionViewCell else { return UICollectionViewCell() }
@@ -82,6 +80,9 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         case .SuggestedText(let suggestedMatches):
             guard let cell = cell as? SuggestedTextCollectionViewCell else { return UICollectionViewCell() }
             cell.suggestedMatches = suggestedMatches
+            cell.setup(with: identifier, placeholder: placeholder, description: description)
+        case .Static:
+            guard let cell = cell as? StaticEntryCollectionViewCell else { return UICollectionViewCell() }
             cell.setup(with: identifier, placeholder: placeholder, description: description)
         case .Picker(_):
             return UICollectionViewCell() // This will crash
