@@ -6,6 +6,10 @@
 //  Copyright © 2019 Ken Krzeminski. All rights reserved.
 //
 
+// This file contains all the single-line entry views. I don't like subclassing,
+// and this should be re-worked for composition, but this was a fast MVP build to
+// test out the revamped editor.
+
 import UIKit
 
 /// A single-line textfield that accepts user entry without validation
@@ -98,7 +102,17 @@ class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDeleg
     }
 }
 
-// MARK: IntegerEntryCollectionViewCell
+// Displays text while disabling the ability to edit the field. Use this field when popping an editor
+// that mixes both editable and non-editable fields (i.e. editing an existing skill), or if you need
+// to display a detail view without allowing the player to edit the fields
+final class StaticEntryCollectionViewCell: TextEntryCollectionViewCell {
+    
+    override func setup(with identifier: Identifier, placeholder: String, description: String) {
+        super.setup(with: identifier, placeholder: placeholder, description: description)
+        textField?.isUserInteractionEnabled = false
+    }
+    
+}
 
 /// A single-line textfield that accepts user entry, validating the entry to be an integer
 final class IntegerEntryCollectionViewCell: TextEntryCollectionViewCell {
@@ -143,8 +157,6 @@ final class IntegerEntryCollectionViewCell: TextEntryCollectionViewCell {
     }
 
 }
-
-// MARK: SuggestedTextCollectionViewCell
 
 class SuggestedTextCollectionViewCell: TextEntryCollectionViewCell {
     var suggestedMatches = [String]()
