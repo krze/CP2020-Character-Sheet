@@ -14,17 +14,21 @@ import UIKit
 
 /// A single-line textfield that accepts user entry without validation
 class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDelegate {
+    weak var delegate: UserEntryDelegate?
+    
     var enteredValue: String? {
         return textField?.text
     }
 
-    private var identifier = ""
+    private(set) var identifier = ""
     private var header: UILabel?
     private var fieldDescription = ""
 
     fileprivate(set) var entryIsValid = true
     fileprivate let viewModel = EditorStyleConstants()
     fileprivate var textField: UITextField?
+    
+    private var resigning = false
 
     func setup(with identifier: Identifier, placeholder: String, description: String) {
         self.identifier = identifier
@@ -64,11 +68,23 @@ class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDeleg
             textField.heightAnchor.constraint(equalToConstant: viewModel.entryHeight)
             ])
 
+        textField.delegate = self
         self.textField = textField
         self.contentView.backgroundColor = viewModel.lightColor
     }
 
     // MARK: UITextFieldDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        resigning = textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue, moveToNextField: resigning)
+        resigning = false
+    }
+    
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         hideWarning()
@@ -120,17 +136,20 @@ final class IntegerEntryCollectionViewCell: TextEntryCollectionViewCell {
     override func setup(with identifier: Identifier, placeholder: String, description: String) {
         super.setup(with: identifier, placeholder: placeholder, description: description)
         textField?.keyboardType = .numberPad
-        textField?.delegate = self
 
         if let existingValue = textField?.text {
             validate(userEntry: existingValue)
         }
     }
 
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    override func textFieldDidEndEditing(_ textField: UITextField) {
         guard let userEntry = textField.text else { return }
 
         validate(userEntry: userEntry)
+        
+        if entryIsValid {
+            super.textFieldDidEndEditing(textField)
+        }
     }
 
     private func entryIsPositiveInteger(_ userEntry: String) -> Bool {
@@ -165,7 +184,6 @@ class SuggestedTextCollectionViewCell: TextEntryCollectionViewCell {
 
     override func setup(with identifier: Identifier, placeholder: String, description: String) {
         super.setup(with: identifier, placeholder: placeholder, description: description)
-        textField?.delegate = self
     }
 
     // MARK: UITextFieldDelegate
@@ -186,11 +204,6 @@ class SuggestedTextCollectionViewCell: TextEntryCollectionViewCell {
         } else {
             searchAutocompleteEntries(with: subString)
         }
-        return true
-    }
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
         return true
     }
 

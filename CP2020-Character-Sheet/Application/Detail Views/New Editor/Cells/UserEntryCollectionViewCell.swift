@@ -11,6 +11,8 @@ import UIKit
 typealias UserEntryCollectionViewCell = UICollectionViewCell & UserEntryValue
 
 protocol UserEntryValue {
+    var delegate: UserEntryDelegate? { get set }
+    var identifier: Identifier { get }
     var enteredValue: String? { get }
     var entryIsValid: Bool { get }
     

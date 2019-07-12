@@ -9,6 +9,10 @@
 import UIKit
 
 final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell {
+    private(set) var identifier = ""
+    
+    weak var delegate: UserEntryDelegate?
+    
     var enteredValue: String?
     let entryIsValid: Bool = true
     

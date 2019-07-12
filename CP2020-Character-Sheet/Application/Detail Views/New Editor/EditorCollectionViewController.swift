@@ -8,12 +8,20 @@
 
 import UIKit
 
-final class EditorCollectionViewController: UICollectionViewController, UIPopoverPresentationControllerDelegate, UICollectionViewDelegateFlowLayout {
+final class EditorCollectionViewController: UICollectionViewController, UIPopoverPresentationControllerDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, UserEntryDelegate {
+
     private let enforcedOrder: [Identifier]
     private let entryTypes: [Identifier: EntryType]
     private let placeholderValues: [Identifier: String]
     private let descriptions: [Identifier: String]
     private let paddingRatio: CGFloat
+    
+    private var valuesChanged = false
+    private var currentValues = [Identifier: String]() {
+        didSet {
+            valuesChanged = true
+        }
+    }
     
     init(with viewModel: EditorCollectionViewModel) {
         self.enforcedOrder = viewModel.enforcedOrder
@@ -67,23 +75,29 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         case .Text:
             guard let cell = cell as? TextEntryCollectionViewCell else { return UICollectionViewCell() }
             cell.setup(with: identifier, placeholder: placeholder, description: description)
+            cell.delegate = self
         case .Integer:
             guard let cell = cell as? IntegerEntryCollectionViewCell else { return UICollectionViewCell() }
             cell.setup(with: identifier, placeholder: placeholder, description: description)
+            cell.delegate = self
         case .LongFormText:
             guard let cell = cell as? LongFormTextEntryCollectionViewCell else { return UICollectionViewCell() }
             cell.setup(with: identifier, placeholder: placeholder, description: description)
+            cell.delegate = self
         case .EnforcedChoiceText(let requiredChoices):
             guard let cell = cell as? EnforcedTextCollectionViewCell else { return UICollectionViewCell() }
             cell.suggestedMatches = requiredChoices
             cell.setup(with: identifier, placeholder: placeholder, description: description)
+            cell.delegate = self
         case .SuggestedText(let suggestedMatches):
             guard let cell = cell as? SuggestedTextCollectionViewCell else { return UICollectionViewCell() }
             cell.suggestedMatches = suggestedMatches
             cell.setup(with: identifier, placeholder: placeholder, description: description)
+            cell.delegate = self
         case .Static:
             guard let cell = cell as? StaticEntryCollectionViewCell else { return UICollectionViewCell() }
             cell.setup(with: identifier, placeholder: placeholder, description: description)
+            cell.delegate = self
         case .Picker(_):
             return UICollectionViewCell() // This will crash
         }
@@ -92,37 +106,6 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     
         return cell
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
     
     // MARK: UIPresentationControllerDelegate
     
@@ -130,6 +113,15 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         return UIModalPresentationStyle.none
     }
     
+    // MARK: UserEntryViewDelegate
+    
+    func entryDidFinishEditing(identifier: Identifier, value: String?, moveToNextField: Bool) {
+        if let value = value {
+            currentValues[identifier] = value
+            // NEXT: Respond to moveToNextField, fill out save() and call it
+        }
+    }
+
     // MARK: UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
