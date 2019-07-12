@@ -91,7 +91,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         }
         
         if let listing = cell.skillListing {
-            let viewModel = EditorCollectionViewModel.model(from: listing)
+            let viewModel = EditorCollectionViewModel.model(from: listing, mode: .edit)
             let layout = UICollectionViewFlowLayout()
             layout.minimumLineSpacing = 5
             layout.minimumInteritemSpacing = 0

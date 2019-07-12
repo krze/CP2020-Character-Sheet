@@ -49,4 +49,8 @@ struct Skill: Codable, Equatable {
     static func == (lhs: Skill, rhs: Skill) -> Bool {
         return lhs.name == rhs.name && lhs.description == rhs.description && lhs.linkedStat == rhs.linkedStat
     }
+    
+    static func new() -> Skill {
+        return Skill(name: "", nameExtension: nil, description: "", isSpecialAbility: false, linkedStat: nil, modifiesSkill: nil, IPMultiplier: 0)
+    }
 }

@@ -198,7 +198,7 @@ final class UserEntryView: UIView, UIPickerViewDelegate, UIPickerViewDataSource 
     
     private func createInputView(for: EntryType, frame: CGRect) -> UIView {
         switch type {
-        case .Text, .LongFormText:
+        case .Text, .LongFormText, .Static:
             let textField = self.textField(frame: frame)
             self.textField = textField
             

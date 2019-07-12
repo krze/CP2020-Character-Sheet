@@ -8,9 +8,28 @@
 
 import UIKit
 
+enum EditorMode {
+    /// A restricted mode that only allows you to edit some fields
+    case edit
+    /// All fields are free to edit.
+    case free
+}
+
 extension EditorCollectionViewModel {
     
-    static func model(from listing: SkillListing) -> EditorCollectionViewModel {
+    private static func commonLayout() -> UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = 0
+        
+        return layout
+    }
+    
+    static func modelForBlankSkill() -> EditorCollectionViewModel? {
+        return EditorCollectionViewModel(layout: commonLayout(), entryTypesForIdentifiers: [:], placeholdersWithIdentifiers: [:], descriptionsWithIdentifiers: [:], enforcedOrder: SkillField.enforcedOrder(), mode: .free)
+    }
+    
+    static func model(from listing: SkillListing, mode: EditorMode) -> EditorCollectionViewModel {
         var entryTypesForIdentifiers = [Identifier: EntryType]()
         var placeholdersWithIdentifiers = [Identifier: String]()
         var descriptionsWithIdentifiers = [Identifier: String]()
@@ -19,20 +38,17 @@ extension EditorCollectionViewModel {
         
         fields.forEach { field in
             let identifier = field.identifier()
-            entryTypesForIdentifiers[identifier] = field.entryType()
+            entryTypesForIdentifiers[identifier] = mode == .edit ? field.entryTypeWhenEditing() : field.entryType()
             placeholdersWithIdentifiers[identifier] = placeholder(for: field, from: listing)
             descriptionsWithIdentifiers[identifier] = helpText(for: field)
         }
         
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 5
-        layout.minimumInteritemSpacing = 0
-        
-        return EditorCollectionViewModel(layout: layout,
+        return EditorCollectionViewModel(layout: commonLayout(),
                                          entryTypesForIdentifiers: entryTypesForIdentifiers,
                                          placeholdersWithIdentifiers: placeholdersWithIdentifiers,
                                          descriptionsWithIdentifiers: descriptionsWithIdentifiers,
-                                         enforcedOrder: SkillField.enforcedOrder())
+                                         enforcedOrder: SkillField.enforcedOrder(),
+                                         mode: mode)
     }
     
     private static func helpText(for skillField: SkillField) -> String {

@@ -40,6 +40,17 @@ enum SkillField: String, EntryTypeProvider, CaseIterable {
         }
     }
     
+    func entryTypeWhenEditing() -> EntryType {
+        switch self {
+        case .Points, .Modifier, .ImprovementPoints:
+            return .Integer
+        case .Description:
+            return .LongFormText
+        default:
+            return .Static
+        }
+    }
+    
     static func enforcedOrder() -> [String] {
         return allCases.map { $0.identifier() }
     }
