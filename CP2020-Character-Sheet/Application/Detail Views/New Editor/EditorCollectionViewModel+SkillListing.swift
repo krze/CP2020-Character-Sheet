@@ -17,14 +17,6 @@ enum EditorMode {
 
 extension EditorCollectionViewModel {
     
-    private static func commonLayout() -> UICollectionViewFlowLayout {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 5
-        layout.minimumInteritemSpacing = 0
-        
-        return layout
-    }
-    
     static func modelForBlankSkill() -> EditorCollectionViewModel {
         let blankSkill = SkillListing(skill: Skill.new(), points: 0, modifier: 0, statModifier: 0)
         return model(from: blankSkill, mode: .free)
@@ -94,4 +86,13 @@ extension EditorCollectionViewModel {
         }
         
     }
+    
+    private static func commonLayout() -> UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = 0
+        
+        return layout
+    }
+    
 }
