@@ -25,8 +25,9 @@ extension EditorCollectionViewModel {
         return layout
     }
     
-    static func modelForBlankSkill() -> EditorCollectionViewModel? {
-        return EditorCollectionViewModel(layout: commonLayout(), entryTypesForIdentifiers: [:], placeholdersWithIdentifiers: [:], descriptionsWithIdentifiers: [:], enforcedOrder: SkillField.enforcedOrder(), mode: .free)
+    static func modelForBlankSkill() -> EditorCollectionViewModel {
+        let blankSkill = SkillListing(skill: Skill.new(), points: 0, modifier: 0, statModifier: 0)
+        return model(from: blankSkill, mode: .free)
     }
     
     static func model(from listing: SkillListing, mode: EditorMode) -> EditorCollectionViewModel {

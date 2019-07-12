@@ -37,6 +37,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         super.init(style: .plain)
         self.dataSource.delegate = self
         self.dataSource.getCharacterSkills()
+        self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showNewSkillEditor)), animated: true)
         addObservers()
     }
     
@@ -232,6 +233,10 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         }
         
         tableView.reloadData()
+    }
+    
+    @objc private func showNewSkillEditor() {
+        showSkillDetail(viewModel: EditorCollectionViewModel.modelForBlankSkill())
     }
     
     private func showSkillDetail(viewModel: EditorCollectionViewModel) {
