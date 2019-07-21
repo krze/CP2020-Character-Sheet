@@ -127,6 +127,13 @@ final class Edgerunner: Codable, CharacterDescriptionModel, StatsModel, SkillMod
         }
     }
     
+    /// Returns the name of the Special Ability for the role.
+    ///
+    /// - Returns: Name of the Special Ability
+    func specialAbilityName() -> String {
+        return role.specialAbility()
+    }
+    
     /// Updates the stats. This should only be called if editing the character.
     /// Stats are immutable during normal gameplay.
     ///

@@ -14,5 +14,8 @@ protocol SkillModel {
     var skills: [SkillListing] { get }
     
     func add(skill newSkill: SkillListing)
+
+    func specialAbilityName() -> String
     
+    func value(for: Stat?) -> Int
 }

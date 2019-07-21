@@ -10,7 +10,7 @@ import UIKit
 
 /// Manages the array of skills to display in skill tables and signals the model to update
 /// when values have changed
-final class SkillsDataSource: NotifiesEditorNeeded {
+final class SkillsDataSource: NotifiesEditorNeeded, EditorValueReciever {
     
     private let model: SkillModel
     private var allSkills = [SkillListing]()
@@ -105,4 +105,30 @@ final class SkillsDataSource: NotifiesEditorNeeded {
     func editorRequested(currentFieldStates: [CurrentFieldState], enforcedOrder: [String], sourceView: UIView) {
         
     }
+    
+    func valuesFromEditorDidChange(_ values: [Identifier : String]) {
+        guard let name = values[SkillField.Name.rawValue],
+            let description = values[SkillField.Description.rawValue],
+            let IPMultiplierString = values[SkillField.IPMultiplier.rawValue],
+            let IPMultiplierInt = Int(IPMultiplierString),
+            let pointsString = values[SkillField.Points.rawValue],
+            let points = Int(pointsString),
+            let modifierString = values[SkillField.Modifier.rawValue],
+            let modifier = Int(modifierString) else {
+                return
+        }
+        let nameExtension = values[SkillField.Extension.rawValue]
+        let isSpecialAbility = name == model.specialAbilityName()
+        let IPMultiplier = IPMultiplierInt > 0 ? IPMultiplierInt : 1
+        // let linkedStat: Stat? = values[SkillField.LinkedStat] // NEXT: Add the LinkedStat field to the skill editor as an enforced field that only shows up when CREATING a new skill.
+        // let modifiesSkill: String? = value[SkillField.ModifiesSkill] // NEXT: See above
+            // let statModifier: Int? = model.value(for: linkedStat) // NEXT: see above
+        
+        // NEXT: After connecting the dots above, make EditorCollectionViewController accept this data source as a EditorValueReciever.
+        
+        let skill = Skill(name: name, nameExtension: nameExtension, description: description, isSpecialAbility: isSpecialAbility, linkedStat: nil, modifiesSkill: nil, IPMultiplier: IPMultiplier)
+        let skillListing = SkillListing(skill: skill, points: points, modifier: modifier, statModifier: nil)
+        model.add(skill: skillListing)
+    }
+    
 }

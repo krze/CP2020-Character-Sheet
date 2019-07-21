@@ -17,4 +17,6 @@ protocol UserEntryValue {
     var entryIsValid: Bool { get }
     
     func setup(with identifier: Identifier, placeholder: String, description: String)
+    
+    func makeFirstResponder()
 }

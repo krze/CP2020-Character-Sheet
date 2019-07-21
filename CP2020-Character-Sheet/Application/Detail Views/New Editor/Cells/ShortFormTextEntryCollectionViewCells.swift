@@ -72,6 +72,10 @@ class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDeleg
         self.textField = textField
         self.contentView.backgroundColor = viewModel.lightColor
     }
+    
+    func makeFirstResponder() {
+        textField?.becomeFirstResponder()
+    }
 
     // MARK: UITextFieldDelegate
     

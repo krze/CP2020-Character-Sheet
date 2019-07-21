@@ -118,7 +118,30 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     func entryDidFinishEditing(identifier: Identifier, value: String?, moveToNextField: Bool) {
         if let value = value {
             currentValues[identifier] = value
-            // NEXT: Respond to moveToNextField, fill out save() and call it
+        }
+        
+        if moveToNextField {
+            var currentIdentifier = identifier
+            var currentIndex = enforcedOrder.firstIndex(of: identifier)
+            
+            while enforcedOrder.indices.last != currentIndex?.advanced(by: 1) {
+                if let entryType = entryTypes[currentIdentifier] {
+                    switch entryType {
+                    case .Static:
+                        
+                        makeNextCellFirstResponder(index: currentIndex)
+                        break
+                    default:
+                        guard let nextIndex = currentIndex?.advanced(by: 1) else {
+                            break
+                        }
+                        
+                        currentIdentifier = enforcedOrder[nextIndex]
+                        currentIndex = nextIndex
+                    }
+                }
+            }
+            
         }
     }
 
@@ -139,6 +162,13 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     
     private func dismissEditor() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func makeNextCellFirstResponder(index: Int?) {
+        if let index = index,
+            let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? UserEntryCollectionViewCell {
+            cell.makeFirstResponder()
+        }
     }
     
     @objc private func save() {

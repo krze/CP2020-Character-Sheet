@@ -9,6 +9,7 @@
 import UIKit
 
 /// Objects adhering to this protocol are expected to send notifications that an editor view needs to display.
+/// TODO: Delete this with the old editor
 protocol NotifiesEditorNeeded {
     
     /// Used to initiate a notification an EditorViewController needs to be shown.

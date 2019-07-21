@@ -9,6 +9,7 @@
 import UIKit
 
 final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell {
+
     private(set) var identifier = ""
     
     weak var delegate: UserEntryDelegate?
@@ -19,4 +20,9 @@ final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell {
     func setup(with identifier: Identifier, placeholder: String, description: String) {
         
     }
+    
+    func makeFirstResponder() {
+        
+    }
+    
 }
