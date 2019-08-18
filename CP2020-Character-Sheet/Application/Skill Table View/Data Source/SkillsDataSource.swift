@@ -120,14 +120,21 @@ final class SkillsDataSource: NotifiesEditorNeeded, EditorValueReciever {
         let nameExtension = values[SkillField.Extension.rawValue]
         let isSpecialAbility = name == model.specialAbilityName()
         let IPMultiplier = IPMultiplierInt > 0 ? IPMultiplierInt : 1
-        // let linkedStat: Stat? = values[SkillField.LinkedStat] // NEXT: Add the LinkedStat field to the skill editor as an enforced field that only shows up when CREATING a new skill.
-        // let modifiesSkill: String? = value[SkillField.ModifiesSkill] // NEXT: See above
-            // let statModifier: Int? = model.value(for: linkedStat) // NEXT: see above
+        let linkedStat: Stat? = {
+            if let statString = values[SkillField.Stat.rawValue] {
+                return Stat(rawValue: statString)
+            }
+            
+            return nil
+        }()
         
+        let statModifier: Int? = model.value(for: linkedStat).displayValue
+        let modifiesSkill: String? = values[SkillField.ModifiesSkill.rawValue]
+
         // NEXT: After connecting the dots above, make EditorCollectionViewController accept this data source as a EditorValueReciever.
         
-        let skill = Skill(name: name, nameExtension: nameExtension, description: description, isSpecialAbility: isSpecialAbility, linkedStat: nil, modifiesSkill: nil, IPMultiplier: IPMultiplier)
-        let skillListing = SkillListing(skill: skill, points: points, modifier: modifier, statModifier: nil)
+        let skill = Skill(name: name, nameExtension: nameExtension, description: description, isSpecialAbility: isSpecialAbility, linkedStat: linkedStat, modifiesSkill: modifiesSkill, IPMultiplier: IPMultiplier)
+        let skillListing = SkillListing(skill: skill, points: points, modifier: modifier, statModifier: statModifier)
         model.add(skill: skillListing)
     }
     

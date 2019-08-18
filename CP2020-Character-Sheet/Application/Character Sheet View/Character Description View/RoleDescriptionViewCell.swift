@@ -82,7 +82,7 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
     @objc private func cellTapped() {
         let currentFieldStates = fields.map { CurrentFieldState(identifier: $0.key.identifier(),
                                                                 currentValue: $0.value.text ?? "",
-                                                                entryType: $0.key.entryType()) }
+                                                                entryType: $0.key.entryType(mode: .free)) }
         
         dataSource?.editorRequested(currentFieldStates: currentFieldStates,
                                     enforcedOrder: RoleFieldLabel.enforcedOrder(),

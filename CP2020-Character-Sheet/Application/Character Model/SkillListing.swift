@@ -37,7 +37,7 @@ final class SkillListing: Codable {
     private(set) var modifier: Int
     
     /// The modifier from the linked stat, if any
-    private(set) var statModifier: Int // TODO: This will be stale from the JSON if stat points change.
+    private(set) var statModifier: Int
     
     /// Returns the value of the skill added to the skill check roll
     var skillRollValue: Int {

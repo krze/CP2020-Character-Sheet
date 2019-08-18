@@ -81,7 +81,8 @@ protocol EntryTypeProvider {
     /// Provides the entry type for user input
     ///
     /// - Returns: EntryType
-    func entryType() -> EntryType
+    func entryType(mode: EditorMode) -> EntryType
+    
     
     /// The order in which the entry views should appear
     ///

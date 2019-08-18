@@ -15,7 +15,7 @@ enum RoleFieldLabel: String, EntryTypeProvider, CaseIterable {
         return self.rawValue
     }
     
-    func entryType() -> EntryType {
+    func entryType(mode: EditorMode) -> EntryType {
         switch self {
         case .name, .handle:
             return .Text

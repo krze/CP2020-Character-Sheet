@@ -83,8 +83,11 @@ enum Stat: String, Codable, CaseIterable, EntryTypeProvider {
         }
     }
     
-    func entryType() -> EntryType {
-        return .Integer
+    func entryType(mode: EditorMode) -> EntryType {
+        switch mode {
+        default:
+            return .Integer
+        }
     }
     
     static func enforcedOrder() -> [String] {

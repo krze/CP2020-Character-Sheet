@@ -119,7 +119,7 @@ final class StatsViewCell: UICollectionViewCell, StatsDataSourceDelegate, UsedOn
         let editableStatViews = statViews.filter { $0.stat.isCoreStat() }
         var currentFieldStates = editableStatViews.map { CurrentFieldState(identifier: $0.stat.identifier(),
                                                                            currentValue: "\($0.baseValue)",
-                                                                           entryType: $0.stat.entryType()) }
+                                                                           entryType: $0.stat.entryType(mode: .free)) }
         var enforcedOrder = Stat.enforcedOrder()
         
         // TODO: Remove this when humanity loss is calculated by cyberwear

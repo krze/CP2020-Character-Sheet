@@ -31,7 +31,7 @@ extension EditorCollectionViewModel {
         
         fields.forEach { field in
             let identifier = field.identifier()
-            entryTypesForIdentifiers[identifier] = mode == .edit ? field.entryTypeWhenEditing() : field.entryType()
+            entryTypesForIdentifiers[identifier] = field.entryType(mode: mode)
             placeholdersWithIdentifiers[identifier] = placeholder(for: field, from: listing)
             descriptionsWithIdentifiers[identifier] = helpText(for: field)
         }
@@ -62,6 +62,8 @@ extension EditorCollectionViewModel {
             return SkillStrings.improvementPointsHelpText
         case .Description:
             return SkillStrings.descriptionHelpText
+        case .ModifiesSkill:
+            return SkillStrings.modifiesSkillHelpText
         }
     }
     
@@ -75,6 +77,8 @@ extension EditorCollectionViewModel {
             return "\(skillListing.skill.IPMultiplier)"
         case .Stat:
             return skillListing.skill.linkedStat?.rawValue ?? ""
+        case .ModifiesSkill:
+            return skillListing.skill.modifiesSkill ?? ""
         case .Points:
             return "\(skillListing.points)"
         case .Modifier:

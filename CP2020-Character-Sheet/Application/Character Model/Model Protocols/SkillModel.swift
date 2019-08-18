@@ -17,5 +17,6 @@ protocol SkillModel {
 
     func specialAbilityName() -> String
     
-    func value(for: Stat?) -> Int
+    func value(for: Stat?) -> (baseValue: Int, displayValue: Int)
+    
 }
