@@ -209,7 +209,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         /// Ensures descriptions are hid again in case they were left open
         if let indexPath = selectedIndex,
             let cell = self.tableView.cellForRow(at: indexPath) as? SkillTableViewCell {
-            cell.hideDescription()
+            cell.hideDescription() // TODO: Decide to axe this or keep this.
             selectedIndex = nil
         }
         
