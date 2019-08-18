@@ -93,9 +93,6 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         
         if let listing = cell.skillListing {
             let viewModel = EditorCollectionViewModel.model(from: listing, mode: .edit)
-            let layout = UICollectionViewFlowLayout()
-            layout.minimumLineSpacing = 5
-            layout.minimumInteritemSpacing = 0
             showSkillDetail(viewModel: viewModel)
         }
 
@@ -224,6 +221,8 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             let skillDetail = EditorCollectionViewController(with: viewModel)
+            
+            // NEXT: Assign the data source as the editor value receiver and process data from changes
             self.navigationController?.pushViewController(skillDetail, animated: true)
         }
     }

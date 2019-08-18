@@ -24,9 +24,9 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever {
     // MARK: EditorValueReceiver
     
     func valuesFromEditorDidChange(_ values: [Identifier: String]) {
-        let newName = values[RoleFieldLabel.name.identifier()]
-        let newHandle = values[RoleFieldLabel.handle.identifier()]
-        let newRole = values[RoleFieldLabel.characterClass.identifier()]
+        let newName = values[RoleFieldLabel.Name.identifier()]
+        let newHandle = values[RoleFieldLabel.Handle.identifier()]
+        let newRole = values[RoleFieldLabel.CharacterRole.identifier()]
         
         if (newName != model.name || newHandle != model.handle) {
             change(name: newName ?? model.name, handle: newHandle ?? model.handle)

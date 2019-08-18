@@ -36,7 +36,7 @@ extension EditorCollectionViewModel {
             descriptionsWithIdentifiers[identifier] = helpText(for: field)
         }
         
-        return EditorCollectionViewModel(layout: commonLayout(),
+        return EditorCollectionViewModel(layout: .editorDefault(),
                                          entryTypesForIdentifiers: entryTypesForIdentifiers,
                                          placeholdersWithIdentifiers: placeholdersWithIdentifiers,
                                          descriptionsWithIdentifiers: descriptionsWithIdentifiers,
@@ -89,14 +89,6 @@ extension EditorCollectionViewModel {
             return skillListing.skill.description
         }
         
-    }
-    
-    private static func commonLayout() -> UICollectionViewFlowLayout {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 5
-        layout.minimumInteritemSpacing = 0
-        
-        return layout
     }
     
 }

@@ -9,6 +9,8 @@
 import UIKit
 
 final class EditorCollectionViewController: UICollectionViewController, UIPopoverPresentationControllerDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, UserEntryDelegate {
+    
+    var delegate: EditorValueReciever?
 
     private let enforcedOrder: [Identifier]
     private let entryTypes: [Identifier: EntryType]
@@ -170,6 +172,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     }
     
     @objc private func save() {
+        // NEXT: Pass the changes to the delegate
         dismissEditor()
     }
 }

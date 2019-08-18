@@ -10,6 +10,10 @@ import Foundation
 
 /// Strings used in the Character Description View
 enum RoleFieldLabel: String, EntryTypeProvider, CaseIterable {
+    /// NOTE: ORDERING IS ENFORCED. DO NOT CHANGE THE ORDER
+    case Name
+    case Handle
+    case CharacterRole = "Role"
     
     func identifier() -> String {
         return self.rawValue
@@ -17,9 +21,9 @@ enum RoleFieldLabel: String, EntryTypeProvider, CaseIterable {
     
     func entryType(mode: EditorMode) -> EntryType {
         switch self {
-        case .name, .handle:
+        case .Name, .Handle:
             return .Text
-        case .characterClass:
+        case .CharacterRole:
             let classes = Role.allCases.map { $0.rawValue }
             return .EnforcedChoiceText(classes)
         }
@@ -28,10 +32,5 @@ enum RoleFieldLabel: String, EntryTypeProvider, CaseIterable {
     static func enforcedOrder() -> [Identifier] {
         return RoleFieldLabel.allCases.map { $0.identifier() }
     }
-    
-    /// NOTE: ORDERING IS ENFORCED. DO NOT CHANGE THE ORDER
-    
-    case name = "NAME"
-    case handle = "HANDLE"
-    case characterClass = "ROLE"
+
 }

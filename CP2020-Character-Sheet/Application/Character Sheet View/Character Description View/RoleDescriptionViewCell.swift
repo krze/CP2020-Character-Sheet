@@ -59,16 +59,16 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
     }
     
     func update(name: String, handle: String) {
-        fields[.name]?.text = name
-        fields[.name]?.fitTextToBounds()
+        fields[.Name]?.text = name
+        fields[.Name]?.fitTextToBounds()
         
-        fields[.handle]?.text = handle
-        fields[.handle]?.fitTextToBounds()
+        fields[.Handle]?.text = handle
+        fields[.Handle]?.fitTextToBounds()
     }
     
     func update(role: Role) {
-        fields[.characterClass]?.text = role.rawValue
-        fields[.characterClass]?.fitTextToBounds()
+        fields[.CharacterRole]?.text = role.rawValue
+        fields[.CharacterRole]?.fitTextToBounds()
     }
     
     private func setupGestureRecognizers() {
@@ -80,7 +80,18 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
     }
     
     @objc private func cellTapped() {
-//        EditorCollectionViewController(with: model)
+        let role: Role
+        if let roleString = fields[.CharacterRole]?.text, let derivedRole = Role(rawValue: roleString) {
+            role = derivedRole
+        }
+        else {
+            role = .Rocker
+        }
+        
+        let model = EditorCollectionViewModel.model(with: role, name: fields[.Name]?.text ?? "", handle: fields[.Handle]?.text ?? "")
+        let viewController = EditorCollectionViewController(with: model)
+        // NEXT: Assign the data source as the editor value receiver and process data from changes
+        NotificationCenter.default.post(name: .showEditor, object: viewController)
     }
     
     @objc private func edgerunnerLoaded(notification: Notification) {

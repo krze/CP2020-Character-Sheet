@@ -46,6 +46,8 @@
 		9D3761EB21EE704E0027513E /* SkillStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3761EA21EE704E0027513E /* SkillStrings.swift */; };
 		9D4458082232BE6B00AC4EFE /* CommonEntryConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4458072232BE6B00AC4EFE /* CommonEntryConstructor.swift */; };
 		9D4724A02309EF0100CECEA2 /* EditorCollectionViewModel+Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D47249F2309EF0100CECEA2 /* EditorCollectionViewModel+Role.swift */; };
+		9D4724A22309F06D00CECEA2 /* UICollectionViewLayout+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4724A12309F06D00CECEA2 /* UICollectionViewLayout+Common.swift */; };
+		9D4724A42309F2B600CECEA2 /* RoleStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4724A32309F2B600CECEA2 /* RoleStrings.swift */; };
 		9D552CF221AB0E69008B90E9 /* StyleConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D552CF121AB0E69008B90E9 /* StyleConstants.swift */; };
 		9D552CF421AB1050008B90E9 /* DamageControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D552CF321AB1050008B90E9 /* DamageControllerTests.swift */; };
 		9D552CF621AB266F008B90E9 /* DamageModifierViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D552CF521AB266F008B90E9 /* DamageModifierViewModel.swift */; };
@@ -151,6 +153,8 @@
 		9D3761EA21EE704E0027513E /* SkillStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillStrings.swift; sourceTree = "<group>"; };
 		9D4458072232BE6B00AC4EFE /* CommonEntryConstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonEntryConstructor.swift; sourceTree = "<group>"; };
 		9D47249F2309EF0100CECEA2 /* EditorCollectionViewModel+Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorCollectionViewModel+Role.swift"; sourceTree = "<group>"; };
+		9D4724A12309F06D00CECEA2 /* UICollectionViewLayout+Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewLayout+Common.swift"; sourceTree = "<group>"; };
+		9D4724A32309F2B600CECEA2 /* RoleStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleStrings.swift; sourceTree = "<group>"; };
 		9D552CF121AB0E69008B90E9 /* StyleConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConstants.swift; sourceTree = "<group>"; };
 		9D552CF321AB1050008B90E9 /* DamageControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageControllerTests.swift; sourceTree = "<group>"; };
 		9D552CF521AB266F008B90E9 /* DamageModifierViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageModifierViewModel.swift; sourceTree = "<group>"; };
@@ -411,6 +415,7 @@
 			isa = PBXGroup;
 			children = (
 				9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */,
+				9D4724A12309F06D00CECEA2 /* UICollectionViewLayout+Common.swift */,
 				9D552CFB21ACE775008B90E9 /* UIFont+BestFit.swift */,
 				9D004E5A21DADCC3004DFA4D /* UIView+Image.swift */,
 				9D004E3721D81BC5004DFA4D /* UsedOnce.swift */,
@@ -459,6 +464,7 @@
 				9DE335A021A9EA7900180927 /* RoleDescriptionViewCell.swift */,
 				9D2CFA0121C5913100EC76D7 /* RoleFieldLabel.swift */,
 				9D47249F2309EF0100CECEA2 /* EditorCollectionViewModel+Role.swift */,
+				9D4724A32309F2B600CECEA2 /* RoleStrings.swift */,
 				9D004E3621D8125E004DFA4D /* Data Source */,
 				9D2CF9FD21C4336900EC76D7 /* CharacterDescriptionView.swift */,
 				9D2CF9FF21C433C500EC76D7 /* CharacterDescriptionViewModel.swift */,
@@ -694,6 +700,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D552CFA21AC89DA008B90E9 /* DamageModifierDataSourceDelegate.swift in Sources */,
+				9D4724A22309F06D00CECEA2 /* UICollectionViewLayout+Common.swift in Sources */,
 				9DFCB7A921D0674A00F99798 /* Stats.swift in Sources */,
 				9DE3359B21A9E9F700180927 /* DamageModifierViewCell.swift in Sources */,
 				9DFCB7AB21D071EE00F99798 /* IO.swift in Sources */,
@@ -724,6 +731,7 @@
 				9DFCB7B621D17AD000F99798 /* SkillTableSections.swift in Sources */,
 				9DE335A721A9EB5B00180927 /* HighlightedSkillViewCell.swift in Sources */,
 				9D11763821BDCE0300E297BA /* UILabel+LabelContainer.swift in Sources */,
+				9D4724A42309F2B600CECEA2 /* RoleStrings.swift in Sources */,
 				9D552CF621AB266F008B90E9 /* DamageModifierViewModel.swift in Sources */,
 				9D3761E621EA7AA50027513E /* SkillTableViewCellDelegate.swift in Sources */,
 				9D0003B521FE54CD0044F84A /* EditorCollectionViewModel.swift in Sources */,

@@ -117,6 +117,7 @@ final class StatsViewCell: UICollectionViewCell, StatsDataSourceDelegate, UsedOn
     
     @objc private func cellTapped() {
         // NEXT: Pop new editor here
+        // NEXT: Assign the data source as the editor value receiver and process data from changes
     }
     
     @objc private func edgerunnerLoader(notification: Notification) {
