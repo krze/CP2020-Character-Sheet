@@ -10,7 +10,7 @@ import UIKit
 
 /// Manages the array of skills to display in skill tables and signals the model to update
 /// when values have changed
-final class SkillsDataSource: NotifiesEditorNeeded, EditorValueReciever {
+final class SkillsDataSource: EditorValueReciever {
     
     private let model: SkillModel
     private var allSkills = [SkillListing]()
@@ -100,10 +100,6 @@ final class SkillsDataSource: NotifiesEditorNeeded, EditorValueReciever {
         }
         
         return skills
-    }
-    
-    func editorRequested(currentFieldStates: [CurrentFieldState], enforcedOrder: [String], sourceView: UIView) {
-        
     }
     
     func valuesFromEditorDidChange(_ values: [Identifier : String]) {

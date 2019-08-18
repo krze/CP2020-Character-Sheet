@@ -80,13 +80,7 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
     }
     
     @objc private func cellTapped() {
-        let currentFieldStates = fields.map { CurrentFieldState(identifier: $0.key.identifier(),
-                                                                currentValue: $0.value.text ?? "",
-                                                                entryType: $0.key.entryType(mode: .free)) }
-        
-        dataSource?.editorRequested(currentFieldStates: currentFieldStates,
-                                    enforcedOrder: RoleFieldLabel.enforcedOrder(),
-                                    sourceView: self)
+        // NEXT: Pop new editor here
     }
     
     @objc private func edgerunnerLoaded(notification: Notification) {

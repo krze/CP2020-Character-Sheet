@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class StatsDataSource: NSObject, EditorValueReciever, NotifiesEditorNeeded {
+final class StatsDataSource: NSObject, EditorValueReciever {
 
     private let statsModel: StatsModel
     weak var delegate: StatsDataSourceDelegate?
@@ -38,22 +38,6 @@ final class StatsDataSource: NSObject, EditorValueReciever, NotifiesEditorNeeded
                           rep: values.statPoint(for: Stat.Reputation.identifier()) ?? statsModel.value(for: Stat.Reputation).baseValue)
         
         statsModel.set(baseStats: stats, humanityLoss: values.statPoint(for: "HU. LOSS") ?? statsModel.humanityLoss)
-    }
-    
-    func editorRequested(currentFieldStates: [CurrentFieldState], enforcedOrder: [String], sourceView: UIView) {
-        let parameters = currentFieldStates.popoverViewModelParameters()
-        let popoverViewModel = PopoverEditorViewModel(numberOfColumns: 2,
-                                                      numberOfRows: parameters.entryTypes.rowsNecessaryForColumn(count: 2),
-                                                      entryTypesForIdentifiers: parameters.rowsWithIdentifiers,
-                                                      placeholdersWithIdentifiers: parameters.placeholdersWithIdentifiers,
-                                                      enforcedOrder: enforcedOrder,
-                                                      labelWidthRatio: 0.5,
-                                                      includeSpaceForButtons: true)
-        let editorConstructor = EditorConstructor(dataSource: self,
-                                                  viewModel: popoverViewModel,
-                                                  popoverSourceView: sourceView)
-        
-        NotificationCenter.default.post(name: .showEditor, object: editorConstructor)
     }
     
     @objc private func updateStatsView() {

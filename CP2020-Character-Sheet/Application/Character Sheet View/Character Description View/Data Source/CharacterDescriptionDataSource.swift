@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class CharacterDescriptionDataSource: NSObject, EditorValueReciever, NotifiesEditorNeeded {
+final class CharacterDescriptionDataSource: NSObject, EditorValueReciever {
     
     private let model: CharacterDescriptionModel
     weak var delegate: CharacterDescriptionDataSourceDelegate?
@@ -35,23 +35,6 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever, Notif
         if let newRole = newRole, newRole != model.role.rawValue {
             change(role: newRole)
         }
-    }
-    
-    // MARK: NotifiesEditorNeeded
-
-    func editorRequested(currentFieldStates: [CurrentFieldState], enforcedOrder: [String], sourceView: UIView) {
-        let parameters = currentFieldStates.popoverViewModelParameters()
-        let popoverViewModel = PopoverEditorViewModel(numberOfRows: parameters.entryTypes.count,
-                                                      entryTypesForIdentifiers: parameters.rowsWithIdentifiers,
-                                                      placeholdersWithIdentifiers: parameters.placeholdersWithIdentifiers,
-                                                      enforcedOrder: enforcedOrder,
-                                                      labelWidthRatio: 0.3,
-                                                      includeSpaceForButtons: true)
-        let editorConstructor = EditorConstructor(dataSource: self,
-                                                  viewModel: popoverViewModel,
-                                                  popoverSourceView: sourceView)
-        
-        NotificationCenter.default.post(name: .showEditor, object: editorConstructor)
     }
     
     /// Changes the values for the name and handle on the model

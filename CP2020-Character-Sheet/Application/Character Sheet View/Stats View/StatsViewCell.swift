@@ -116,23 +116,7 @@ final class StatsViewCell: UICollectionViewCell, StatsDataSourceDelegate, UsedOn
     }
     
     @objc private func cellTapped() {
-        let editableStatViews = statViews.filter { $0.stat.isCoreStat() }
-        var currentFieldStates = editableStatViews.map { CurrentFieldState(identifier: $0.stat.identifier(),
-                                                                           currentValue: "\($0.baseValue)",
-                                                                           entryType: $0.stat.entryType(mode: .free)) }
-        var enforcedOrder = Stat.enforcedOrder()
-        
-        // TODO: Remove this when humanity loss is calculated by cyberwear
-        let humanityLossIdentifier = "HU. LOSS"
-        currentFieldStates.append(CurrentFieldState(identifier: humanityLossIdentifier,
-                                                    currentValue: "\(dataSource?.humanityLoss ?? 0)",
-                                                    entryType: .Integer))
-        
-        enforcedOrder.append(humanityLossIdentifier)
-        
-        dataSource?.editorRequested(currentFieldStates: currentFieldStates,
-                                    enforcedOrder: enforcedOrder,
-                                    sourceView: self)
+        // NEXT: Pop new editor here
     }
     
     @objc private func edgerunnerLoader(notification: Notification) {

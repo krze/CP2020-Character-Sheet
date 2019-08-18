@@ -41,11 +41,10 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
         
         return nil
     }()
-    private var popoverEditor: EditorViewController?
     
     /// Check this to prevent multiple view controllers from being presented
     private var childViewIsPresenting: Bool {
-        return skillTableViewController?.isBeingPresented == true || popoverEditor?.isBeingPresented == true
+        return skillTableViewController?.isBeingPresented == true
     }
     
     private let modelManager: ModelManager
@@ -71,7 +70,6 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
     
     private func createObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(showSkillTable), name: .showSkillTable, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showEditor), name: .showEditor, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showHelpTextAlert), name: .showHelpTextAlert, object: nil)
     }
     
@@ -84,25 +82,6 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
             
             self.navigationController.pushViewController(skillTableViewController, animated: true)
         }
-    }
-    
-    @objc private func showEditor(notification: Notification) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self, !self.childViewIsPresenting,
-                let constructor = notification.object as? EditorConstructor else {
-                    return
-            }
-            
-            let editor = constructor.createEditor(withWindow: self.window.frame)
-            
-            editor.modalPresentationStyle = .overCurrentContext
-            editor.popoverPresentationController?.delegate = editor
-            
-            self.popoverEditor = editor
-            
-            self.navigationController.present(editor, animated: true)
-        }
-
     }
     
     @objc private func showHelpTextAlert(notification: Notification) {
