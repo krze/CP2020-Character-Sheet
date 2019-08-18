@@ -80,7 +80,7 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
     }
     
     @objc private func cellTapped() {
-        // NEXT: Pop new editor here
+//        EditorCollectionViewController(with: model)
     }
     
     @objc private func edgerunnerLoaded(notification: Notification) {

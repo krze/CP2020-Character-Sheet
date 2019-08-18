@@ -21,7 +21,7 @@ enum RoleFieldLabel: String, EntryTypeProvider, CaseIterable {
             return .Text
         case .characterClass:
             let classes = Role.allCases.map { $0.rawValue }
-            return .Picker(classes)
+            return .EnforcedChoiceText(classes)
         }
     }
     

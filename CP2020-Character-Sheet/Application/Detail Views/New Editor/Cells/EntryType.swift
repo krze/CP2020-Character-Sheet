@@ -27,9 +27,6 @@ enum EntryType {
     /// Integer entry. Values entered will be confirmed and converted to Integer
     case Integer
     
-    /// Picker for an array of Strings. TODO: Deprecate in favor of MatchingText. Picker is clunky.
-    case Picker([String])
-    
     /// Raw text entry that needs more than one line. Spell checking is not enforced.
     case LongFormText
     
@@ -47,8 +44,6 @@ enum EntryType {
             return "IntegerEntryCell"
         case .LongFormText:
             return "LongFormTextEntryCell"
-        case .Picker:
-            return "PickerEntryCell"
         case .SuggestedText:
             return "SuggestedTextEntryCell"
         case .EnforcedChoiceText:
@@ -63,7 +58,7 @@ enum EntryType {
     /// - Returns: CGFloat height
     func cellHeight() -> CGFloat {
         switch self {
-        case .Text, .Integer, .Picker, .SuggestedText, .EnforcedChoiceText, .Static:
+        case .Text, .Integer, .SuggestedText, .EnforcedChoiceText, .Static:
             return EditorCollectionViewConstants.headerRowHeight + EditorCollectionViewConstants.editableSingleLineRowHeight
         case .LongFormText:
             return EditorCollectionViewConstants.headerRowHeight + EditorCollectionViewConstants.editableMultiLineRowHeightMaximum

@@ -98,8 +98,6 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
             guard let cell = cell as? StaticEntryCollectionViewCell else { return UICollectionViewCell() }
             cell.setup(with: identifier, placeholder: placeholder, description: description)
             cell.delegate = self
-        case .Picker(_):
-            return UICollectionViewCell() // This will crash
         }
     
         // Configure the cell
