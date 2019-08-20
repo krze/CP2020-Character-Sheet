@@ -82,14 +82,7 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
     @objc private func cellTapped() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            let role: Role
-            if let roleString = self.fields[.CharacterRole]?.text, let derivedRole = Role(rawValue: roleString) {
-                role = derivedRole
-            }
-            else {
-                role = .Rocker
-            }
-            
+            let role = Role(rawValue: self.fields[.CharacterRole]?.text ?? "")
             let model = EditorCollectionViewModel.model(with: role, name: self.fields[.Name]?.text ?? "", handle: self.fields[.Handle]?.text ?? "")
             let viewController = EditorCollectionViewController(with: model)
             viewController.delegate = self.dataSource

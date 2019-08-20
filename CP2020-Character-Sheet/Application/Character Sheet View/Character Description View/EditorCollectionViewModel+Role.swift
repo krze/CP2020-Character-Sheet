@@ -10,7 +10,7 @@ import Foundation
 
 extension EditorCollectionViewModel {
     
-    static func model(with currentRole: Role, name: String, handle: String) -> EditorCollectionViewModel {
+    static func model(with currentRole: Role?, name: String, handle: String) -> EditorCollectionViewModel {
         var entryTypesForIdentifiers = [Identifier: EntryType]()
         var placeholdersWithIdentifiers = [Identifier: String]()
         var descriptionsWithIdentifiers = [Identifier: String]()
@@ -21,7 +21,7 @@ extension EditorCollectionViewModel {
             placeholdersWithIdentifiers[identifier] = {
                 switch label {
                 case .CharacterRole:
-                    return currentRole.rawValue
+                    return currentRole?.rawValue ?? ""
                 case .Handle:
                     return handle
                 case .Name:

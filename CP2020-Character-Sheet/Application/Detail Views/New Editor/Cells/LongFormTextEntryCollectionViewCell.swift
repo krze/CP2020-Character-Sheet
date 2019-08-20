@@ -26,6 +26,8 @@ final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell, UI
     private var resigning = false
     
     func setup(with identifier: Identifier, placeholder: String, description: String) {
+        NotificationCenter.default.addObserver(self, selector: #selector(saveWasCalled), name: .saveWasCalled, object: nil)
+        
         self.identifier = identifier
         self.fieldDescription = description
         
@@ -84,13 +86,12 @@ final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell, UI
     // MARK: UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        resigning = textField.resignFirstResponder()
-        return true
+        textField.resignFirstResponder()
+        return false
     }
     
     func textViewDidEndEditing(_ textField: UITextView) {
-        delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue, moveToNextField: resigning)
-        resigning = false
+        delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue)
     }
     
     // MARK: Private
@@ -108,6 +109,12 @@ final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell, UI
         let alert = UIAlertController(title: identifier, message: fieldDescription, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: SkillStrings.dismissHelpPopoverButtonText, style: .default, handler: nil))
         NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
+    }
+    
+    @objc func saveWasCalled() {
+        if textView?.isFirstResponder == true {
+            textView?.resignFirstResponder()
+        }
     }
     
 }

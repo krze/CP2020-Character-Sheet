@@ -20,10 +20,13 @@ extension Notification.Name {
     static let skillPointStatModifierDidChange = Notification.Name("skillPointStatModifierDidChange")
     static let nameAndHandleDidChange = Notification.Name("nameAndHandleDidChange")
     
-    // Popovers
+    // Show a new view
     static let showEditor = Notification.Name("showEditor")
     static let showSkillDetail = Notification.Name("showSkillDetail")
     static let showHelpTextAlert = Notification.Name("showHelpTextAlert")
+    
+    // View dismissals
+    static let saveWasCalled = Notification.Name("saveWasCalled")
     
     // Navigation
     static let showSkillTable = Notification.Name("showSkillTable")

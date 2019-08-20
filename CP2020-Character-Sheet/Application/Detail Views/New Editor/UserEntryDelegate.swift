@@ -6,9 +6,12 @@
 //  Copyright © 2019 Ken Krzeminski. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol UserEntryDelegate: class {
     
-    func entryDidFinishEditing(identifier: Identifier, value: String?, moveToNextField: Bool)
+    func entryDidFinishEditing(identifier: Identifier, value: String?)
+    
+    func fieldHasAnInvalidValue(identifier: String)
+    
 }

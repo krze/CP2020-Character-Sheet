@@ -14,6 +14,7 @@ import UIKit
 
 /// A single-line textfield that accepts user entry without validation
 class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDelegate {
+
     weak var delegate: UserEntryDelegate?
     
     var enteredValue: String? {
@@ -28,9 +29,9 @@ class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDeleg
     fileprivate let viewModel = EditorStyleConstants()
     fileprivate var textField: UITextField?
     
-    private var resigning = false
-
     func setup(with identifier: Identifier, placeholder: String, description: String) {
+        NotificationCenter.default.addObserver(self, selector: #selector(saveWasCalled), name: .saveWasCalled, object: nil)
+
         self.identifier = identifier
         self.fieldDescription = description
         
@@ -80,15 +81,13 @@ class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDeleg
     // MARK: UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        resigning = textField.resignFirstResponder()
-        return true
+        textField.resignFirstResponder()
+        return false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue, moveToNextField: resigning)
-        resigning = false
+        delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue)
     }
-    
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         hideWarning()
@@ -120,6 +119,13 @@ class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDeleg
             textField?.backgroundColor = viewModel.lightColor
         }
     }
+    
+    @objc func saveWasCalled() {
+        if textField?.isEditing == true {
+            textField?.resignFirstResponder()
+        }
+    }
+    
 }
 
 // Displays text while disabling the ability to edit the field. Use this field when popping an editor
@@ -171,6 +177,7 @@ final class IntegerEntryCollectionViewCell: TextEntryCollectionViewCell {
     private func validate(userEntry: String) {
         guard entryIsPositiveInteger(userEntry) else {
             entryIsValid = false
+            delegate?.fieldHasAnInvalidValue(identifier: identifier)
             showWarning()
             return
         }
@@ -217,6 +224,8 @@ class SuggestedTextCollectionViewCell: TextEntryCollectionViewCell {
             textField.text = acceptedChoice
             textField.textColor = viewModel.darkColor
         }
+        
+        delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue)
     }
 
     // MARK: Private
@@ -321,10 +330,12 @@ final class EnforcedTextCollectionViewCell: SuggestedTextCollectionViewCell {
     private func validate(userEntry: String) {
         if suggestedMatches.contains(userEntry) {
             entryIsValid = true
+            delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue)
             hideWarning()
         }
         else {
             entryIsValid = false
+            delegate?.fieldHasAnInvalidValue(identifier: identifier)
             showWarning()
         }
     }

@@ -18,10 +18,13 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     private let descriptions: [Identifier: String]
     private let paddingRatio: CGFloat
     
+    private weak var saveButton: UIBarButtonItem?
+    
     private var valuesChanged = false
     private var currentValues = [Identifier: String]() {
         didSet {
             valuesChanged = true
+            saveButton?.isEnabled = true
         }
     }
     
@@ -41,6 +44,8 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     override func viewDidLoad() {
         super.viewDidLoad()
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
+        saveButton.isEnabled = false
+        self.saveButton = saveButton
         self.navigationItem.rightBarButtonItem = saveButton
         // Register cell classes
         collectionView.register(TextEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.Text.cellReuseID())
@@ -72,6 +77,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         
         let reuseIdentifier = entryType.cellReuseID()
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        currentValues[identifier] = placeholder
         
         switch entryType {
         case .Text:
@@ -115,34 +121,39 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     
     // MARK: UserEntryViewDelegate
     
-    func entryDidFinishEditing(identifier: Identifier, value: String?, moveToNextField: Bool) {
+    func entryDidFinishEditing(identifier: Identifier, value: String?) {
         if let value = value {
             currentValues[identifier] = value
         }
         
+        let moveToNextField = !currentValues.filter( { $0.value == "" }).isEmpty
+        
         if moveToNextField {
             var currentIdentifier = identifier
-            var currentIndex = enforcedOrder.firstIndex(of: identifier)
+            guard var currentIndex = enforcedOrder.firstIndex(of: identifier) else {
+                return
+            }
             
-            while enforcedOrder.indices.last != currentIndex?.advanced(by: 1) {
+            while enforcedOrder.indices.contains(currentIndex) {
                 if let entryType = entryTypes[currentIdentifier] {
                     switch entryType {
                     case .Static:
-                        
-                        makeNextCellFirstResponder(index: currentIndex)
-                        break
-                    default:
-                        guard let nextIndex = currentIndex?.advanced(by: 1) else {
-                            break
-                        }
-                        
+                        let nextIndex = currentIndex.advanced(by: 1)
                         currentIdentifier = enforcedOrder[nextIndex]
                         currentIndex = nextIndex
+                        continue
+                    default:
+                        makeNextCellFirstResponder(currentIndex: currentIndex)
                     }
                 }
+                
+                break
             }
-            
         }
+    }
+    
+    func fieldHasAnInvalidValue(identifier: String) {
+        saveButton?.isEnabled = false
     }
 
     // MARK: UICollectionViewDelegateFlowLayout
@@ -164,15 +175,22 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         self.navigationController?.popViewController(animated: true)
     }
     
-    private func makeNextCellFirstResponder(index: Int?) {
-        if let index = index,
-            let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? UserEntryCollectionViewCell {
+    private func makeNextCellFirstResponder(currentIndex: Int?) {
+        guard let currentIndex = currentIndex else { return }
+        
+        if let cell = collectionView.cellForItem(at: IndexPath(item: currentIndex + 1, section: 0)) as? UserEntryCollectionViewCell {
             cell.makeFirstResponder()
         }
     }
     
     @objc private func save() {
-        // NEXT: Pass the changes to the delegate
+        // NEXT: This is messy! During setup, inform the editor if all fields that _need_ to be valid have valid entries. Then,
+        // flip the value if that changes. Pop an error toast if there's invalid entries when tapping save and do not dismiss.
+        NotificationCenter.default.post(name: .saveWasCalled, object: nil)
+        if valuesChanged {
+            self.delegate?.valuesFromEditorDidChange(currentValues)
+        }
+        
         dismissEditor()
     }
 }

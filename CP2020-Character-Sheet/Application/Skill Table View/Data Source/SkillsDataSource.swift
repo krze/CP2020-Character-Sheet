@@ -113,6 +113,7 @@ final class SkillsDataSource: EditorValueReciever {
             let modifier = Int(modifierString) else {
                 return
         }
+        
         let nameExtension = values[SkillField.Extension.rawValue]
         let isSpecialAbility = name == model.specialAbilityName()
         let IPMultiplier = IPMultiplierInt > 0 ? IPMultiplierInt : 1
@@ -126,9 +127,6 @@ final class SkillsDataSource: EditorValueReciever {
         
         let statModifier: Int? = model.value(for: linkedStat).displayValue
         let modifiesSkill: String? = values[SkillField.ModifiesSkill.rawValue]
-
-        // NEXT: After connecting the dots above, make EditorCollectionViewController accept this data source as a EditorValueReciever.
-        
         let skill = Skill(name: name, nameExtension: nameExtension, description: description, isSpecialAbility: isSpecialAbility, linkedStat: linkedStat, modifiesSkill: modifiesSkill, IPMultiplier: IPMultiplier)
         let skillListing = SkillListing(skill: skill, points: points, modifier: modifier, statModifier: statModifier)
         model.add(skill: skillListing)

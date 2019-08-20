@@ -180,6 +180,6 @@ final class Edgerunner: Codable, CharacterDescriptionModel, StatsModel, SkillMod
     
     /// Saves the character to disk.
     private func save() {
-        // TODO: Persistence object for managing saves
+        // NEXT: Persistence object for managing saves
     }
 }

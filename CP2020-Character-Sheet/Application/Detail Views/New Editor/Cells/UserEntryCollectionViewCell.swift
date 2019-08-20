@@ -19,4 +19,7 @@ protocol UserEntryValue {
     func setup(with identifier: Identifier, placeholder: String, description: String)
     
     func makeFirstResponder()
+    
+    func saveWasCalled()
+    
 }
