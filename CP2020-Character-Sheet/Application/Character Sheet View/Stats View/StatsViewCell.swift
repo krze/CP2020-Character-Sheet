@@ -116,19 +116,21 @@ final class StatsViewCell: UICollectionViewCell, StatsDataSourceDelegate, UsedOn
     }
     
     @objc private func cellTapped() {
-        let stats: StatsWithBaseValues = statViews
-            .filter({ !$0.stat.isCalulated() })
-            .reduce([Stat: Int](), { (stats, statView) -> StatsWithBaseValues in
-            var stats = stats
-            stats[statView.stat] = statView.baseValue
-            return stats
-        })
-        
-        let model = EditorCollectionViewModel.make(with: stats)
-        let viewController = EditorCollectionViewController(with: model)
-        NotificationCenter.default.post(name: .showEditor, object: viewController)
-
-        // NEXT: Assign the data source as the editor value receiver and process data from changes
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            let stats: StatsWithBaseValues = self.statViews
+                .filter({ !$0.stat.isCalulated() })
+                .reduce([Stat: Int](), { (stats, statView) -> StatsWithBaseValues in
+                var stats = stats
+                stats[statView.stat] = statView.baseValue
+                return stats
+            })
+            
+            let model = EditorCollectionViewModel.make(with: stats)
+            let viewController = EditorCollectionViewController(with: model)
+            viewController.delegate = self.dataSource
+            NotificationCenter.default.post(name: .showEditor, object: viewController)
+        }
     }
     
     @objc private func edgerunnerLoader(notification: Notification) {

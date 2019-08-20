@@ -80,18 +80,21 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
     }
     
     @objc private func cellTapped() {
-        let role: Role
-        if let roleString = fields[.CharacterRole]?.text, let derivedRole = Role(rawValue: roleString) {
-            role = derivedRole
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            let role: Role
+            if let roleString = self.fields[.CharacterRole]?.text, let derivedRole = Role(rawValue: roleString) {
+                role = derivedRole
+            }
+            else {
+                role = .Rocker
+            }
+            
+            let model = EditorCollectionViewModel.model(with: role, name: self.fields[.Name]?.text ?? "", handle: self.fields[.Handle]?.text ?? "")
+            let viewController = EditorCollectionViewController(with: model)
+            viewController.delegate = self.dataSource
+            NotificationCenter.default.post(name: .showEditor, object: viewController)
         }
-        else {
-            role = .Rocker
-        }
-        
-        let model = EditorCollectionViewModel.model(with: role, name: fields[.Name]?.text ?? "", handle: fields[.Handle]?.text ?? "")
-        let viewController = EditorCollectionViewController(with: model)
-        // NEXT: Assign the data source as the editor value receiver and process data from changes
-        NotificationCenter.default.post(name: .showEditor, object: viewController)
     }
     
     @objc private func edgerunnerLoaded(notification: Notification) {

@@ -10,7 +10,7 @@ import UIKit
 
 final class EditorCollectionViewController: UICollectionViewController, UIPopoverPresentationControllerDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, UserEntryDelegate {
     
-    var delegate: EditorValueReciever?
+    weak var delegate: EditorValueReciever?
 
     private let enforcedOrder: [Identifier]
     private let entryTypes: [Identifier: EntryType]
