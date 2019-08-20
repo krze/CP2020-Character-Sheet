@@ -9,7 +9,7 @@
 import UIKit
 
 /// A delegate that handles when the user input is returned from an editor
-protocol EditorValueReciever {
+protocol EditorValueReciever: class {
     
     func valuesFromEditorDidChange(_ values: [Identifier: String])
     
