@@ -116,7 +116,18 @@ final class StatsViewCell: UICollectionViewCell, StatsDataSourceDelegate, UsedOn
     }
     
     @objc private func cellTapped() {
-        // NEXT: Pop new editor here
+        let stats: StatsWithBaseValues = statViews
+            .filter({ !$0.stat.isCalulated() })
+            .reduce([Stat: Int](), { (stats, statView) -> StatsWithBaseValues in
+            var stats = stats
+            stats[statView.stat] = statView.baseValue
+            return stats
+        })
+        
+        let model = EditorCollectionViewModel.make(with: stats)
+        let viewController = EditorCollectionViewController(with: model)
+        NotificationCenter.default.post(name: .showEditor, object: viewController)
+
         // NEXT: Assign the data source as the editor value receiver and process data from changes
     }
     
