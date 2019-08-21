@@ -16,6 +16,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     private let entryTypes: [Identifier: EntryType]
     private let placeholderValues: [Identifier: String]
     private let descriptions: [Identifier: String]
+    private var fieldValidity = [Identifier: Bool]()
     private let paddingRatio: CGFloat
     
     private weak var saveButton: UIBarButtonItem?
@@ -107,7 +108,9 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
             cell.setup(with: identifier, placeholder: placeholder, description: description)
             cell.delegate = self
         }
-    
+        
+        fieldValidity[identifier] = (cell as? UserEntryCollectionViewCell)?.entryIsValid
+        
         // Configure the cell
     
         return cell
@@ -152,8 +155,8 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         }
     }
     
-    func fieldHasAnInvalidValue(identifier: String) {
-        saveButton?.isEnabled = false
+    func fieldValidityChanged(identifier: String, newValue: Bool) {
+        fieldValidity[identifier] = newValue
     }
 
     // MARK: UICollectionViewDelegateFlowLayout
@@ -184,13 +187,24 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     }
     
     @objc private func save() {
-        // NEXT: This is messy! During setup, inform the editor if all fields that _need_ to be valid have valid entries. Then,
-        // flip the value if that changes. Pop an error toast if there's invalid entries when tapping save and do not dismiss.
+        let allValid = !fieldValidity.contains(where: { $1 == false })
+
         NotificationCenter.default.post(name: .saveWasCalled, object: nil)
-        if valuesChanged {
+        if allValid && valuesChanged {
             self.delegate?.valuesFromEditorDidChange(currentValues)
+            dismissEditor()
+        }
+        else {
+            let identifiers: [String] = fieldValidity.filter({ $1 == false })
+                .compactMap({ key, value in
+                    return key
+                })
+            
+            let fields = identifiers.joined(separator: ", ")
+            let alert = UIAlertController(title: "Some fields need your attention", message: "The following field\(identifiers.count > 1 ? "s" : "") ha\(identifiers.count > 1 ? "ve" : "s an") invalid value\(identifiers.count > 1 ? "s" : ""):\n\(fields)", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: SkillStrings.dismissHelpPopoverButtonText, style: .default, handler: nil))
+            NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
         }
         
-        dismissEditor()
     }
 }

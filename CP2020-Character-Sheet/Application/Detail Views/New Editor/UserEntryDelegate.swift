@@ -12,6 +12,6 @@ protocol UserEntryDelegate: class {
     
     func entryDidFinishEditing(identifier: Identifier, value: String?)
     
-    func fieldHasAnInvalidValue(identifier: String)
+    func fieldValidityChanged(identifier: String, newValue: Bool)
     
 }

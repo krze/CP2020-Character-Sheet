@@ -25,7 +25,11 @@ class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDeleg
     private var header: UILabel?
     private var fieldDescription = ""
 
-    fileprivate(set) var entryIsValid = true
+    fileprivate(set) var entryIsValid = true {
+        didSet {
+            delegate?.fieldValidityChanged(identifier: identifier, newValue: entryIsValid)
+        }
+    }
     fileprivate let viewModel = EditorStyleConstants()
     fileprivate var textField: UITextField?
     
@@ -160,6 +164,9 @@ final class IntegerEntryCollectionViewCell: TextEntryCollectionViewCell {
         if entryIsValid {
             super.textFieldDidEndEditing(textField)
         }
+        else {
+            showPopup()
+        }
     }
 
     private func entryIsPositiveInteger(_ userEntry: String) -> Bool {
@@ -167,7 +174,7 @@ final class IntegerEntryCollectionViewCell: TextEntryCollectionViewCell {
             return false
         }
 
-        if let userEntryValue = Int(userEntry), userEntryValue >= 0 {
+        if let userEntryValue = Int(userEntry), (-10...10).contains(userEntryValue) {
             return true
         }
 
@@ -177,7 +184,6 @@ final class IntegerEntryCollectionViewCell: TextEntryCollectionViewCell {
     private func validate(userEntry: String) {
         guard entryIsPositiveInteger(userEntry) else {
             entryIsValid = false
-            delegate?.fieldHasAnInvalidValue(identifier: identifier)
             showWarning()
             return
         }
@@ -186,6 +192,12 @@ final class IntegerEntryCollectionViewCell: TextEntryCollectionViewCell {
         hideWarning()
     }
 
+    private func showPopup() {
+        guard let userEntry = textField?.text else { return }
+        let alert = UIAlertController(title: "\(userEntry) is an invalid choice", message: "Number must be an integer between -10 and 10.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: SkillStrings.dismissHelpPopoverButtonText, style: .default, handler: nil))
+        NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
+    }
 }
 
 class SuggestedTextCollectionViewCell: TextEntryCollectionViewCell {
@@ -294,13 +306,17 @@ class SuggestedTextCollectionViewCell: TextEntryCollectionViewCell {
 }
 
 final class EnforcedTextCollectionViewCell: SuggestedTextCollectionViewCell {
-
+    
     override func setup(with identifier: Identifier, placeholder: String, description: String) {
         super.setup(with: identifier, placeholder: placeholder, description: description)
+        
+        
+        if let existingValue = textField?.text {
+            validate(userEntry: existingValue)
+        }
     }
 
-    override func showWarning() {
-        super.showWarning()
+    private func showPopup() {
         guard let userEntry = textField?.text else { return }
         var choices = ""
 
@@ -323,6 +339,13 @@ final class EnforcedTextCollectionViewCell: SuggestedTextCollectionViewCell {
         super.textFieldDidEndEditing(textField, reason: reason)
         guard let userEntry = textField.text else { return }
         validate(userEntry: userEntry)
+        
+        if entryIsValid {
+            delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue)
+        }
+        else {
+            showPopup()
+        }
     }
 
     // MARK: Private
@@ -330,12 +353,10 @@ final class EnforcedTextCollectionViewCell: SuggestedTextCollectionViewCell {
     private func validate(userEntry: String) {
         if suggestedMatches.contains(userEntry) {
             entryIsValid = true
-            delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue)
             hideWarning()
         }
         else {
             entryIsValid = false
-            delegate?.fieldHasAnInvalidValue(identifier: identifier)
             showWarning()
         }
     }
