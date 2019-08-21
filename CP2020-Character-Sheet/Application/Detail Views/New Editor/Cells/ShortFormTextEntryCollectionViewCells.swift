@@ -194,7 +194,8 @@ final class IntegerEntryCollectionViewCell: TextEntryCollectionViewCell {
 
     private func showPopup() {
         guard let userEntry = textField?.text else { return }
-        let alert = UIAlertController(title: "\(userEntry) is an invalid choice", message: "Number must be an integer between -10 and 10.", preferredStyle: .alert)
+        let title = userEntry.count > 0 ? "\(userEntry) is an invalid choice" : "\(identifier) cannot be blank."
+        let alert = UIAlertController(title: title, message: "Number must be an integer between -10 and 10.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: SkillStrings.dismissHelpPopoverButtonText, style: .default, handler: nil))
         NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
     }
@@ -327,8 +328,8 @@ final class EnforcedTextCollectionViewCell: SuggestedTextCollectionViewCell {
                 choices.append(contentsOf: ", ")
             }
         }
-
-        let alert = UIAlertController(title: "\(userEntry) is an invalid choice", message: "Please select one of the following:\n\(choices)", preferredStyle: .alert)
+        let title = userEntry.count > 0 ? "\(userEntry) is an invalid choice" : "\(identifier) cannot be blank."
+        let alert = UIAlertController(title: title, message: "Please select one of the following:\n\(choices)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: SkillStrings.dismissHelpPopoverButtonText, style: .default, handler: nil))
         NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
     }
