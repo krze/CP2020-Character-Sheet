@@ -28,7 +28,7 @@ enum Role: String, Codable, CaseIterable {
 /// The canon special abilities for each class.
 struct SpecialAbilities {
     private static let mappings: [Role: String] = [
-        .Rocker: "Charasmatic Leadership",
+        .Rocker: "Charismatic Leadership",
         .Solo: "Combat Sense",
         .Cop: "Authority",
         .Media: "Credibility",
