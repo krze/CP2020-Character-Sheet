@@ -94,7 +94,7 @@ final class SkillsDataSource: EditorValueReciever {
         unnecessaryRootSkillNames = Array(Set(unnecessaryRootSkillNames))
         
         unnecessaryRootSkillNames.forEach { skillName in
-            if let index = skills.firstIndex(where: { $0.skill.name == skillName }) {
+            if let index = skills.firstIndex(where: { $0.skill.name == skillName && $0.skill.nameExtension == nil}) {
                 skills.remove(at: index)
             }
         }
@@ -103,22 +103,22 @@ final class SkillsDataSource: EditorValueReciever {
     }
     
     func valuesFromEditorDidChange(_ values: [Identifier : String]) {
-        guard let name = values[SkillField.Name.rawValue],
-            let description = values[SkillField.Description.rawValue],
-            let IPMultiplierString = values[SkillField.IPMultiplier.rawValue],
+        guard let name = values[SkillField.Name.identifier()],
+            let description = values[SkillField.Description.identifier()],
+            let IPMultiplierString = values[SkillField.IPMultiplier.identifier()],
             let IPMultiplierInt = Int(IPMultiplierString),
-            let pointsString = values[SkillField.Points.rawValue],
+            let pointsString = values[SkillField.Points.identifier()],
             let points = Int(pointsString),
-            let modifierString = values[SkillField.Modifier.rawValue],
+            let modifierString = values[SkillField.Modifier.identifier()],
             let modifier = Int(modifierString) else {
                 return
         }
         
-        let nameExtension = values[SkillField.Extension.rawValue]
+        let nameExtension = values[SkillField.Extension.identifier()]
         let isSpecialAbility = name == model.specialAbilityName()
         let IPMultiplier = IPMultiplierInt > 0 ? IPMultiplierInt : 1
         let linkedStat: Stat? = {
-            if let statString = values[SkillField.Stat.rawValue] {
+            if let statString = values[SkillField.Stat.identifier()] {
                 return Stat(rawValue: statString)
             }
             
@@ -126,7 +126,7 @@ final class SkillsDataSource: EditorValueReciever {
         }()
         
         let statModifier: Int? = model.value(for: linkedStat).displayValue
-        let modifiesSkill: String? = values[SkillField.ModifiesSkill.rawValue]
+        let modifiesSkill: String? = values[SkillField.ModifiesSkill.identifier()]
         let skill = Skill(name: name, nameExtension: nameExtension, description: description, isSpecialAbility: isSpecialAbility, linkedStat: linkedStat, modifiesSkill: modifiesSkill, IPMultiplier: IPMultiplier)
         let skillListing = SkillListing(skill: skill, points: points, modifier: modifier, statModifier: statModifier)
         model.add(skill: skillListing)
