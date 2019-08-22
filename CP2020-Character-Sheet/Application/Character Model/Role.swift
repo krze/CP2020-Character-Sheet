@@ -9,7 +9,7 @@
 import Foundation
 
 enum Role: String, Codable, CaseIterable {
-    case Rocker, Solo, Cop, Media, Fixer, Corporate, Nomad, Techie, MedTechie, Netrunner
+    case Rocker, Solo, Cop, Media, Fixer, Corporate, Nomad, Techie, Medtechie, Netrunner
     
     /// The name of the special ability that belongs to the class
     ///
@@ -36,7 +36,7 @@ struct SpecialAbilities {
         .Corporate: "Resources",
         .Nomad: "Family",
         .Techie: "Jury Rig",
-        .MedTechie: "Medical Tech",
+        .Medtechie: "Medical Tech",
         .Netrunner: "Interface"
     ]
     

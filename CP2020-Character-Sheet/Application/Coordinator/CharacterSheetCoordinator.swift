@@ -44,7 +44,7 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
     
     /// Check this to prevent multiple view controllers from being presented
     private var childViewIsPresenting: Bool {
-        return skillTableViewController?.isBeingPresented == true
+        return skillTableViewController != nil && skillTableViewController?.isBeingPresented == true
     }
     
     private let modelManager: ModelManager
