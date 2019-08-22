@@ -9,7 +9,7 @@
 import UIKit
 
 /// The table view containing the full listing of every skill available to the player
-final class SkillTableViewController: UITableViewController, SkillsDataSourceDelegate, SkillTableViewCellDelegate {
+final class SkillTableViewController: UITableViewController, SkillsDataSourceDelegate, SkillTableViewCellDelegate, UISearchResultsUpdating {
 
     private let dataSource: SkillsDataSource
     
@@ -20,6 +20,9 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
     private let identifier = SkillTableConstants.identifier
     
     private var skillListings = [SkillListing]()
+    private var filteredSillListings = [SkillListing]()
+    
+    private let searchController = UISearchController(searchResultsController: nil)
     
     // MARK: Cell expansion
     
@@ -45,14 +48,34 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         super.viewDidLoad()
         self.tableView.register(SkillTableViewCell.self, forCellReuseIdentifier: identifier)
 
+        // Tableview Setup
+        
         tableView.rowHeight = SkillTableConstants.rowHeight
-        tableView.sectionHeaderHeight = SkillTableConstants.rowHeight
         tableView.backgroundColor = viewModel.lightColor
+        
+        // Search bar setup
+        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = SkillStrings.searchSkills
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if isFiltering() {
+            return 0.0
+        }
+        else {
+            return SkillTableConstants.rowHeight
+            
+        }
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard !isFiltering() else { return nil }
         let frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: SkillTableConstants.rowHeight)
-        let labelText = SkillTableSections(rawValue: section)?.string() ?? "No Associated Stat"
+        let labelText = SkillTableSections(rawValue: section)?.string() ?? SkillStrings.noAssociatedStat
         
         let view = UIView(frame: frame)
         view.backgroundColor = viewModel.darkColor
@@ -140,6 +163,44 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         refreshTableAfterHeightChange()
     }
     
+    // MARK: UISearchResultsUpdating
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text)
+    }
+    
+    private func searchBarIsEmpty() -> Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    private func isFiltering() -> Bool {
+        return searchController.isActive && !searchBarIsEmpty()
+    }
+    
+    private func filterContentForSearchText(_ searchText: String?, scope: String = "All") {
+        guard let searchText = searchText else { return }
+        
+        filteredSillListings = skillListings.filter({ skill in
+            let searchText = searchText.lowercased()
+            let skillName = skill.skill.name.lowercased()
+            let skillExtension = skill.skill.nameExtension
+            
+            let skillNameMatch = skillName.contains(searchText)
+            let extensionNameMatch = skillExtension?.contains(searchText) == true
+            let skillAndExtensionMatch: Bool = {
+                if let skillExtension = skillExtension {
+                    return "\(skill): \(skillExtension)".contains(searchText)
+                }
+               
+                return false
+            }()
+            
+            return skillNameMatch || extensionNameMatch || skillAndExtensionMatch
+        })
+        updateSections()
+        tableView.reloadData()
+    }
+    
     private func refreshTableAfterHeightChange() {
         tableView.beginUpdates()
         tableView.setNeedsDisplay()
@@ -159,7 +220,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         return label
     }
 
-    /// Reflreshes the sections dictionary. This is a O(1) operation.
+    /// Refreshes the sections dictionary. This is a O(1) operation.
     ///
     /// This function does not take into account skills that are not special abilities that have no linked
     /// stats. This controller is expected to recieve a filtered array of stats relevent to the character's
@@ -175,6 +236,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
             .Reflex: [SkillListing](),
             .Tech: [SkillListing]()
         ]
+        var skillListings = isFiltering() ? self.filteredSillListings : self.skillListings
         
         if let specialIndex = skillListings.firstIndex(where: { $0.skill.isSpecialAbility }) {
             sections[.SpecialAbility] = [skillListings.remove(at: specialIndex)]

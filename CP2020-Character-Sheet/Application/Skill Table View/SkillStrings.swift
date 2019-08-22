@@ -34,4 +34,8 @@ struct SkillStrings {
     
     static let favorite = "Highlighted Skill"
     static let hideSkill = "Hide Skill"
+    
+    static let searchSkills = "Search Skills"
+    
+    static let noAssociatedStat = "No Associated Stat"
 }
