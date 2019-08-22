@@ -188,6 +188,9 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     
     @objc private func save() {
         let allValid = !fieldValidity.contains(where: { $1 == false })
+        // NEXT: There's difficulty validating all data as valid as a whole.
+        // 1. Determine the minimum validity for each type of field (i.e. is a number, is one of the required choices, etc)
+        // 2. Pass fields to a validator based on the datasource to determine if it's valid as a whole. Or inject a validator.
 
         NotificationCenter.default.post(name: .saveWasCalled, object: nil)
         if allValid && valuesChanged {
