@@ -13,12 +13,14 @@ The character sheet app is planned out for the following phases:
   - [x] Placeholder view
   - [ ] Highlighted list that filters skills
 - [x] Full skill list view
+  - [x] Searchable lists for skills
+  - [x] Custom skill support
 #### Data layer:
 - [ ] Persistence
-- [ ] Editable values for each section
+- [x] Editable values for each section
   - [x] Character Description
   - [x] Stats
-  - [ ] Skills
+  - [x] Skills
 - [x] Character Model
   - [x] Character info
   - [x] Damage
@@ -27,6 +29,7 @@ The character sheet app is planned out for the following phases:
 
 ### Phase 2:
 #### UI:
+- [ ] More complex modifiers for skills, stats, and weapons
 - [ ] Incoming damage calculator
   - [ ] Standard bullets
   - [ ] AP bullets
@@ -35,7 +38,6 @@ The character sheet app is planned out for the following phases:
 - [ ] Weapons list
 - [ ] Armor list
 - [ ] Cyberware list
-- [ ] Searchable lists for skills
 #### Data layer:
 - [ ] Interaction between relevant equipment/stats to calculate damage
 - [ ] Skill tooltips to provide dice roll equations
@@ -43,7 +45,6 @@ The character sheet app is planned out for the following phases:
 ### Phase 3:
 #### UI:
 - [ ] Lifepath list
-- [ ] Custom skill support
 - [ ] Character builder flow on first run
 #### Data layer:
 - [ ] Custom skill importing and exporting via JSON
