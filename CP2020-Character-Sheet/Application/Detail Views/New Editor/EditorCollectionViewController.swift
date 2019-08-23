@@ -194,20 +194,27 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
 
         NotificationCenter.default.post(name: .saveWasCalled, object: nil)
         if allValid && valuesChanged {
-            self.delegate?.valuesFromEditorDidChange(currentValues)
-            dismissEditor()
-        }
-        else {
-            let identifiers: [String] = fieldValidity.filter({ $1 == false })
-                .compactMap({ key, value in
-                    return key
-                })
-            
-            let fields = identifiers.joined(separator: ", ")
-            let alert = UIAlertController(title: "Some fields need your attention", message: "The following field\(identifiers.count > 1 ? "s" : "") ha\(identifiers.count > 1 ? "ve" : "s an") invalid value\(identifiers.count > 1 ? "s" : ""):\n\(fields)", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: SkillStrings.dismissHelpPopoverButtonText, style: .default, handler: nil))
-            NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
+            self.delegate?.valuesFromEditorDidChange(currentValues, validationCompletion: dismissOrWarn)
         }
         
+    }
+    
+    /// Dismisses the editor if the change is validated, otherwise shows an alert warning.
+    ///
+    /// - Parameter result: The result of the validation of the change to the sheet.
+    private func dismissOrWarn(_ result: ValidatedEditorResult) {
+        switch result {
+        case .success:
+            dismissEditor()
+            return
+        case .failure(let violation):
+            let title = violation.title()
+            let helpText = violation.helpText()
+            
+            let alert = UIAlertController(title: title, message: helpText, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: SkillStrings.dismissHelpPopoverButtonText, style: .default, handler: nil))
+            NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
+            return
+        }
     }
 }

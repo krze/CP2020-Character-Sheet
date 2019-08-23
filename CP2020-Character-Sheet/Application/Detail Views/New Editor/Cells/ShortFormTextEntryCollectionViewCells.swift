@@ -164,9 +164,6 @@ final class IntegerEntryCollectionViewCell: TextEntryCollectionViewCell {
         if entryIsValid {
             super.textFieldDidEndEditing(textField)
         }
-        else {
-            showPopup()
-        }
     }
 
     private func entryIsPositiveInteger(_ userEntry: String) -> Bool {
@@ -174,7 +171,7 @@ final class IntegerEntryCollectionViewCell: TextEntryCollectionViewCell {
             return false
         }
 
-        if let userEntryValue = Int(userEntry), (-10...10).contains(userEntryValue) {
+        if Int(userEntry) != nil {
             return true
         }
 
@@ -192,13 +189,6 @@ final class IntegerEntryCollectionViewCell: TextEntryCollectionViewCell {
         hideWarning()
     }
 
-    private func showPopup() {
-        guard let userEntry = textField?.text else { return }
-        let title = userEntry.count > 0 ? "\(userEntry) is an invalid choice" : "\(identifier) cannot be blank."
-        let alert = UIAlertController(title: title, message: "Number must be an integer between -10 and 10.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: SkillStrings.dismissHelpPopoverButtonText, style: .default, handler: nil))
-        NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
-    }
 }
 
 class SuggestedTextCollectionViewCell: TextEntryCollectionViewCell {

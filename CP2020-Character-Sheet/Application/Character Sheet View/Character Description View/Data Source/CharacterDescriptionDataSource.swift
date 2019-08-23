@@ -23,17 +23,17 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever {
     
     // MARK: EditorValueReceiver
     
-    func valuesFromEditorDidChange(_ values: [Identifier: String]) {
+    func valuesFromEditorDidChange(_ values: [Identifier: String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
         let newName = values[RoleFieldLabel.Name.identifier()]
         let newHandle = values[RoleFieldLabel.Handle.identifier()]
         let newRole = values[RoleFieldLabel.CharacterRole.identifier()]
         
         if (newName != model.name || newHandle != model.handle) {
-            change(name: newName ?? model.name, handle: newHandle ?? model.handle)
+            change(name: newName ?? model.name, handle: newHandle ?? model.handle, validationCompletion: completion)
         }
         
         if let newRole = newRole, newRole != model.role.rawValue {
-            change(role: newRole)
+            change(role: newRole, validationCompletion: completion)
         }
     }
     
@@ -42,19 +42,20 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever {
     /// - Parameters:
     ///   - name: The new name
     ///   - handle: The new handle
-    private func change(name: String, handle: String) {
-        model.set(name: name, handle: handle)
+    private func change(name: String, handle: String, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        model.set(name: name, handle: handle, validationCompletion: completion)
     }
     
     /// Changes the value for the role on the model
     ///
     /// - Parameter role: The new role as a string
-    private func change(role: String) {
+    /// - Parameter validationCompletion:
+    private func change(role: String, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
         guard let role = Role(rawValue: role) else {
             return
         }
         
-        model.set(role: role)
+        model.set(role: role, validationCompletion: completion)
     }
     
     @objc private func nameDidChange(notification: Notification) {

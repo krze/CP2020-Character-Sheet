@@ -25,7 +25,7 @@ final class StatsDataSource: NSObject, EditorValueReciever {
         NotificationCenter.default.addObserver(self, selector: #selector(updateStatsView), name: .statsDidChange, object: nil)
     }
     
-    func valuesFromEditorDidChange(_ values: [Identifier : String]) {
+    func valuesFromEditorDidChange(_ values: [Identifier : String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
         let stats = Stats(int: values.statPoint(for: Stat.Intelligence.identifier()) ?? statsModel.value(for: Stat.Intelligence).baseValue,
                           ref: values.statPoint(for: Stat.Reflex.identifier()) ?? statsModel.value(for: Stat.Reflex).baseValue,
                           tech: values.statPoint(for: Stat.Tech.identifier()) ?? statsModel.value(for: Stat.Tech).baseValue,
@@ -37,7 +37,7 @@ final class StatsDataSource: NSObject, EditorValueReciever {
                           emp: values.statPoint(for: Stat.Empathy.identifier()) ?? statsModel.value(for: Stat.Empathy).baseValue,
                           rep: values.statPoint(for: Stat.Reputation.identifier()) ?? statsModel.value(for: Stat.Reputation).baseValue)
         
-        statsModel.set(baseStats: stats, humanityLoss: values.statPoint(for: "HU. LOSS") ?? statsModel.humanityLoss)
+        statsModel.set(baseStats: stats, humanityLoss: values.statPoint(for: "HU. LOSS") ?? statsModel.humanityLoss, validationCompletion: completion)
     }
     
     @objc private func updateStatsView() {

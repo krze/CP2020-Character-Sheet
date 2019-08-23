@@ -21,7 +21,7 @@ protocol StatsModel {
     /// - Parameters:
     ///   - baseStats: The new stats
     ///   - humanityLoss: The new humanity loss value
-    func set(baseStats: Stats, humanityLoss: Int)
+    func set(baseStats: Stats, humanityLoss: Int, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
     
     /// Value for the stat requested
     ///

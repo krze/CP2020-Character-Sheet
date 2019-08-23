@@ -8,8 +8,10 @@
 
 import Foundation
 
+typealias EditableModel = CharacterDescriptionModel & StatsModel & SkillModel
+
 /// The model for the player character
-final class Edgerunner: Codable, CharacterDescriptionModel, StatsModel, SkillModel {
+final class Edgerunner: Codable, EditableModel {
     
     private(set) var name: String
     private(set) var handle: String
@@ -110,10 +112,23 @@ final class Edgerunner: Codable, CharacterDescriptionModel, StatsModel, SkillMod
         }
     }
     
+    /// Returns the name of the Special Ability for the role.
+    ///
+    /// - Returns: Name of the Special Ability
+    func specialAbilityName() -> String {
+        return role.specialAbility()
+    }
+    
+    // MARK: EditableModel
+    
     /// Adds the skill to the character, overwriting if the skill already exists.
     ///
-    /// - Parameter newSkill: The new skill to add.
-    func add(skill newSkill: SkillListing) {
+    /// - Parameters:
+    ///   - newSkill: The new skill to add.
+    ///   - validationCompletion: Completion for validating the skill
+    func add(skill newSkill: SkillListing, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        guard CharacterValidator.validate(skillListing: newSkill, completion: completion) else { return }
+        
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             
@@ -123,28 +138,28 @@ final class Edgerunner: Codable, CharacterDescriptionModel, StatsModel, SkillMod
                 self.skills.append(newSkill)
             }
             
+            completion(.success(.valid))
             NotificationCenter.default.post(name: .newSkillAdded, object: newSkill)
         }
-    }
-    
-    /// Returns the name of the Special Ability for the role.
-    ///
-    /// - Returns: Name of the Special Ability
-    func specialAbilityName() -> String {
-        return role.specialAbility()
     }
     
     /// Updates the stats. This should only be called if editing the character.
     /// Stats are immutable during normal gameplay.
     ///
-    /// - Parameter baseStats: The new Stats object
-    func set(baseStats: Stats, humanityLoss: Int) {
+    /// - Parameters:
+    ///   - baseStats: The base stats
+    ///   - humanityLoss: Humanity loss
+    ///   - validationCompletion: Completion for validating the skill
+    func set(baseStats: Stats, humanityLoss: Int, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        guard CharacterValidator.validate(baseStats: baseStats, humanityLoss: humanityLoss, completion: completion) else { return }
+        
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.baseStats = baseStats
             self.humanityLoss = humanityLoss
             self.updateStatModifiers()
             
+            completion(.success(.valid))
             NotificationCenter.default.post(name: .statsDidChange, object: nil)
         }
     }
@@ -152,18 +167,24 @@ final class Edgerunner: Codable, CharacterDescriptionModel, StatsModel, SkillMod
     /// Updates the character role. Call this when editing the character, otherwise
     /// this value should be immutable during normal gameplay.
     ///
-    /// - Parameter role: The new player role
-    func set(role: Role) {
-        self.role = role
-        
-        NotificationCenter.default.post(name: .roleDidChange, object: nil)
+    /// - Parameters:
+    ///   - role: The new player role
+    ///   - validationCompletion: Completion for validating the skill
+    func set(role: Role, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        DispatchQueue.main.async {
+            self.role = role
+            completion(.success(.valid))
+            NotificationCenter.default.post(name: .roleDidChange, object: nil)
+        }
     }
     
-    func set(name: String, handle: String) {
-        self.name = name
-        self.handle = handle
-        
-        NotificationCenter.default.post(name: .nameAndHandleDidChange, object: nil)
+    func set(name: String, handle: String, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        DispatchQueue.main.async {
+            self.name = name
+            self.handle = handle
+            completion(.success(.valid))
+            NotificationCenter.default.post(name: .nameAndHandleDidChange, object: nil)
+        }
     }
     
     /// Updates the stat modifiers for each skill

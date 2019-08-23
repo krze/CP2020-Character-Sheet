@@ -49,7 +49,6 @@ struct Skill: Codable, Equatable {
     static func == (lhs: Skill, rhs: Skill) -> Bool {
         return lhs.name == rhs.name &&
             lhs.nameExtension == rhs.nameExtension &&
-            lhs.description == rhs.description &&
             lhs.linkedStat == rhs.linkedStat
     }
     

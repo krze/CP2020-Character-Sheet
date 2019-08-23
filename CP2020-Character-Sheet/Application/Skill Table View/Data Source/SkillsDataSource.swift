@@ -39,8 +39,8 @@ final class SkillsDataSource: EditorValueReciever {
     /// Adds the skill to the model
     ///
     /// - Parameter newSkill: The new skill to add
-    func add(skill newSkill: SkillListing) {
-        model.add(skill: newSkill)
+    func add(skill newSkill: SkillListing, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        model.add(skill: newSkill, validationCompletion: completion)
     }
     
     private func createObservers() {
@@ -102,7 +102,7 @@ final class SkillsDataSource: EditorValueReciever {
         return skills
     }
     
-    func valuesFromEditorDidChange(_ values: [Identifier : String]) {
+    func valuesFromEditorDidChange(_ values: [Identifier : String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
         guard let name = values[SkillField.Name.identifier()],
             let description = values[SkillField.Description.identifier()],
             let IPMultiplierString = values[SkillField.IPMultiplier.identifier()],
@@ -129,7 +129,7 @@ final class SkillsDataSource: EditorValueReciever {
         let modifiesSkill: String? = values[SkillField.ModifiesSkill.identifier()]
         let skill = Skill(name: name, nameExtension: nameExtension, description: description, isSpecialAbility: isSpecialAbility, linkedStat: linkedStat, modifiesSkill: modifiesSkill, IPMultiplier: IPMultiplier)
         let skillListing = SkillListing(skill: skill, points: points, modifier: modifier, statModifier: statModifier)
-        model.add(skill: skillListing)
+        model.add(skill: skillListing, validationCompletion: completion)
     }
     
 }

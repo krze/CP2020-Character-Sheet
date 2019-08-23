@@ -13,7 +13,7 @@ protocol SkillModel {
     var role: Role { get }
     var skills: [SkillListing] { get }
     
-    func add(skill newSkill: SkillListing)
+    func add(skill newSkill: SkillListing, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
 
     func specialAbilityName() -> String
     
