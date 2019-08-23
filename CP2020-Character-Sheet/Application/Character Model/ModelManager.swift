@@ -11,6 +11,7 @@ import Foundation
 /// Manages the loading and storing of models.
 final class ModelManager: ModelReceiver {
     
+    /// The Edgerunner model loaded from disk.
     private(set) var edgerunner: Edgerunner? {
         didSet {
             guard let edgerunner = edgerunner else { return }
@@ -18,6 +19,8 @@ final class ModelManager: ModelReceiver {
             setDelegateControllers(with: edgerunner)
         }
     }
+    
+    /// All available skills loaded from disk.
     private(set) var skills: [Skill]?
     private let handler: CharacterSheetFileHandler
     weak var coordinator: CharacterSheetDataSourceCoordinator?

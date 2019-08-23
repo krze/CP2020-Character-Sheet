@@ -115,7 +115,10 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         
-        // DEBUG/PLACEHOLDER: This will have to be populated with skills
+        // NEXT: Populate this with starred skills.
+        // 1: Create a "fill this up with 10 stars" by making something that reads skills and:
+        //    stars the Special Ability by default, followed by the top skills the player has
+        // 2: Populate this table with said skills.
         
         if let cell = cell as? SkillTableViewCell {
             let skill = Skill(name: "Persuasion & Fast Talk",

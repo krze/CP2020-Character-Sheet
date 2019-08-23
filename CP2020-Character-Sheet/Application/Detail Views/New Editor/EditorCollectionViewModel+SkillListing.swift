@@ -17,11 +17,20 @@ enum EditorMode {
 
 extension EditorCollectionViewModel {
     
+    /// Sets up an EditorCollectionViewModel for creating a new skill
+    ///
+    /// - Returns: EditorCollectionViewModel used to initialize a EditorCollectionViewController
     static func modelForBlankSkill() -> EditorCollectionViewModel {
         let blankSkill = SkillListing(skill: Skill.new(), points: 0, modifier: 0, statModifier: 0)
         return model(from: blankSkill, mode: .free)
     }
-    
+
+    /// Sets up an EditorCollectionViewModel for editing an existing skill
+    ///
+    /// - Parameters:
+    ///   - listing: The skill listing to be edited
+    ///   - mode: The mode of editing
+    /// - Returns: EditorCollectionViewModel used to initialize a EditorCollectionViewController
     static func model(from listing: SkillListing, mode: EditorMode) -> EditorCollectionViewModel {
         var entryTypesForIdentifiers = [Identifier: EntryType]()
         var placeholdersWithIdentifiers = [Identifier: String]()

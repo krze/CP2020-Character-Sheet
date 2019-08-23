@@ -11,6 +11,12 @@ import UIKit
 /// A delegate that handles when the user input is returned from an editor
 protocol EditorValueReciever: class {
     
+    /// Indicates that the editor values changed, used to signal the model under editing is about to receive
+    /// new values from the editor.
+    ///
+    /// - Parameters:
+    ///   - values: The identifiers and their values from the UserEntryCollectionViewCells in the editor
+    ///   - validationCompletion: The completion handler called by the model to indicate that the results were verified and came back as valid or invalid
     func valuesFromEditorDidChange(_ values: [Identifier: String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
     
 }

@@ -16,12 +16,14 @@ final class CharacterSheetFileHandler {
     
     weak var receiver: ModelReceiver?
     
+    /// Loads the Edgerunner from disk and passes it to the receiver
     func loadEdgerunner() {
         io.load(.Edgerunner) { (data, error) in
             sendEdgerunnerToReceiver(with: data, error: error)
         }
     }
     
+    /// Loads all the game's skills from disk and passes them to the receiver
     func loadSkills() {
         io.load(.DefaultSkills) { (data, error) in
             sendSkillsToReceiver(with: data, error: error)
