@@ -30,14 +30,21 @@ The character sheet app is planned out for the following phases:
 ### Phase 2:
 #### UI:
 - [ ] More complex modifiers for skills, stats, and weapons
+  - [ ] Modifier cell that lets you manually input modifiers with reasons
+  - [ ] Modifiers automatically added (i.e. equipment that modifies skills)
 - [ ] Incoming damage calculator
   - [ ] Standard bullets
   - [ ] AP bullets
   - [ ] Bladed weapons
   - [ ] Monobladed weapons
 - [ ] Weapons list
+  - [ ] Smart weapons
 - [ ] Armor list
+  - [ ] New Armor Rules incorporated
 - [ ] Cyberware list
+- [ ] Status display
+  - [ ] Damage and effects listed
+  - [ ] Cyberwear and its damage
 #### Data layer:
 - [ ] Interaction between relevant equipment/stats to calculate damage
 - [ ] Skill tooltips to provide dice roll equations
