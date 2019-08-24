@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSource, UITableViewDelegate, UsedOnce {
+final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSource, UITableViewDelegate, UsedOnce, SkillsDataSourceDelegate {
     
     private (set) var wasSetUp: Bool = false
     
@@ -23,9 +23,12 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     private var viewModel: HighlightedSkillViewCellModel?
     private var tableView = UITableView()
     
+    private var highlightedSkills = [SkillListing]()
+    
     func setup(viewModel: HighlightedSkillViewCellModel, dataSource: HighlightedSkillViewCellDataSource) {
         self.viewModel = viewModel
         self.dataSource = dataSource
+        self.dataSource?.delegate = self
         let safeFrame = contentView.safeAreaLayoutGuide.layoutFrame
         let cellDescriptionLabelFrame = CGRect(x: safeFrame.minX, y: safeFrame.minY,
                                                width: safeFrame.width * viewModel.cellDescriptionLabelWidthRatio,
@@ -109,7 +112,7 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     // MARK: UITableViewDataSource & UITableViewDelegate
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return rowCount
+        return highlightedSkills.count < rowCount ? highlightedSkills.count : rowCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -121,19 +124,18 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
         // 2: Populate this table with said skills.
         
         if let cell = cell as? SkillTableViewCell {
-            let skill = Skill(name: "Persuasion & Fast Talk",
-                              nameExtension: nil,
-                              description: "This is what you use to persuade people.",
-                              isSpecialAbility: false,
-                              linkedStat: .Intelligence,
-                              modifiesSkill: nil,
-                              IPMultiplier: 1)
-            let skillListing = SkillListing(skill: skill, points: 5, modifier: 0, statModifier: 5)
-            let viewModel = SkillTableViewCellModel()
-            cell.prepare(with: skillListing, viewModel: viewModel)
+            let listing = highlightedSkills[indexPath.row]
+            cell.prepare(with: listing, viewModel: SkillTableViewCellModel())
         }
         
         return cell
+    }
+    
+    // MARK: SkillsDataSourceDelegate
+    
+    func skillsDidUpdate(skills: [SkillListing]) {
+        highlightedSkills = skills
+        tableView.reloadData()
     }
     
     // MARK: Private
@@ -147,7 +149,7 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     }
     
     @objc private func cellTapped() {
-        dataSource?.showSkillTable()
+        NotificationCenter.default.post(name: .showSkillTable, object: nil)
     }
     
     private func descriptionLabel(frame: CGRect) -> UILabel {

@@ -61,6 +61,13 @@ final class SkillsDataSource: EditorValueReciever {
         }
     }
     
+    /// Creates a highlighted skills data source that only reads from the skill model
+    ///
+    /// - Returns: HighlightedSkillViewCellDataSource
+    func highlightedSkillsDataSource() -> HighlightedSkillViewCellDataSource {
+        return HighlightedSkillViewCellDataSource(model: model)
+    }
+    
     /// Synchronously returns all skills
     ///
     /// - Returns: Every skill listing potentially relevent to the player based on the character role.
