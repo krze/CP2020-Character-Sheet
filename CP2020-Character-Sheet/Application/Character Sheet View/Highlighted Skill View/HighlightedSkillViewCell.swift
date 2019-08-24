@@ -25,10 +25,19 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     
     private var highlightedSkills = [SkillListing]()
     
-    func setup(viewModel: HighlightedSkillViewCellModel, dataSource: HighlightedSkillViewCellDataSource) {
+    func setup(viewModel: HighlightedSkillViewCellModel, dataSource: HighlightedSkillViewCellDataSource?) {
         self.viewModel = viewModel
         self.dataSource = dataSource
-        self.dataSource?.delegate = self
+        
+        createObservers()
+
+        if self.dataSource == nil {
+            highlightedSkills = blankSkills(withCount: rowCount)
+        }
+        else {
+            self.dataSource?.delegate = self
+        }
+        
         let safeFrame = contentView.safeAreaLayoutGuide.layoutFrame
         let cellDescriptionLabelFrame = CGRect(x: safeFrame.minX, y: safeFrame.minY,
                                                width: safeFrame.width * viewModel.cellDescriptionLabelWidthRatio,
@@ -118,11 +127,6 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         
-        // NEXT: Populate this with starred skills.
-        // 1: Create a "fill this up with 10 stars" by making something that reads skills and:
-        //    stars the Special Ability by default, followed by the top skills the player has
-        // 2: Populate this table with said skills.
-        
         if let cell = cell as? SkillTableViewCell {
             let listing = highlightedSkills[indexPath.row]
             cell.prepare(with: listing, viewModel: SkillTableViewCellModel())
@@ -139,6 +143,15 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     }
     
     // MARK: Private
+    
+    private func createObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(highlightedSkillModelReady(notification:)), name: .highlightedSkillsDataSourceAvailable, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(forceRefresh), name: .roleDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(forceRefresh), name: .skillPointsDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(forceRefresh), name: .newSkillAdded, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(forceRefresh), name: .skillPointModifierDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(forceRefresh), name: .skillPointStatModifierDidChange, object: nil)
+    }
     
     private func setupGestureRecognizers() {
         // Single tap on the entire cell
@@ -198,6 +211,28 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     override func prepareForReuse() {
         super.prepareForReuse()
         // TODO: Test cell re-use and see if it needs anything here
+    }
+    
+    private func blankSkills(withCount count: Int) -> [SkillListing] {
+        var skills = [SkillListing]()
+        for _ in 1...count {
+            let loadingSkill = Skill(name: "Skills loading... ", nameExtension: nil, description: "", isSpecialAbility: false, linkedStat: nil, modifiesSkill: nil, IPMultiplier: 0)
+            let loadingSkillListing = SkillListing(skill: loadingSkill, points: 0, modifier: 0, statModifier: 0)
+            skills.append(loadingSkillListing)
+        }
+        
+        return skills
+    }
+    
+    @objc private func highlightedSkillModelReady(notification: Notification) {
+        guard let dataSource = notification.object as? HighlightedSkillViewCellDataSource else { return }
+        self.dataSource = dataSource
+        self.dataSource?.delegate = self
+        self.dataSource?.updateHighlightedSkills()
+    }
+    
+    @objc private func forceRefresh() {
+        self.dataSource?.updateHighlightedSkills()
     }
     
 }

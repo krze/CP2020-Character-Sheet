@@ -36,7 +36,7 @@ final class HighlightedSkillViewCellDataSource {
             highlightedSkills.append(specialAbility)
         }
         allSkills.sort(by: { $0.skillRollValue > $1.skillRollValue })
-        while highlightedSkills.count <= 10 || !highlightedSkills.isEmpty {
+        while highlightedSkills.count <= 10 || !allSkills.isEmpty {
             highlightedSkills.append(allSkills.removeFirst())
         }
         

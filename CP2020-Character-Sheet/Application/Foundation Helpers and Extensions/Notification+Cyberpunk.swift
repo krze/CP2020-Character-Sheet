@@ -11,6 +11,7 @@ import Foundation
 extension Notification.Name {
     
     static let edgerunnerLoaded = Notification.Name("edgerunnerLoaded")
+    static let highlightedSkillsDataSourceAvailable = Notification.Name("highlightedSkillsDataSourceAvailable")
     static let skillPointsDidChange = Notification.Name("skillPointsDidChange")
     static let statsDidChange = Notification.Name("statsDidChange")
     static let roleDidChange = Notification.Name("roleDidChange")

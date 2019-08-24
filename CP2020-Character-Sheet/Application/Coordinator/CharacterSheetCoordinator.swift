@@ -18,7 +18,15 @@ import UIKit
 /// Use this class in the same way you'd use an application coordinator
 final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
     
-    var skillsDataSource: SkillsDataSource?
+    var skillsDataSource: SkillsDataSource? {
+        didSet {
+            if let dataSource = skillsDataSource {
+                let highlighted = dataSource.highlightedSkillsDataSource()
+                NotificationCenter.default.post(name: .highlightedSkillsDataSourceAvailable, object: highlighted)
+            }
+        }
+    }
+    
     var characterDescriptionDataSource: CharacterDescriptionDataSource?
 
     weak var damageModifierDataSource: DamageModifierDataSource?

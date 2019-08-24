@@ -76,9 +76,8 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
                                                                   roleType: nil, classLabelWidthRatio: 0.2)
             cell.setup(with: userEntryViewModels, classViewModel: characterClassViewModel)
         }
-        else if let cell = cell as? HighlightedSkillViewCell, !cell.wasSetUp,
-            let dataSource = coordinator?.skillsDataSource?.highlightedSkillsDataSource() {
-            // NEXT: THE DATASOURCE IS NIl because it's being asynchronously loaded. Load the table with dummy data then fill it in.
+        else if let cell = cell as? HighlightedSkillViewCell, !cell.wasSetUp {
+            let dataSource = coordinator?.skillsDataSource?.highlightedSkillsDataSource()
             let skillViewCellModel = HighlightedSkillViewCellModel(cellDescriptionLabelWidthRatio: 0.55)
             
             cell.setup(viewModel: skillViewCellModel, dataSource: dataSource)
