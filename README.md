@@ -9,9 +9,9 @@ The character sheet app is planned out for the following phases:
 - [x] Class description
 - [x] Stats
 - [x] Damage track
-- [ ] Highlighted skill list
+- [x] Highlighted skill list
   - [x] Placeholder view
-  - [ ] Highlighted list that filters skills
+  - [x] Highlighted list that filters skills
 - [x] Full skill list view
   - [x] Searchable lists for skills
   - [x] Custom skill support
