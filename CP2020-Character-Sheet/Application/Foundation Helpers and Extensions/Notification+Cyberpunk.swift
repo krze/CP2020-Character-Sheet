@@ -31,5 +31,8 @@ extension Notification.Name {
     
     // Navigation
     static let showSkillTable = Notification.Name("showSkillTable")
+    
+    // I/O
+    static let saveToDiskRequested = Notification.Name("saveToDiskRequested")
 
 }

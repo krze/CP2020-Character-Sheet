@@ -30,6 +30,10 @@ final class CharacterSheetFileHandler {
         }
     }
     
+    func saveEdgerunner(data: Data, completion: (Error?) -> Void) {
+        io.save(data, to: .Edgerunner, completion: completion)
+    }
+    
     private func sendSkillsToReceiver(with data: Data?, error: Error?) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }

@@ -201,6 +201,9 @@ final class Edgerunner: Codable, EditableModel {
     
     /// Saves the character to disk.
     private func save() {
+        guard let JSONData = JSONFactory().encode(with: self) else { return }
+        NotificationCenter.default.post(name: .saveToDiskRequested, object: JSONData)
+        
         // NEXT: Persistence object for managing saves
         // NEXT: After presistence, you need to fix the skill preview cell to show top/favorite skills
     }

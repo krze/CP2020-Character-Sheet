@@ -80,6 +80,8 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
         NotificationCenter.default.addObserver(self, selector: #selector(showSkillTable), name: .showSkillTable, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showEditor), name: .showEditor, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showHelpTextAlert), name: .showHelpTextAlert, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(saveToDiskRequested(notification:)), name: .saveToDiskRequested, object: nil)
+
     }
     
     @objc private func showSkillTable(notification: Notification) {
@@ -107,7 +109,23 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
     @objc private func showHelpTextAlert(notification: Notification) {
         DispatchQueue.main.async {
             guard let alertController = notification.object as? UIAlertController else { return }
-            self.window.rootViewController?.present(alertController, animated: true)
+            self.display(alert: alertController)
+        }
+    }
+    
+    private func display(alert: UIAlertController) {
+        DispatchQueue.main.async {
+            self.window.rootViewController?.present(alert, animated: true)
+        }
+    }
+    
+    @objc private func saveToDiskRequested(notification: Notification) {
+        guard let edgerunnerData = notification.object as? Data else { return }
+        modelManager.saveEdgerunner(data: edgerunnerData) { error in
+            if let error = error {
+                let alert = UIAlertController(title: "Unable to save character:", message: error.localizedDescription, preferredStyle: .alert)
+                display(alert: alert)
+            }
         }
     }
     

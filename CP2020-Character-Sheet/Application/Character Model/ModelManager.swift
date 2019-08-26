@@ -41,6 +41,10 @@ final class ModelManager: ModelReceiver {
         self.skills = skills
     }
     
+    func saveEdgerunner(data: Data, completion: (Error?) -> Void) {
+        handler.saveEdgerunner(data: data, completion: completion)
+    }
+    
     func edgerunnerFailedToLoad(with error: Error) {
         // TODO: Introduce character creator flow. For now, we're just generating a blank character if there's no edgerunner file.
 
