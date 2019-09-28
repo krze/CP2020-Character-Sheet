@@ -105,7 +105,13 @@ final class IO {
         try fileManager.copyItem(at: existingFile, to: tempFile)
         try fileManager.removeItem(at: existingFile)
         
-        try data.write(to: documents.appendingPathComponent(filename))
+        do {
+            try data.write(to: documents.appendingPathComponent(filename))
+        } catch let error {
+            try fileManager.copyItem(at: tempFile, to: existingFile)
+            try fileManager.removeItem(at: tempFile)
+            throw error
+        }
         
         try fileManager.removeItem(at: tempFile)
     }

@@ -44,7 +44,7 @@ final class SkillsDataSource: EditorValueReciever {
     }
     
     private func createObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterSkills(notification:)), name: .newSkillAdded, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterSkills(notification:)), name: .skillDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterSkills(notification:)), name: .roleDidChange, object: nil)
     }
     

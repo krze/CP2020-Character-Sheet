@@ -139,7 +139,7 @@ final class Edgerunner: Codable, EditableModel {
             }
             
             completion(.success(.valid))
-            NotificationCenter.default.post(name: .newSkillAdded, object: newSkill)
+            NotificationCenter.default.post(name: .skillDidChange, object: newSkill)
         }
     }
     

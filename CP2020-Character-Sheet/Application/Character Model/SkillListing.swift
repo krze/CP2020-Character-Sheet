@@ -61,53 +61,28 @@ final class SkillListing: Codable {
     ///
     /// - Parameter points: The new point value for the skill
     func update(points: Int) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.points = points
-            
-            NotificationCenter.default.post(name: .skillPointsDidChange, object: self)
-        }
-
+        self.points = points
     }
     
     /// Updates the modifier point value
     ///
     /// - Parameter points: The new point value for the modifier
     func update(modifierPoints: Int) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.modifier = modifierPoints
-            
-            NotificationCenter.default.post(name: .skillPointModifierDidChange, object: self)
-        }
-        
+        self.modifier = modifierPoints
     }
     
     /// Updates the stat modifier point value
     ///
     /// - Parameter points: The new point value for the stat modifier
     func update(statModifierPoints: Int) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.statModifier = statModifierPoints
-            
-            // This does not fire off a notification center event as this will almost always be a bulk
-            // update performed by the Edgerunner class. Stats are supposed to be immutable according to
-            // the game rules, so changing this modifier will be a modification at the character level.
-        }
+        self.statModifier = statModifierPoints
     }
     
     /// Adds the points to the existing IP value
     ///
     /// - Parameter newPoints: IP to add to the existing IP
     func add(improvementPoints newPoints: Int) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            
-            self.improvementPoints += newPoints
-            
-            NotificationCenter.default.post(name: .improvementPointsAdded, object: self)
-        }
+        self.improvementPoints += newPoints
     }
     
     enum CodingKeys: String, CodingKey {

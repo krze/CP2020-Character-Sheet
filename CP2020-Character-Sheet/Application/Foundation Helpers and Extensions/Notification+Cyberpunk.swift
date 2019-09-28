@@ -12,13 +12,9 @@ extension Notification.Name {
     
     static let edgerunnerLoaded = Notification.Name("edgerunnerLoaded")
     static let highlightedSkillsDataSourceAvailable = Notification.Name("highlightedSkillsDataSourceAvailable")
-    static let skillPointsDidChange = Notification.Name("skillPointsDidChange")
     static let statsDidChange = Notification.Name("statsDidChange")
     static let roleDidChange = Notification.Name("roleDidChange")
-    static let newSkillAdded = Notification.Name("newSkillAdded")
-    static let improvementPointsAdded = Notification.Name("improvementPointsAdded")
-    static let skillPointModifierDidChange = Notification.Name("skillPointModifierDidChange")
-    static let skillPointStatModifierDidChange = Notification.Name("skillPointStatModifierDidChange")
+    static let skillDidChange = Notification.Name("skillDidChange")
     static let nameAndHandleDidChange = Notification.Name("nameAndHandleDidChange")
     
     // Show a new view

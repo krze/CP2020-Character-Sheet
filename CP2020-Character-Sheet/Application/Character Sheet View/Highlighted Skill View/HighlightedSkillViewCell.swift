@@ -147,10 +147,7 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     private func createObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(highlightedSkillModelReady(notification:)), name: .highlightedSkillsDataSourceAvailable, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(forceRefresh), name: .roleDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(forceRefresh), name: .skillPointsDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(forceRefresh), name: .newSkillAdded, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(forceRefresh), name: .skillPointModifierDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(forceRefresh), name: .skillPointStatModifierDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(forceRefresh), name: .skillDidChange, object: nil)
     }
     
     private func setupGestureRecognizers() {
