@@ -21,6 +21,7 @@ final class HighlightedSkillViewCellDataSource {
     
     init(model: SkillModel) {
         self.model = model
+        NotificationCenter.default.addObserver(self, selector: #selector(updateHighlightedSkills), name: .statsDidChange, object: nil)
     }
     
     func showSkillTable() {
@@ -28,7 +29,7 @@ final class HighlightedSkillViewCellDataSource {
     }
     
     /// Synchronously fetches and sorts all skills into highlighted skills.
-    func updateHighlightedSkills()  {
+    @objc func updateHighlightedSkills()  {
         var highlightedSkills = [SkillListing]()
         var allSkills = model.skills.filter { !$0.skill.isSpecialAbility || $0.skill.name == model.role.specialAbility() }
         if let specialAbilityIndex = allSkills.firstIndex(where: { $0.skill.isSpecialAbility }) {

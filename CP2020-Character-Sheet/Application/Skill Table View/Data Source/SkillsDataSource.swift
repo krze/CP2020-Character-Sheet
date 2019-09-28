@@ -121,7 +121,11 @@ final class SkillsDataSource: EditorValueReciever {
                 return
         }
         
-        let nameExtension = values[SkillField.Extension.identifier()]
+        let nameExtension: String? = {
+            let ext = values[SkillField.Extension.identifier()]
+            return ext?.isEmpty == true ? nil : ext
+        }()
+        
         let isSpecialAbility = name == model.specialAbilityName()
         let IPMultiplier = IPMultiplierInt > 0 ? IPMultiplierInt : 1
         let linkedStat: Stat? = {
@@ -134,7 +138,13 @@ final class SkillsDataSource: EditorValueReciever {
         
         let statModifier: Int? = model.value(for: linkedStat).displayValue
         let modifiesSkill: String? = values[SkillField.ModifiesSkill.identifier()]
-        let skill = Skill(name: name, nameExtension: nameExtension, description: description, isSpecialAbility: isSpecialAbility, linkedStat: linkedStat, modifiesSkill: modifiesSkill, IPMultiplier: IPMultiplier)
+        let skill = Skill(name: name,
+                          nameExtension: nameExtension,
+                          description: description,
+                          isSpecialAbility: isSpecialAbility,
+                          linkedStat: linkedStat,
+                          modifiesSkill: modifiesSkill,
+                          IPMultiplier: IPMultiplier)
         let skillListing = SkillListing(skill: skill, points: points, modifier: modifier, statModifier: statModifier)
         model.add(skill: skillListing, validationCompletion: completion)
     }

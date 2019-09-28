@@ -38,11 +38,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let identifier = CharacterSheetSections(rawValue: indexPath.row)?.cellReuseID() ?? "" // TODO: Error cell for not finding this.
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
-        
-        // TODO: This needs cleanup. Maybe a struct or something to handle this.
-        // Maybe standardize the setup calls and make a protocol.
-        // Or use a layoutsubviews one-time dispatch call inside of each Cell, instead of calling setup externally
-        
+
         if let cell = cell as? DamageViewCell, !cell.wasSetUp {
             let viewModel = DamageSectionViewModel(startingDamageCellNumber: 1, totalDamage: 40, woundType: .Light, typeRatio: 0.3, cellRatio: 0.3, cellHorizontalPaddingSpace: 0.2, cellVerticalPaddingSpace: 0.2, cellBorderThickness: 1.0, cellCount: 4, stunRatio: 0.4, darkColor: StyleConstants.Color.dark, lightColor: StyleConstants.Color.light)
             let totalDamageDataSource = TotalDamageDataSource(maxDamage: viewModel.totalDamage)

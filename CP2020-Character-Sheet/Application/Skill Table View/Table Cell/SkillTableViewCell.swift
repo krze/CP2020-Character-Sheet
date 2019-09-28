@@ -75,8 +75,13 @@ final class SkillTableViewCell: UITableViewCell {
     ///   - skillListing: SkillListing corresponding with the table view cell
     ///   - viewModel: The cell's view model
     func prepare(with skillListing: SkillListing, viewModel: SkillTableViewCellModel) {
-        self.viewModel = viewModel
-        self.skillListing = skillListing
+        if self.skillListing != nil {
+            update(skillListing: skillListing)
+        }
+        else {
+            self.viewModel = viewModel
+            self.skillListing = skillListing
+        }
     }
     
     /// Updates the skill listing. This can be called at any time to change the values displayed.
