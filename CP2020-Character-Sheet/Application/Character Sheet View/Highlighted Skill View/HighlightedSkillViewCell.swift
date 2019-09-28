@@ -26,6 +26,10 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     private var highlightedSkills = [SkillListing]()
     
     func setup(viewModel: HighlightedSkillViewCellModel, dataSource: HighlightedSkillViewCellDataSource?) {
+        if wasSetUp {
+            dataSource?.refreshData()
+            return
+        }
         self.viewModel = viewModel
         self.dataSource = dataSource
         
@@ -225,11 +229,11 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
         guard let dataSource = notification.object as? HighlightedSkillViewCellDataSource else { return }
         self.dataSource = dataSource
         self.dataSource?.delegate = self
-        self.dataSource?.updateHighlightedSkills()
+        self.dataSource?.refreshData()
     }
     
     @objc private func forceRefresh() {
-        self.dataSource?.updateHighlightedSkills()
+        self.dataSource?.refreshData()
     }
     
 }

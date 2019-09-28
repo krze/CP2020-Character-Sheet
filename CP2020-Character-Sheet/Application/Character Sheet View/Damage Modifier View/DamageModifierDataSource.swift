@@ -9,7 +9,15 @@
 import Foundation
 
 /// Manages the status of the characters' damage modifiers in order to make UI updates to the DamageModifierViewCell
-final class DamageModifierDataSource {
+final class DamageModifierDataSource: EditorValueReciever {
+    func valuesFromEditorDidChange(_ values: [Identifier : String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        
+    }
+    
+    func refreshData() {
+        
+    }
+    
     private weak var delegate: DamageModifierDataSourceDelegate?
 
     // TODO: Fill this out to modify the cell values within this section

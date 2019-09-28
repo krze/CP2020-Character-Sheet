@@ -43,14 +43,18 @@ final class SkillsDataSource: EditorValueReciever {
         model.add(skill: newSkill, validationCompletion: completion)
     }
     
+    func refreshData() {
+        self.allSkills = getAllSkills()
+        getCharacterSkills()
+    }
+    
     private func createObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterSkills(notification:)), name: .skillDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterSkills(notification:)), name: .roleDidChange, object: nil)
     }
     
     @objc private func updateCharacterSkills(notification: Notification) {
-        self.allSkills = getAllSkills()
-        getCharacterSkills()
+        refreshData()
     }
     
     /// Asynchronously returns all skills that are useable by the player, filtering out irrelevent skills

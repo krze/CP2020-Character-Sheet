@@ -39,7 +39,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
         let identifier = CharacterSheetSections(rawValue: indexPath.row)?.cellReuseID() ?? "" // TODO: Error cell for not finding this.
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
 
-        if let cell = cell as? DamageViewCell, !cell.wasSetUp {
+        if let cell = cell as? DamageViewCell {
             let viewModel = DamageSectionViewModel(startingDamageCellNumber: 1, totalDamage: 40, woundType: .Light, typeRatio: 0.3, cellRatio: 0.3, cellHorizontalPaddingSpace: 0.2, cellVerticalPaddingSpace: 0.2, cellBorderThickness: 1.0, cellCount: 4, stunRatio: 0.4, darkColor: StyleConstants.Color.dark, lightColor: StyleConstants.Color.light)
             let totalDamageDataSource = TotalDamageDataSource(maxDamage: viewModel.totalDamage)
             totalDamageDataSource.delegate = cell
@@ -47,17 +47,18 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
             cell.setup(with: viewModel, rows: 2, damageController: totalDamageDataSource)
             coordinator?.totalDamageDataSource = totalDamageDataSource
         }
-        else if let cell = cell as? DamageModifierViewCell, !cell.wasSetUp {
+        else if let cell = cell as? DamageModifierViewCell {
+            // NEXT: MAKE THIS TALK TO THE DAMAGE TRACK. FLESH OUT THE TOTALDAMAGEDATASOURCE TO PULL FROM THE EDGERUNNER. MAKE A DAMAGE PROTOCOL THAT THE DAMAGE MODIFIER VIEW CELL AND THE DAMAGE CELL BOTH USE
             let viewModel = DamageModifierViewModel(cellWidthRatio: 0.25, cellHeightRatio: 1.0, labelHeightRatio: 0.4, paddingRatio: 0.05)
             cell.setup(with: viewModel)
         }
-        else if let cell = cell as? StatsViewCell, !cell.wasSetUp {
+        else if let cell = cell as? StatsViewCell {
             let viewModel = StatsViewCellModel(paddingRatio: 0.0, statsPerRow: 3, statViewWidthRatio: CGFloat(1.0 / 3))
             let statViewModels = Stat.allCases.map { StatViewModel.model(for: $0, baseValue: 0, currentValue: 0) }
             
             cell.setup(with: viewModel, statViewModels: statViewModels)
         }
-        else if let cell = cell as? RoleDescriptionViewCell, !cell.wasSetUp {
+        else if let cell = cell as? RoleDescriptionViewCell {
             let userEntryViewModels = [
                 CharacterDescriptionViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
                                               labelText: .Name,
@@ -72,7 +73,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
                                                                   roleType: nil, classLabelWidthRatio: 0.2)
             cell.setup(with: userEntryViewModels, classViewModel: characterClassViewModel)
         }
-        else if let cell = cell as? HighlightedSkillViewCell, !cell.wasSetUp {
+        else if let cell = cell as? HighlightedSkillViewCell {
             let skillViewCellModel = HighlightedSkillViewCellModel(cellDescriptionLabelWidthRatio: 0.55)
             cell.setup(viewModel: skillViewCellModel, dataSource: nil)
         }

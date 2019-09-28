@@ -26,4 +26,7 @@ protocol CharacterSheetDataSourceCoordinator: class {
     /// CharacterDescriptionController that belongs to the RoleDescriptionViewCell
     var characterDescriptionDataSource: CharacterDescriptionDataSource? { get set }
     
+    /// Called when the character sheet should be refreshed
+    func refreshCharacterSheet()
+    
 }

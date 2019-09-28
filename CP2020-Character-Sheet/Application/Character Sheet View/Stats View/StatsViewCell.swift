@@ -16,6 +16,11 @@ final class StatsViewCell: UICollectionViewCell, StatsDataSourceDelegate, UsedOn
     private var dataSource: StatsDataSource?
     
     func setup(with viewModel: StatsViewCellModel, statViewModels: [StatViewModel]) {
+        if wasSetUp {
+            dataSource?.refreshData()
+            return
+        }
+        
         model = viewModel        
         contentView.layoutMargins = UIEdgeInsets(top: self.frame.height * viewModel.paddingRatio,
                                                  left: self.frame.width * viewModel.paddingRatio,

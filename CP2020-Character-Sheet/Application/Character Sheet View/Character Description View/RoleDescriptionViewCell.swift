@@ -16,6 +16,11 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
     private var dataSource: CharacterDescriptionDataSource?
     
     func setup(with descriptionViewModels: [CharacterDescriptionViewModel], classViewModel: RoleViewModel) {
+        if wasSetUp {
+            dataSource?.refreshData()
+            return
+        }
+        
         /// This is only going to have 3 fields for now
         // If this changes in the future, we'll need a viewmodel for this cell.
         let subviewHeight = safeAreaLayoutGuide.layoutFrame.height / 3

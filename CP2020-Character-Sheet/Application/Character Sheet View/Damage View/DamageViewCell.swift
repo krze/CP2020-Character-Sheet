@@ -11,7 +11,7 @@ import UIKit
 final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate, UsedOnce {
     private (set) var wasSetUp: Bool = false
     
-    private var damageController: TotalDamageDataSource?
+    private var dataSource: TotalDamageDataSource?
 
     private var totalDamage: Int?
     private(set) var damageCells = [UIView]()
@@ -27,10 +27,15 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
     /// - Parameters:
     ///   - viewModel: The initial DamageSectionViewModel
     ///   - rows: The number of rows
-    func setup(with viewModel: DamageSectionViewModel, rows: Int, damageController: TotalDamageDataSource) {
-        self.damageController = damageController
-        self.totalDamage = viewModel.totalDamage
-        var viewModel = viewModel
+    func setup(with damageViewModel: DamageSectionViewModel, rows: Int, damageController: TotalDamageDataSource) {
+        if wasSetUp {
+            dataSource?.refreshData()
+            return
+        }
+        
+        self.dataSource = damageController
+        self.totalDamage = damageViewModel.totalDamage
+        var viewModel = damageViewModel
         
         // For iterating on the next view model.
         var wounds = WoundType.allCases.reversed().map { $0 }
@@ -101,6 +106,11 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
     func updateCells(to newDamage: Int) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
+            guard newDamage > 0 else {
+                self.damageCells.forEach { $0.backgroundColor = StyleConstants.Color.light }
+                return
+            }
+            
             var currentDamage: Int {
                 return self.damageCells.filter({ $0.backgroundColor == StyleConstants.Color.red }).count
             }
@@ -156,7 +166,7 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else { return }
             do {
-                try self.damageController?.iterateDamageUp()
+                try self.dataSource?.iterateDamageUp()
             }
             catch let error as DamageModification {
                 switch error {
@@ -178,7 +188,7 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else { return }
             do {
-                try self.damageController?.iterateDamageDown()
+                try self.dataSource?.iterateDamageDown()
             }
             catch let error as DamageModification {
                 switch error {

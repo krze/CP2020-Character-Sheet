@@ -19,6 +19,9 @@ protocol EditorValueReciever: class {
     ///   - validationCompletion: The completion handler called by the model to indicate that the results were verified and came back as valid or invalid
     func valuesFromEditorDidChange(_ values: [Identifier: String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
     
+    /// Forces a refresh on the receiver of the data
+    func refreshData()
+    
 }
 
 /// An object containing the results from an editor, validated by the model. If the result was successful,

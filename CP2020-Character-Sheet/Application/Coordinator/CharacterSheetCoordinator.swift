@@ -74,6 +74,13 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
         createObservers()
     }
     
+    func refreshCharacterSheet() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.characterSheetViewController.collectionView.reloadData()
+        }
+    }
+    
     private func createObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(showSkillTable), name: .showSkillTable, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showEditor), name: .showEditor, object: nil)
@@ -122,6 +129,7 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
         modelManager.saveEdgerunner(data: edgerunnerData) { error in
             if let error = error {
                 let alert = UIAlertController(title: "Unable to save character:", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: SkillStrings.dismissHelpPopoverButtonText, style: .default, handler: nil))
                 display(alert: alert)
             }
         }

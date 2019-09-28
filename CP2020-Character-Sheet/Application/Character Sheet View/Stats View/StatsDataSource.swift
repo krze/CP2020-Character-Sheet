@@ -40,6 +40,10 @@ final class StatsDataSource: NSObject, EditorValueReciever {
         statsModel.set(baseStats: stats, humanityLoss: values.statPoint(for: "HU. LOSS") ?? statsModel.humanityLoss, validationCompletion: completion)
     }
     
+    func refreshData() {
+        updateStatsView()
+    }
+    
     @objc private func updateStatsView() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }

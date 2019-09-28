@@ -140,6 +140,7 @@ final class Edgerunner: Codable, EditableModel {
             
             completion(.success(.valid))
             NotificationCenter.default.post(name: .skillDidChange, object: newSkill)
+            self.save()
         }
     }
     
@@ -161,6 +162,7 @@ final class Edgerunner: Codable, EditableModel {
             
             completion(.success(.valid))
             NotificationCenter.default.post(name: .statsDidChange, object: nil)
+            self.save()
         }
     }
     
@@ -175,6 +177,7 @@ final class Edgerunner: Codable, EditableModel {
             self.role = role
             completion(.success(.valid))
             NotificationCenter.default.post(name: .roleDidChange, object: nil)
+            self.save()
         }
     }
     
@@ -184,6 +187,7 @@ final class Edgerunner: Codable, EditableModel {
             self.handle = handle
             completion(.success(.valid))
             NotificationCenter.default.post(name: .nameAndHandleDidChange, object: nil)
+            self.save()
         }
     }
     

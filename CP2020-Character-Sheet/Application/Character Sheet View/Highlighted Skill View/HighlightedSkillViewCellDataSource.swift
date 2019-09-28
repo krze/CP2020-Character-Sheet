@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class HighlightedSkillViewCellDataSource {
+final class HighlightedSkillViewCellDataSource: EditorValueReciever {
     
     weak var delegate: SkillsDataSourceDelegate?
     
@@ -28,8 +28,14 @@ final class HighlightedSkillViewCellDataSource {
         NotificationCenter.default.post(name: .showSkillTable, object: nil)
     }
     
+    func valuesFromEditorDidChange(_ values: [Identifier : String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {}
+    
+    func refreshData() {
+        updateHighlightedSkills()
+    }
+    
     /// Synchronously fetches and sorts all skills into highlighted skills.
-    @objc func updateHighlightedSkills()  {
+    @objc private func updateHighlightedSkills()  {
         var highlightedSkills = [SkillListing]()
         var allSkills = model.skills.filter { !$0.skill.isSpecialAbility || $0.skill.name == model.role.specialAbility() }
         if let specialAbilityIndex = allSkills.firstIndex(where: { $0.skill.isSpecialAbility }) {

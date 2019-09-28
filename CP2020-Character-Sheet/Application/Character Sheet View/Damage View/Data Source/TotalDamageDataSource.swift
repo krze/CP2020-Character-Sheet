@@ -8,7 +8,8 @@
 
 import Foundation
 
-final class TotalDamageDataSource {
+final class TotalDamageDataSource: EditorValueReciever {
+
     let maxDamage: Int
     private(set) var currentDamage: Int = 0
     weak var delegate: TotalDamageDataSourceDelegate?
@@ -44,6 +45,12 @@ final class TotalDamageDataSource {
         }
         
         delegate?.updateCells(to: currentDamage)
+    }
+    
+    func valuesFromEditorDidChange(_ values: [Identifier : String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {}
+    
+    func refreshData() {
+        
     }
     
     /// Ensure the new damage applied can be applied

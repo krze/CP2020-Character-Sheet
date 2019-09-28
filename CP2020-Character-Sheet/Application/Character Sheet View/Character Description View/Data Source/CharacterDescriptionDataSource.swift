@@ -37,6 +37,11 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever {
         }
     }
     
+    func refreshData() {
+        self.delegate?.update(name: self.model.name, handle: self.model.handle)
+        self.delegate?.update(role: self.model.role)
+    }
+    
     /// Changes the values for the name and handle on the model
     ///
     /// - Parameters:

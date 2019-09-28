@@ -63,31 +63,17 @@ final class IO {
     ///   - completion: A completion handler for the result
     func save(_ data: Data, to file: JSONFile, completion: (Error?) -> Void) {
         queue.sync {
-            guard let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first,
-                let support = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
+            guard let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
                 completion(IOError.CantAccessDocuments)
                 return
             }
-            var contents = [URL]()
             let filename = "\(file.name()).\(file.extension())"
             
             do {
-                contents = try fileManager.contentsOfDirectory(at: documents, includingPropertiesForKeys: nil)
-
+                try data.write(to: documents.appendingPathComponent(filename))
                 
-                if contents.isEmpty {
-                    try data.write(to: documents.appendingPathComponent(filename))
-                    
-                    if file == .CustomSkills {
-                        customSkillsExist = true
-                    }
-                }
-                else if let existingFile = contents.first(where: { $0.lastPathComponent == filename }) {
-                    try overwrite(existingFile: existingFile,
-                                  with: data,
-                                  filename: filename,
-                                  documentsDirectory: documents,
-                                  supportDirectory: support)
+                if file == .CustomSkills {
+                    customSkillsExist = true
                 }
             }
             catch let error {
@@ -95,25 +81,6 @@ final class IO {
                 return
             }
         }
-    }
-    
-    /// Ovewrite method
-    private func overwrite(existingFile: URL, with data: Data, filename: String, documentsDirectory documents: URL, supportDirectory support: URL) throws {
-        let tempFilename = "\(filename)-\(Date().timeIntervalSince1970)-temp)"
-        let tempFile = support.appendingPathComponent(tempFilename)
-        
-        try fileManager.copyItem(at: existingFile, to: tempFile)
-        try fileManager.removeItem(at: existingFile)
-        
-        do {
-            try data.write(to: documents.appendingPathComponent(filename))
-        } catch let error {
-            try fileManager.copyItem(at: tempFile, to: existingFile)
-            try fileManager.removeItem(at: tempFile)
-            throw error
-        }
-        
-        try fileManager.removeItem(at: tempFile)
     }
     
     /// Returns the expected url for the JSON file requested
@@ -128,7 +95,7 @@ final class IO {
             let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?
                 .appendingPathComponent("\(file.name()).\(file.extension())")
             
-            if fileManager.fileExists(atPath: url?.absoluteString ?? "") {
+            if fileManager.fileExists(atPath: url?.path ?? "") {
                 return url
             }
             
