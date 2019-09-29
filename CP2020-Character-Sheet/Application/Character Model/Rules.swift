@@ -11,6 +11,8 @@ import Foundation
 /// A set of rules for ensuring a character is valid.
 struct Rules {
     
+    typealias CharacterStats = CP2020_Character_Sheet.Stats
+    
     struct Skills {
         /// The range of valid points a skill can be
         static let validPointRange = 0...10
@@ -80,6 +82,65 @@ struct Rules {
             }
         }
         
+        static func statModifiers(forTotalDamage totalDamage: Int, baseStats: CharacterStats) -> [StatModifier] {
+            let source = "Damage"
+            switch totalDamage {
+            case 5...8:
+                return [StatModifier(stat: .Reflex, amount: -2, source: source, description: "Penalty from a Serious wound", dismissable: false, damageRelated: true)]
+            case 9...12:
+                let desc = "Penalty from a Critical wound"
+                let refDouble = Double(baseStats.ref)
+                let intDouble = Double(baseStats.int)
+                let coolDouble = Double(baseStats.cool)
+                let multiplier = 0.5
+                return [StatModifier(stat: .Reflex,
+                                     amount: Int((refDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
+                                     source: source,
+                                     description: desc,
+                                     dismissable: false,
+                                     damageRelated: true),
+                        StatModifier(stat: .Intelligence,
+                                     amount: Int((intDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
+                                     source: source,
+                                     description: desc,
+                                     dismissable: false,
+                                     damageRelated: true),
+                        StatModifier(stat: .Cool,
+                                     amount: Int((coolDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
+                                     source: source,
+                                     description: desc,
+                                     dismissable: false,
+                                     damageRelated: true)
+                ]
+            case 13...40:
+                let desc = "Penalty from a Mortal wound"
+                let refDouble = Double(baseStats.ref)
+                let intDouble = Double(baseStats.int)
+                let coolDouble = Double(baseStats.cool)
+                let multiplier = 1.0 / 3.0
+                return [StatModifier(stat: .Reflex,
+                                     amount: Int((refDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
+                                     source: source,
+                                     description: desc,
+                                     dismissable: false,
+                                     damageRelated: true),
+                        StatModifier(stat: .Intelligence,
+                                     amount: Int((intDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
+                                     source: source,
+                                     description: desc,
+                                     dismissable: false,
+                                     damageRelated: true),
+                        StatModifier(stat: .Cool,
+                                     amount: Int((coolDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
+                                     source: source,
+                                     description: desc,
+                                     dismissable: false,
+                                     damageRelated: true)
+                ]
+            default:
+                return []
+            }
+        }
     }
 }
 

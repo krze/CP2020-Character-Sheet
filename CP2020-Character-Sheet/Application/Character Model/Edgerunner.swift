@@ -28,7 +28,11 @@ final class Edgerunner: Codable, EditableModel {
     private(set) var skills: [SkillListing]
     
     /// Damage on the player
-    var damage: Int
+    var damage: Int {
+        didSet {
+            damageUpdate()
+        }
+    }
     
     private var baseHumanity: Int {
         return baseStats.emp * 10
@@ -218,6 +222,21 @@ final class Edgerunner: Codable, EditableModel {
     private func save() {
         guard let JSONData = JSONFactory().encode(with: self) else { return }
         NotificationCenter.default.post(name: .saveToDiskRequested, object: JSONData)
+    }
+    
+    private func damageUpdate() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.statModifiers.removeAll(where: { $0.damageRelated })
+            
+            let modifiers = Rules.Damage.statModifiers(forTotalDamage: self.damage, baseStats: self.baseStats)
+            
+            if !modifiers.isEmpty {
+                self.statModifiers.append(contentsOf: modifiers)
+                NotificationCenter.default.post(name: .statsDidChange, object: nil)
+            }
+
+        }
     }
     
 }

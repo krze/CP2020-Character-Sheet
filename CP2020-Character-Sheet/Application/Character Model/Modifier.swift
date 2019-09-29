@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol Modifying: Codable {
+protocol Modifying: Codable, Hashable {
     /// The value of the modifier. Can be negative or positive.
     var amount: Int { get }
     
@@ -38,12 +38,25 @@ struct StatModifier: Modifying {
 
 /// Used to modify a skill
 struct SkillModifier: Modifying {
+
     /// The Skill modified
     let skill: Skill
     let amount: Int
     let source: String
     let description: String
     let dismissable: Bool
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(skill.name)
+        hasher.combine(amount)
+        hasher.combine(source)
+        hasher.combine(description)
+        hasher.combine(dismissable)
+    }
+    
+    static func == (lhs: SkillModifier, rhs: SkillModifier) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
 }
 
 /// Used as an arbitrary modifier to something that is not represented in the character sheet, and doesn't
