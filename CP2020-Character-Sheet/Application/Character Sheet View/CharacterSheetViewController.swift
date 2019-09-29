@@ -44,7 +44,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
 
         if let cell = cell as? DamageViewCell {
-            let viewModel = DamageSectionViewModel(startingDamageCellNumber: 1, totalDamage: 40, woundType: .Light, typeRatio: 0.3, cellRatio: 0.3, cellHorizontalPaddingSpace: 0.2, cellVerticalPaddingSpace: 0.2, cellBorderThickness: 1.0, cellCount: 4, stunRatio: 0.4, darkColor: StyleConstants.Color.dark, lightColor: StyleConstants.Color.light)
+            let viewModel = DamageSectionViewModel(startingDamageCellNumber: 1, totalDamage: Rules.Damage.maxDamagePoints, woundType: .Light, typeRatio: 0.3, cellRatio: 0.3, cellHorizontalPaddingSpace: 0.2, cellVerticalPaddingSpace: 0.2, cellBorderThickness: 1.0, cellCount: Rules.Damage.pointsPerSection, stunRatio: 0.4, darkColor: StyleConstants.Color.dark, lightColor: StyleConstants.Color.light)
             let totalDamageDataSource = TotalDamageDataSource(maxDamage: viewModel.totalDamage)
             totalDamageDataSource.delegate = cell
             

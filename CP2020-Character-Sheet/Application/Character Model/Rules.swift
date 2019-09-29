@@ -36,7 +36,50 @@ struct Rules {
         }
     }
     
-
+    struct Damage {
+        
+        static let maxDamagePoints = 40
+        static let pointsPerSection = 4
+        
+        static func wound(forTotalDamage totalDamage: Int) -> WoundType? {
+            switch totalDamage {
+            case 0: return nil
+            case 1...4: return .Light
+            case 5...8: return .Serious
+            case 9...12: return .Critical
+            default: return .Mortal
+            }
+        }
+        
+        static func mortalValue(forTotalDamage totalDamage: Int) -> Int? {
+            switch totalDamage {
+            case 13...16: return 0
+            case 17...20: return 1
+            case 21...24: return 2
+            case 25...28: return 3
+            case 29...32: return 4
+            case 33...36: return 5
+            case 37...40: return 6
+            default: return nil
+            }
+        }
+        
+        static func stunValue(forTotalDamage totalDamage: Int) -> Int? {
+            switch totalDamage {
+            case 1...4: return 0
+            case 5...8: return 1
+            case 9...12: return 2
+            case 13...16: return 3
+            case 17...20: return 4
+            case 21...24: return 5
+            case 25...28: return 6
+            case 29...32: return 7
+            case 33...36: return 8
+            case 37...40: return 9
+            default: return nil
+            }
+        }
+    }
 }
 
 enum Violation: Error {
