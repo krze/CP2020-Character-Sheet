@@ -207,7 +207,6 @@ final class Edgerunner: Codable, EditableModel {
     private func save() {
         guard let JSONData = JSONFactory().encode(with: self) else { return }
         NotificationCenter.default.post(name: .saveToDiskRequested, object: JSONData)
-        
-        // NEXT: Persistence object for managing saves
     }
+    
 }
