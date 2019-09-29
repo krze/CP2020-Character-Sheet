@@ -109,18 +109,18 @@ final class DamageControllerTests: XCTestCase {
 }
 
 private final class TestDamageControllerDelegate: TotalDamageDataSourceDelegate {
-    private(set) var damageCells: [UIView] = [UIView]()
-    
+    var damageCells = [DamageCell]()
+        
     init() {
-        damageCells.append(UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 20)))
+        damageCells.append(DamageCell(frame: CGRect(x: 0, y: 0, width: 20, height: 20)))
     }
     
     func updateCells(to currentDamage: Int) {
-        damageCells.first?.backgroundColor = .red
+        damageCells.first?.markAsDamaged()
     }
     
     func reset() {
-        damageCells.first?.backgroundColor = .white
+        damageCells.first?.markAsUndamaged()
     }
 
 }
