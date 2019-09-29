@@ -33,6 +33,14 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
             }
         }
     }
+    
+    private(set) var statsDataSource: StatsDataSource? {
+        didSet {
+            if let dataSource = statsDataSource {
+                characterSheetViewController.statsView?.update(with: dataSource)
+            }
+        }
+    }
 
     var damageModifierDataSource: DamageModifierDataSource? {
         return characterSheetViewController.damageModifierView?.dataSource
@@ -146,6 +154,7 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
     @objc private func edgerunnerWasLoaded(notification: Notification) {
         guard let edgerunner = notification.object as? Edgerunner else { return }
         skillsDataSource = SkillsDataSource(model: edgerunner)
+        statsDataSource = StatsDataSource(statsModel: edgerunner)
         characterDescriptionDataSource = CharacterDescriptionDataSource(model: edgerunner)
         refreshCharacterSheet()
     }

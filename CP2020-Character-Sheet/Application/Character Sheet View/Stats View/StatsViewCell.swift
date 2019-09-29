@@ -94,8 +94,12 @@ final class StatsViewCell: UICollectionViewCell, StatsDataSourceDelegate, UsedOn
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        NotificationCenter.default.addObserver(self, selector: #selector(edgerunnerLoader(notification:)), name: .edgerunnerLoaded, object: nil)
         self.contentView.backgroundColor = StyleConstants.Color.light
+    }
+    
+    func update(with statsDataSource: StatsDataSource) {
+        dataSource = statsDataSource
+        dataSource?.delegate = self
     }
     
     // MARK: StatsDataSourceDelegate
@@ -136,15 +140,6 @@ final class StatsViewCell: UICollectionViewCell, StatsDataSourceDelegate, UsedOn
             viewController.delegate = self.dataSource
             NotificationCenter.default.post(name: .showEditor, object: viewController)
         }
-    }
-    
-    @objc private func edgerunnerLoader(notification: Notification) {
-        guard let statsModel = notification.object as? StatsModel else {
-            return
-        }
-        
-        self.dataSource = StatsDataSource(statsModel: statsModel)
-        self.dataSource?.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
