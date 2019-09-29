@@ -80,9 +80,6 @@ struct Rules {
             }
         }
         
-//        static func stats(forTotalDamage totalDamage: Int) -> Stat {
-//            
-//        }
     }
 }
 
