@@ -13,7 +13,7 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
     private (set) var wasSetUp: Bool = false
 
     private var model: DamageModifierViewModel?
-    private var dataSource: DamageModifierDataSource? // TODO: When this is implemented, make it non-optional
+    private(set) var dataSource: DamageModifierDataSource? // TODO: When this is implemented, make it non-optional
     
     func setup(with viewModel: DamageModifierViewModel) {
         model = viewModel

@@ -10,7 +10,11 @@ import UIKit
 
 final class CharacterSheetViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    weak var coordinator: CharacterSheetDataSourceCoordinator?
+    weak var damageView: DamageViewCell?
+    weak var damageModifierView: DamageModifierViewCell?
+    weak var statsView: StatsViewCell?
+    weak var roleDescriptionView: RoleDescriptionViewCell?
+    weak var highlightedSkillView: HighlightedSkillViewCell?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,18 +49,20 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
             totalDamageDataSource.delegate = cell
             
             cell.setup(with: viewModel, rows: 2, damageController: totalDamageDataSource)
-            coordinator?.totalDamageDataSource = totalDamageDataSource
+            damageView = cell
         }
         else if let cell = cell as? DamageModifierViewCell {
             // NEXT: MAKE THIS TALK TO THE DAMAGE TRACK. FLESH OUT THE TOTALDAMAGEDATASOURCE TO PULL FROM THE EDGERUNNER. MAKE A DAMAGE PROTOCOL THAT THE DAMAGE MODIFIER VIEW CELL AND THE DAMAGE CELL BOTH USE
             let viewModel = DamageModifierViewModel(cellWidthRatio: 0.25, cellHeightRatio: 1.0, labelHeightRatio: 0.4, paddingRatio: 0.05)
             cell.setup(with: viewModel)
+            damageModifierView = cell
         }
         else if let cell = cell as? StatsViewCell {
             let viewModel = StatsViewCellModel(paddingRatio: 0.0, statsPerRow: 3, statViewWidthRatio: CGFloat(1.0 / 3))
             let statViewModels = Stat.allCases.map { StatViewModel.model(for: $0, baseValue: 0, currentValue: 0) }
             
             cell.setup(with: viewModel, statViewModels: statViewModels)
+            statsView = cell
         }
         else if let cell = cell as? RoleDescriptionViewCell {
             let userEntryViewModels = [
@@ -72,10 +78,12 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
             let characterClassViewModel = RoleViewModel(paddingRatio: StyleConstants.SizeConstants.textPaddingRatio,
                                                                   roleType: nil, classLabelWidthRatio: 0.2)
             cell.setup(with: userEntryViewModels, classViewModel: characterClassViewModel)
+            roleDescriptionView = cell
         }
         else if let cell = cell as? HighlightedSkillViewCell {
             let skillViewCellModel = HighlightedSkillViewCellModel(cellDescriptionLabelWidthRatio: 0.55)
             cell.setup(viewModel: skillViewCellModel, dataSource: nil)
+            highlightedSkillView = cell
         }
         
         return cell

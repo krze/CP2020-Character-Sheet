@@ -11,7 +11,7 @@ import UIKit
 final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate, UsedOnce {
     private (set) var wasSetUp: Bool = false
     
-    private var dataSource: TotalDamageDataSource?
+    private(set) var dataSource: TotalDamageDataSource?
 
     private var totalDamage: Int?
     private(set) var damageCells = [UIView]()

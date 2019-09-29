@@ -15,18 +15,15 @@ import Foundation
 protocol CharacterSheetDataSourceCoordinator: class {
     
     /// Skills controller that belongs to the SkillTableViewController
-    var skillsDataSource: SkillsDataSource? { get set }
+    var skillsDataSource: SkillsDataSource? { get }
     
     /// DamageModifierController that belongs to the DamageModifierViewCell
-    var damageModifierDataSource: DamageModifierDataSource? { get set }
+    var damageModifierDataSource: DamageModifierDataSource? { get }
     
     /// TotalDamageController that belongs to the DamageViewCell
-    var totalDamageDataSource: TotalDamageDataSource? { get set }
+    var totalDamageDataSource: TotalDamageDataSource? { get }
     
     /// CharacterDescriptionController that belongs to the RoleDescriptionViewCell
-    var characterDescriptionDataSource: CharacterDescriptionDataSource? { get set }
-    
-    /// Called when the character sheet should be refreshed
-    func refreshCharacterSheet()
+    var characterDescriptionDataSource: CharacterDescriptionDataSource? { get }
     
 }

@@ -15,9 +15,7 @@ final class ModelManager: ModelReceiver {
     private(set) var edgerunner: Edgerunner? {
         didSet {
             guard let edgerunner = edgerunner else { return }
-            setDelegateControllers(with: edgerunner)
             NotificationCenter.default.post(name: .edgerunnerLoaded, object: edgerunner)
-            coordinator?.refreshCharacterSheet()
         }
     }
     
@@ -64,11 +62,6 @@ final class ModelManager: ModelReceiver {
     
     func skillsFailedToLoad(with error: Error) {
         print(error)
-    }
-    
-    private func setDelegateControllers(with edgerunner: Edgerunner) {
-        coordinator?.skillsDataSource = SkillsDataSource(model: edgerunner)
-        coordinator?.characterDescriptionDataSource = CharacterDescriptionDataSource(model: edgerunner)
     }
     
 }

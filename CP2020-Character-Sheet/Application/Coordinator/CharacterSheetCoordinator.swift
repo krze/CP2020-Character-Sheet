@@ -18,20 +18,29 @@ import UIKit
 /// Use this class in the same way you'd use an application coordinator
 final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
     
-    var skillsDataSource: SkillsDataSource? {
+    private(set) var skillsDataSource: SkillsDataSource? {
         didSet {
             if let dataSource = skillsDataSource {
-                let highlighted = dataSource.highlightedSkillsDataSource()
-                NotificationCenter.default.post(name: .highlightedSkillsDataSourceAvailable, object: highlighted)
+                characterSheetViewController.highlightedSkillView?.update(dataSource: dataSource.highlightedSkillsDataSource())
             }
         }
     }
     
-    var characterDescriptionDataSource: CharacterDescriptionDataSource?
+    private(set) var characterDescriptionDataSource: CharacterDescriptionDataSource? {
+        didSet {
+            if let dataSource = characterDescriptionDataSource {
+                characterSheetViewController.roleDescriptionView?.update(dataSource: dataSource)
+            }
+        }
+    }
 
-    weak var damageModifierDataSource: DamageModifierDataSource?
+    var damageModifierDataSource: DamageModifierDataSource? {
+        return characterSheetViewController.damageModifierView?.dataSource
+    }
     
-    weak var totalDamageDataSource: TotalDamageDataSource?
+    var totalDamageDataSource: TotalDamageDataSource? {
+        return characterSheetViewController.damageView?.dataSource
+    }
     
     let navigationController: UINavigationController
     let characterSheetViewController: CharacterSheetViewController
@@ -68,13 +77,12 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
         characterSheetViewController = CharacterSheetViewController(collectionViewLayout: layout)
         navigationController = UINavigationController(rootViewController:characterSheetViewController)
         
-        characterSheetViewController.coordinator = self
         modelManager.coordinator = self
 
         createObservers()
     }
     
-    func refreshCharacterSheet() {
+    private func refreshCharacterSheet() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.characterSheetViewController.collectionView.reloadData()
@@ -86,7 +94,7 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
         NotificationCenter.default.addObserver(self, selector: #selector(showEditor), name: .showEditor, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showHelpTextAlert), name: .showHelpTextAlert, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(saveToDiskRequested(notification:)), name: .saveToDiskRequested, object: nil)
-
+        NotificationCenter.default.addObserver(self, selector: #selector(edgerunnerWasLoaded(notification:)), name: .edgerunnerLoaded, object: nil)
     }
     
     @objc private func showSkillTable(notification: Notification) {
@@ -133,6 +141,13 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
                 display(alert: alert)
             }
         }
+    }
+    
+    @objc private func edgerunnerWasLoaded(notification: Notification) {
+        guard let edgerunner = notification.object as? Edgerunner else { return }
+        skillsDataSource = SkillsDataSource(model: edgerunner)
+        characterDescriptionDataSource = CharacterDescriptionDataSource(model: edgerunner)
+        refreshCharacterSheet()
     }
     
     // TODO: Create a method for sending messages between the damage cells and the damage modifier view

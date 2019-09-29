@@ -121,6 +121,14 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
         wasSetUp = true
     }
     
+    /// Adds the datasource and refreshes data
+    ///
+    /// - Parameter dataSource: The HighlightedSkillViewCellDataSource
+    func update(dataSource: HighlightedSkillViewCellDataSource) {
+        self.dataSource = dataSource
+        self.dataSource?.delegate = self
+        self.dataSource?.refreshData()
+    }
     
     // MARK: UITableViewDataSource & UITableViewDelegate
     
@@ -149,7 +157,6 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     // MARK: Private
     
     private func createObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(highlightedSkillModelReady(notification:)), name: .highlightedSkillsDataSourceAvailable, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(forceRefresh), name: .roleDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(forceRefresh), name: .skillDidChange, object: nil)
     }
@@ -223,13 +230,6 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
         }
         
         return skills
-    }
-    
-    @objc private func highlightedSkillModelReady(notification: Notification) {
-        guard let dataSource = notification.object as? HighlightedSkillViewCellDataSource else { return }
-        self.dataSource = dataSource
-        self.dataSource?.delegate = self
-        self.dataSource?.refreshData()
     }
     
     @objc private func forceRefresh() {

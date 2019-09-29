@@ -13,7 +13,7 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
     private (set) var wasSetUp: Bool = false
 
     private var fields = [RoleFieldLabel: UILabel]()
-    private var dataSource: CharacterDescriptionDataSource?
+    private(set) var dataSource: CharacterDescriptionDataSource?
     
     func setup(with descriptionViewModels: [CharacterDescriptionViewModel], classViewModel: RoleViewModel) {
         if wasSetUp {
@@ -76,6 +76,16 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
         fields[.CharacterRole]?.fitTextToBounds()
     }
     
+    func update(dataSource: CharacterDescriptionDataSource) {
+        self.dataSource = dataSource
+        self.dataSource?.delegate = self
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.contentView.backgroundColor = StyleConstants.Color.gray
+    }
+    
     private func setupGestureRecognizers() {
         // Single tap on the entire cell
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(RoleDescriptionViewCell.cellTapped))
@@ -93,18 +103,6 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
             viewController.delegate = self.dataSource
             NotificationCenter.default.post(name: .showEditor, object: viewController)
         }
-    }
-    
-    @objc private func edgerunnerLoaded(notification: Notification) {
-        guard let model = notification.object as? CharacterDescriptionModel else { return }
-        dataSource = CharacterDescriptionDataSource(model: model)
-        dataSource?.delegate = self
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        NotificationCenter.default.addObserver(self, selector: #selector(edgerunnerLoaded(notification:)), name: .edgerunnerLoaded, object: nil)
-        self.contentView.backgroundColor = StyleConstants.Color.gray
     }
     
     required init?(coder aDecoder: NSCoder) {
