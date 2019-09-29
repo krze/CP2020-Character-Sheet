@@ -79,6 +79,10 @@ struct Rules {
             default: return nil
             }
         }
+        
+//        static func stats(forTotalDamage totalDamage: Int) -> Stat {
+//            
+//        }
     }
 }
 

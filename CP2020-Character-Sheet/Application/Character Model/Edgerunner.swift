@@ -30,10 +30,6 @@ final class Edgerunner: Codable, EditableModel {
     /// Damage on the player
     var damage: Int
     
-    /// In the case where the character is healing, there will be a reflex penalty.
-    /// This is not utilized at the moment, but will be in the future.
-    private var reflexPentalty: Int = 0
-    
     private var baseHumanity: Int {
         return baseStats.emp * 10
     }
@@ -41,11 +37,9 @@ final class Edgerunner: Codable, EditableModel {
     /// The humanity deficit incurred by Cyberware
     private(set) var humanityLoss: Int
     
-    /// To be used in the future for when you can spend luck points.
-    private var spentLuck: Int = 0
-    
-    // To be used in the future for when you have a MA penalty for armor. Will be calculated most likely.
-    private var movementAllowancePenalty: Int = 0
+    /// Contains all the modifiers for each stat. These values can be negative or positive.
+    /// These should be added to whatever stat they're modifying, never subtraced.
+    private(set) var statModifiers: [Stat: Int] = [Stat: Int]()
     
     /// Creates a character with the input provided. Skills are not assigned via this initalizer, and
     /// must be set by using `add(skill: SkillListing)`. This initializer is intended to be used by
@@ -76,21 +70,21 @@ final class Edgerunner: Codable, EditableModel {
         
         switch stat {
         case .Intelligence:
-            return (baseValue: baseStats.int, displayValue: baseStats.int)
+            return (baseValue: baseStats.int, displayValue: baseStats.int + (statModifiers[.Intelligence] ?? 0))
         case .Reflex:
-            return (baseValue: baseStats.ref, displayValue: baseStats.ref - reflexPentalty)
+            return (baseValue: baseStats.ref, displayValue: baseStats.ref + (statModifiers[.Reflex] ?? 0))
         case .Tech:
-            return (baseValue: baseStats.tech, displayValue: baseStats.tech)
+            return (baseValue: baseStats.tech, displayValue: baseStats.tech + (statModifiers[.Tech] ?? 0))
         case .Cool:
-            return (baseValue: baseStats.cool, displayValue: baseStats.cool)
+            return (baseValue: baseStats.cool, displayValue: baseStats.cool + (statModifiers[.Cool] ?? 0))
         case .Attractiveness:
-            return (baseValue: baseStats.attr, displayValue: baseStats.attr)
+            return (baseValue: baseStats.attr, displayValue: baseStats.attr + (statModifiers[.Attractiveness] ?? 0))
         case .Luck:
-            return (baseValue: baseStats.luck, displayValue: baseStats.luck - spentLuck)
+            return (baseValue: baseStats.luck, displayValue: baseStats.luck + (statModifiers[.Luck] ?? 0))
         case .MovementAllowance:
-            return (baseValue: baseStats.ma, displayValue: baseStats.ma - movementAllowancePenalty)
+            return (baseValue: baseStats.ma, displayValue: baseStats.ma + (statModifiers[.MovementAllowance] ?? 0))
         case .Body:
-            return (baseValue: baseStats.body, displayValue: baseStats.body)
+            return (baseValue: baseStats.body, displayValue: baseStats.body + (statModifiers[.Body] ?? 0))
         case .Empathy:
             // TODO: Cyberpsychosis
             let empathy = value(for: .Humanity).displayValue / 10
@@ -106,7 +100,7 @@ final class Edgerunner: Codable, EditableModel {
             let liftValue = value(for: .Body).displayValue * 40
             return (baseValue: liftValue, displayValue: liftValue)
         case .Reputation:
-            return (baseValue: baseStats.rep, displayValue: baseStats.rep)
+            return (baseValue: baseStats.rep, displayValue: baseStats.rep + (statModifiers[.Reputation] ?? 0))
         case .Humanity:
             return (baseValue: baseHumanity, displayValue: baseHumanity - humanityLoss)
         }
