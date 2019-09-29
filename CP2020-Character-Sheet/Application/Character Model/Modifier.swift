@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol Modifying {
+protocol Modifying: Codable {
     /// The value of the modifier. Can be negative or positive.
     var amount: Int { get }
     
@@ -24,7 +24,7 @@ protocol Modifying {
 }
 
 /// Used to modify a Stat
-struct StatModifier: Codable, Modifying {
+struct StatModifier: Modifying {
     /// The Stat modified
     let stat: Stat
     let amount: Int
@@ -37,7 +37,7 @@ struct StatModifier: Codable, Modifying {
 }
 
 /// Used to modify a skill
-struct SkillModifier: Codable, Modifying {
+struct SkillModifier: Modifying {
     /// The Skill modified
     let skill: Skill
     let amount: Int

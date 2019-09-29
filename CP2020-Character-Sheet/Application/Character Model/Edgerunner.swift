@@ -37,9 +37,14 @@ final class Edgerunner: Codable, EditableModel {
     /// The humanity deficit incurred by Cyberware
     private(set) var humanityLoss: Int
     
-    /// Contains all the modifiers for each stat. These values can be negative or positive.
-    /// These should be added to whatever stat they're modifying, never subtraced.
-    private(set) var statModifiers: [Stat: Int] = [Stat: Int]()
+    /// Collection of stat modifiers
+    private(set) var statModifiers = [StatModifier]()
+    
+    /// Collection of skill modifiers
+    private(set) var skillModifiers = [SkillModifier]()
+    
+    /// Collection of arbitrary modifiers (currently unused)
+    private(set) var arbitraryModifiers = [ArbitraryModifier]()
     
     /// Creates a character with the input provided. Skills are not assigned via this initalizer, and
     /// must be set by using `add(skill: SkillListing)`. This initializer is intended to be used by
@@ -70,21 +75,21 @@ final class Edgerunner: Codable, EditableModel {
         
         switch stat {
         case .Intelligence:
-            return (baseValue: baseStats.int, displayValue: baseStats.int + (statModifiers[.Intelligence] ?? 0))
+            return (baseValue: baseStats.int, displayValue: baseStats.int + modifier(for: .Intelligence))
         case .Reflex:
-            return (baseValue: baseStats.ref, displayValue: baseStats.ref + (statModifiers[.Reflex] ?? 0))
+            return (baseValue: baseStats.ref, displayValue: baseStats.ref + modifier(for: .Reflex))
         case .Tech:
-            return (baseValue: baseStats.tech, displayValue: baseStats.tech + (statModifiers[.Tech] ?? 0))
+            return (baseValue: baseStats.tech, displayValue: baseStats.tech + modifier(for: .Tech))
         case .Cool:
-            return (baseValue: baseStats.cool, displayValue: baseStats.cool + (statModifiers[.Cool] ?? 0))
+            return (baseValue: baseStats.cool, displayValue: baseStats.cool + modifier(for: .Cool))
         case .Attractiveness:
-            return (baseValue: baseStats.attr, displayValue: baseStats.attr + (statModifiers[.Attractiveness] ?? 0))
+            return (baseValue: baseStats.attr, displayValue: baseStats.attr + modifier(for: .Attractiveness))
         case .Luck:
-            return (baseValue: baseStats.luck, displayValue: baseStats.luck + (statModifiers[.Luck] ?? 0))
+            return (baseValue: baseStats.luck, displayValue: baseStats.luck + modifier(for: .Luck))
         case .MovementAllowance:
-            return (baseValue: baseStats.ma, displayValue: baseStats.ma + (statModifiers[.MovementAllowance] ?? 0))
+            return (baseValue: baseStats.ma, displayValue: baseStats.ma + modifier(for: .MovementAllowance))
         case .Body:
-            return (baseValue: baseStats.body, displayValue: baseStats.body + (statModifiers[.Body] ?? 0))
+            return (baseValue: baseStats.body, displayValue: baseStats.body + modifier(for: .Body))
         case .Empathy:
             // TODO: Cyberpsychosis
             let empathy = value(for: .Humanity).displayValue / 10
@@ -100,7 +105,7 @@ final class Edgerunner: Codable, EditableModel {
             let liftValue = value(for: .Body).displayValue * 40
             return (baseValue: liftValue, displayValue: liftValue)
         case .Reputation:
-            return (baseValue: baseStats.rep, displayValue: baseStats.rep + (statModifiers[.Reputation] ?? 0))
+            return (baseValue: baseStats.rep, displayValue: baseStats.rep + modifier(for: .Reputation))
         case .Humanity:
             return (baseValue: baseHumanity, displayValue: baseHumanity - humanityLoss)
         }
@@ -152,7 +157,7 @@ final class Edgerunner: Codable, EditableModel {
             guard let self = self else { return }
             self.baseStats = baseStats
             self.humanityLoss = humanityLoss
-            self.updateStatModifiers()
+            self.refreshSkillListings()
             
             completion(.success(.valid))
             NotificationCenter.default.post(name: .statsDidChange, object: nil)
@@ -185,8 +190,8 @@ final class Edgerunner: Codable, EditableModel {
         }
     }
     
-    /// Updates the stat modifiers for each skill
-    private func updateStatModifiers() {
+    /// Refreshes each skill listing
+    private func refreshSkillListings() {
         for skillListing in skills {
             guard let stat = skillListing.skill.linkedStat,
                 skillListing.statModifier != value(for: stat).displayValue else {
@@ -195,6 +200,18 @@ final class Edgerunner: Codable, EditableModel {
             
             skillListing.update(statModifierPoints: value(for: stat).displayValue)
         }
+    }
+    
+    private func modifier(for stat: Stat) -> Int {
+        return statModifiers.filter({ $0.stat == stat }).reduce(0, { total, next in
+            total + next.amount
+        })
+    }
+    
+    private func modifier(for skill: Skill) -> Int {
+        return skillModifiers.filter({ $0.skill == skill }).reduce(0, { total, next in
+            total + next.amount
+        })
     }
     
     /// Saves the character to disk.
