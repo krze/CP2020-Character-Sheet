@@ -14,7 +14,7 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
     private(set) var dataSource: TotalDamageDataSource?
 
     private var totalDamage: Int?
-    private(set) var damageCells = [UIView]()
+    private(set) var damageCells = [DamageCell]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -136,10 +136,13 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
             while currentDamage != newDamage {
                 let color: UIColor = increasing ? StyleConstants.Color.red : StyleConstants.Color.light
                 self.damageCells[next].backgroundColor = color
+                
                 if increasing {
+                    self.damageCells[next].markAsDamaged()
                     next += 1
                 }
                 else {
+                    self.damageCells[next].markAsUndamaged()
                     next -= 1
                 }
             }

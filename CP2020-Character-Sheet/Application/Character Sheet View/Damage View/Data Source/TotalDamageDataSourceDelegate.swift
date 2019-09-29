@@ -10,7 +10,7 @@ import UIKit
 
 /// Responds to calls from the TotalDamageController
 protocol TotalDamageDataSourceDelegate: class {
-    var damageCells: [UIView] { get }
+    var damageCells: [DamageCell] { get }
     
     /// Updates the damage cells to display the current value
     ///

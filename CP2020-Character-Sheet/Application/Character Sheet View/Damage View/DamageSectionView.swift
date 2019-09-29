@@ -14,7 +14,7 @@ final class DamageSectionView: UIView {
     private let model: DamageSectionViewModel
     
     // Temporary until cells track their own state
-    private(set) var damageCells = [UIView]()
+    private(set) var damageCells = [DamageCell]()
     private var views = [UIView]()
     
     /// Create a damage section containing 4 damage points
@@ -148,9 +148,10 @@ final class DamageSectionView: UIView {
             label.textColor = model.darkColor
         }
         
-        label.font = StyleConstants.Font.defaultItalic
+        label.font = StyleConstants.Font.defaultItalic?.withSize(16)
         label.text = text
         label.adjustsFontSizeToFitWidth = true
+        label.textAlignment = .center
         
         return label
     }
@@ -212,22 +213,22 @@ final class DamageSectionView: UIView {
     }
     
     // TODO: Break these into their own type to make state preservation easier.
-    private func damageCells(frame: CGRect, count: Int) -> [UIView] {
-        var views = [UIView]()
+    private func damageCells(frame: CGRect, count: Int) -> [DamageCell] {
+        var cells = [DamageCell]()
         let cellWidth = calculateWidth(forFrameCount: count, toFit: frame)
         let cellHeight = frame.height - model.damageCellVerticalPadding
         
         for _ in 1...count {
-            let backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: cellWidth, height: cellHeight))
-            backgroundView.backgroundColor = model.lightColor
-            backgroundView.layer.borderWidth = model.damageCellBorderThickness
-            backgroundView.layer.borderColor = model.darkColor.cgColor
+            let cell = DamageCell(frame: CGRect(x: 0, y: 0, width: cellWidth, height: cellHeight))
+            cell.backgroundColor = model.lightColor
+            cell.layer.borderWidth = model.damageCellBorderThickness
+            cell.layer.borderColor = model.darkColor.cgColor
             
-            views.append(backgroundView)
+            cells.append(cell)
         }
         
         
-        return views
+        return cells
     }
     
     private func calculateWidth(forFrameCount count: Int, toFit rect: CGRect) -> CGFloat {
