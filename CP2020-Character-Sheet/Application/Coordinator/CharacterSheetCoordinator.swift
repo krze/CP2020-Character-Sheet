@@ -16,9 +16,9 @@ import UIKit
 /// full-screen view controllers such as the full skill listing.
 ///
 /// Use this class in the same way you'd use an application coordinator
-final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
+final class CharacterSheetCoordinator: CharacterCoordinating {
     
-    private(set) var skillsDataSource: SkillsDataSource? {
+    private var skillsDataSource: SkillsDataSource? {
         didSet {
             if let dataSource = skillsDataSource {
                 characterSheetViewController.highlightedSkillView?.update(dataSource: dataSource.highlightedSkillsDataSource())
@@ -26,7 +26,7 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
         }
     }
     
-    private(set) var characterDescriptionDataSource: CharacterDescriptionDataSource? {
+    private var characterDescriptionDataSource: CharacterDescriptionDataSource? {
         didSet {
             if let dataSource = characterDescriptionDataSource {
                 characterSheetViewController.roleDescriptionView?.update(dataSource: dataSource)
@@ -34,7 +34,7 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
         }
     }
     
-    private(set) var statsDataSource: StatsDataSource? {
+    private var statsDataSource: StatsDataSource? {
         didSet {
             if let dataSource = statsDataSource {
                 characterSheetViewController.statsView?.update(with: dataSource)
@@ -42,9 +42,7 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
         }
     }
     
-    private var damageCoordinator: DamageCoordinator?
-
-    var damageModifierDataSource: DamageModifierDataSource? {
+    private var damageModifierDataSource: DamageModifierDataSource? {
         didSet {
             if let dataSource = damageModifierDataSource {
                 characterSheetViewController.damageModifierView?.update(dataSource: dataSource)
@@ -52,7 +50,7 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
         }
     }
     
-    var totalDamageDataSource: TotalDamageDataSource? {
+    private var totalDamageDataSource: TotalDamageDataSource? {
         didSet {
             if let dataSource = totalDamageDataSource {
                 characterSheetViewController.damageView?.update(dataSource: dataSource)
@@ -112,7 +110,6 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
         NotificationCenter.default.addObserver(self, selector: #selector(showEditor), name: .showEditor, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showHelpTextAlert), name: .showHelpTextAlert, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(saveToDiskRequested(notification:)), name: .saveToDiskRequested, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(edgerunnerWasLoaded(notification:)), name: .edgerunnerLoaded, object: nil)
     }
     
     @objc private func showSkillTable(notification: Notification) {
@@ -161,21 +158,21 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
         }
     }
     
-    @objc private func edgerunnerWasLoaded(notification: Notification) {
-        guard let edgerunner = notification.object as? Edgerunner else { return }
+    func edgerunnerLoaded(_ edgerunner: Edgerunner) {
         skillsDataSource = SkillsDataSource(model: edgerunner)
         statsDataSource = StatsDataSource(statsModel: edgerunner)
         characterDescriptionDataSource = CharacterDescriptionDataSource(model: edgerunner)
-        let totalDamageDataSource = TotalDamageDataSource(model: edgerunner)
-        let damageModifierDataSource = DamageModifierDataSource(model: edgerunner)
-        self.totalDamageDataSource = totalDamageDataSource
-        self.damageModifierDataSource = damageModifierDataSource
-        damageCoordinator = DamageCoordinator(totalDamageSource: totalDamageDataSource, damageModifierSource: damageModifierDataSource)
+        totalDamageDataSource = TotalDamageDataSource(model: edgerunner)
+        damageModifierDataSource = DamageModifierDataSource(model: edgerunner)
         refreshCharacterSheet()
     }
     
-    // TODO: Create a method for sending messages between the damage cells and the damage modifier view
+}
+
+protocol CharacterCoordinating: class {
     
-    // TODO: Create a method for sending messages between the stat view and the skill view
-    
+    /// Sets up the coordinator with the edgerunner. Reloads all the data with the updated edgerunner
+    ///
+    /// - Parameter edgerunner: The edgerunner loaded from disk.
+    func edgerunnerLoaded(_ edgerunner: Edgerunner)
 }

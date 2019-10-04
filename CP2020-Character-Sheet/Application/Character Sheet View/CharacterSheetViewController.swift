@@ -49,7 +49,6 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
             damageView = cell
         }
         else if let cell = cell as? DamageModifierViewCell {
-            // NEXT: MAKE THIS TALK TO THE DAMAGE TRACK. FLESH OUT THE TOTALDAMAGEDATASOURCE TO PULL FROM THE EDGERUNNER. MAKE A DAMAGE PROTOCOL THAT THE DAMAGE MODIFIER VIEW CELL AND THE DAMAGE CELL BOTH USE
             let viewModel = DamageModifierViewModel(cellWidthRatio: 0.25, cellHeightRatio: 1.0, labelHeightRatio: 0.4, paddingRatio: 0.05)
             cell.setup(with: viewModel)
             damageModifierView = cell

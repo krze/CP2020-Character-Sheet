@@ -15,14 +15,14 @@ final class ModelManager: ModelReceiver {
     private(set) var edgerunner: Edgerunner? {
         didSet {
             guard let edgerunner = edgerunner else { return }
-            NotificationCenter.default.post(name: .edgerunnerLoaded, object: edgerunner)
+            coordinator?.edgerunnerLoaded(edgerunner)
         }
     }
     
     /// All available skills loaded from disk.
     private(set) var skills: [Skill]?
     private let handler: CharacterSheetFileHandler
-    weak var coordinator: CharacterSheetDataSourceCoordinator?
+    weak var coordinator: CharacterCoordinating?
     
     init(with handler: CharacterSheetFileHandler) {
         self.handler = handler

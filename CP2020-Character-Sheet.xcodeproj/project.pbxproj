@@ -68,7 +68,6 @@
 		9D856721230F65AA00295479 /* CharacterValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D856720230F65AA00295479 /* CharacterValidator.swift */; };
 		9D9CC9532341411C005AF278 /* DamageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC9522341411C005AF278 /* DamageCell.swift */; };
 		9D9CC95523414EC7005AF278 /* Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC95423414EC7005AF278 /* Modifier.swift */; };
-		9D9CC9572346BAE5005AF278 /* DamageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC9562346BAE5005AF278 /* DamageCoordinator.swift */; };
 		9D9CC95A2346BB25005AF278 /* DamageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC9592346BB25005AF278 /* DamageModel.swift */; };
 		9D9CC95C2346BDAD005AF278 /* BodyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC95B2346BDAD005AF278 /* BodyType.swift */; };
 		9DCD370121CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD370021CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift */; };
@@ -85,7 +84,6 @@
 		9DE335A721A9EB5B00180927 /* HighlightedSkillViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335A621A9EB5B00180927 /* HighlightedSkillViewCell.swift */; };
 		9DE335AA21A9F27400180927 /* TotalDamageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335A921A9F27400180927 /* TotalDamageDataSource.swift */; };
 		9DE335AC21A9F2C800180927 /* TotalDamageDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335AB21A9F2C800180927 /* TotalDamageDataSourceDelegate.swift */; };
-		9DFA19EB21CE979F0092A450 /* CharacterSheetDataSourceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19EA21CE979F0092A450 /* CharacterSheetDataSourceCoordinator.swift */; };
 		9DFA19EF21CE9D920092A450 /* HighlightedSkillViewCellDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19EE21CE9D920092A450 /* HighlightedSkillViewCellDataSource.swift */; };
 		9DFA19F121CE9EE10092A450 /* Notification+Cyberpunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19F021CE9EE10092A450 /* Notification+Cyberpunk.swift */; };
 		9DFA19F321CF1F260092A450 /* JSONFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA19F221CF1F260092A450 /* JSONFactory.swift */; };
@@ -190,7 +188,6 @@
 		9D856720230F65AA00295479 /* CharacterValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterValidator.swift; sourceTree = "<group>"; };
 		9D9CC9522341411C005AF278 /* DamageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageCell.swift; sourceTree = "<group>"; };
 		9D9CC95423414EC7005AF278 /* Modifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifier.swift; sourceTree = "<group>"; };
-		9D9CC9562346BAE5005AF278 /* DamageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageCoordinator.swift; sourceTree = "<group>"; };
 		9D9CC9592346BB25005AF278 /* DamageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageModel.swift; sourceTree = "<group>"; };
 		9D9CC95B2346BDAD005AF278 /* BodyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyType.swift; sourceTree = "<group>"; };
 		9DCD370021CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedSkillViewCellModel.swift; sourceTree = "<group>"; };
@@ -207,7 +204,6 @@
 		9DE335A621A9EB5B00180927 /* HighlightedSkillViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedSkillViewCell.swift; sourceTree = "<group>"; };
 		9DE335A921A9F27400180927 /* TotalDamageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDamageDataSource.swift; sourceTree = "<group>"; };
 		9DE335AB21A9F2C800180927 /* TotalDamageDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDamageDataSourceDelegate.swift; sourceTree = "<group>"; };
-		9DFA19EA21CE979F0092A450 /* CharacterSheetDataSourceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSheetDataSourceCoordinator.swift; sourceTree = "<group>"; };
 		9DFA19EE21CE9D920092A450 /* HighlightedSkillViewCellDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedSkillViewCellDataSource.swift; sourceTree = "<group>"; };
 		9DFA19F021CE9EE10092A450 /* Notification+Cyberpunk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Cyberpunk.swift"; sourceTree = "<group>"; };
 		9DFA19F221CF1F260092A450 /* JSONFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONFactory.swift; sourceTree = "<group>"; };
@@ -277,8 +273,6 @@
 			isa = PBXGroup;
 			children = (
 				9D2CFA0321C5921A00EC76D7 /* CharacterSheetCoordinator.swift */,
-				9DFA19EA21CE979F0092A450 /* CharacterSheetDataSourceCoordinator.swift */,
-				9D9CC9562346BAE5005AF278 /* DamageCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -763,7 +757,6 @@
 				9D11763821BDCE0300E297BA /* UILabel+LabelContainer.swift in Sources */,
 				9D4724A42309F2B600CECEA2 /* RoleStrings.swift in Sources */,
 				9D552CF621AB266F008B90E9 /* DamageModifierViewModel.swift in Sources */,
-				9D9CC9572346BAE5005AF278 /* DamageCoordinator.swift in Sources */,
 				9D3761E621EA7AA50027513E /* SkillTableViewCellDelegate.swift in Sources */,
 				9D856721230F65AA00295479 /* CharacterValidator.swift in Sources */,
 				9D0003B521FE54CD0044F84A /* EditorCollectionViewModel.swift in Sources */,
@@ -783,7 +776,6 @@
 				9D0003AB21FE48C20044F84A /* ShortFormTextEntryCollectionViewCells.swift in Sources */,
 				9DFE711121BD92C9000561B0 /* StatView.swift in Sources */,
 				9D0003A921FE479D0044F84A /* UserEntryCollectionViewCell.swift in Sources */,
-				9DFA19EB21CE979F0092A450 /* CharacterSheetDataSourceCoordinator.swift in Sources */,
 				9D2CF9FE21C4336900EC76D7 /* CharacterDescriptionView.swift in Sources */,
 				9D2CFA0621C593D200EC76D7 /* MarginCreator.swift in Sources */,
 				9D3761E421E16AA20027513E /* StatsDataSourceDelegate.swift in Sources */,
