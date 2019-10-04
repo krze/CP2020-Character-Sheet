@@ -55,8 +55,6 @@ enum SkillField: String, EntryTypeProvider, CaseIterable {
         switch self {
         case .Points, .Modifier, .ImprovementPoints:
             return .Integer
-        case .Extension:
-            return .Text
         case .Description:
             return .LongFormText
         default:

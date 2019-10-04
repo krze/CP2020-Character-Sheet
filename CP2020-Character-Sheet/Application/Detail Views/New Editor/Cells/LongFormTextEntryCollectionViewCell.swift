@@ -74,9 +74,13 @@ final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell, UI
         self.textView?.text = placeholder
         
         if placeholder.count > 0 {
-            textView.isEditable = false
+            self.textView?.isEditable = false
+            self.contentView.backgroundColor = StyleConstants.Color.gray
+            self.textView?.backgroundColor = .clear
         }
-        self.contentView.backgroundColor = viewModel.lightColor
+        else {
+            self.contentView.backgroundColor = viewModel.lightColor
+        }
     }
     
     func makeFirstResponder() {

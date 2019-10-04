@@ -72,6 +72,7 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
                                 viewModel.modifierColumnLabelText,
                                 viewModel.pointsColumnLabelText]
         
+        // NEXT: Make these column labels appear in the full skill view too. Make their colors better.
         columnLabelTexts.enumerated().forEach { index, text in
             let width = safeFrame.width * viewModel.columnLabelWidthRatio
             let frame = CGRect(x: safeFrame.maxX - (width * CGFloat(index)),

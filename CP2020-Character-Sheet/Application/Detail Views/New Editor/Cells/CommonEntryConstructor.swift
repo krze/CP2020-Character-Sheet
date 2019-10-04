@@ -29,7 +29,10 @@ struct CommonEntryConstructor {
         let labelViewMargins = margins ?? styleConstants.createInsets(with: labelViewFrame, fullHeight: fullHeight)
         let labelView = UILabel.container(frame: labelViewFrame, margins: labelViewMargins, backgroundColor: styleConstants.lightColor, borderColor: nil, borderWidth: nil, labelMaker: labelMaker ?? headerLabel)
         labelView.label.text = "\(text):"
-
+        
+        labelView.container.backgroundColor = .clear
+        labelView.label.backgroundColor = .clear
+        
         return labelView.container
     }
     

@@ -140,6 +140,8 @@ final class StaticEntryCollectionViewCell: TextEntryCollectionViewCell {
     override func setup(with identifier: Identifier, placeholder: String, description: String) {
         super.setup(with: identifier, placeholder: placeholder, description: description)
         textField?.isUserInteractionEnabled = false
+        contentView.backgroundColor = StyleConstants.Color.gray
+        textField?.backgroundColor = StyleConstants.Color.gray
     }
     
 }
