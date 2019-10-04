@@ -18,9 +18,9 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
     private var cells = [Label: UILabel]()
     
     func setup(with viewModel: DamageModifierViewModel) {
-        
         if wasSetUp {
             dataSource?.refreshData()
+            return
         }
         
         model = viewModel

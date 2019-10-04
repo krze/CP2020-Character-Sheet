@@ -232,12 +232,6 @@ final class Edgerunner: Codable, EditableModel {
         })
     }
     
-    /// Saves the character to disk.
-    private func saveCharacter() {
-        guard let JSONData = JSONFactory().encode(with: self) else { return }
-        NotificationCenter.default.post(name: .saveToDiskRequested, object: JSONData)
-    }
-    
     private func damageUpdate() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -251,7 +245,15 @@ final class Edgerunner: Codable, EditableModel {
             }
             
             NotificationCenter.default.post(name: .damageDidChange, object: nil)
+            
+            self.saveCharacter()
         }
+    }
+    
+    /// Saves the character to disk.
+    private func saveCharacter() {
+        guard let JSONData = JSONFactory().encode(with: self) else { return }
+        NotificationCenter.default.post(name: .saveToDiskRequested, object: JSONData)
     }
     
 }

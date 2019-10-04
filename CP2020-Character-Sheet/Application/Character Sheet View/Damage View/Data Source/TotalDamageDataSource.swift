@@ -58,7 +58,7 @@ final class TotalDamageDataSource: EditorValueReciever {
     func valuesFromEditorDidChange(_ values: [Identifier : String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {}
     
     func refreshData() {
-        
+        delegate?.updateCells(to: currentDamage)
     }
     
     /// Ensure the new damage applied can be applied
