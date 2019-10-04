@@ -10,12 +10,16 @@ import Foundation
 
 final class TotalDamageDataSource: EditorValueReciever {
 
-    let maxDamage: Int
-    private(set) var currentDamage: Int = 0
+    private let model: DamageModel
+    private let maxDamage: Int
+    var currentDamage: Int {
+        return model.damage
+    }
     weak var delegate: TotalDamageDataSourceDelegate?
     
-    init(maxDamage: Int) {
-        self.maxDamage = maxDamage
+    init(model: DamageModel) {
+        self.model = model
+        self.maxDamage = Rules.Damage.maxDamagePoints
     }
     
     /// Iterates damage up by 1 damage point. Updates the delegate's damage cells.
@@ -38,7 +42,8 @@ final class TotalDamageDataSource: EditorValueReciever {
     /// - Throws: DamageModification error if the damage could not be applied
     func modifyDamage(by amount: Int) throws {
         do {
-            currentDamage = try validate(newDamage: amount)
+            try validate(newDamage: amount)
+            model.apply(damage: amount)
         }
         catch let error {
             throw error
@@ -47,6 +52,9 @@ final class TotalDamageDataSource: EditorValueReciever {
         delegate?.updateCells(to: currentDamage)
     }
     
+    /// This does nothing on TotalDamageDataSource since it doesnt have a fullscreen editor
+    /// - Parameter values: _
+    /// - Parameter completion: _
     func valuesFromEditorDidChange(_ values: [Identifier : String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {}
     
     func refreshData() {
@@ -56,7 +64,7 @@ final class TotalDamageDataSource: EditorValueReciever {
     /// Ensure the new damage applied can be applied
     ///
     /// - Parameter newDamage: The new damage to add to the current damage
-    private func validate(newDamage: Int) throws -> Int {
+    private func validate(newDamage: Int) throws {
         let (pendingCurrentDamage, didOverflow): (Int, Bool) = currentDamage.addingReportingOverflow(newDamage)
         guard !didOverflow else {
             throw DamageModification.BufferOverflow
@@ -66,15 +74,13 @@ final class TotalDamageDataSource: EditorValueReciever {
             throw DamageModification.CannotGoBelowZero
         }
         
-        guard pendingCurrentDamage <= maxDamage else {
+        guard pendingCurrentDamage <= Rules.Damage.maxDamagePoints else {
             throw DamageModification.CannotExceedMaxDamage
         }
         
         guard pendingCurrentDamage != currentDamage else {
             throw DamageModification.NoModification
         }
-        
-        return pendingCurrentDamage
     }
     
     

@@ -41,13 +41,23 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
             }
         }
     }
+    
+    private var damageCoordinator: DamageCoordinator?
 
     var damageModifierDataSource: DamageModifierDataSource? {
-        return characterSheetViewController.damageModifierView?.dataSource
+        didSet {
+            if let dataSource = damageModifierDataSource {
+                characterSheetViewController.damageModifierView?.update(dataSource: dataSource)
+            }
+        }
     }
     
     var totalDamageDataSource: TotalDamageDataSource? {
-        return characterSheetViewController.damageView?.dataSource
+        didSet {
+            if let dataSource = totalDamageDataSource {
+                characterSheetViewController.damageView?.update(dataSource: dataSource)
+            }
+        }
     }
     
     let navigationController: UINavigationController
@@ -156,6 +166,11 @@ final class CharacterSheetCoordinator: CharacterSheetDataSourceCoordinator {
         skillsDataSource = SkillsDataSource(model: edgerunner)
         statsDataSource = StatsDataSource(statsModel: edgerunner)
         characterDescriptionDataSource = CharacterDescriptionDataSource(model: edgerunner)
+        let totalDamageDataSource = TotalDamageDataSource(model: edgerunner)
+        let damageModifierDataSource = DamageModifierDataSource(model: edgerunner)
+        self.totalDamageDataSource = totalDamageDataSource
+        self.damageModifierDataSource = damageModifierDataSource
+        damageCoordinator = DamageCoordinator(totalDamageSource: totalDamageDataSource, damageModifierSource: damageModifierDataSource)
         refreshCharacterSheet()
     }
     

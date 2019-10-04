@@ -11,7 +11,7 @@ import UIKit
 final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate, UsedOnce {
     private (set) var wasSetUp: Bool = false
     
-    private(set) var dataSource: TotalDamageDataSource?
+    private var dataSource: TotalDamageDataSource?
 
     private var totalDamage: Int?
     private(set) var damageCells = [DamageCell]()
@@ -27,13 +27,12 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
     /// - Parameters:
     ///   - viewModel: The initial DamageSectionViewModel
     ///   - rows: The number of rows
-    func setup(with damageViewModel: DamageSectionViewModel, rows: Int, damageController: TotalDamageDataSource) {
+    func setup(with damageViewModel: DamageSectionViewModel, rows: Int) {
         if wasSetUp {
             dataSource?.refreshData()
             return
         }
         
-        self.dataSource = damageController
         self.totalDamage = damageViewModel.totalDamage
         var viewModel = damageViewModel
         
@@ -107,12 +106,12 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             guard newDamage > 0 else {
-                self.damageCells.forEach { $0.backgroundColor = StyleConstants.Color.light }
+                self.damageCells.forEach { $0.markAsUndamaged() }
                 return
             }
             
             var currentDamage: Int {
-                return self.damageCells.filter({ $0.backgroundColor == StyleConstants.Color.red }).count
+                return self.damageCells.filter({ $0.isDamaged }).count
             }
             let currentDamageIndex = currentDamage - 1
             let destinationIndex = newDamage - 1
@@ -149,6 +148,11 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
         }
     }
     
+    func update(dataSource: TotalDamageDataSource) {
+        self.dataSource = dataSource
+        self.dataSource?.delegate = self
+    }
+    
     // MARK: Gesture Recognition and actions
     
     private func setupGestureRecognizers() {
@@ -176,13 +180,11 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
                 case let error where error == DamageModification.CannotExceedMaxDamage:
                     return
                 default:
-                    fatalError(error.localizedDescription)
+                    self.alert(error: error)
                 }
-                // TODO: Make an alert view controller to pop alerts anywhere
-                // TODO: Make this pop an alert view
             }
             catch let error {
-                fatalError(error.localizedDescription)
+                self.alert(error: error)
             }
         }
     }
@@ -198,13 +200,11 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
                 case let error where error == DamageModification.CannotGoBelowZero:
                     return
                 default:
-                    fatalError(error.localizedDescription)
+                    self.alert(error: error)
                 }
-                // TODO: Make an alert view controller to pop alerts anywhere
-                // TODO: Make this pop an alert view
             }
             catch let error {
-                fatalError(error.localizedDescription)
+                self.alert(error: error)
             }
         }
     }
@@ -221,6 +221,13 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
     override func prepareForReuse() {
         super.prepareForReuse()
         // TODO: Test cell re-use and see if it needs anything here
+    }
+    
+    private func alert(error: Error) {
+        let alert = UIAlertController(title: "Unable to update damage:", message: error.localizedDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+        
+        NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
     }
     
 }

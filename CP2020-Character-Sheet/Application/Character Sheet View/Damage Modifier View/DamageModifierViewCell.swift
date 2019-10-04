@@ -13,9 +13,16 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
     private (set) var wasSetUp: Bool = false
 
     private var model: DamageModifierViewModel?
-    private(set) var dataSource: DamageModifierDataSource? // TODO: When this is implemented, make it non-optional
+    private var dataSource: DamageModifierDataSource?
+    
+    private var cells = [Label: UILabel]()
     
     func setup(with viewModel: DamageModifierViewModel) {
+        
+        if wasSetUp {
+            dataSource?.refreshData()
+        }
+        
         model = viewModel
         
         contentView.layoutMargins = UIEdgeInsets(top: contentView.safeAreaLayoutGuide.layoutFrame.height * viewModel.paddingRatio,
@@ -43,7 +50,9 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
             let frame = CGRect(x: x, y: contentView.layoutMarginsGuide.layoutFrame.minY,
                                width: subviewWidth, height: subviewHeight)
             
-            let cell = self.cell(frame: frame, labelHeightRatio: viewModel.labelHeightRatio, labelType: label)
+            let view = self.cell(frame: frame, labelHeightRatio: viewModel.labelHeightRatio, labelType: label)
+            let cell = view.wholeView
+            cells[label] = view.valueLabel
             
             contentView.addSubview(cell)
             
@@ -62,6 +71,30 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
         wasSetUp = true
     }
     
+    func update(dataSource: DamageModifierDataSource) {
+        self.dataSource = dataSource
+        self.dataSource?.delegate = self
+    }
+    
+    // MARK: DamageModifierDataSourceDelegate
+    
+    func bodyTypeDidChange(save: Int, btm: Int) {
+        let btmCell = cells[.BTM]
+        let saveCell = cells[.Save]
+        
+        btmCell?.text = "\(btm)"
+        saveCell?.text = "\(save)"
+        btmCell?.fitTextToBounds()
+        saveCell?.fitTextToBounds()
+    }
+     
+    func damageDidChange(totalDamage: Int) {
+        let damageCell = cells[.TotalDamage]
+        
+        damageCell?.text = "\(totalDamage)"
+        damageCell?.fitTextToBounds()
+    }
+     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -82,7 +115,7 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
         // TODO: Test cell re-use and see if it needs anything here
     }
     
-    private func cell(frame: CGRect, labelHeightRatio: CGFloat, labelType: Label) -> UIView {
+    private func cell(frame: CGRect, labelHeightRatio: CGFloat, labelType: Label) -> (wholeView: UIView, valueLabel: UILabel) {
         let cell = UIView(frame: frame)
         cell.translatesAutoresizingMaskIntoConstraints = false
         let containerFrame = CGRect(x: 0.0, y: 0.0, width: frame.width, height: frame.height * labelHeightRatio)
@@ -126,7 +159,7 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
             valueLabel.heightAnchor.constraint(equalToConstant: valueLabelFrame.height)
             ])
         
-        return cell
+        return (cell, valueLabel)
     }
     
     private func sectionLabel(frame: CGRect, text: String) -> UILabel {
@@ -164,14 +197,14 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
     }
     
     private enum Label: String, CaseIterable {
-        case Stun, BTM, TotalDamage
+        case Save, BTM, TotalDamage
         
         func labelText() -> String {
             switch self {
             case .TotalDamage:
                 return "Total DMG"
-            case .Stun:
-                return "Stun Save"
+            case .Save:
+                return "Save"
             default:
                 return rawValue
             }

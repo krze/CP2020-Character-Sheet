@@ -15,6 +15,7 @@ extension Notification.Name {
     static let roleDidChange = Notification.Name("roleDidChange")
     static let skillDidChange = Notification.Name("skillDidChange")
     static let nameAndHandleDidChange = Notification.Name("nameAndHandleDidChange")
+    static let damageDidChange = Notification.Name("damageDidChange")
     
     // Show a new view
     static let showEditor = Notification.Name("showEditor")

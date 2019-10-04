@@ -36,6 +36,7 @@ struct Rules {
             
             return maxHumanity - abs(humanityLoss) >= 0
         }
+        
     }
     
     struct Damage {
@@ -94,19 +95,19 @@ struct Rules {
                 let coolDouble = Double(baseStats.cool)
                 let multiplier = 0.5
                 return [StatModifier(stat: .Reflex,
-                                     amount: Int((refDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
+                                     amount: Int(-(refDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
                                      source: source,
                                      description: desc,
                                      dismissable: false,
                                      damageRelated: true),
                         StatModifier(stat: .Intelligence,
-                                     amount: Int((intDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
+                                     amount: Int(-(intDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
                                      source: source,
                                      description: desc,
                                      dismissable: false,
                                      damageRelated: true),
                         StatModifier(stat: .Cool,
-                                     amount: Int((coolDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
+                                     amount: Int(-(coolDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
                                      source: source,
                                      description: desc,
                                      dismissable: false,
@@ -119,19 +120,19 @@ struct Rules {
                 let coolDouble = Double(baseStats.cool)
                 let multiplier = 1.0 / 3.0
                 return [StatModifier(stat: .Reflex,
-                                     amount: Int((refDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
+                                     amount: Int(-(refDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
                                      source: source,
                                      description: desc,
                                      dismissable: false,
                                      damageRelated: true),
                         StatModifier(stat: .Intelligence,
-                                     amount: Int((intDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
+                                     amount: Int(-(intDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
                                      source: source,
                                      description: desc,
                                      dismissable: false,
                                      damageRelated: true),
                         StatModifier(stat: .Cool,
-                                     amount: Int((coolDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
+                                     amount: Int(-(coolDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
                                      source: source,
                                      description: desc,
                                      dismissable: false,

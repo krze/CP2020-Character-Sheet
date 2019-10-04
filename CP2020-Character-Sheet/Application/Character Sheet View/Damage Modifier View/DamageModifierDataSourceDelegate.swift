@@ -9,6 +9,9 @@
 import Foundation
 
 protocol DamageModifierDataSourceDelegate: class {
-    // TODO: Determine the callbacks necessary when the controller wants to modify the view
-
+    
+    func bodyTypeDidChange(save: Int, btm: Int)
+    
+    func damageDidChange(totalDamage: Int)
+    
 }

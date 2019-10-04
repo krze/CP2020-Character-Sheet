@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias EditableModel = CharacterDescriptionModel & StatsModel & SkillModel
+typealias EditableModel = CharacterDescriptionModel & StatsModel & SkillModel & DamageModel
 
 /// The model for the player character
 final class Edgerunner: Codable, EditableModel {
@@ -28,11 +28,16 @@ final class Edgerunner: Codable, EditableModel {
     private(set) var skills: [SkillListing]
     
     /// Damage on the player
-    var damage: Int {
-        didSet {
-            damageUpdate()
-        }
-    }
+    private(set) var damage: Int
+    
+    /// The player's save value for Stun or Mortal saves
+    private(set) var save: Int
+    
+    /// The player's Body Type
+    private(set) var bodyType: BodyType
+    
+    /// The player's BTM
+    private(set) var btm: Int
     
     private var baseHumanity: Int {
         return baseStats.emp * 10
@@ -50,14 +55,12 @@ final class Edgerunner: Codable, EditableModel {
     /// Collection of arbitrary modifiers (currently unused)
     private(set) var arbitraryModifiers = [ArbitraryModifier]()
     
-    /// Creates a character with the input provided. Skills are not assigned via this initalizer, and
-    /// must be set by using `add(skill: SkillListing)`. This initializer is intended to be used by
-    /// first-time character creation. For the most part, this class will be created from JSON.
+    /// Creates a blank character before naming.
     ///
-    /// - Parameters:
-    ///   - baseStats: Character stats object representing the base stat values
-    ///   - role: The role of the character
-    ///   - humanityLoss: The humanity loss from cyberware (NOTE: This will be a computed property when cyberware is supported)
+    /// - Parameter baseStats: The Base Stats of the character
+    /// - Parameter role: The Role of the character
+    /// - Parameter humanityLoss: Humanity loss of the character
+    /// - Parameter skills: The Skills belonging to the character
     init(baseStats: Stats, role: Role, humanityLoss: Int, skills: [Skill]) {
         self.baseStats = baseStats
         self.role = role
@@ -65,6 +68,9 @@ final class Edgerunner: Codable, EditableModel {
         damage = 0
         name = ""
         handle = ""
+        save = baseStats.body
+        bodyType = BodyType.from(bodyPointValue: baseStats.body)
+        btm = bodyType.btm()
         
         self.skills = [SkillListing]() // This is necessary so we can set it on the next line and preserve this class as Codable.
         self.skills = skills.map({ SkillListing(skill: $0, points: 0, modifier: 0, statModifier: value(for: $0.linkedStat).displayValue)})
@@ -143,7 +149,7 @@ final class Edgerunner: Codable, EditableModel {
             
             completion(.success(.valid))
             NotificationCenter.default.post(name: .skillDidChange, object: newSkill)
-            self.save()
+            self.saveCharacter()
         }
     }
     
@@ -160,12 +166,15 @@ final class Edgerunner: Codable, EditableModel {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.baseStats = baseStats
+            self.bodyType = BodyType.from(bodyPointValue: baseStats.body)
+            self.btm = self.bodyType.btm()
+            self.save = baseStats.body
             self.humanityLoss = humanityLoss
             self.refreshSkillListings()
             
             completion(.success(.valid))
             NotificationCenter.default.post(name: .statsDidChange, object: nil)
-            self.save()
+            self.saveCharacter()
         }
     }
     
@@ -180,7 +189,7 @@ final class Edgerunner: Codable, EditableModel {
             self.role = role
             completion(.success(.valid))
             NotificationCenter.default.post(name: .roleDidChange, object: nil)
-            self.save()
+            self.saveCharacter()
         }
     }
     
@@ -190,8 +199,13 @@ final class Edgerunner: Codable, EditableModel {
             self.handle = handle
             completion(.success(.valid))
             NotificationCenter.default.post(name: .nameAndHandleDidChange, object: nil)
-            self.save()
+            self.saveCharacter()
         }
+    }
+    
+    func apply(damage: Int) {
+        self.damage += damage
+        damageUpdate()
     }
     
     /// Refreshes each skill listing
@@ -219,7 +233,7 @@ final class Edgerunner: Codable, EditableModel {
     }
     
     /// Saves the character to disk.
-    private func save() {
+    private func saveCharacter() {
         guard let JSONData = JSONFactory().encode(with: self) else { return }
         NotificationCenter.default.post(name: .saveToDiskRequested, object: JSONData)
     }
@@ -235,7 +249,8 @@ final class Edgerunner: Codable, EditableModel {
                 self.statModifiers.append(contentsOf: modifiers)
                 NotificationCenter.default.post(name: .statsDidChange, object: nil)
             }
-
+            
+            NotificationCenter.default.post(name: .damageDidChange, object: nil)
         }
     }
     
