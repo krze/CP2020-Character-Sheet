@@ -16,7 +16,7 @@ protocol UserEntryValue {
     var enteredValue: String? { get }
     var entryIsValid: Bool { get }
     
-    func setup(with identifier: Identifier, placeholder: String, description: String)
+    func setup(with identifier: Identifier, value: String, description: String)
     
     func makeFirstResponder()
     

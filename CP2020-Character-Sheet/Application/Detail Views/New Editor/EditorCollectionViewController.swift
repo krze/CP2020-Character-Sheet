@@ -78,34 +78,44 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         
         let reuseIdentifier = entryType.cellReuseID()
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        currentValues[identifier] = placeholder
+        
+        let value: String = {
+            if let value = currentValues[identifier] {
+                return value
+            }
+            else {
+                currentValues[identifier] = placeholder
+                return placeholder
+            }
+        }()
+
         
         switch entryType {
         case .Text:
             guard let cell = cell as? TextEntryCollectionViewCell else { return UICollectionViewCell() }
-            cell.setup(with: identifier, placeholder: placeholder, description: description)
+            cell.setup(with: identifier, value: value, description: description)
             cell.delegate = self
         case .Integer:
             guard let cell = cell as? IntegerEntryCollectionViewCell else { return UICollectionViewCell() }
-            cell.setup(with: identifier, placeholder: placeholder, description: description)
+            cell.setup(with: identifier, value: value, description: description)
             cell.delegate = self
         case .LongFormText:
             guard let cell = cell as? LongFormTextEntryCollectionViewCell else { return UICollectionViewCell() }
-            cell.setup(with: identifier, placeholder: placeholder, description: description)
+            cell.setup(with: identifier, value: value, description: description)
             cell.delegate = self
         case .EnforcedChoiceText(let requiredChoices):
             guard let cell = cell as? EnforcedTextCollectionViewCell else { return UICollectionViewCell() }
             cell.suggestedMatches = requiredChoices
-            cell.setup(with: identifier, placeholder: placeholder, description: description)
+            cell.setup(with: identifier, value: value, description: description)
             cell.delegate = self
         case .SuggestedText(let suggestedMatches):
             guard let cell = cell as? SuggestedTextCollectionViewCell else { return UICollectionViewCell() }
             cell.suggestedMatches = suggestedMatches
-            cell.setup(with: identifier, placeholder: placeholder, description: description)
+            cell.setup(with: identifier, value: value, description: description)
             cell.delegate = self
         case .Static:
             guard let cell = cell as? StaticEntryCollectionViewCell else { return UICollectionViewCell() }
-            cell.setup(with: identifier, placeholder: placeholder, description: description)
+            cell.setup(with: identifier, value: value, description: description)
             cell.delegate = self
         }
         

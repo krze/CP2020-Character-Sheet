@@ -13,7 +13,9 @@
 import UIKit
 
 /// A single-line textfield that accepts user entry without validation
-class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDelegate {
+class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDelegate, UsedOnce {
+    
+    var wasSetUp = false
 
     weak var delegate: UserEntryDelegate?
     
@@ -33,9 +35,22 @@ class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDeleg
     fileprivate let viewModel = EditorStyleConstants()
     fileprivate var textField: UITextField?
     
-    func setup(with identifier: Identifier, placeholder: String, description: String) {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         NotificationCenter.default.addObserver(self, selector: #selector(saveWasCalled), name: .saveWasCalled, object: nil)
-
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setup(with identifier: Identifier, value: String, description: String) {
+        if wasSetUp {
+            header?.text = identifier
+            textField?.text = value
+            return
+        }
+        
         self.identifier = identifier
         self.fieldDescription = description
         
@@ -62,7 +77,7 @@ class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDeleg
             helpButton.heightAnchor.constraint(equalToConstant: viewModel.headerHeight)
             ])
         
-        let textField = CommonEntryConstructor.textField(frame: .zero, placeholder: placeholder)
+        let textField = CommonEntryConstructor.textField(frame: .zero, placeholder: value)
         
         contentView.addSubview(textField)
         
@@ -76,6 +91,7 @@ class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDeleg
         textField.delegate = self
         self.textField = textField
         self.contentView.backgroundColor = viewModel.lightColor
+        wasSetUp = true
     }
     
     func makeFirstResponder() {
@@ -137,8 +153,8 @@ class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDeleg
 // to display a detail view without allowing the player to edit the fields
 final class StaticEntryCollectionViewCell: TextEntryCollectionViewCell {
     
-    override func setup(with identifier: Identifier, placeholder: String, description: String) {
-        super.setup(with: identifier, placeholder: placeholder, description: description)
+    override func setup(with identifier: Identifier, value: String, description: String) {
+        super.setup(with: identifier, value: value, description: description)
         textField?.isUserInteractionEnabled = false
         contentView.backgroundColor = StyleConstants.Color.gray
         textField?.backgroundColor = StyleConstants.Color.gray
@@ -149,8 +165,8 @@ final class StaticEntryCollectionViewCell: TextEntryCollectionViewCell {
 /// A single-line textfield that accepts user entry, validating the entry to be an integer
 final class IntegerEntryCollectionViewCell: TextEntryCollectionViewCell {
 
-    override func setup(with identifier: Identifier, placeholder: String, description: String) {
-        super.setup(with: identifier, placeholder: placeholder, description: description)
+    override func setup(with identifier: Identifier, value: String, description: String) {
+        super.setup(with: identifier, value: value, description: description)
         textField?.keyboardType = .numberPad
 
         if let existingValue = textField?.text {
@@ -198,8 +214,8 @@ class SuggestedTextCollectionViewCell: TextEntryCollectionViewCell {
     private var autoCompleteCharacterCount = 0
     private var timer = Timer()
 
-    override func setup(with identifier: Identifier, placeholder: String, description: String) {
-        super.setup(with: identifier, placeholder: placeholder, description: description)
+    override func setup(with identifier: Identifier, value: String, description: String) {
+        super.setup(with: identifier, value: value, description: description)
     }
 
     // MARK: UITextFieldDelegate
@@ -321,8 +337,8 @@ class SuggestedTextCollectionViewCell: TextEntryCollectionViewCell {
 
 final class EnforcedTextCollectionViewCell: SuggestedTextCollectionViewCell {
     
-    override func setup(with identifier: Identifier, placeholder: String, description: String) {
-        super.setup(with: identifier, placeholder: placeholder, description: description)
+    override func setup(with identifier: Identifier, value: String, description: String) {
+        super.setup(with: identifier, value: value, description: description)
         
         
         if let existingValue = textField?.text {

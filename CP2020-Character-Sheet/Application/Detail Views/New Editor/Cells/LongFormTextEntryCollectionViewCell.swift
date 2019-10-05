@@ -8,9 +8,10 @@
 
 import UIKit
 
-final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextViewDelegate {
+final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextViewDelegate, UsedOnce {
     weak var delegate: UserEntryDelegate?
     
+    var wasSetUp = false
     var enteredValue: String? {
         return textView?.text
     }
@@ -25,8 +26,21 @@ final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell, UI
     
     private var resigning = false
     
-    func setup(with identifier: Identifier, placeholder: String, description: String) {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         NotificationCenter.default.addObserver(self, selector: #selector(saveWasCalled), name: .saveWasCalled, object: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setup(with identifier: Identifier, value: String, description: String) {
+        if wasSetUp {
+            header?.text = identifier
+            textView?.text = value
+            return
+        }
         
         self.identifier = identifier
         self.fieldDescription = description
@@ -71,9 +85,9 @@ final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell, UI
         
         textView.delegate = self
         self.textView = textView
-        self.textView?.text = placeholder
+        self.textView?.text = value
         
-        if placeholder.count > 0 {
+        if value.count > 0 {
             self.textView?.isEditable = false
             self.contentView.backgroundColor = StyleConstants.Color.gray
             self.textView?.backgroundColor = .clear
@@ -81,6 +95,8 @@ final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell, UI
         else {
             self.contentView.backgroundColor = viewModel.lightColor
         }
+        
+        wasSetUp = true
     }
     
     func makeFirstResponder() {
