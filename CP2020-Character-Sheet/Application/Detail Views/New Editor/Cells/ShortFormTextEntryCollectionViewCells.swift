@@ -212,9 +212,9 @@ class SuggestedTextCollectionViewCell: TextEntryCollectionViewCell {
             if (isBackSpace == -92), let text = textField.text {
                 let location = range.location
                 let endLocation = text.count - 1
-                
+                // Check if the deletion is happening in the middle of the string
                 if location < endLocation {
-                    let trimmedText = text.prefix(location + 1)
+                    let trimmedText = text.prefix(location + 1) // location is an index so it needs an off by one adj
                     textField.attributedText = nil
                     textField.text = String(trimmedText)
                 }
