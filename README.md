@@ -9,6 +9,7 @@ A WIP character sheet app for the Cyberpunk 2020 tabletop RPG. The goal of this 
 - [x] Class description
 - [x] Stats
 - [x] Damage track
+  - [x] Damage detail view
 - [x] Highlighted skill list
   - [x] Placeholder view
   - [x] Highlighted list that filters skills
