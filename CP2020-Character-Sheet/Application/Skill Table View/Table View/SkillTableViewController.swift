@@ -223,13 +223,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
             
             let skillNameMatch = skillName.contains(searchText)
             let extensionNameMatch = skillExtension?.contains(searchText) == true
-            let skillAndExtensionMatch: Bool = {
-                if let skillExtension = skillExtension {
-                    return "\(skill): \(skillExtension)".contains(searchText)
-                }
-               
-                return false
-            }()
+            let skillAndExtensionMatch = skill.displayName().contains(searchText)
             
             return skillNameMatch || extensionNameMatch || skillAndExtensionMatch
         })

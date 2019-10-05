@@ -126,13 +126,8 @@ final class SkillTableViewCell: UITableViewCell {
     private func updateColumnValues() {
         guard let viewModel = viewModel, let skillListing = skillListing else { return }
         self.backgroundColor = StyleConstants.Color.light
-        var name = skillListing.skill.name
         
-        if let nameExtension = skillListing.skill.nameExtension {
-            name = "\(name): \(nameExtension)"
-        }
-        
-        self.name?.text = name
+        self.name?.text = skillListing.displayName()
         self.name?.font = viewModel.nameFont
         self.name?.textAlignment = .left
         self.name?.fitTextToBounds(maximumSize: viewModel.fontSize)

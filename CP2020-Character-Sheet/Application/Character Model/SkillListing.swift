@@ -98,6 +98,13 @@ final class SkillListing: Codable {
         improvementPoints = remainingImprovementPoints
     }
     
+    func displayName() -> String {
+        guard let nameExtension = skill.nameExtension else {
+            return skill.name
+        }
+        return "\(skill.name): \(nameExtension)"
+    }
+    
     enum CodingKeys: String, CodingKey {
         case statModifier = "stat_modifier"
         case improvementPoints = "ip"
