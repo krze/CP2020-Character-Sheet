@@ -32,7 +32,7 @@ A WIP character sheet app for the Cyberpunk 2020 tabletop RPG. The goal of this 
 #### UI:
 - [ ] More complex modifiers for skills, stats, and weapons
   - [ ] Modifier cell that lets you manually input modifiers with reasons
-  - [ ] Modifiers automatically added (i.e. equipment that modifies skills)
+  - [x] Modifiers automatically added (i.e. equipment that modifies skills)
 - [ ] Incoming damage calculator
   - [ ] Standard bullets
   - [ ] AP bullets
