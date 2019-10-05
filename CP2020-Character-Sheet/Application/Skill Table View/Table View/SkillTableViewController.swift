@@ -84,7 +84,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
                                 y: view.frame.minY,
                                 width: view.frame.width - view.directionalLayoutMargins.leading - view.directionalLayoutMargins.trailing,
                                 height: view.frame.height - view.directionalLayoutMargins.top - view.directionalLayoutMargins.bottom)
-        let label = headerLabel(frame: labelFrame, text: labelText)
+        let label = headerLabel(frame: labelFrame, text: labelText, font: viewModel.headerFont, backgroundColor: viewModel.darkColor)
         
         view.addSubview(label)
         NSLayoutConstraint.activate([
@@ -93,6 +93,42 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
             label.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             label.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor)
             ])
+        
+        let headerFrame = view.frame
+        var trailingAnchor = view.trailingAnchor
+        let columnLabelTexts = [viewModel.totalColumnLabelText,
+                                viewModel.modifierColumnLabelText,
+                                viewModel.pointsColumnLabelText]
+        
+        columnLabelTexts.enumerated().forEach { index, text in
+            let width = headerFrame.width * viewModel.columnLabelWidthRatio
+            let frame = CGRect(x: headerFrame.maxX - (width * CGFloat(index)),
+                               y: headerFrame.minY,
+                               width: width,
+                               height: SkillTableConstants.rowHeight)
+            let margins = viewModel.createInsets(with: frame)
+            let backgroundColor = StyleConstants.Color.dark
+            
+            func columnLabel(frame: CGRect) -> UILabel {
+                let label = self.headerLabel(frame: frame, text: text, font: viewModel.columnLabelFont, backgroundColor: backgroundColor)
+                label.textAlignment = .center
+                label.font = viewModel.columnLabelFont?.withSize(viewModel.columnLabelMaxTextSize)
+                return label
+            }
+            
+            let columnView = UILabel.container(frame: frame, margins: margins, backgroundColor: backgroundColor, borderColor: nil, borderWidth: nil, labelMaker: columnLabel)
+            
+            view.addSubview(columnView.container)
+            
+            NSLayoutConstraint.activate([
+                columnView.container.topAnchor.constraint(equalTo: view.topAnchor),
+                columnView.container.trailingAnchor.constraint(equalTo: trailingAnchor),
+                columnView.container.widthAnchor.constraint(equalToConstant: frame.width),
+                columnView.container.heightAnchor.constraint(equalToConstant: frame.height)
+                ])
+            
+            trailingAnchor = columnView.container.leadingAnchor
+        }
         
         return view
     }
@@ -207,11 +243,11 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         tableView.endUpdates()
     }
     
-    private func headerLabel(frame: CGRect, text: String) -> UILabel {
+    private func headerLabel(frame: CGRect, text: String, font: UIFont?, backgroundColor: UIColor) -> UILabel {
         let label = UILabel(frame: frame)
-        label.font = viewModel.headerFont
+        label.font = font
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = viewModel.darkColor
+        label.backgroundColor = backgroundColor
         label.textColor = viewModel.lightColor
         label.text = text
         label.textAlignment = .left

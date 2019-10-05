@@ -16,4 +16,12 @@ struct SkillTableViewModel: MarginCreator {
     let lightColor = StyleConstants.Color.light
     
     let headerFont = StyleConstants.Font.defaultBold
+    
+    let columnLabelWidthRatio = CGFloat(0.15)
+    let columnLabelMaxTextSize = CGFloat(16)
+    let columnLabelFont = StyleConstants.Font.defaultItalic
+    let pointsColumnLabelText = "Points"
+    let modifierColumnLabelText = "Mod"
+    let totalColumnLabelText = "Total"
+
 }

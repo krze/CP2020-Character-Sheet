@@ -43,6 +43,8 @@ struct StyleConstants {
         /// A dark color to be used in place of black. Especially for contrasting against light
         static let dark = UIColor(red:0.02, green:0.03, blue:0.03, alpha:1.0)
         
+        static let dark90 = Color.dark.lighter(by: 10.0)
+        
         /// A light color to be used in place of white. Especially for contrasting against dark
         static let light = UIColor(red:0.99, green:0.98, blue:0.99, alpha:1.0)
         
