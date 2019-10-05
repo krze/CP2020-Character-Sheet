@@ -205,9 +205,20 @@ class SuggestedTextCollectionViewCell: TextEntryCollectionViewCell {
     // MARK: UITextFieldDelegate
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        // Backspace detection
         if let char = string.cString(using: String.Encoding.utf8) {
             let isBackSpace = strcmp(char, "\\b")
-            if (isBackSpace == -92) {
+            if (isBackSpace == -92), let text = textField.text {
+                let location = range.location
+                let endLocation = text.count - 1
+                
+                if location < endLocation {
+                    let trimmedText = text.prefix(location + 1)
+                    textField.attributedText = nil
+                    textField.text = String(trimmedText)
+                }
+                
                 return true
             }
         }
