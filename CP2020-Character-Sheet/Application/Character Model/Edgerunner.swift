@@ -203,9 +203,26 @@ final class Edgerunner: Codable, EditableModel {
         }
     }
     
-    func apply(damage: Int) {
-        self.damage += damage
-        damageUpdate()
+    func apply(damage: Int, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        guard CharacterValidator.validate(incomingDamage: damage, currentDamage: self.damage, completion: completion) else { return }
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.damage += damage
+
+            self.statModifiers.removeAll(where: { $0.damageRelated })
+            
+            let modifiers = Rules.Damage.statModifiers(forTotalDamage: self.damage, baseStats: self.baseStats)
+            
+            self.statModifiers.append(contentsOf: modifiers)
+            
+            completion(.success(.valid))
+
+            NotificationCenter.default.post(name: .statsDidChange, object: nil)
+            NotificationCenter.default.post(name: .damageDidChange, object: nil)
+            
+            self.saveCharacter()
+        }
     }
     
     /// Refreshes each skill listing
@@ -233,21 +250,7 @@ final class Edgerunner: Codable, EditableModel {
     }
     
     private func damageUpdate() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.statModifiers.removeAll(where: { $0.damageRelated })
-            
-            let modifiers = Rules.Damage.statModifiers(forTotalDamage: self.damage, baseStats: self.baseStats)
-            
-            if !modifiers.isEmpty {
-                self.statModifiers.append(contentsOf: modifiers)
-                NotificationCenter.default.post(name: .statsDidChange, object: nil)
-            }
-            
-            NotificationCenter.default.post(name: .damageDidChange, object: nil)
-            
-            self.saveCharacter()
-        }
+
     }
     
     /// Saves the character to disk.

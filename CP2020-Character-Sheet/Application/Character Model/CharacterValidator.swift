@@ -51,4 +51,17 @@ struct CharacterValidator {
         
         return true
     }
+    
+    static func validate(incomingDamage: Int, currentDamage: Int, completion violationFound: (ValidatedEditorResult) -> Void) -> Bool {
+        let (pendingCurrentDamage, didOverflow): (Int, Bool) = currentDamage.addingReportingOverflow(incomingDamage)
+        guard !didOverflow,
+            pendingCurrentDamage >= 0,
+            pendingCurrentDamage <= Rules.Damage.maxDamagePoints,
+            pendingCurrentDamage != currentDamage else {
+            violationFound(.failure(.invalidNewDamageValue))
+            return false
+        }
+
+        return true
+    }
 }

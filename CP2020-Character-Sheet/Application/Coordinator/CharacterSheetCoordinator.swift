@@ -8,14 +8,8 @@
 
 import UIKit
 
-/// A top-down coordinator for passing data along between UICollectionViewCells within the Character Sheet
-/// Use this class to listen to NSNotification signals sent from within the cells that need to be passed along
-/// to other cells in order to update their views' DataSources.
-///
-/// The coordinator also handles presenting popovers that do not belong to a specific cell, and to push new
-/// full-screen view controllers such as the full skill listing.
-///
-/// Use this class in the same way you'd use an application coordinator
+/// A top-down coordinator for setting up various views for the character sheet, and displaying new views that the sheet requests.
+/// This class also ensures views get the updated edgerunenr model once it's loaded from disk.
 final class CharacterSheetCoordinator: CharacterCoordinating {
     
     private var skillsDataSource: SkillsDataSource? {

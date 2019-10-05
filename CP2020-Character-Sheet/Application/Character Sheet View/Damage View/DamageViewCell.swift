@@ -172,40 +172,14 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
     @objc private func iterateDamage() {
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else { return }
-            do {
-                try self.dataSource?.iterateDamageUp()
-            }
-            catch let error as DamageModification {
-                switch error {
-                case let error where error == DamageModification.CannotExceedMaxDamage:
-                    return
-                default:
-                    self.alert(error: error)
-                }
-            }
-            catch let error {
-                self.alert(error: error)
-            }
+            self.dataSource?.valuesFromEditorDidChange([DamageType.Damage.rawValue: "1"], validationCompletion: { _ in })
         }
     }
     
     @objc private func decrementDamage() {
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else { return }
-            do {
-                try self.dataSource?.iterateDamageDown()
-            }
-            catch let error as DamageModification {
-                switch error {
-                case let error where error == DamageModification.CannotGoBelowZero:
-                    return
-                default:
-                    self.alert(error: error)
-                }
-            }
-            catch let error {
-                self.alert(error: error)
-            }
+            self.dataSource?.valuesFromEditorDidChange([DamageType.Damage.rawValue: "-1"], validationCompletion: { _ in })
         }
     }
     

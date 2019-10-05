@@ -6,7 +6,7 @@
 //  Copyright © 2018 Ken Krzeminski. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 final class TotalDamageDataSource: EditorValueReciever {
 
@@ -22,75 +22,28 @@ final class TotalDamageDataSource: EditorValueReciever {
         self.maxDamage = Rules.Damage.maxDamagePoints
     }
     
-    /// Iterates damage up by 1 damage point. Updates the delegate's damage cells.
-    ///
-    /// - Throws: DamageModification error if the damage could not be applied
-    func iterateDamageUp() throws {
-        try modifyDamage(by: 1)
-    }
-    
-    /// Iterates damage down by 1 damage point. Updates the delegate's damage cells.
-    ///
-    /// - Throws: DamageModification error if the damage could not be applied
-    func iterateDamageDown() throws {
-        try modifyDamage(by: -1)
-    }
-    
-    /// Modifies the damage by the amount specified. Updates the delegate's damage cells.
-    ///
-    /// - Parameter amount: The amount to modify the damage by. Can be positive or negative.
-    /// - Throws: DamageModification error if the damage could not be applied
-    func modifyDamage(by amount: Int) throws {
-        do {
-            try validate(newDamage: amount)
-            model.apply(damage: amount)
-        }
-        catch let error {
-            throw error
-        }
-        
-        delegate?.updateCells(to: currentDamage)
-    }
-    
     /// This does nothing on TotalDamageDataSource since it doesnt have a fullscreen editor
     /// - Parameter values: _
     /// - Parameter completion: _
-    func valuesFromEditorDidChange(_ values: [Identifier : String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {}
+    func valuesFromEditorDidChange(_ values: [Identifier : String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        guard let incomingDamageString = values[DamageType.Damage.rawValue], let incomingDamage = Int(incomingDamageString) else {
+            return
+        }
+        
+        model.apply(damage: incomingDamage) { result in
+            switch result {
+            case .failure(let violation):
+                let alert = UIAlertController(title: violation.title(), message: violation.helpText(), preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: SkillStrings.dismissHelpPopoverButtonText, style: .default, handler: nil))
+                NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
+            case .success(_):
+                self.delegate?.updateCells(to: self.currentDamage)
+            }
+        }
+    }
     
     func refreshData() {
         delegate?.updateCells(to: currentDamage)
     }
     
-    /// Ensure the new damage applied can be applied
-    ///
-    /// - Parameter newDamage: The new damage to add to the current damage
-    private func validate(newDamage: Int) throws {
-        let (pendingCurrentDamage, didOverflow): (Int, Bool) = currentDamage.addingReportingOverflow(newDamage)
-        guard !didOverflow else {
-            throw DamageModification.BufferOverflow
-        }
-        
-        guard pendingCurrentDamage >= 0 else {
-            throw DamageModification.CannotGoBelowZero
-        }
-        
-        guard pendingCurrentDamage <= Rules.Damage.maxDamagePoints else {
-            throw DamageModification.CannotExceedMaxDamage
-        }
-        
-        guard pendingCurrentDamage != currentDamage else {
-            throw DamageModification.NoModification
-        }
-    }
-    
-    
-}
-
-/// An error that occurs when attempting to modify the current damage, but failed
-///
-/// - CannotGoBelowZero: The damage applied would have resulted in a negative damage value
-/// - BufferOverflow: The damage applied overflowed Int.max or Int.min
-/// - NoModification: The damage applied would have resulted in no change to the damage
-enum DamageModification: Error {
-    case CannotGoBelowZero, CannotExceedMaxDamage, BufferOverflow, NoModification
 }

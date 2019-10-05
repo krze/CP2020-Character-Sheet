@@ -22,8 +22,9 @@ protocol DamageModel {
     /// Current Body Type Modifier of the player
     var btm: Int { get }
     
-    /// Applies the damage described to the player. This value is applied without validation.
-    /// - Parameter damage: The amount of damage to apply to the player
-    func apply(damage: Int)
+    /// Applies the damage described to the player.
+    /// - Parameter damage: The incoming damage value (can be positive or negative)
+    /// - Parameter completion: Completion closure called with validity state
+    func apply(damage: Int, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
     
 }

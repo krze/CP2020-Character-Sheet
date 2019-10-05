@@ -146,7 +146,7 @@ struct Rules {
 }
 
 enum Violation: Error {
-    case invalidSkillPointAmount, invalidIPPointAmount, invalidStatPointAmount, invalidHumanityLoss
+    case invalidSkillPointAmount, invalidIPPointAmount, invalidStatPointAmount, invalidHumanityLoss, invalidNewDamageValue
     
     func title() -> String {
         switch self {
@@ -158,6 +158,8 @@ enum Violation: Error {
             return "Stat Points Invalid!"
         case .invalidHumanityLoss:
             return "Humanity Loss Invalid!"
+        case .invalidNewDamageValue:
+            return "Damage Change Invalid!"
         }
     }
     
@@ -171,6 +173,8 @@ enum Violation: Error {
             return "Stat points must be an integer in the range of 0 to 10"
         case .invalidHumanityLoss:
             return "Humanity deficit cannot go lower than the amount of EMP you have x10."
+        case .invalidNewDamageValue:
+            return "Damage cannot exceed 40 or go below 0."
         }
     }
 }
