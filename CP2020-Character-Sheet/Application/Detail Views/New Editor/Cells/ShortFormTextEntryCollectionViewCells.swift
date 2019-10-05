@@ -212,8 +212,17 @@ class SuggestedTextCollectionViewCell: TextEntryCollectionViewCell {
             if (isBackSpace == -92), let text = textField.text {
                 let location = range.location
                 let endLocation = text.count - 1
-                // Check if the deletion is happening in the middle of the string
-                if location < endLocation {
+                var suggestedTextPresent = false
+                
+                textField.attributedText?.enumerateAttribute(.foregroundColor, in: NSRange(0..<text.count)) { value, range, stop in
+                    if value as? UIColor == StyleConstants.Color.gray {
+                        suggestedTextPresent = true
+                    }
+                }
+                
+                // Check if the deletion is happening in the middle of the string with a suggestion at the end.
+                // If so, this block will clear the attributed text at the end of the string
+                if location < endLocation && suggestedTextPresent {
                     let trimmedText = text.prefix(location + 1) // location is an index so it needs an off by one adj
                     textField.attributedText = nil
                     textField.text = String(trimmedText)
