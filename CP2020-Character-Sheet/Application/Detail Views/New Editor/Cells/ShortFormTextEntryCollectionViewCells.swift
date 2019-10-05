@@ -16,13 +16,19 @@ import UIKit
 class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDelegate, UsedOnce {
     
     var wasSetUp = false
+    
+    override var tag: Int {
+        didSet {
+            textField?.tag = tag
+        }
+    }
 
     weak var delegate: UserEntryDelegate?
     
     var enteredValue: String? {
         return textField?.text
     }
-
+    
     private(set) var identifier = ""
     private var header: UILabel?
     private var fieldDescription = ""

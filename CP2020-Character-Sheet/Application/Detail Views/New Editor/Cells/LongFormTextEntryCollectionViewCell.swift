@@ -12,6 +12,13 @@ final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell, UI
     weak var delegate: UserEntryDelegate?
     
     var wasSetUp = false
+    
+    override var tag: Int {
+        didSet {
+            textView?.tag = tag
+        }
+    }
+
     var enteredValue: String? {
         return textView?.text
     }

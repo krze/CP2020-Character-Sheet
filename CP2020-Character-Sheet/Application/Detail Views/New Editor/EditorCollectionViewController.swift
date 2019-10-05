@@ -89,6 +89,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
             }
         }()
 
+        // NEXT: Figure out a better way to toggle through entry fields
         
         switch entryType {
         case .Text:
