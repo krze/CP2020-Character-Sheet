@@ -141,12 +141,12 @@ final class Edgerunner: Codable, EditableModel {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             
-            if let existingSkill = self.skills.first(where: { $0.skill == newSkill.skill }) {
-                existingSkill.update(points: newSkill.points)
-            } else {
-                self.skills.append(newSkill)
+            if let existingSkillIndex = self.skills.firstIndex(where: { $0.skill == newSkill.skill }) {
+                self.skills.remove(at: existingSkillIndex)
             }
             
+            self.skills.append(newSkill)
+
             completion(.success(.valid))
             NotificationCenter.default.post(name: .skillDidChange, object: newSkill)
             self.saveCharacter()

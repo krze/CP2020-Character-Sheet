@@ -120,6 +120,8 @@ final class SkillsDataSource: EditorValueReciever {
             let IPMultiplierInt = Int(IPMultiplierString),
             let pointsString = values[SkillField.Points.identifier()],
             let points = Int(pointsString),
+            let IPString = values[SkillField.ImprovementPoints.identifier()],
+            let improvementPoints = Int(IPString),
             let modifierString = values[SkillField.Modifier.identifier()],
             let modifier = Int(modifierString) else {
                 return
@@ -149,7 +151,7 @@ final class SkillsDataSource: EditorValueReciever {
                           linkedStat: linkedStat,
                           modifiesSkill: modifiesSkill,
                           IPMultiplier: IPMultiplier)
-        let skillListing = SkillListing(skill: skill, points: points, modifier: modifier, statModifier: statModifier)
+        let skillListing = SkillListing(skill: skill, points: points, improvementPoints: improvementPoints, modifier: modifier, statModifier: statModifier)
         model.add(skill: skillListing, validationCompletion: completion)
     }
     

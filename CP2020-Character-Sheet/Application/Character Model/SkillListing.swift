@@ -46,15 +46,15 @@ final class SkillListing: Codable {
     
     var starred: Bool = false
     
-    init(skill: Skill, points: Int, modifier: Int, statModifier: Int?) {
+    init(skill: Skill, points: Int, improvementPoints: Int = 0, modifier: Int, statModifier: Int?) {
         self.skill = skill
         self.points = points
         self.modifier = modifier
-        // TODO: Make stat modifier a computed property based on a stat lookup
         self.statModifier = statModifier ?? 0
-        self.improvementPoints = 0
+        self.improvementPoints = improvementPoints
         
         starred = skill.isSpecialAbility
+        updateImprovementPoints()
     }
     
     /// Updates the raw point value
@@ -82,7 +82,19 @@ final class SkillListing: Codable {
     ///
     /// - Parameter newPoints: IP to add to the existing IP
     func add(improvementPoints newPoints: Int) {
-        self.improvementPoints += newPoints
+        improvementPoints += newPoints
+        updateImprovementPoints()
+    }
+    
+    private func updateImprovementPoints() {
+        var remainingImprovementPoints = improvementPoints
+        
+        while remainingImprovementPoints > nextLevelIP {
+            remainingImprovementPoints = remainingImprovementPoints - nextLevelIP
+            points += 1
+        }
+        
+        improvementPoints = remainingImprovementPoints
     }
     
     enum CodingKeys: String, CodingKey {
