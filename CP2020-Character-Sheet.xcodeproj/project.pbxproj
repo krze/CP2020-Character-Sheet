@@ -71,6 +71,7 @@
 		9D9CC95A2346BB25005AF278 /* DamageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC9592346BB25005AF278 /* DamageModel.swift */; };
 		9D9CC95C2346BDAD005AF278 /* BodyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC95B2346BDAD005AF278 /* BodyType.swift */; };
 		9D9CC95E2349297D005AF278 /* UIColor+Adjust.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC95D2349297D005AF278 /* UIColor+Adjust.swift */; };
+		9D9CC9602349454E005AF278 /* String+CamelCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC95F2349454E005AF278 /* String+CamelCase.swift */; };
 		9DCD370121CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD370021CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift */; };
 		9DCD370521CC105900EE00D9 /* Skill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD370421CC105900EE00D9 /* Skill.swift */; };
 		9DCD370721CC135A00EE00D9 /* SkillListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD370621CC135A00EE00D9 /* SkillListing.swift */; };
@@ -192,6 +193,7 @@
 		9D9CC9592346BB25005AF278 /* DamageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageModel.swift; sourceTree = "<group>"; };
 		9D9CC95B2346BDAD005AF278 /* BodyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyType.swift; sourceTree = "<group>"; };
 		9D9CC95D2349297D005AF278 /* UIColor+Adjust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Adjust.swift"; sourceTree = "<group>"; };
+		9D9CC95F2349454E005AF278 /* String+CamelCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+CamelCase.swift"; sourceTree = "<group>"; };
 		9DCD370021CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedSkillViewCellModel.swift; sourceTree = "<group>"; };
 		9DCD370421CC105900EE00D9 /* Skill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skill.swift; sourceTree = "<group>"; };
 		9DCD370621CC135A00EE00D9 /* SkillListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillListing.swift; sourceTree = "<group>"; };
@@ -431,6 +433,7 @@
 			isa = PBXGroup;
 			children = (
 				9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */,
+				9D9CC95F2349454E005AF278 /* String+CamelCase.swift */,
 				9D4724A12309F06D00CECEA2 /* UICollectionViewLayout+Common.swift */,
 				9D9CC95D2349297D005AF278 /* UIColor+Adjust.swift */,
 				9D552CFB21ACE775008B90E9 /* UIFont+BestFit.swift */,
@@ -806,6 +809,7 @@
 				9D004E3821D81BC5004DFA4D /* UsedOnce.swift in Sources */,
 				9D9CC95E2349297D005AF278 /* UIColor+Adjust.swift in Sources */,
 				9D004E3321D80DB5004DFA4D /* CharacterDescriptionModel.swift in Sources */,
+				9D9CC9602349454E005AF278 /* String+CamelCase.swift in Sources */,
 				9DCD371121CC246300EE00D9 /* SkillTableViewCell.swift in Sources */,
 				9D2CFA0421C5921A00EC76D7 /* CharacterSheetCoordinator.swift in Sources */,
 				9DE3359E21A9EA4100180927 /* StatsViewCell.swift in Sources */,

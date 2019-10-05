@@ -72,6 +72,10 @@ enum Stat: String, Codable, CaseIterable, EntryTypeProvider {
         }
     }
     
+    func plainText() -> String {
+        return self.rawValue.camelCaseToWords()
+    }
+    
     // MARK: EntryTypeProvider
     
     func identifier() -> Identifier {

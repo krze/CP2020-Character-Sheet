@@ -145,11 +145,16 @@ struct Rules {
     }
 }
 
-enum Violation: Error {
-    case invalidSkillPointAmount, invalidIPPointAmount, invalidStatPointAmount, invalidHumanityLoss, invalidNewDamageValue
+struct Violation: Error {
+    
+    let ofType: ViolationType
+    let violators: [String]
+    enum ViolationType {
+        case invalidSkillPointAmount, invalidIPPointAmount, invalidStatPointAmount, invalidHumanityLoss, invalidNewDamageValue
+    }
     
     func title() -> String {
-        switch self {
+        switch self.ofType {
         case .invalidSkillPointAmount:
             return "Skill Points Invalid!"
         case .invalidIPPointAmount:
@@ -164,17 +169,17 @@ enum Violation: Error {
     }
     
     func helpText() -> String {
-        switch self {
+        switch self.ofType {
         case .invalidSkillPointAmount:
             return "Skill points must be an integer in the range of 1 to 10"
         case .invalidIPPointAmount:
             return "IP must be a positive integer."
         case .invalidStatPointAmount:
-            return "Stat points must be an integer in the range of 0 to 10"
+            return "The following stat points must be an integer in the range of 1 to 10:\n\(violators.joined(separator: "\n"))"
         case .invalidHumanityLoss:
-            return "Humanity deficit cannot go lower than the amount of EMP you have x10."
+            return "Humanity deficit cannot go exceed \(violators.first ?? "your base empathy x 10")."
         case .invalidNewDamageValue:
-            return "Damage cannot exceed 40 or go below 0."
+            return "Damage cannot exceed 40 or go below 0. \(violators.first ?? "Incoming") damage cannot be applied to \(violators.last ?? "your current") damage."
         }
     }
 }
