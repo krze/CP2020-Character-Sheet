@@ -227,7 +227,7 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     private func blankSkills(withCount count: Int) -> [SkillListing] {
         var skills = [SkillListing]()
         for _ in 1...count {
-            let loadingSkill = Skill(name: "Skills loading... ", nameExtension: nil, description: "", isSpecialAbility: false, linkedStat: nil, modifiesSkill: nil, IPMultiplier: 0)
+            let loadingSkill = Skill(name: "Skills loading... ", nameExtension: nil, description: "", isSpecialAbility: false, linkedStat: nil, modifiesSkill: nil, IPMultiplier: 1)
             let loadingSkillListing = SkillListing(skill: loadingSkill, points: 0, modifier: 0, statModifier: 0)
             skills.append(loadingSkillListing)
         }

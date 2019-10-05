@@ -22,6 +22,7 @@ final class SkillListing: Codable {
     
     /// The number of IP required to level up
     private var nextLevelIP: Int {
+        guard skill.IPMultiplier > 0  else { return Int.max } // Protection against a loop
         let base = 10
         
         switch points {
@@ -89,7 +90,7 @@ final class SkillListing: Codable {
     private func updateImprovementPoints() {
         var remainingImprovementPoints = improvementPoints
         
-        while remainingImprovementPoints > nextLevelIP {
+        while remainingImprovementPoints >= nextLevelIP {
             remainingImprovementPoints = remainingImprovementPoints - nextLevelIP
             points += 1
         }
