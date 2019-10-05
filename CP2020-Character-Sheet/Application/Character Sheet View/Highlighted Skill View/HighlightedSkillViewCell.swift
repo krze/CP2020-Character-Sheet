@@ -72,7 +72,6 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
                                 viewModel.modifierColumnLabelText,
                                 viewModel.pointsColumnLabelText]
         
-        // NEXT: Make these column labels appear in the full skill view too. Make their colors better.
         columnLabelTexts.enumerated().forEach { index, text in
             let width = safeFrame.width * viewModel.columnLabelWidthRatio
             let frame = CGRect(x: safeFrame.maxX - (width * CGFloat(index)),
@@ -80,10 +79,13 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
                                width: width,
                                height: viewModel.cellDescriptionLabelHeight)
             let margins = viewModel.createInsets(with: frame)
-            let backgroundColor = index % 2 > 0 ? StyleConstants.Color.light : StyleConstants.Color.gray
+            let backgroundColor = StyleConstants.Color.dark
             
             func columnLabel(frame: CGRect) -> UILabel {
-                return self.columnLabel(frame: frame, text: text, backgroundColor: backgroundColor)
+                let label = self.columnLabel(frame: frame, text: text, backgroundColor: backgroundColor)
+                label.textAlignment = .center
+                label.font = viewModel.columnLabelFont?.withSize(viewModel.columnLabelMaxTextSize)
+                return label
             }
             
             let columnView = UILabel.container(frame: frame, margins: margins, backgroundColor: backgroundColor, borderColor: nil, borderWidth: nil, labelMaker: columnLabel)
@@ -194,7 +196,7 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
         
         label.font = viewModel?.columnLabelFont
         label.backgroundColor = backgroundColor
-        label.textColor = viewModel?.darkColor
+        label.textColor = viewModel?.lightColor
         label.text = text
         label.textAlignment = .center
         label.fitTextToBounds(maximumSize: viewModel?.columnLabelMaxTextSize)
