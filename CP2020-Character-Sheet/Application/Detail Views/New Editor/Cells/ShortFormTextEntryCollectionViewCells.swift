@@ -228,6 +228,7 @@ class SuggestedTextCollectionViewCell: TextEntryCollectionViewCell {
                     textField.text = String(trimmedText)
                 }
                 
+                autoCompleteCharacterCount = 0
                 return true
             }
         }
