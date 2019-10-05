@@ -11,8 +11,7 @@ import Foundation
 /// Strings used in the skill editor view
 struct SkillStrings {
     
-    static let skillNameHelpText = "The name of the skill."
-    static let skillNameExtensionHelpText = "Optional extension to the skill name (i.e. the 'English' in 'Language: English')"
+    static let skillNameHelpText = "The name of the skill. A colon is used to specify the focus of a skill, if it has one (i.e. 'Language: English' to specify a language)."
     
     static let associatedStatHelpText = "The player stat associated with this skill. The points in the stat are added to the total points for the skill."
     

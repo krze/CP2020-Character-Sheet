@@ -10,7 +10,7 @@ import Foundation
 
 enum SkillField: String, EntryTypeProvider, CaseIterable {
     private typealias CharacterStat = Stat
-    case Name, Extension, IPMultiplier, Stat, Points, Modifier, ImprovementPoints, Description, ModifiesSkill
+    case Name, IPMultiplier, Stat, Points, Modifier, ImprovementPoints, Description, ModifiesSkill
     
     
     func identifier() -> Identifier {
@@ -37,7 +37,7 @@ enum SkillField: String, EntryTypeProvider, CaseIterable {
     
     private func freeEntryType() -> EntryType {
         switch self {
-        case .Name, .Extension, .ModifiesSkill:
+        case .Name, .ModifiesSkill:
             return .Text
         case .Points, .Modifier, .ImprovementPoints, .IPMultiplier:
             return .Integer

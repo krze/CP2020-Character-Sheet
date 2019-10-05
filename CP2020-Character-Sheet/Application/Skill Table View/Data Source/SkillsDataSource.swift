@@ -128,8 +128,8 @@ final class SkillsDataSource: EditorValueReciever {
         }
         
         let nameExtension: String? = {
-            let ext = values[SkillField.Extension.identifier()]
-            return ext?.isEmpty == true ? nil : ext
+            // fixme
+            return nil
         }()
         
         let isSpecialAbility = name == model.specialAbilityName()

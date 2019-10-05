@@ -57,8 +57,6 @@ extension EditorCollectionViewModel {
         switch skillField {
         case .Name:
             return SkillStrings.skillNameHelpText
-        case .Extension:
-            return SkillStrings.skillNameExtensionHelpText
         case .IPMultiplier:
             return SkillStrings.IPMultiplierHelpText
         case .Stat:
@@ -79,9 +77,7 @@ extension EditorCollectionViewModel {
     private static func placeholder(for skillField: SkillField, from skillListing: SkillListing) -> String {
         switch skillField {
         case .Name:
-            return skillListing.skill.name
-        case .Extension:
-            return skillListing.skill.nameExtension ?? ""
+            return skillListing.displayName()
         case .IPMultiplier:
             return "\(skillListing.skill.IPMultiplier)"
         case .Stat:
