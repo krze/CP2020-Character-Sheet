@@ -97,45 +97,17 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         case .Text, .Integer, .Static:
             guard let cell = cell as? ShortTextEntryCollectionViewCell else { return UICollectionViewCell() }
             cell.setup(with: identifier, value: value, description: description)
-            var validator: UserEntryValidating = {
-                if let validator = validators.first(where: { $0.identifier == identifier }) {
-                    return validator
-                }
-                
-                let validator = ShortFormEntryValidator(with: cell, type: entryType)
-                validators.append(validator)
-                return validator
-            }()
+            var validator = self.validator(for: cell, identifier: identifier, entryType: entryType)
             validator.delegate = self
         case .LongFormText:
             guard let cell = cell as? LongTextEntryCollectionViewCell else { return UICollectionViewCell() }
             cell.setup(with: identifier, value: value, description: description)
-            
-            var validator: UserEntryValidating = {
-                if let validator = validators.first(where: { $0.identifier == identifier }) {
-                    return validator
-                }
-                
-                let validator = LongFormEntryValidator(with: cell, type: entryType)
-                validators.append(validator)
-                return validator
-            }()
-            
+            var validator = self.validator(for: cell, identifier: identifier, entryType: entryType)
             validator.delegate = self
         case .EnforcedChoiceText(let choices), .SuggestedText(let choices):
             guard let cell = cell as? ShortTextEntryCollectionViewCell else { return UICollectionViewCell() }
             cell.setup(with: identifier, value: value, description: description)
-
-            var validator: UserEntryValidating = {
-                if let validator = validators.first(where: { $0.identifier == identifier }) {
-                    return validator
-                }
-                
-                let validator = ShortFormEntryValidator(with: cell, type: entryType)
-                validators.append(validator)
-                return validator
-            }()
-            validator.suggestedMatches = choices
+            var validator = self.validator(for: cell, identifier: identifier, entryType: entryType, suggestedMatches: choices)
             validator.delegate = self
         }
         
@@ -251,5 +223,26 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
             NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
             return
         }
+    }
+    
+    private func validator(for cell: UserEntryCollectionViewCell, identifier: Identifier, entryType: EntryType, suggestedMatches: [String] = [String]()) -> UserEntryValidating {
+        if let validator = validators.first(where: { $0.identifier == identifier }) {
+            return validator
+        }
+        
+        let validator: UserEntryValidating
+        
+        if let cell = cell as? ShortTextEntryCollectionViewCell {
+           validator = ShortFormEntryValidator(with: cell, type: entryType, suggestedMatches: suggestedMatches)
+        }
+        else if let cell = cell as? LongFormEntryCollectionViewCell {
+            validator = LongFormEntryValidator(with: cell, type: entryType, suggestedMatches: suggestedMatches)
+        }
+        else {
+            fatalError("You added a new UserEntryCollectionViewCell but didnt add it here")
+        }
+        
+        validators.append(validator)
+        return validator
     }
 }

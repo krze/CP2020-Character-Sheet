@@ -12,7 +12,7 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
 
     // MARK: UserEntryValidating
     
-    var suggestedMatches = [String]()
+    let suggestedMatches: [String]
     let identifier: Identifier
     let helpText: String
     private(set) var isValid: Bool = true
@@ -31,11 +31,12 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
     private var autoCompleteCharacterCount = 0
     private var timer = Timer()
     
-    init(with cell: ShortFormEntryCollectionViewCell, type: EntryType) {
+    init(with cell: ShortFormEntryCollectionViewCell, type: EntryType, suggestedMatches: [String] = [String]()) {
         self.cell = cell
         self.identifier = cell.identifier
         self.helpText = cell.fieldDescription
         self.type = type
+        self.suggestedMatches = suggestedMatches
         super.init()
         
         self.cell.textField?.delegate = self
@@ -272,27 +273,28 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
     }
      
     private func validate(userEntry: String) {
-         switch type {
-         case .Integer:
-             guard !userEntry.isEmpty && Int(userEntry) != nil else {
-                     isValid = false
-                     showWarning()
-                     return
-                 }
-                 isValid = true
-                 hideWarning()
-         case .EnforcedChoiceText(_):
-             if suggestedMatches.contains(userEntry) {
-                 isValid = true
-                 hideWarning()
-             }
-             else {
-                 isValid = false
-                 showWarning()
-             }
-         default:
-             return
-         }
+        switch type {
+        case .Integer:
+            guard !userEntry.isEmpty && Int(userEntry) != nil else {
+                isValid = false
+                showWarning()
+                return
+            }
+                isValid = true
+                hideWarning()
+        case .EnforcedChoiceText(_):
+            guard !suggestedMatches.isEmpty else { return }
+            if suggestedMatches.contains(userEntry) {
+                isValid = true
+                hideWarning()
+            }
+            else {
+                isValid = false
+                showWarning()
+            }
+        default:
+            return
+        }
     }
 
 }

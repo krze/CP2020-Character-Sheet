@@ -10,7 +10,7 @@ import UIKit
 
 protocol UserEntryValidating {
     
-    var suggestedMatches: [String] { get set }
+    var suggestedMatches: [String] { get }
     var identifier: Identifier { get }
     var helpText: String { get }
     var isValid: Bool { get }

@@ -12,7 +12,7 @@ final class LongFormEntryValidator: NSObject, UserEntryValidating, UITextViewDel
     
     // MARK: UserEntryValidating
     
-    var suggestedMatches = [String]()
+    let suggestedMatches: [String]
     var identifier: Identifier
     var helpText: String
     let isValid = true
@@ -25,11 +25,12 @@ final class LongFormEntryValidator: NSObject, UserEntryValidating, UITextViewDel
     private let cell: LongFormEntryCollectionViewCell
     private let type: EntryType
     
-    init(with cell: LongFormEntryCollectionViewCell, type: EntryType) {
+    init(with cell: LongFormEntryCollectionViewCell, type: EntryType, suggestedMatches: [String] = [String]()) {
         self.cell = cell
         self.identifier = cell.identifier
         self.helpText = cell.fieldDescription
         self.type = type
+        self.suggestedMatches = suggestedMatches
         super.init()
         
         self.cell.textView?.delegate = self
