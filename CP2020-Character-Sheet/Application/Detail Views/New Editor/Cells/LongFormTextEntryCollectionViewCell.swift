@@ -118,7 +118,7 @@ final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell, UI
     }
     
     func textViewDidEndEditing(_ textField: UITextView) {
-        delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue)
+        delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue, resignLastResponder: resign)
     }
     
     // MARK: Private
@@ -142,6 +142,10 @@ final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell, UI
         if textView?.isFirstResponder == true {
             textView?.resignFirstResponder()
         }
+    }
+    
+    private func resign() {
+        self.resignFirstResponder()
     }
     
 }

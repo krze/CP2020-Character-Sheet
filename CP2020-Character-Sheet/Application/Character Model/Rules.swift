@@ -121,7 +121,7 @@ struct Rules {
                 let refDouble = Double(baseStats.ref)
                 let intDouble = Double(baseStats.int)
                 let coolDouble = Double(baseStats.cool)
-                let multiplier = 1.0 / 3.0
+                let multiplier = 2.0 / 3.0
                 return [StatModifier(stat: .Reflex,
                                      amount: Int(-(refDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
                                      source: source,

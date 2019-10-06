@@ -15,7 +15,8 @@ protocol UserEntryDelegate: class {
     /// - Parameters:
     ///   - identifier: Identifier for the cell
     ///   - value: Text input value for the cell
-    func entryDidFinishEditing(identifier: Identifier, value: String?)
+    ///   - resignLastResponder: A closure called if the entry that finished editing was the last responder, and the keyboard needs dismissing
+    func entryDidFinishEditing(identifier: Identifier, value: String?, resignLastResponder: () -> ())
     
     /// Signals that the cell has changed from one valid state to another
     ///

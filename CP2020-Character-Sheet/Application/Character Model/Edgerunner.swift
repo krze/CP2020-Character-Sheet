@@ -85,39 +85,39 @@ final class Edgerunner: Codable, EditableModel {
         
         switch stat {
         case .Intelligence:
-            return (baseValue: baseStats.int, displayValue: baseStats.int + modifier(for: .Intelligence))
+            return (baseValue: baseStats.int, displayValue: cantGoBelowZero(int: baseStats.int + modifier(for: .Intelligence)))
         case .Reflex:
-            return (baseValue: baseStats.ref, displayValue: baseStats.ref + modifier(for: .Reflex))
+            return (baseValue: baseStats.ref, displayValue: cantGoBelowZero(int: baseStats.ref + modifier(for: .Reflex)))
         case .Tech:
-            return (baseValue: baseStats.tech, displayValue: baseStats.tech + modifier(for: .Tech))
+            return (baseValue: baseStats.tech, displayValue: cantGoBelowZero(int: baseStats.tech + modifier(for: .Tech)))
         case .Cool:
-            return (baseValue: baseStats.cool, displayValue: baseStats.cool + modifier(for: .Cool))
+            return (baseValue: baseStats.cool, displayValue: cantGoBelowZero(int: baseStats.cool + modifier(for: .Cool)))
         case .Attractiveness:
-            return (baseValue: baseStats.attr, displayValue: baseStats.attr + modifier(for: .Attractiveness))
+            return (baseValue: baseStats.attr, displayValue: cantGoBelowZero(int: baseStats.attr + modifier(for: .Attractiveness)))
         case .Luck:
-            return (baseValue: baseStats.luck, displayValue: baseStats.luck + modifier(for: .Luck))
+            return (baseValue: baseStats.luck, displayValue: cantGoBelowZero(int: baseStats.luck + modifier(for: .Luck)))
         case .MovementAllowance:
-            return (baseValue: baseStats.ma, displayValue: baseStats.ma + modifier(for: .MovementAllowance))
+            return (baseValue: baseStats.ma, displayValue: cantGoBelowZero(int: baseStats.ma + modifier(for: .MovementAllowance)))
         case .Body:
-            return (baseValue: baseStats.body, displayValue: baseStats.body + modifier(for: .Body))
+            return (baseValue: baseStats.body, displayValue: cantGoBelowZero(int: baseStats.body + modifier(for: .Body)))
         case .Empathy:
             // TODO: Cyberpsychosis
             let empathy = value(for: .Humanity).displayValue / 10
             
-            return (baseValue: baseStats.emp, displayValue: empathy < 0 ? 0 : empathy)
+            return (baseValue: baseStats.emp, displayValue: cantGoBelowZero(int: empathy < 0 ? 0 : empathy))
         case .Run:
             let runValue = value(for: .MovementAllowance).displayValue * 3
-            return (baseValue: runValue, displayValue: runValue)
+            return (baseValue: runValue, displayValue: cantGoBelowZero(int: runValue))
         case .Leap:
             let leapValue = value(for: .Run).displayValue / 4
-            return (baseValue: leapValue, displayValue: leapValue)
+            return (baseValue: leapValue, displayValue: cantGoBelowZero(int: leapValue))
         case .Lift:
             let liftValue = value(for: .Body).displayValue * 40
-            return (baseValue: liftValue, displayValue: liftValue)
+            return (baseValue: liftValue, displayValue: cantGoBelowZero(int: liftValue))
         case .Reputation:
-            return (baseValue: baseStats.rep, displayValue: baseStats.rep + modifier(for: .Reputation))
+            return (baseValue: baseStats.rep, displayValue: cantGoBelowZero(int: baseStats.rep + modifier(for: .Reputation)))
         case .Humanity:
-            return (baseValue: baseHumanity, displayValue: baseHumanity - humanityLoss)
+            return (baseValue: baseHumanity, displayValue: cantGoBelowZero(int: baseHumanity - humanityLoss))
         }
     }
     
@@ -247,6 +247,14 @@ final class Edgerunner: Codable, EditableModel {
         return skillModifiers.filter({ $0.skill == skill }).reduce(0, { total, next in
             total + next.amount
         })
+    }
+    
+    private func cantGoBelowZero(int: Int) -> Int {
+        if int <= 0 {
+            return 0
+        }
+        
+        return int
     }
     
     private func damageUpdate() {

@@ -88,8 +88,6 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
                 return placeholder
             }
         }()
-
-        // NEXT: Figure out a better way to toggle through entry fields
         
         switch entryType {
         case .Text:
@@ -135,12 +133,12 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     
     // MARK: UserEntryViewDelegate
     
-    func entryDidFinishEditing(identifier: Identifier, value: String?) {
+    func entryDidFinishEditing(identifier: Identifier, value: String?, resignLastResponder: () -> ()) {
         if let value = value {
             currentValues[identifier] = value
         }
         
-        let moveToNextField = !currentValues.filter( { $0.value == "" }).isEmpty
+        let moveToNextField = true
         
         if moveToNextField {
             var currentIdentifier = identifier
@@ -158,12 +156,14 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
                         continue
                     default:
                         makeNextCellFirstResponder(currentIndex: currentIndex)
+                        return
                     }
                 }
-                
+                resignLastResponder()
                 break
             }
         }
+        
     }
     
     func fieldValidityChanged(identifier: String, newValue: Bool) {

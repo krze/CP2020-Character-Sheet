@@ -107,12 +107,12 @@ class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDeleg
     // MARK: UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        self.endEditing(true)
         return false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue)
+        delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue, resignLastResponder: resign)
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -150,6 +150,10 @@ class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDeleg
         if textField?.isEditing == true {
             textField?.resignFirstResponder()
         }
+    }
+    
+    fileprivate func resign() {
+        self.resignFirstResponder()
     }
     
 }
@@ -273,7 +277,7 @@ class SuggestedTextCollectionViewCell: TextEntryCollectionViewCell {
             textField.textColor = viewModel.darkColor
         }
         
-        delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue)
+        delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue, resignLastResponder: resign)
     }
 
     // MARK: Private
@@ -377,7 +381,7 @@ final class EnforcedTextCollectionViewCell: SuggestedTextCollectionViewCell {
         validate(userEntry: userEntry)
         
         if entryIsValid {
-            delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue)
+            delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue, resignLastResponder: resign)
         }
         else {
             showPopup()
