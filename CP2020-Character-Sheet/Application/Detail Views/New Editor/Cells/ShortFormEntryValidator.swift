@@ -82,22 +82,17 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
         return false
     }
     
-
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let userEntry = textField.text else { return }
-        
-        if needsValidation {
-            validate(userEntry: userEntry)
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        guard autofills() else {
+            self.processEntry(textField)
+            return
         }
-        
-        if !isEnforced() || isEnforced() && isValid {
-            delegate?.entryDidFinishEditing(identifier: identifier, value: userEntry, resignLastResponder: resign)
+        if reason == .committed, let acceptedChoice = textField.attributedText?.string {
+            textField.attributedText = nil
+            textField.text = acceptedChoice
+            textField.textColor = StyleConstants.Color.dark
         }
-        else {
-             showPopup()
-        }
-        
-//        doneButtonPressed = false
+        self.processEntry(textField)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -243,6 +238,23 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
     }
     
     // MARK: Private - Common
+    
+    private func processEntry(_ textField: UITextField) {
+        guard let userEntry = textField.text else { return }
+        
+        if needsValidation {
+            validate(userEntry: userEntry)
+        }
+        
+        if !isEnforced() || isEnforced() && isValid {
+            delegate?.entryDidFinishEditing(identifier: identifier, value: userEntry, resignLastResponder: resign)
+        }
+        else {
+             showPopup()
+        }
+        
+//        doneButtonPressed = false
+    }
     
     private func resign() {
          cell.textField?.resignFirstResponder()
