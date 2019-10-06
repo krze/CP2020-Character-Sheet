@@ -188,7 +188,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         }
         NotificationCenter.default.post(name: .saveWasCalled, object: nil)
         
-        // TODO: Fix how we track valuesChanged, it's a bit sloppy.
+        // TODO: Fix how we track valuesChanged, it's a bit sloppy. Make a differ instead.
         if allValid && valuesChanged {
             self.delegate?.valuesFromEditorDidChange(currentValues, validationCompletion: dismissOrWarn)
         }
