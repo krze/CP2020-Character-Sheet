@@ -14,11 +14,14 @@ struct Rules {
     typealias CharacterStats = CP2020_Character_Sheet.Stats
     
     struct Skills {
-        /// The range of valid points a skill can be
+        /// The range of valid points a skill can be contained within
         static let validPointRange = 0...10
         
-        /// The range of valid points IP can be
+        /// The range valid points IP can be contained within
         static let validIPPointRange = 0...Int.max
+        
+        /// The range a valid IP multiplier can be contained within
+        static let validMultiplierRange = 1...Int.max
     }
     
     struct Stats {
@@ -150,7 +153,7 @@ struct Violation: Error {
     let ofType: ViolationType
     let violators: [String]
     enum ViolationType {
-        case invalidSkillPointAmount, invalidIPPointAmount, invalidStatPointAmount, invalidHumanityLoss, invalidNewDamageValue
+        case invalidSkillPointAmount, invalidIPPointAmount, invalidIPMultiplier, invalidStatPointAmount, invalidHumanityLoss, invalidNewDamageValue
     }
     
     func title() -> String {
@@ -165,6 +168,8 @@ struct Violation: Error {
             return "Humanity Loss Invalid!"
         case .invalidNewDamageValue:
             return "Damage Change Invalid!"
+        case .invalidIPMultiplier:
+            return "IP Multiplier Invalid!"
         }
     }
     
@@ -180,6 +185,8 @@ struct Violation: Error {
             return "Humanity deficit cannot go exceed \(violators.first ?? "your base empathy x 10")."
         case .invalidNewDamageValue:
             return "Damage cannot exceed 40 or go below 0. \(violators.first ?? "Incoming") damage cannot be applied to \(violators.last ?? "your current") damage."
+        case .invalidIPMultiplier:
+            return "IP multiplier must be a whole number greater than zero. \(violators.first ?? "The value you entered") is not a valid multiplier."
         }
     }
 }

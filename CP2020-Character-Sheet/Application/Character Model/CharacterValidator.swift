@@ -26,6 +26,11 @@ struct CharacterValidator {
             return false
         }
         
+        guard Rules.Skills.validMultiplierRange.contains(skillListing.skill.IPMultiplier) else {
+            violationFound(.failure(Violation(ofType: .invalidIPMultiplier, violators: [String(skillListing.skill.IPMultiplier)])))
+            return false
+        }
+        
         return true
     }
     
