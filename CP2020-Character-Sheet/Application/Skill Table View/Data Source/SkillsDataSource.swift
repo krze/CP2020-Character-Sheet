@@ -48,6 +48,19 @@ final class SkillsDataSource: EditorValueReciever {
         getCharacterSkills()
     }
     
+    /// Returns all concrete skill display names, meaning any skills that are supposed to have an extension, but have none, are removed.
+    func allSkillDisplayNames() -> [String] {
+        var mutableSkills = allSkills
+        
+        allSkills.forEach { listing in
+            if listing.skill.nameExtension != nil {
+                mutableSkills.removeAll(where: { $0.skill.name == listing.skill.name && $0.skill.nameExtension == nil })
+            }
+        }
+        
+        return mutableSkills.map { $0.displayName() }
+    }
+    
     private func createObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterSkills(notification:)), name: .skillDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterSkills(notification:)), name: .roleDidChange, object: nil)
@@ -114,7 +127,7 @@ final class SkillsDataSource: EditorValueReciever {
     }
     
     func valuesFromEditorDidChange(_ values: [Identifier : String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
-        guard let name = values[SkillField.Name.identifier()],
+        guard var name = values[SkillField.Name.identifier()],
             let description = values[SkillField.Description.identifier()],
             let IPMultiplierString = values[SkillField.IPMultiplier.identifier()],
             let IPMultiplierInt = Int(IPMultiplierString),
@@ -128,7 +141,18 @@ final class SkillsDataSource: EditorValueReciever {
         }
         
         let nameExtension: String? = {
-            // fixme
+            if name.contains(":") {
+                let array = name.split(separator: ":", maxSplits: 1, omittingEmptySubsequences: false)
+                
+                if let firstPart = array.first {
+                    name = String(firstPart)
+                }
+                
+                if let lastPart = array.last {
+                    return String(lastPart).trimmingCharacters(in: .whitespacesAndNewlines)
+                }
+            }
+            
             return nil
         }()
         

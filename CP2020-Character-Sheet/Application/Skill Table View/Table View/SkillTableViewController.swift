@@ -151,7 +151,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         }
         
         if let listing = cell.skillListing {
-            let viewModel = EditorCollectionViewModel.model(from: listing, mode: .edit)
+            let viewModel = EditorCollectionViewModel.model(from: listing, mode: .edit, skillNameFetcher: dataSource.allSkillDisplayNames)
             showSkillDetail(viewModel: viewModel)
         }
 
@@ -306,7 +306,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
     }
     
     @objc private func showNewSkillEditor() {
-        showSkillDetail(viewModel: EditorCollectionViewModel.modelForBlankSkill())
+        showSkillDetail(viewModel: EditorCollectionViewModel.modelForBlankSkill(skillNameFetcher: dataSource.allSkillDisplayNames))
     }
     
     private func showSkillDetail(viewModel: EditorCollectionViewModel) {

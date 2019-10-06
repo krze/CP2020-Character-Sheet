@@ -35,10 +35,23 @@ enum SkillField: String, EntryTypeProvider, CaseIterable {
         }
     }
     
-    private func freeEntryType() -> EntryType {
+    func entryType(mode: EditorMode, skillNameFetcher: @escaping () -> [String]) -> EntryType {
+        switch mode {
+        case .free:
+            return freeEntryType(skillNameFetcher: skillNameFetcher)
+        case .edit:
+            return editingEntryType()
+        }
+    }
+    
+    private func freeEntryType(skillNameFetcher: (() -> [String])? = nil) -> EntryType {
         switch self {
-        case .Name, .ModifiesSkill:
-            return .Text
+        case .Name:
+            let skills = skillNameFetcher?() ?? [String]()
+            return .SuggestedText(skills)
+        case .ModifiesSkill:
+            let skills = skillNameFetcher?() ?? [String]()
+            return .SuggestedText(skills)
         case .Points, .Modifier, .ImprovementPoints, .IPMultiplier:
             return .Integer
         case .Description:
@@ -50,7 +63,7 @@ enum SkillField: String, EntryTypeProvider, CaseIterable {
             return .EnforcedChoiceText(stats)
         }
     }
-    
+
     private func editingEntryType() -> EntryType {
         switch self {
         case .Points, .Modifier, .ImprovementPoints:

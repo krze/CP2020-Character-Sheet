@@ -53,6 +53,6 @@ struct Skill: Codable, Equatable {
     }
     
     static func new() -> Skill {
-        return Skill(name: "", nameExtension: nil, description: "", isSpecialAbility: false, linkedStat: nil, modifiesSkill: nil, IPMultiplier: 0)
+        return Skill(name: "", nameExtension: nil, description: "", isSpecialAbility: false, linkedStat: nil, modifiesSkill: nil, IPMultiplier: 1)
     }
 }

@@ -20,9 +20,9 @@ extension EditorCollectionViewModel {
     /// Sets up an EditorCollectionViewModel for creating a new skill
     ///
     /// - Returns: EditorCollectionViewModel used to initialize a EditorCollectionViewController
-    static func modelForBlankSkill() -> EditorCollectionViewModel {
+    static func modelForBlankSkill(skillNameFetcher: @escaping () -> [String]) -> EditorCollectionViewModel {
         let blankSkill = SkillListing(skill: Skill.new(), points: 0, modifier: 0, statModifier: 0)
-        return model(from: blankSkill, mode: .free)
+        return model(from: blankSkill, mode: .free, skillNameFetcher: skillNameFetcher)
     }
 
     /// Sets up an EditorCollectionViewModel for editing an existing skill
@@ -30,8 +30,9 @@ extension EditorCollectionViewModel {
     /// - Parameters:
     ///   - listing: The skill listing to be edited
     ///   - mode: The mode of editing
+    ///   - skillNameFetcher: A closure that gets the display name of all skills.
     /// - Returns: EditorCollectionViewModel used to initialize a EditorCollectionViewController
-    static func model(from listing: SkillListing, mode: EditorMode) -> EditorCollectionViewModel {
+    static func model(from listing: SkillListing, mode: EditorMode, skillNameFetcher: @escaping () -> [String]) -> EditorCollectionViewModel {
         var entryTypesForIdentifiers = [Identifier: EntryType]()
         var placeholdersWithIdentifiers = [Identifier: String]()
         var descriptionsWithIdentifiers = [Identifier: String]()
@@ -40,7 +41,7 @@ extension EditorCollectionViewModel {
         
         fields.forEach { field in
             let identifier = field.identifier()
-            entryTypesForIdentifiers[identifier] = field.entryType(mode: mode)
+            entryTypesForIdentifiers[identifier] = field.entryType(mode: mode, skillNameFetcher: skillNameFetcher)
             placeholdersWithIdentifiers[identifier] = placeholder(for: field, from: listing)
             descriptionsWithIdentifiers[identifier] = helpText(for: field)
         }
