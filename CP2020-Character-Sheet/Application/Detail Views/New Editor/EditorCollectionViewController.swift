@@ -112,9 +112,6 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         }
         
         fieldValidity[identifier] = (cell as? UserEntryValidating)?.isValid
-        
-        // Configure the cell
-    
         return cell
     }
     
