@@ -45,8 +45,8 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     override func viewDidLoad() {
         super.viewDidLoad()
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
-        saveButton.isEnabled = false
         self.saveButton = saveButton
+        self.saveButton?.isEnabled = false
         self.navigationItem.rightBarButtonItem = saveButton
         // Register cell classes
         collectionView.register(TextEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.Text.cellReuseID())
@@ -84,7 +84,6 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
                 return value
             }
             else {
-                currentValues[identifier] = placeholder
                 return placeholder
             }
         }()
@@ -203,6 +202,9 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         NotificationCenter.default.post(name: .saveWasCalled, object: nil)
         if allValid && valuesChanged {
             self.delegate?.valuesFromEditorDidChange(currentValues, validationCompletion: dismissOrWarn)
+        }
+        else {
+            dismissEditor()
         }
     }
     

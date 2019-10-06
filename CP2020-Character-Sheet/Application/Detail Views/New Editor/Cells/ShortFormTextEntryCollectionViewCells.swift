@@ -151,7 +151,7 @@ class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDeleg
     
     @objc func saveWasCalled() {
         if textField?.isEditing == true {
-            textField?.resignFirstResponder()
+            textField?.endEditing(true)
         }
     }
     

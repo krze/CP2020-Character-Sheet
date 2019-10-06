@@ -140,7 +140,7 @@ final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell, UI
     
     @objc func saveWasCalled() {
         if textView?.isFirstResponder == true {
-            textView?.resignFirstResponder()
+            textView?.endEditing(true)
         }
     }
     
