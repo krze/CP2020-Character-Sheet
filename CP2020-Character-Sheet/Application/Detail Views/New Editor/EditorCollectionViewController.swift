@@ -19,6 +19,8 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     private var fieldValidity = [Identifier: Bool]()
     private let paddingRatio: CGFloat
     
+    private var validators = [UserEntryValidating]()
+    
     private weak var saveButton: UIBarButtonItem?
     
     private var valuesChanged = false
@@ -56,12 +58,8 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         self.saveButton?.isEnabled = false
         self.navigationItem.rightBarButtonItem = saveButton
         // Register cell classes
-        collectionView.register(TextEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.Text.cellReuseID())
-        collectionView.register(IntegerEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.Integer.cellReuseID())
-        collectionView.register(LongFormTextEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.LongFormText.cellReuseID())
-        collectionView.register(EnforcedTextCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.EnforcedChoiceText([]).cellReuseID())
-        collectionView.register(SuggestedTextCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.SuggestedText([]).cellReuseID())
-        collectionView.register(StaticEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.Static.cellReuseID())
+        collectionView.register(ShortTextEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.Text.cellReuseID())
+        collectionView.register(LongTextEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.LongFormText.cellReuseID())
     }
 
     // MARK: UICollectionViewDataSource
@@ -96,35 +94,52 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         }()
         
         switch entryType {
-        case .Text:
-            guard let cell = cell as? TextEntryCollectionViewCell else { return UICollectionViewCell() }
+        case .Text, .Integer, .Static:
+            guard let cell = cell as? ShortTextEntryCollectionViewCell else { return UICollectionViewCell() }
             cell.setup(with: identifier, value: value, description: description)
-            cell.delegate = self
-        case .Integer:
-            guard let cell = cell as? IntegerEntryCollectionViewCell else { return UICollectionViewCell() }
-            cell.setup(with: identifier, value: value, description: description)
-            cell.delegate = self
+            var validator: UserEntryValidating = {
+                if let validator = validators.first(where: { $0.identifier == identifier }) {
+                    return validator
+                }
+                
+                let validator = ShortFormEntryValidator(with: cell, type: entryType)
+                validators.append(validator)
+                return validator
+            }()
+            validator.delegate = self
         case .LongFormText:
-            guard let cell = cell as? LongFormTextEntryCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = cell as? LongTextEntryCollectionViewCell else { return UICollectionViewCell() }
             cell.setup(with: identifier, value: value, description: description)
-            cell.delegate = self
-        case .EnforcedChoiceText(let requiredChoices):
-            guard let cell = cell as? EnforcedTextCollectionViewCell else { return UICollectionViewCell() }
-            cell.suggestedMatches = requiredChoices
+            
+            var validator: UserEntryValidating = {
+                if let validator = validators.first(where: { $0.identifier == identifier }) {
+                    return validator
+                }
+                
+                let validator = LongFormEntryValidator(with: cell, type: entryType)
+                validators.append(validator)
+                return validator
+            }()
+            
+            validator.delegate = self
+        case .EnforcedChoiceText(let choices), .SuggestedText(let choices):
+            guard let cell = cell as? ShortTextEntryCollectionViewCell else { return UICollectionViewCell() }
             cell.setup(with: identifier, value: value, description: description)
-            cell.delegate = self
-        case .SuggestedText(let suggestedMatches):
-            guard let cell = cell as? SuggestedTextCollectionViewCell else { return UICollectionViewCell() }
-            cell.suggestedMatches = suggestedMatches
-            cell.setup(with: identifier, value: value, description: description)
-            cell.delegate = self
-        case .Static:
-            guard let cell = cell as? StaticEntryCollectionViewCell else { return UICollectionViewCell() }
-            cell.setup(with: identifier, value: value, description: description)
-            cell.delegate = self
+
+            var validator: UserEntryValidating = {
+                if let validator = validators.first(where: { $0.identifier == identifier }) {
+                    return validator
+                }
+                
+                let validator = ShortFormEntryValidator(with: cell, type: entryType)
+                validators.append(validator)
+                return validator
+            }()
+            validator.suggestedMatches = choices
+            validator.delegate = self
         }
         
-        fieldValidity[identifier] = (cell as? UserEntryCollectionViewCell)?.entryIsValid
+        fieldValidity[identifier] = (cell as? UserEntryValidating)?.isValid
         
         // Configure the cell
     
@@ -198,8 +213,8 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     private func makeNextCellFirstResponder(currentIndex: Int?) {
         guard let currentIndex = currentIndex else { return }
         
-        if let cell = collectionView.cellForItem(at: IndexPath(item: currentIndex + 1, section: 0)) as? UserEntryCollectionViewCell {
-            cell.makeFirstResponder()
+        if let cell = collectionView.cellForItem(at: IndexPath(item: currentIndex + 1, section: 0)) as? UserEntryCollectionViewCell, let validator = validators.first(where: { $0.identifier == cell.identifier }) {
+            validator.makeFirstResponder()
         }
     }
     

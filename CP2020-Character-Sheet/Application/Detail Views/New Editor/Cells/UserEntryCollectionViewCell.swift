@@ -11,15 +11,22 @@ import UIKit
 typealias UserEntryCollectionViewCell = UICollectionViewCell & UserEntryValue
 
 protocol UserEntryValue {
-    var delegate: UserEntryDelegate? { get set }
+    
     var identifier: Identifier { get }
-    var enteredValue: String? { get }
-    var entryIsValid: Bool { get }
+    var fieldDescription: String { get }
     
     func setup(with identifier: Identifier, value: String, description: String)
     
-    func makeFirstResponder()
+}
+
+protocol ShortFormEntryCollectionViewCell: UserEntryCollectionViewCell {
     
-    func saveWasCalled()
+    var textField: UITextField? { get }
     
+}
+
+protocol LongFormEntryCollectionViewCell: UserEntryCollectionViewCell {
+    
+    var textView: UITextView? { get }
+
 }

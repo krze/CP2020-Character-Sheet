@@ -39,17 +39,11 @@ enum EntryType {
     func cellReuseID() -> String {
         switch self {
         case .Text:
-            return "TextEntryCell"
-        case .Integer:
-            return "IntegerEntryCell"
+            return "ShortTextEntryCell"
         case .LongFormText:
             return "LongFormTextEntryCell"
-        case .SuggestedText:
-            return "SuggestedTextEntryCell"
-        case .EnforcedChoiceText:
-            return "EnforcedChoiceTextEntryCell"
-        case .Static:
-            return "StaticEntryCell"
+        default:
+            return ""
         }
     }
     

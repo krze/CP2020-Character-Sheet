@@ -1,5 +1,5 @@
 //
-//  LongFormTextEntryCollectionViewCell.swift
+//  LongTextEntryCollectionViewCell.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 1/27/19.
@@ -8,40 +8,28 @@
 
 import UIKit
 
-final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextViewDelegate, UsedOnce {
-    weak var delegate: UserEntryDelegate?
-    
-    var wasSetUp = false
-    
+final class LongTextEntryCollectionViewCell: UICollectionViewCell, LongFormEntryCollectionViewCell, UsedOnce {
+        
     override var tag: Int {
         didSet {
             textView?.tag = tag
         }
     }
+    
+    // MARK: UsedOnce
+    
+    var wasSetUp = false
 
-    var enteredValue: String? {
-        return textView?.text
-    }
+    // MARK: LongFormEntryCollectionViewCell
     
     private(set) var identifier = ""
+    private(set) var fieldDescription = ""
+    private(set) var textView: UITextView?
+
     private var header: UILabel?
-    private var fieldDescription = ""
-    
-    let entryIsValid = true
     private let viewModel = EditorStyleConstants()
-    private var textView: UITextView?
-    
     private var resigning = false
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        NotificationCenter.default.addObserver(self, selector: #selector(saveWasCalled), name: .saveWasCalled, object: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
     func setup(with identifier: Identifier, value: String, description: String) {
         if wasSetUp {
             header?.text = identifier
@@ -90,7 +78,6 @@ final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell, UI
             textView.heightAnchor.constraint(equalToConstant: viewModel.longFormEntryHeight)
             ])
         
-        textView.delegate = self
         self.textView = textView
         self.textView?.text = value
         
@@ -105,22 +92,7 @@ final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell, UI
         
         wasSetUp = true
     }
-    
-    func makeFirstResponder() {
-        textView?.becomeFirstResponder()
-    }
-    
-    // MARK: UITextFieldDelegate
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return false
-    }
-    
-    func textViewDidEndEditing(_ textField: UITextView) {
-        delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue, resignLastResponder: resign)
-    }
-    
+
     // MARK: Private
     
     private func helpButton(size: CGSize) -> UIButton {
@@ -136,16 +108,6 @@ final class LongFormTextEntryCollectionViewCell: UserEntryCollectionViewCell, UI
         let alert = UIAlertController(title: identifier, message: fieldDescription, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: SkillStrings.dismissHelpPopoverButtonText, style: .default, handler: nil))
         NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
-    }
-    
-    @objc func saveWasCalled() {
-        if textView?.isFirstResponder == true {
-            textView?.endEditing(true)
-        }
-    }
-    
-    private func resign() {
-        self.resignFirstResponder()
     }
     
 }
