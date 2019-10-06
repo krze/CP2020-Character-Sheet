@@ -10,11 +10,15 @@ import UIKit
 
 final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldDelegate {
 
+    // MARK: UserEntryValidating
+    
+    var suggestedMatches = [String]()
     let identifier: Identifier
-    
     let helpText: String
-    
     private(set) var isValid: Bool = true
+    var currentValue: String? {
+        return cell.textField?.text
+    }
     
     weak var delegate: UserEntryDelegate?
     
@@ -23,7 +27,7 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
     private var needsValidation: Bool = false
     
     // Suggested Match Logic
-    var suggestedMatches = [String]()
+    
     private var autoCompleteCharacterCount = 0
     private var timer = Timer()
     

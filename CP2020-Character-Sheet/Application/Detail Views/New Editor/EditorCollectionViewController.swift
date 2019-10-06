@@ -220,8 +220,12 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     
     @objc private func save() {
         let allValid = !fieldValidity.contains(where: { $1 == false })
-
+        validators.forEach { validator in
+            currentValues[validator.identifier] = validator.currentValue
+        }
         NotificationCenter.default.post(name: .saveWasCalled, object: nil)
+        
+        // TODO: Fix how we track valuesChanged, it's a bit sloppy.
         if allValid && valuesChanged {
             self.delegate?.valuesFromEditorDidChange(currentValues, validationCompletion: dismissOrWarn)
         }

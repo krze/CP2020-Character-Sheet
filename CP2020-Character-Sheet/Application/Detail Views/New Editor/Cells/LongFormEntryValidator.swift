@@ -16,7 +16,11 @@ final class LongFormEntryValidator: NSObject, UserEntryValidating, UITextViewDel
     var identifier: Identifier
     var helpText: String
     let isValid = true
-    var delegate: UserEntryDelegate?
+    var currentValue: String? {
+        return cell.textView?.text
+    }
+    
+    weak var delegate: UserEntryDelegate?
     
     private let cell: LongFormEntryCollectionViewCell
     private let type: EntryType

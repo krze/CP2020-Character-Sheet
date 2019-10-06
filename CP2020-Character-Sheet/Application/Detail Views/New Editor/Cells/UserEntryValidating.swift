@@ -14,6 +14,7 @@ protocol UserEntryValidating {
     var identifier: Identifier { get }
     var helpText: String { get }
     var isValid: Bool { get }
+    var currentValue: String? { get }
     
     var delegate: UserEntryDelegate? { get set }
         

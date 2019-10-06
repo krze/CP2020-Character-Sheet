@@ -38,12 +38,11 @@ enum EntryType {
     /// - Returns: Reuse Identifier for use in a collection view
     func cellReuseID() -> String {
         switch self {
-        case .Text:
-            return "ShortTextEntryCell"
+        case .Text, .Integer, .SuggestedText, .EnforcedChoiceText, .Static:
+            return "ShortFormTextEntryCell"
         case .LongFormText:
             return "LongFormTextEntryCell"
-        default:
-            return ""
+ 
         }
     }
     
