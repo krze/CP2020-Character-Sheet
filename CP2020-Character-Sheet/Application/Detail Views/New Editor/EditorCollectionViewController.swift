@@ -29,6 +29,12 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         }
     }
     
+    // NEXT: Investigate consolodating the entry fields validation into a different class that is a UITextFieldDelegate.
+    // - Make the validator
+    // - Store it in here
+    // - Let the validator talk to the DataSource for the editor
+    // - Once a Validator/DataSource bridge is established, use that bridge to autofill skill into the editor
+    
     init(with viewModel: EditorCollectionViewModel) {
         self.enforcedOrder = viewModel.enforcedOrder
         self.placeholderValues = viewModel.placeholdersWithIdentifiers ?? [Identifier: String]()
