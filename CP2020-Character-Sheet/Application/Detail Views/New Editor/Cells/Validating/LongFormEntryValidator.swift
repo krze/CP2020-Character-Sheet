@@ -42,6 +42,11 @@ final class LongFormEntryValidator: NSObject, UserEntryValidating, UITextViewDel
         cell.textView?.becomeFirstResponder()
     }
     
+    func replaceWithSuggestedMatch(_ value: String) {
+        resign()
+        cell.textView?.text = value
+    }
+    
     // MARK: UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -51,7 +56,7 @@ final class LongFormEntryValidator: NSObject, UserEntryValidating, UITextViewDel
     
     func textViewDidEndEditing(_ textField: UITextView) {
         guard let enteredValue = textField.text else { return }
-        delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue, resignLastResponder: resign)
+        delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue, shouldGetSuggestion: false, resignLastResponder: resign)
     }
     
     @objc func saveWasCalled() {

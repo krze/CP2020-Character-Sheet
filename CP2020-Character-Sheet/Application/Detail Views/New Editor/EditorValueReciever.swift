@@ -22,6 +22,12 @@ protocol EditorValueReciever: class {
     /// Forces a refresh on the receiver of the data
     func refreshData()
     
+    /// Brings up the best match for an autofill suggestion for the whole editor in order to fill it out based on closest match.
+    /// - Parameter identifier: Identifier for the field that needs a suggestion
+    /// - Parameter value: The value for the field
+    /// - returns: A value to fill out the whole editor, if any
+    func autofillSuggestion(for identifier: Identifier, value: String) -> [Identifier: String]?
+    
 }
 
 /// An object containing the results from an editor, validated by the model. If the result was successful,

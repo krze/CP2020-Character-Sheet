@@ -15,7 +15,8 @@ protocol UserEntryDelegate: class {
     /// - Parameters:
     ///   - identifier: Identifier for the cell
     ///   - value: Text input value for the cell
+    ///   - shouldGetSuggestion: Whether this field type would prompt an autofill suggestion
     ///   - resignLastResponder: A closure called if the entry that finished editing was the last responder, and the keyboard needs dismissing
-    func entryDidFinishEditing(identifier: Identifier, value: String?, resignLastResponder: () -> Void)
+    func entryDidFinishEditing(identifier: Identifier, value: String?, shouldGetSuggestion: Bool, resignLastResponder: () -> Void)
 
 }

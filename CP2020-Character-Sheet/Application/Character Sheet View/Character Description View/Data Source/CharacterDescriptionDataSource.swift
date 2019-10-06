@@ -42,6 +42,10 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever {
         self.delegate?.update(role: self.model.role)
     }
     
+    func autofillSuggestion(for identifier: Identifier, value: String) -> [Identifier : String]? {
+        return nil
+    }
+    
     /// Changes the values for the name and handle on the model
     ///
     /// - Parameters:

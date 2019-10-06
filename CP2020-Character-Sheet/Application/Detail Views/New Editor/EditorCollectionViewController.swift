@@ -31,6 +31,8 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         }
     }
     
+    private var autofillSuggestion: [Identifier: String]?
+    
     // NEXT: Investigate consolodating the entry fields validation into a different class that is a UITextFieldDelegate.
     // - Make a container that holds all the validators and can summarize the contents to validate against the datasource
     // - Let the validator talk to the DataSource for the editor
@@ -121,12 +123,12 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     
     // MARK: UserEntryViewDelegate
     
-    func entryDidFinishEditing(identifier: Identifier, value: String?, resignLastResponder: () -> Void) {
+    func entryDidFinishEditing(identifier: Identifier, value: String?, shouldGetSuggestion: Bool, resignLastResponder: () -> Void) {
         if let value = value {
             currentValues[identifier] = value
         }
         
-        let moveToNextField = true
+        let moveToNextField = !shouldGetSuggestion
         
         if moveToNextField {
             var currentIdentifier = identifier
@@ -149,6 +151,13 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
                 }
                 resignLastResponder()
                 break
+            }
+        }
+        else {
+            resignLastResponder()
+            if let value = value, let autofillSuggestion = delegate?.autofillSuggestion(for: identifier, value: value) {
+                self.autofillSuggestion = autofillSuggestion
+                promptForAutoFill(forMatch: value)
             }
         }
         
@@ -210,7 +219,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
             let helpText = violation.helpText()
             
             let alert = UIAlertController(title: title, message: helpText, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: SkillStrings.dismissHelpPopoverButtonText, style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: AlertViewStrings.dismissButtonTitle, style: .default, handler: nil))
             NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
             return
         }
@@ -236,4 +245,28 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         validators.append(validator)
         return validator
     }
+    
+    private func promptForAutoFill(forMatch match: String) {
+        let alert = UIAlertController(title: "Match for \(match)", message: "Would you like to auto-fill the remaining fields?", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: AlertViewStrings.confirmButtonTitle, style: .default, handler: acceptAutoFill(_:)))
+        alert.addAction(UIAlertAction(title: AlertViewStrings.rejectButtonTitle, style: .cancel, handler: rejectAutoFill(_:)))
+        NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
+    }
+    
+    private func acceptAutoFill(_ action: UIAlertAction) {
+        guard let autofillSuggestion = autofillSuggestion else { return }
+        currentValues = autofillSuggestion
+        updateEditorFieldsWithCurrentValues()
+    }
+    
+    private func rejectAutoFill(_ action: UIAlertAction) {
+        autofillSuggestion = nil
+    }
+    
+    private func updateEditorFieldsWithCurrentValues() {
+        for (identifier, value) in currentValues {
+            validators.first(where: { $0.identifier == identifier})?.replaceWithSuggestedMatch(value)
+        }
+    }
+    
 }

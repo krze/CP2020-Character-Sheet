@@ -44,6 +44,10 @@ final class StatsDataSource: NSObject, EditorValueReciever {
         updateStatsView()
     }
     
+    func autofillSuggestion(for identifier: Identifier, value: String) -> [Identifier : String]? {
+        return nil
+    }
+    
     @objc private func updateStatsView() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }

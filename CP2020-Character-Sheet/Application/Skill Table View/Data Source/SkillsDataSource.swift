@@ -43,11 +43,6 @@ final class SkillsDataSource: EditorValueReciever {
         model.add(skill: newSkill, validationCompletion: completion)
     }
     
-    func refreshData() {
-        self.allSkills = getAllSkills()
-        getCharacterSkills()
-    }
-    
     /// Returns all concrete skill display names, meaning any skills that are supposed to have an extension, but have none, are removed.
     func allSkillDisplayNames() -> [String] {
         var mutableSkills = allSkills
@@ -59,15 +54,6 @@ final class SkillsDataSource: EditorValueReciever {
         }
         
         return mutableSkills.map { $0.displayName() }
-    }
-    
-    private func createObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterSkills(notification:)), name: .skillDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterSkills(notification:)), name: .roleDidChange, object: nil)
-    }
-    
-    @objc private func updateCharacterSkills(notification: Notification) {
-        refreshData()
     }
     
     /// Asynchronously returns all skills that are useable by the player, filtering out irrelevent skills
@@ -83,6 +69,77 @@ final class SkillsDataSource: EditorValueReciever {
     /// - Returns: HighlightedSkillViewCellDataSource
     func highlightedSkillsDataSource() -> HighlightedSkillViewCellDataSource {
         return HighlightedSkillViewCellDataSource(model: model)
+    }
+    
+    // MARK: EditorValueReceiver
+    
+    func valuesFromEditorDidChange(_ values: [Identifier : String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        guard var name = values[SkillField.Name.identifier()],
+            let description = values[SkillField.Description.identifier()],
+            let IPMultiplierString = values[SkillField.IPMultiplier.identifier()],
+            let IPMultiplierInt = Int(IPMultiplierString),
+            let pointsString = values[SkillField.Points.identifier()],
+            let points = Int(pointsString),
+            let IPString = values[SkillField.ImprovementPoints.identifier()],
+            let improvementPoints = Int(IPString),
+            let modifierString = values[SkillField.Modifier.identifier()],
+            let modifier = Int(modifierString) else {
+                return
+        }
+        
+        // Process the name
+        var nameExtension: String?
+        let processedName = process(nameInput: name)
+        name = processedName.name
+        nameExtension = processedName.nameExtension
+        
+        let isSpecialAbility = name == model.specialAbilityName()
+        let IPMultiplier = IPMultiplierInt > 0 ? IPMultiplierInt : 1
+        let linkedStat: Stat? = {
+            if let statString = values[SkillField.Stat.identifier()] {
+                return Stat(rawValue: statString)
+            }
+            
+            return nil
+        }()
+        
+        let statModifier: Int? = model.value(for: linkedStat).displayValue
+        let modifiesSkill: String? = values[SkillField.ModifiesSkill.identifier()]
+        let skill = Skill(name: name,
+                          nameExtension: nameExtension,
+                          description: description,
+                          isSpecialAbility: isSpecialAbility,
+                          linkedStat: linkedStat,
+                          modifiesSkill: modifiesSkill,
+                          IPMultiplier: IPMultiplier)
+        let skillListing = SkillListing(skill: skill, points: points, improvementPoints: improvementPoints, modifier: modifier, statModifier: statModifier)
+        model.add(skill: skillListing, validationCompletion: completion)
+    }
+    
+    func refreshData() {
+        self.allSkills = getAllSkills()
+        getCharacterSkills()
+    }
+    
+    func autofillSuggestion(for identifier: Identifier, value: String) -> [Identifier : String]? {
+        guard identifier == SkillField.Name.identifier() else { return nil }
+        let processedName = process(nameInput: value)
+        guard let topMatch = allSkills.first(where: { listing in
+            return listing.skill.name == processedName.name && listing.skill.nameExtension == processedName.nameExtension
+        }) else {
+            return nil
+        }
+        
+        return EditorCollectionViewModel.model(from: topMatch, mode: .edit, skillNameFetcher: { return [String]() }).placeholdersWithIdentifiers
+    }
+    
+    private func createObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterSkills(notification:)), name: .skillDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterSkills(notification:)), name: .roleDidChange, object: nil)
+    }
+    
+    @objc private func updateCharacterSkills(notification: Notification) {
+        refreshData()
     }
     
     /// Synchronously returns all skills
@@ -126,57 +183,25 @@ final class SkillsDataSource: EditorValueReciever {
         return skills
     }
     
-    func valuesFromEditorDidChange(_ values: [Identifier : String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
-        guard var name = values[SkillField.Name.identifier()],
-            let description = values[SkillField.Description.identifier()],
-            let IPMultiplierString = values[SkillField.IPMultiplier.identifier()],
-            let IPMultiplierInt = Int(IPMultiplierString),
-            let pointsString = values[SkillField.Points.identifier()],
-            let points = Int(pointsString),
-            let IPString = values[SkillField.ImprovementPoints.identifier()],
-            let improvementPoints = Int(IPString),
-            let modifierString = values[SkillField.Modifier.identifier()],
-            let modifier = Int(modifierString) else {
-                return
+    /// Processes the raw name input and trims, etc
+    /// - Parameter nameInput: The raw name input
+    /// - returns: Tuple containing the name and nameExtension
+    private func process(nameInput: String) -> (name: String, nameExtension: String?) {
+        var name = nameInput
+        var nameExtension: String?
+            
+        if name.contains(":") {
+            let array = name.split(separator: ":", maxSplits: 1, omittingEmptySubsequences: false)
+            if let firstPart = array.first {
+                name = String(firstPart)
+            }
+            
+            if let lastPart = array.last {
+                nameExtension = String(lastPart).trimmingCharacters(in: .whitespacesAndNewlines)
+            }
         }
-        
-        let nameExtension: String? = {
-            if name.contains(":") {
-                let array = name.split(separator: ":", maxSplits: 1, omittingEmptySubsequences: false)
-                
-                if let firstPart = array.first {
-                    name = String(firstPart)
-                }
-                
-                if let lastPart = array.last {
-                    return String(lastPart).trimmingCharacters(in: .whitespacesAndNewlines)
-                }
-            }
-            
-            return nil
-        }()
-        
-        let isSpecialAbility = name == model.specialAbilityName()
-        let IPMultiplier = IPMultiplierInt > 0 ? IPMultiplierInt : 1
-        let linkedStat: Stat? = {
-            if let statString = values[SkillField.Stat.identifier()] {
-                return Stat(rawValue: statString)
-            }
-            
-            return nil
-        }()
-        
-        let statModifier: Int? = model.value(for: linkedStat).displayValue
-        let modifiesSkill: String? = values[SkillField.ModifiesSkill.identifier()]
-        let skill = Skill(name: name,
-                          nameExtension: nameExtension,
-                          description: description,
-                          isSpecialAbility: isSpecialAbility,
-                          linkedStat: linkedStat,
-                          modifiesSkill: modifiesSkill,
-                          IPMultiplier: IPMultiplier)
-        let skillListing = SkillListing(skill: skill, points: points, improvementPoints: improvementPoints, modifier: modifier, statModifier: statModifier)
-        model.add(skill: skillListing, validationCompletion: completion)
+    
+        return (name, nameExtension)
     }
     
 }

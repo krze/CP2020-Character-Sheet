@@ -34,6 +34,11 @@ final class HighlightedSkillViewCellDataSource: EditorValueReciever {
         updateHighlightedSkills()
     }
     
+    func autofillSuggestion(for identifier: Identifier, value: String) -> [Identifier : String]? {
+        return nil
+    }
+    
+    
     /// Synchronously fetches and sorts all skills into highlighted skills.
     @objc private func updateHighlightedSkills()  {
         var highlightedSkills = [SkillListing]()

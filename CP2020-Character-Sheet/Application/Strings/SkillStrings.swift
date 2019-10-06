@@ -28,9 +28,7 @@ struct SkillStrings {
     
     static let modifiesSkill = "Modifies Skill"
     static let modifiesSkillHelpText = "A skill that is modified by adding this skill's points to the specified skill. (i.e. Comabt Sense boosts Awareness/Notice"
-    
-    static let dismissHelpPopoverButtonText = "Dismiss"
-    
+        
     static let favorite = "Highlighted Skill"
     static let hideSkill = "Hide Skill"
     

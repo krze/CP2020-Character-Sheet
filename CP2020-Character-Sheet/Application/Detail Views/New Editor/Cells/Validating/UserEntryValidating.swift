@@ -22,4 +22,6 @@ protocol UserEntryValidating {
     
     func saveWasCalled()
     
+    func replaceWithSuggestedMatch(_ value: String)
+    
 }

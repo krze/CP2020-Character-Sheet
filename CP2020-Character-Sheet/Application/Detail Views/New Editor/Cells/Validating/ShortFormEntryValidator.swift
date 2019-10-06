@@ -30,6 +30,22 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
     
     private var autoCompleteCharacterCount = 0
     private var timer = Timer()
+    private var partialMatch: String?
+    
+    /// Use this as a one-way read for the done button to ensure it's only ever true once
+    private var doneButtonPressed: Bool {
+        set {
+            consumedDoneButtonState = newValue
+        }
+        get {
+            let doneButtonState = consumedDoneButtonState
+            consumedDoneButtonState = false
+            return doneButtonState
+        }
+    }
+    
+    // DON'T READ FROM ME I DO NOT EXIST
+    private var consumedDoneButtonState = false
     
     init(with cell: ShortFormEntryCollectionViewCell, type: EntryType, suggestedMatches: [String] = [String]()) {
         self.cell = cell
@@ -75,10 +91,16 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
         }
     }
     
+    func replaceWithSuggestedMatch(_ value: String) {
+        resign()
+        cell.textField?.text = value
+        validate(userEntry: value)
+    }
+    
     // MARK: UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        doneButtonPressed = true
+        doneButtonPressed = true
         textField.endEditing(true)
         return false
     }
@@ -88,11 +110,21 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
             self.processEntry(textField)
             return
         }
-        if reason == .committed, let acceptedChoice = textField.attributedText?.string {
-            textField.attributedText = nil
-            textField.text = acceptedChoice
-            textField.textColor = StyleConstants.Color.dark
+        
+        if reason == .committed {
+            if doneButtonPressed, let acceptedChoice = textField.attributedText?.string {
+                textField.attributedText = nil
+                partialMatch = nil
+                textField.text = acceptedChoice
+                textField.textColor = StyleConstants.Color.dark
+            }
+            else {
+                textField.attributedText = nil
+                textField.textColor = StyleConstants.Color.dark
+                textField.text = partialMatch
+            }
         }
+        
         self.processEntry(textField)
     }
     
@@ -119,7 +151,7 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
                 // Check if the deletion is happening in the middle of the string with a suggestion at the end.
                 // If so, this block will clear the attributed text at the end of the string
                 if location < endLocation && suggestedTextPresent {
-                    let trimmedText = text.prefix(location + 1) // location is an index so it needs an off by one adj
+                    let trimmedText = text.prefix(location + 1)
                     textField.attributedText = nil
                     textField.text = String(trimmedText)
                 }
@@ -131,7 +163,7 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
 
         guard let text = textField.text?.capitalized as NSString? else { return false }
         let subString = format(subString: text.replacingCharacters(in: range, with: string))
-
+        
         if subString.isEmpty {
             resetValues()
         } else {
@@ -156,6 +188,7 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
         let suggestions = autocompleteSuggestions(for: userQuery)
 
         if suggestions.count > 0 {
+            partialMatch = userQuery
             timer = .scheduledTimer(withTimeInterval: 0.01, repeats: false, block: { (timer) in
                 let autocompleteResult = self.formatAutocompleteResult(substring: userQuery, possibleMatches: suggestions)
                 self.putColourFormattedTextInTextField(autocompleteResult: autocompleteResult, userQuery: userQuery)
@@ -212,6 +245,15 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
         }
     }
     
+    private func suggestsCompletion() -> Bool {
+        switch type {
+        case .SuggestedText(_):
+            return true
+        default:
+            return false
+        }
+    }
+    
     // MARK: Private - Enforced Entry Logic
     
     private func isEnforced() -> Bool {
@@ -234,7 +276,7 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
         }
         let title = userEntry.count > 0 ? "\(userEntry) is an invalid choice" : "\(identifier) cannot be blank."
         let alert = UIAlertController(title: title, message: "Please select one of the following:\n\(choices)", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: SkillStrings.dismissHelpPopoverButtonText, style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: AlertViewStrings.dismissButtonTitle, style: .default, handler: nil))
         NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
     }
     
@@ -248,13 +290,12 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
         }
         
         if !isEnforced() || isEnforced() && isValid {
-            delegate?.entryDidFinishEditing(identifier: identifier, value: userEntry, resignLastResponder: resign)
+            delegate?.entryDidFinishEditing(identifier: identifier, value: userEntry, shouldGetSuggestion: suggestsCompletion(), resignLastResponder: resign)
         }
         else {
              showPopup()
         }
         
-//        doneButtonPressed = false
     }
     
     private func resign() {

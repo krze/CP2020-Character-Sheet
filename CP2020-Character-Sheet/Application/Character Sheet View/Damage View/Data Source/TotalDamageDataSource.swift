@@ -22,9 +22,6 @@ final class TotalDamageDataSource: EditorValueReciever {
         self.maxDamage = Rules.Damage.maxDamagePoints
     }
     
-    /// This does nothing on TotalDamageDataSource since it doesnt have a fullscreen editor
-    /// - Parameter values: _
-    /// - Parameter completion: _
     func valuesFromEditorDidChange(_ values: [Identifier : String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
         guard let incomingDamageString = values[DamageType.Damage.rawValue], let incomingDamage = Int(incomingDamageString) else {
             return
@@ -34,7 +31,7 @@ final class TotalDamageDataSource: EditorValueReciever {
             switch result {
             case .failure(let violation):
                 let alert = UIAlertController(title: violation.title(), message: violation.helpText(), preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: SkillStrings.dismissHelpPopoverButtonText, style: .default, handler: nil))
+                alert.addAction(UIAlertAction(title: AlertViewStrings.dismissButtonTitle, style: .default, handler: nil))
                 NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
             case .success(_):
                 self.delegate?.updateCells(to: self.currentDamage)
@@ -44,6 +41,10 @@ final class TotalDamageDataSource: EditorValueReciever {
     
     func refreshData() {
         delegate?.updateCells(to: currentDamage)
+    }
+    
+    func autofillSuggestion(for identifier: Identifier, value: String) -> [Identifier : String]? {
+        return nil
     }
     
 }

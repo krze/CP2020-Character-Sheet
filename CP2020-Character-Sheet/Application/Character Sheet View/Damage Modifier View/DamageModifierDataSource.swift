@@ -25,6 +25,10 @@ final class DamageModifierDataSource: EditorValueReciever {
     /// - Parameter completion: _
     func valuesFromEditorDidChange(_ values: [Identifier : String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {}
     
+    func autofillSuggestion(for identifier: Identifier, value: String) -> [Identifier : String]? {
+        return nil
+    }
+    
     @objc func refreshData() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }

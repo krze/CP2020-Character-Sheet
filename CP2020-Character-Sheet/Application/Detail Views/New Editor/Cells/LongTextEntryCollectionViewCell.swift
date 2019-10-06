@@ -106,7 +106,7 @@ final class LongTextEntryCollectionViewCell: UICollectionViewCell, LongFormEntry
     
     @objc private func presentHelpText() {
         let alert = UIAlertController(title: identifier, message: fieldDescription, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: SkillStrings.dismissHelpPopoverButtonText, style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: AlertViewStrings.dismissButtonTitle, style: .default, handler: nil))
         NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
     }
     

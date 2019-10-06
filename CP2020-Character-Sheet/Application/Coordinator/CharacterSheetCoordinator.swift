@@ -146,7 +146,7 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
         modelManager.saveEdgerunner(data: edgerunnerData) { error in
             if let error = error {
                 let alert = UIAlertController(title: "Unable to save character:", message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: SkillStrings.dismissHelpPopoverButtonText, style: .default, handler: nil))
+                alert.addAction(UIAlertAction(title: AlertViewStrings.dismissButtonTitle, style: .default, handler: nil))
                 display(alert: alert)
             }
         }
