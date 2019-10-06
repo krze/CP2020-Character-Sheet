@@ -15,6 +15,7 @@ import UIKit
 /// A single-line textfield that accepts user entry without validation
 class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDelegate, UsedOnce {
     
+    fileprivate var doneButtonPressed = false
     var wasSetUp = false
     
     override var tag: Int {
@@ -107,12 +108,14 @@ class TextEntryCollectionViewCell: UserEntryCollectionViewCell, UITextFieldDeleg
     // MARK: UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        doneButtonPressed = true
         self.endEditing(true)
         return false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue, resignLastResponder: resign)
+        doneButtonPressed = false
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -276,7 +279,7 @@ class SuggestedTextCollectionViewCell: TextEntryCollectionViewCell {
             textField.text = acceptedChoice
             textField.textColor = viewModel.darkColor
         }
-        
+        doneButtonPressed = false
         delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue, resignLastResponder: resign)
     }
 
