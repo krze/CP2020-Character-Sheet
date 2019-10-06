@@ -32,9 +32,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     }
     
     // NEXT: Investigate consolodating the entry fields validation into a different class that is a UITextFieldDelegate.
-    // - Make the validator
-    // - Get rid of all those specific subclasses with validator behavior.
-    // - Store it in here
+    // - Make a container that holds all the validators and can summarize the contents to validate against the datasource
     // - Let the validator talk to the DataSource for the editor
     // - Once a Validator/DataSource bridge is established, use that bridge to autofill skill into the editor
     
@@ -154,10 +152,6 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
             }
         }
         
-    }
-    
-    func fieldValidityChanged(identifier: String, newValue: Bool) {
-        fieldValidity[identifier] = newValue
     }
 
     // MARK: UICollectionViewDelegateFlowLayout
