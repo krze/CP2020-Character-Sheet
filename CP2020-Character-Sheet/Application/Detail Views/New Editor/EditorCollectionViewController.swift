@@ -133,7 +133,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     
     // MARK: UserEntryViewDelegate
     
-    func entryDidFinishEditing(identifier: Identifier, value: String?, resignLastResponder: () -> ()) {
+    func entryDidFinishEditing(identifier: Identifier, value: String?, resignLastResponder: () -> Void) {
         if let value = value {
             currentValues[identifier] = value
         }
