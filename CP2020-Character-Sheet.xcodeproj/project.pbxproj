@@ -76,6 +76,7 @@
 		9D9CC962234A5B2D005AF278 /* UserEntryValidating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC961234A5B2D005AF278 /* UserEntryValidating.swift */; };
 		9D9CC964234A5DA7005AF278 /* ShortFormEntryValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC963234A5DA7005AF278 /* ShortFormEntryValidator.swift */; };
 		9D9CC966234A761E005AF278 /* LongFormEntryValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC965234A761E005AF278 /* LongFormEntryValidator.swift */; };
+		9DB6AD90234AB3FA0068120C /* UITextField+Done.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB6AD8F234AB3FA0068120C /* UITextField+Done.swift */; };
 		9DCD370121CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD370021CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift */; };
 		9DCD370521CC105900EE00D9 /* Skill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD370421CC105900EE00D9 /* Skill.swift */; };
 		9DCD370721CC135A00EE00D9 /* SkillListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD370621CC135A00EE00D9 /* SkillListing.swift */; };
@@ -202,6 +203,7 @@
 		9D9CC961234A5B2D005AF278 /* UserEntryValidating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntryValidating.swift; sourceTree = "<group>"; };
 		9D9CC963234A5DA7005AF278 /* ShortFormEntryValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortFormEntryValidator.swift; sourceTree = "<group>"; };
 		9D9CC965234A761E005AF278 /* LongFormEntryValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongFormEntryValidator.swift; sourceTree = "<group>"; };
+		9DB6AD8F234AB3FA0068120C /* UITextField+Done.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Done.swift"; sourceTree = "<group>"; };
 		9DCD370021CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedSkillViewCellModel.swift; sourceTree = "<group>"; };
 		9DCD370421CC105900EE00D9 /* Skill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skill.swift; sourceTree = "<group>"; };
 		9DCD370621CC135A00EE00D9 /* SkillListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillListing.swift; sourceTree = "<group>"; };
@@ -472,6 +474,7 @@
 				9D2CFA0521C593D200EC76D7 /* MarginCreator.swift */,
 				9DFA19F021CE9EE10092A450 /* Notification+Cyberpunk.swift */,
 				9DFA19F221CF1F260092A450 /* JSONFactory.swift */,
+				9DB6AD8F234AB3FA0068120C /* UITextField+Done.swift */,
 			);
 			path = "Foundation Helpers and Extensions";
 			sourceTree = "<group>";
@@ -800,6 +803,7 @@
 				9D85671B230C93C600295479 /* EditorCollectionViewModel+Stats.swift in Sources */,
 				9D0003B121FE493C0044F84A /* LongTextEntryCollectionViewCell.swift in Sources */,
 				9DFE711521BD94FD000561B0 /* Stat.swift in Sources */,
+				9DB6AD90234AB3FA0068120C /* UITextField+Done.swift in Sources */,
 				9DFCB7BA21D298E000F99798 /* SkillTableViewModel.swift in Sources */,
 				9D004E3121D80C5F004DFA4D /* CharacterDescriptionDataSource.swift in Sources */,
 				9D004E2721D5A97D004DFA4D /* ModelManager.swift in Sources */,

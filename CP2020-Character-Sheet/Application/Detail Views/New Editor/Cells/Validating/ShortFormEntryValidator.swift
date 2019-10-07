@@ -69,6 +69,7 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
             cell.textField?.backgroundColor = StyleConstants.Color.gray
         case .Integer:
             cell.textField?.keyboardType = .numberPad
+            cell.textField?.addDoneButtonOnKeyboard()
             fallthrough
         case .EnforcedChoiceText(_):
             if let existingValue = cell.textField?.text {
@@ -101,28 +102,30 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         doneButtonPressed = true
-        textField.endEditing(true)
+        processAccepted(textField)
         return false
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        processAccepted(textField)
+    }
+    
+    func processAccepted(_ textField: UITextField) {
         guard autofills() else {
             self.processEntry(textField)
             return
         }
         
-        if reason == .committed {
-            if doneButtonPressed, let acceptedChoice = textField.attributedText?.string {
-                textField.attributedText = nil
-                partialMatch = nil
-                textField.text = acceptedChoice
-                textField.textColor = StyleConstants.Color.dark
-            }
-            else {
-                textField.attributedText = nil
-                textField.textColor = StyleConstants.Color.dark
-                textField.text = partialMatch
-            }
+        if doneButtonPressed, let acceptedChoice = textField.attributedText?.string {
+            textField.attributedText = nil
+            partialMatch = nil
+            textField.text = acceptedChoice
+            textField.textColor = StyleConstants.Color.dark
+        }
+        else {
+            textField.attributedText = nil
+            textField.textColor = StyleConstants.Color.dark
+            textField.text = partialMatch
         }
         
         self.processEntry(textField)
@@ -300,7 +303,6 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
     
     private func resign() {
          cell.textField?.resignFirstResponder()
-        
     }
      
     private func showWarning() {

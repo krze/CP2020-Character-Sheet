@@ -21,7 +21,13 @@ extension EditorCollectionViewModel {
         stats.forEach { stat, value in
             let identifier = stat.identifier()
             entryTypesForIdentifiers[identifier] = stat.entryType(mode: .free)
-            placeholdersWithIdentifiers[identifier] = String(value)
+            placeholdersWithIdentifiers[identifier] = {
+                if Rules.Stats.validPointRange.contains(value) {
+                    return String(value)
+                }
+                
+                return String("")
+            }()
             descriptionsWithIdentifiers[identifier] = description(for: stat)
         }
         

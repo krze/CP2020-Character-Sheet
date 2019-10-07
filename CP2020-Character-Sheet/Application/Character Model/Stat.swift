@@ -95,7 +95,7 @@ enum Stat: String, Codable, CaseIterable, EntryTypeProvider {
     }
     
     static func enforcedOrder() -> [String] {
-        return allCases.map { $0.identifier() }
+        return allCases.filter({ !$0.isCalulated() }).map { $0.identifier() }
     }
     
     static func linkedStats() -> [Stat] {

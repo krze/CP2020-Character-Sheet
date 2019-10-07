@@ -154,7 +154,6 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
             }
         }
         else {
-            resignLastResponder()
             if let value = value, let autofillSuggestion = delegate?.autofillSuggestion(for: identifier, value: value) {
                 self.autofillSuggestion = autofillSuggestion
                 promptForAutoFill(forMatch: value)
