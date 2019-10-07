@@ -118,7 +118,7 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
         if doneButtonPressed {
             if let potentialMatch = textField.attributedText?.string {
                 textField.attributedText = nil
-                textField.text = potentialMatch
+                textField.text = isEnforced() ? suggestedMatches.first(where: { $0.lowercased() == potentialMatch.lowercased() }) : potentialMatch
                 textField.textColor = StyleConstants.Color.dark
             }
         }
