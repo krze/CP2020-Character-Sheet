@@ -93,7 +93,6 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
     }
     
     func replaceWithSuggestedMatch(_ value: String) {
-        resign()
         cell.textField?.text = value
         validate(userEntry: value)
     }
@@ -119,7 +118,6 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
         if doneButtonPressed {
             if let potentialMatch = textField.attributedText?.string {
                 textField.attributedText = nil
-                partialMatch = nil
                 textField.text = potentialMatch
                 textField.textColor = StyleConstants.Color.dark
             }
@@ -186,7 +184,7 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
 
     private func resetValues() {
         autoCompleteCharacterCount = 0
-        cell.textField?.text = ""
+        partialMatch = nil
     }
 
     private func searchAutocompleteEntries(with userQuery: String) {
@@ -297,6 +295,7 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
         
         if !isEnforced() || isEnforced() && isValid {
             delegate?.entryDidFinishEditing(identifier: identifier, value: userEntry, shouldGetSuggestion: suggestsCompletion(), resignLastResponder: resign)
+            resetValues()
         }
         else {
              showPopup()
