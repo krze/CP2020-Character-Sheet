@@ -116,13 +116,16 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
             return
         }
         
-        if doneButtonPressed, let acceptedChoice = textField.attributedText?.string {
-            textField.attributedText = nil
-            partialMatch = nil
-            textField.text = acceptedChoice
-            textField.textColor = StyleConstants.Color.dark
+        if doneButtonPressed {
+            if let potentialMatch = textField.attributedText?.string,
+                let match = suggestedMatches.first(where: { $0.lowercased().contains(potentialMatch.lowercased())}) {
+                textField.attributedText = nil
+                partialMatch = nil
+                textField.text = match
+                textField.textColor = StyleConstants.Color.dark
+            }
         }
-        else {
+        else if let partialMatch = partialMatch {
             textField.attributedText = nil
             textField.textColor = StyleConstants.Color.dark
             textField.text = partialMatch
@@ -164,7 +167,7 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
             }
         }
 
-        guard let text = textField.text?.capitalized as NSString? else { return false }
+        guard let text = textField.text as NSString? else { return false }
         let subString = format(subString: text.replacingCharacters(in: range, with: string))
         
         if subString.isEmpty {
@@ -178,7 +181,7 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
     // MARK: Private - Autofill Methods
 
     private func format(subString: String) -> String {
-        let formatted = String(subString.dropLast(autoCompleteCharacterCount)).lowercased().capitalized
+        let formatted = String(subString.dropLast(autoCompleteCharacterCount))
         return formatted
     }
 
@@ -198,6 +201,7 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
                 self.moveCaretToEndOfUserQueryPosition(userQuery: userQuery)
             })
         } else {
+            partialMatch = nil
             timer = .scheduledTimer(withTimeInterval: 0.01, repeats: false, block: { (timer) in
                 self.cell.textField?.text = userQuery
             })
@@ -207,7 +211,7 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
 
     private func autocompleteSuggestions(for userText: String) -> [String]{
         return suggestedMatches.filter({ suggestedMatch in
-            if let range = suggestedMatch.range(of: userText) {
+            if let range = suggestedMatch.lowercased().range(of: userText.lowercased()) {
                 return range.lowerBound == suggestedMatch.startIndex
             }
 

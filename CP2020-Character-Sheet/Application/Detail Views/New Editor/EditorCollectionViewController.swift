@@ -127,8 +127,17 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         if let value = value {
             currentValues[identifier] = value
         }
-        
-        let moveToNextField = !shouldGetSuggestion
+               
+        var moveToNextField = true
+
+        if shouldGetSuggestion {
+            if let value = value, let autofillSuggestion = delegate?.autofillSuggestion(for: identifier, value: value) {
+                self.autofillSuggestion = autofillSuggestion
+                promptForAutoFill(forMatch: value)
+                moveToNextField = false
+                return
+            }
+        }
         
         if moveToNextField {
             var currentIdentifier = identifier
@@ -151,12 +160,6 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
                 }
                 resignLastResponder()
                 break
-            }
-        }
-        else {
-            if let value = value, let autofillSuggestion = delegate?.autofillSuggestion(for: identifier, value: value) {
-                self.autofillSuggestion = autofillSuggestion
-                promptForAutoFill(forMatch: value)
             }
         }
         
