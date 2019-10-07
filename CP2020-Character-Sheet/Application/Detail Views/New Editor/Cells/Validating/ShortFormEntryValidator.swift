@@ -122,10 +122,11 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
                 textField.textColor = StyleConstants.Color.dark
             }
         }
-        else if let partialMatch = partialMatch {
+        else if let partialMatch = partialMatch,
+            let existingText = textField.text {
             textField.attributedText = nil
             textField.textColor = StyleConstants.Color.dark
-            textField.text = partialMatch
+            textField.text = partialMatch.count > existingText.count ? partialMatch : suggestedMatches.first(where: { $0.lowercased() == existingText.lowercased() })
         }
         
         self.processEntry(textField)
