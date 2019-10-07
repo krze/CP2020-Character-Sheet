@@ -33,11 +33,6 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     
     private var autofillSuggestion: [Identifier: String]?
     
-    // NEXT: Investigate consolodating the entry fields validation into a different class that is a UITextFieldDelegate.
-    // - Make a container that holds all the validators and can summarize the contents to validate against the datasource
-    // - Let the validator talk to the DataSource for the editor
-    // - Once a Validator/DataSource bridge is established, use that bridge to autofill skill into the editor
-    
     init(with viewModel: EditorCollectionViewModel) {
         self.enforcedOrder = viewModel.enforcedOrder
         self.placeholderValues = viewModel.placeholdersWithIdentifiers ?? [Identifier: String]()

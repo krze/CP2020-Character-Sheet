@@ -32,6 +32,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
         collectionView.register(HighlightedSkillViewCell.self,
                                 forCellWithReuseIdentifier: CharacterSheetSections.Skill.cellReuseID())
 
+        // NEXT: Add the armor track
 
     }
     
