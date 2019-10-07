@@ -117,11 +117,10 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
         }
         
         if doneButtonPressed {
-            if let potentialMatch = textField.attributedText?.string,
-                let match = suggestedMatches.first(where: { $0.lowercased().contains(potentialMatch.lowercased())}) {
+            if let potentialMatch = textField.attributedText?.string {
                 textField.attributedText = nil
                 partialMatch = nil
-                textField.text = match
+                textField.text = potentialMatch
                 textField.textColor = StyleConstants.Color.dark
             }
         }
@@ -316,7 +315,6 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
 
     private func hideWarning() {
          cell.textField?.backgroundColor = StyleConstants.Color.light
-        
     }
      
     private func validate(userEntry: String) {
