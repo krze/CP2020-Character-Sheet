@@ -13,6 +13,45 @@ struct Rules {
     
     typealias CharacterStats = CP2020_Character_Sheet.Stats
     
+    struct WornArmor {
+        static let maxLayersPerLocation = 3
+        static let maxHardArmorPerLocation = 1
+        
+        /// Checks the armor to see if you exceed the maximum number of layers per location
+        /// - Parameter armor: The armor that needs inspecting
+        static func locationsExceedMaxLayers(_ armor: [Armor]) -> [BodyLocation: Int] {
+            var violatingLocations = [BodyLocation: Int]()
+            BodyLocation.allCases.forEach { location in
+                let armorCount = armor.filter({
+                    $0.locations.contains(location)
+                }).count
+                
+                if armorCount > maxLayersPerLocation {
+                    violatingLocations[location] = armorCount
+                }
+            }
+            
+            return violatingLocations
+        }
+        
+        /// Checks the armor to see if you exceed the maximum number of hard armor per location
+        /// - Parameter armor: The armor that needs inspecting
+        static func locationExceedsMaxHardArmor(_ armor: [Armor]) -> [BodyLocation: Int] {
+            var violatingLocations = [BodyLocation: Int]()
+            BodyLocation.allCases.forEach { location in
+                let hardCount = armor.filter({
+                    $0.locations.contains(location) && $0.type == .Hard
+                }).count
+                
+                if hardCount > maxHardArmorPerLocation {
+                    violatingLocations[location] = hardCount
+                }
+            }
+            
+            return violatingLocations
+        }
+    }
+    
     struct Skills {
         /// The range of valid points a skill can be contained within
         static let validPointRange = 0...10
