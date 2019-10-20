@@ -34,6 +34,19 @@ struct StatModifier: Modifying {
     
     /// If this modifier is related to damage taken, set this to true.
     let damageRelated: Bool
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(stat)
+        hasher.combine(amount)
+        hasher.combine(source)
+        hasher.combine(description)
+        hasher.combine(dismissable)
+        hasher.combine(damageRelated)
+    }
+    
+    static func == (lhs: StatModifier, rhs: StatModifier) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
 }
 
 /// Used to modify a skill
