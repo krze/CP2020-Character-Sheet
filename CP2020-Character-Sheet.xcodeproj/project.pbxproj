@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		64157CB92378A9AF00667FB0 /* ArmorViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64157CB82378A9AF00667FB0 /* ArmorViewCell.swift */; };
+		64157CBC2378AA6F00667FB0 /* ArmorDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64157CBB2378AA6F00667FB0 /* ArmorDataSourceDelegate.swift */; };
+		64157CBE2378AC2F00667FB0 /* ArmorDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64157CBD2378AC2F00667FB0 /* ArmorDataSource.swift */; };
+		64157CC12378ACC400667FB0 /* ArmorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64157CC02378ACC400667FB0 /* ArmorViewModel.swift */; };
 		9D0003A221F4FD080044F84A /* SkillField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0003A121F4FD080044F84A /* SkillField.swift */; };
 		9D0003A421FE46000044F84A /* EditorCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0003A321FE46000044F84A /* EditorCollectionViewController.swift */; };
 		9D0003A921FE479D0044F84A /* UserEntryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0003A821FE479D0044F84A /* UserEntryCollectionViewCell.swift */; };
@@ -131,6 +135,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		64157CB82378A9AF00667FB0 /* ArmorViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmorViewCell.swift; sourceTree = "<group>"; };
+		64157CBB2378AA6F00667FB0 /* ArmorDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmorDataSourceDelegate.swift; sourceTree = "<group>"; };
+		64157CBD2378AC2F00667FB0 /* ArmorDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmorDataSource.swift; sourceTree = "<group>"; };
+		64157CC02378ACC400667FB0 /* ArmorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmorViewModel.swift; sourceTree = "<group>"; };
 		9D0003A121F4FD080044F84A /* SkillField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillField.swift; sourceTree = "<group>"; };
 		9D0003A321FE46000044F84A /* EditorCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCollectionViewController.swift; sourceTree = "<group>"; };
 		9D0003A821FE479D0044F84A /* UserEntryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -268,6 +276,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		64157CBA2378A9EE00667FB0 /* Armor View */ = {
+			isa = PBXGroup;
+			children = (
+				64157CBF2378ACB500667FB0 /* Data Source */,
+				64157CB82378A9AF00667FB0 /* ArmorViewCell.swift */,
+				64157CC02378ACC400667FB0 /* ArmorViewModel.swift */,
+			);
+			path = "Armor View";
+			sourceTree = "<group>";
+		};
+		64157CBF2378ACB500667FB0 /* Data Source */ = {
+			isa = PBXGroup;
+			children = (
+				64157CBD2378AC2F00667FB0 /* ArmorDataSource.swift */,
+				64157CBB2378AA6F00667FB0 /* ArmorDataSourceDelegate.swift */,
+			);
+			path = "Data Source";
+			sourceTree = "<group>";
+		};
 		9D0003B921FE5FA30044F84A /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -428,6 +455,7 @@
 				9D5C1F2B21A06CE700B3D493 /* CharacterSheetViewController.swift */,
 				9DE335A221A9EA7C00180927 /* Character Description View */,
 				9DE3359F21A9EA4500180927 /* Stats View */,
+				64157CBA2378A9EE00667FB0 /* Armor View */,
 				9DE3359C21A9EA0A00180927 /* Damage Modifier View */,
 				9D5C1F5F21A07E4900B3D493 /* Damage View */,
 				9DE335A821A9EB6800180927 /* Highlighted Skill View */,
@@ -785,9 +813,11 @@
 				9D004E2D21D6E37C004DFA4D /* PrinterPaperViewModel.swift in Sources */,
 				9DCD370B21CC239B00EE00D9 /* SkillTableViewController.swift in Sources */,
 				9DFE711721BDA18B000561B0 /* StatsViewCellModel.swift in Sources */,
+				64157CBC2378AA6F00667FB0 /* ArmorDataSourceDelegate.swift in Sources */,
 				9DFE711321BD933A000561B0 /* StatViewModel.swift in Sources */,
 				9DFA19F121CE9EE10092A450 /* Notification+Cyberpunk.swift in Sources */,
 				9DFCB7BE21D5156A00F99798 /* ModelReceiver.swift in Sources */,
+				64157CB92378A9AF00667FB0 /* ArmorViewCell.swift in Sources */,
 				9D2CFA0821C59B9400EC76D7 /* RoleView.swift in Sources */,
 				9D552CF221AB0E69008B90E9 /* StyleConstants.swift in Sources */,
 				9DFCB7BC21D5121A00F99798 /* CharacterSheetFileHandler.swift in Sources */,
@@ -804,6 +834,7 @@
 				9D0003A421FE46000044F84A /* EditorCollectionViewController.swift in Sources */,
 				9D0003A221F4FD080044F84A /* SkillField.swift in Sources */,
 				9D552CFC21ACE775008B90E9 /* UIFont+BestFit.swift in Sources */,
+				64157CBE2378AC2F00667FB0 /* ArmorDataSource.swift in Sources */,
 				9D9CC9532341411C005AF278 /* DamageCell.swift in Sources */,
 				9DCD370521CC105900EE00D9 /* Skill.swift in Sources */,
 				9DCD370121CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift in Sources */,
@@ -821,6 +852,7 @@
 				9D85671B230C93C600295479 /* EditorCollectionViewModel+Stats.swift in Sources */,
 				9D0003B121FE493C0044F84A /* LongTextEntryCollectionViewCell.swift in Sources */,
 				9DFE711521BD94FD000561B0 /* Stat.swift in Sources */,
+				64157CC12378ACC400667FB0 /* ArmorViewModel.swift in Sources */,
 				9DB6AD90234AB3FA0068120C /* UITextField+Done.swift in Sources */,
 				9DFCB7BA21D298E000F99798 /* SkillTableViewModel.swift in Sources */,
 				9D004E3121D80C5F004DFA4D /* CharacterDescriptionDataSource.swift in Sources */,

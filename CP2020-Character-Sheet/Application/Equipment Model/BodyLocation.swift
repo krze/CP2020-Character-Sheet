@@ -10,6 +10,16 @@ import Foundation
 
 enum BodyLocation: String, CaseIterable, Codable {
     case Head, Torso, LeftArm, RightArm, LeftLeg, RightLeg
+
+    func labelText() -> String {
+        switch self {
+        case .LeftArm: return "Left Arm"
+        case .RightArm: return "Right Arm"
+        case .LeftLeg: return "Left Leg"
+        case .RightLeg: return "Right Leg"
+        default: return rawValue
+        }
+    }
 }
 
 /// A set of body locations that represent a single piece of armor
