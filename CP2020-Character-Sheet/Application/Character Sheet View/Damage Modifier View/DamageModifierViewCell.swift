@@ -50,7 +50,8 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
             let frame = CGRect(x: x, y: contentView.layoutMarginsGuide.layoutFrame.minY,
                                width: subviewWidth, height: subviewHeight)
             
-            let view = self.cell(frame: frame, labelHeightRatio: viewModel.labelHeightRatio, labelType: label)
+            let view = CommonEntryConstructor.simpleHeaderValueCell(frame: frame, labelHeightRatio: viewModel.labelHeightRatio, headerText: label.labelText())
+            view.valueLabel.text = viewModel.placeholderValue
             let cell = view.wholeView
             cells[label] = view.valueLabel
             
@@ -115,53 +116,6 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
         // TODO: Test cell re-use and see if it needs anything here
     }
     
-    private func cell(frame: CGRect, labelHeightRatio: CGFloat, labelType: Label) -> (wholeView: UIView, valueLabel: UILabel) {
-        let cell = UIView(frame: frame)
-        cell.translatesAutoresizingMaskIntoConstraints = false
-        let containerFrame = CGRect(x: 0.0, y: 0.0, width: frame.width, height: frame.height * labelHeightRatio)
-        let insets = NSDirectionalEdgeInsets(top: frame.height * StyleConstants.SizeConstants.textPaddingRatio,
-                                             leading: frame.width * StyleConstants.SizeConstants.textPaddingRatio,
-                                             bottom: frame.height * StyleConstants.SizeConstants.textPaddingRatio,
-                                             trailing: frame.width * StyleConstants.SizeConstants.textPaddingRatio)
-        // Quick function to make this work better with the label container
-        func makeLabel(frame: CGRect) -> UILabel {
-            return sectionLabel(frame: frame, text: labelType.labelText())
-        }
-        
-        let labelContainer = UILabel.container(frame: containerFrame,
-                                               margins: insets,
-                                               backgroundColor: StyleConstants.Color.dark,
-                                               borderColor: nil,
-                                               borderWidth: nil,
-                                               labelMaker: makeLabel)
-        
-        cell.addSubview(labelContainer.container)
-        
-        NSLayoutConstraint.activate([
-            labelContainer.container.leadingAnchor.constraint(equalTo: cell.leadingAnchor),
-            labelContainer.container.topAnchor.constraint(equalTo: cell.topAnchor),
-            labelContainer.container.widthAnchor.constraint(equalToConstant: containerFrame.width),
-            labelContainer.container.heightAnchor.constraint(equalToConstant: containerFrame.height)
-            ])
-        
-                
-        let valueLabelRatio = 1.0 - labelHeightRatio
-        let valueLabelFrame = CGRect(x: 0.0, y: labelContainer.container.frame.height,
-                                     width: frame.width, height: frame.height * valueLabelRatio)
-        let valueLabel = self.valueLabel(frame: valueLabelFrame)
-        
-        cell.addSubview(valueLabel)
-        
-        NSLayoutConstraint.activate([
-            valueLabel.leadingAnchor.constraint(equalTo: cell.leadingAnchor),
-            valueLabel.topAnchor.constraint(equalTo: labelContainer.container.bottomAnchor),
-            valueLabel.widthAnchor.constraint(equalToConstant: valueLabelFrame.width),
-            valueLabel.heightAnchor.constraint(equalToConstant: valueLabelFrame.height)
-            ])
-        
-        return (cell, valueLabel)
-    }
-    
     private func sectionLabel(frame: CGRect, text: String) -> UILabel {
         let label = UILabel(frame: frame)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -175,24 +129,6 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
         label.textAlignment = .center
         label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
         
-        return label
-    }
-    
-    private func valueLabel(frame: CGRect) -> UILabel {
-        let label = UILabel(frame: frame)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.5
-
-        label.text = model?.placeholderValue
-        label.font = StyleConstants.Font.defaultBold
-        label.textColor = StyleConstants.Color.dark
-        label.backgroundColor = StyleConstants.Color.light
-        label.layer.borderColor = StyleConstants.Color.dark.cgColor
-        label.layer.borderWidth = StyleConstants.SizeConstants.borderWidth
-        label.textAlignment = .center
-        label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
-                
         return label
     }
     
