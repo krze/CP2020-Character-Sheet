@@ -75,23 +75,32 @@ final class EquippedArmor: Codable {
         
         return sps
     }
-    
+
+    /// Iterates through all the armor on the person and ensures the penalty for extra encumberance is enforced for too many layers
     private func updateEncumberance() {
-        guard order.keys.count > 1 else { return }
-        
-        var encumberance = 0
-        var currentLayer = 0
-        
-        while let thisLayer = order[currentLayer], let nextLayer = order[currentLayer + 1] {
-            if thisLayer.encumbersWhenLayered() && nextLayer.encumbersWhenLayered(),
-                thisLayer.locations.overlaps(nextLayer.locations){
-                encumberance += 1
+        guard !armor.isEmpty else { return }
+        var mutableArmor = armor
+        var encumberingArmor = Set<Armor>()
+
+        while !mutableArmor.isEmpty {
+            // Pluck off each piece of armor and compare it to the rest.
+            let thisArmor = mutableArmor.removeFirst()
+            for otherArmorPeice in mutableArmor {
+
+                // If the armor being examined happens to overlap another piece, and it encumbers when layered, add it to the encumbering list
+                if thisArmor.locations.overlaps(otherArmorPeice.locations) &&
+                    thisArmor.encumbersWhenLayered() &&
+                    otherArmorPeice.encumbersWhenLayered() {
+
+                    // This is a set so it doesn't duplicate pieces. For example: If you're wearing a bulky flak jacket, a 5 sps t-shirt,
+                    // and a skinweave, you should only count the layered encumberance once for the flak jacket. You don't double-penalize.
+                    encumberingArmor.insert(thisArmor)
+                    break // break just to be sure we don't overdo this. This is extra safety but better safe than sorry.
+                }
             }
-            
-            currentLayer += 1
         }
-        
-        self.layeredEncumberance = encumberance
+
+        self.layeredEncumberance = encumberingArmor.count
     }
     
 }

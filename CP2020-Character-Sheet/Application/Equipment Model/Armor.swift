@@ -36,7 +36,7 @@ enum ArmorZone: Int, CaseIterable, Codable {
     }
 }
 
-final class Armor: Codable {
+final class Armor: Codable, Hashable {
     
     let name: String
     let locations: [BodyLocation]
@@ -75,5 +75,19 @@ final class Armor: Codable {
         self.zone = zone
         self.locations = locations
     }
-    
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(locations)
+        hasher.combine(zone)
+        hasher.combine(type)
+        hasher.combine(sps)
+        hasher.combine(ev)
+    }
+
+
+    static func == (lhs: Armor, rhs: Armor) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+
 }
