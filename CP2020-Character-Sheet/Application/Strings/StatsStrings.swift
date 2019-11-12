@@ -21,4 +21,7 @@ struct StatsStrings {
     static let bodyDescription = "The Body level of the character. Supports skills that depend on raw strength, determines how easily stunned you are, and reduces the amount of damage you take from attacks via the Body Type Modifier."
     static let reputationDescription = "The Reputation level of the character. This factors into Face-Offs and whether the character is recognized in a face-to-face situation."
     
+    static let humanityLossIdentifier = "Humanity Loss"
+    static let humanityLossDescription = "Your humanity loss from Cybernetic implants, or other potential sources. This should be a positive value, as it is subtracted from your humanity pool."
+    
 }

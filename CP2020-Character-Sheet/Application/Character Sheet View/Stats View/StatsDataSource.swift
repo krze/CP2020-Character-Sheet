@@ -37,7 +37,7 @@ final class StatsDataSource: NSObject, EditorValueReciever {
                           emp: values.statPoint(for: Stat.Empathy.identifier()) ?? statsModel.value(for: Stat.Empathy).baseValue,
                           rep: values.statPoint(for: Stat.Reputation.identifier()) ?? statsModel.value(for: Stat.Reputation).baseValue)
         
-        statsModel.set(baseStats: stats, humanityLoss: values.statPoint(for: "HU. LOSS") ?? statsModel.humanityLoss, validationCompletion: completion)
+        statsModel.set(baseStats: stats, humanityLoss: values.statPoint(for: StatsStrings.humanityLossIdentifier) ?? statsModel.humanityLoss, validationCompletion: completion)
     }
     
     func refreshData() {

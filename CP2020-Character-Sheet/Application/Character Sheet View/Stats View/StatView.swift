@@ -11,7 +11,6 @@ import UIKit
 /// A view containing a stat and its current value
 final class StatView: UIView {
     private let model: StatViewModel
-    private let divider = " / "
     
     private var statNameLabel: UILabel?
     private var valueLabel: UILabel?

@@ -46,6 +46,8 @@ final class Edgerunner: Codable, EditableModel {
     /// The humanity deficit incurred by Cyberware
     private(set) var humanityLoss: Int
     
+    // MARK: Modifiers
+
     /// Collection of stat modifiers
     private(set) var statModifiers = [StatModifier]()
     

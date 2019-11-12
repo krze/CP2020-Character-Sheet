@@ -13,7 +13,7 @@ typealias StatsWithBaseValues = [Stat: Int]
 
 extension EditorCollectionViewModel {
     
-    static func make(with stats: StatsWithBaseValues) -> EditorCollectionViewModel {
+    static func make(with stats: StatsWithBaseValues, humanityLossPlaceholder: String) -> EditorCollectionViewModel {
         var entryTypesForIdentifiers = [Identifier: EntryType]()
         var placeholdersWithIdentifiers = [Identifier: String]()
         var descriptionsWithIdentifiers = [Identifier: String]()
@@ -31,7 +31,15 @@ extension EditorCollectionViewModel {
             descriptionsWithIdentifiers[identifier] = description(for: stat)
         }
         
-        return EditorCollectionViewModel(layout: .editorDefault(), entryTypesForIdentifiers: entryTypesForIdentifiers, placeholdersWithIdentifiers: placeholdersWithIdentifiers, descriptionsWithIdentifiers: descriptionsWithIdentifiers, enforcedOrder: Stat.enforcedOrder(), mode: .free)
+        let humanityLoss = StatsStrings.humanityLossIdentifier
+        entryTypesForIdentifiers[humanityLoss] = .Integer
+        placeholdersWithIdentifiers[humanityLoss] = humanityLossPlaceholder
+        descriptionsWithIdentifiers[humanityLoss] = StatsStrings.humanityLossDescription
+        var enforcedOrder = Stat.enforcedOrder()
+        
+        enforcedOrder.append(humanityLoss)
+        
+        return EditorCollectionViewModel(layout: .editorDefault(), entryTypesForIdentifiers: entryTypesForIdentifiers, placeholdersWithIdentifiers: placeholdersWithIdentifiers, descriptionsWithIdentifiers: descriptionsWithIdentifiers, enforcedOrder: enforcedOrder, mode: .free)
     }
     
     private static func description(for stat: Stat) -> String {

@@ -134,8 +134,14 @@ final class StatsViewCell: UICollectionViewCell, StatsDataSourceDelegate, UsedOn
                 stats[statView.stat] = statView.baseValue
                 return stats
             })
-            
-            let model = EditorCollectionViewModel.make(with: stats)
+            let humanityLossPlaceholder: String = {
+                if let humanityLoss = self.dataSource?.humanityLoss {
+                    return String(humanityLoss)
+                }
+                
+                return ""
+            }()
+            let model = EditorCollectionViewModel.make(with: stats, humanityLossPlaceholder: humanityLossPlaceholder)
             let viewController = EditorCollectionViewController(with: model)
             viewController.delegate = self.dataSource
             NotificationCenter.default.post(name: .showEditor, object: viewController)
