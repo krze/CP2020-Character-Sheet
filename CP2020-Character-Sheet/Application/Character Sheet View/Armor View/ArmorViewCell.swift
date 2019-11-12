@@ -30,23 +30,13 @@ final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOn
 
         let damageModifierCellLabels = BodyLocation.allCases.map { $0 }
         let subviewTotalWidth = contentView.layoutMarginsGuide.layoutFrame.width
-        let paddingWidth = viewModel.paddingRatio * subviewTotalWidth
-        let subviewWidth: CGFloat = {
-            let presetWidth = subviewTotalWidth * viewModel.cellWidthRatio
-
-            let totalInbetweenSpacingWidth = CGFloat(damageModifierCellLabels.count - 1) * paddingWidth
-            let availableWidth = subviewTotalWidth - totalInbetweenSpacingWidth
-            let calculatedWidth = availableWidth / CGFloat(damageModifierCellLabels.count)
-
-            return calculatedWidth > presetWidth ? calculatedWidth : presetWidth
-        }()
+        let subviewWidth: CGFloat = subviewTotalWidth * viewModel.cellWidthRatio
         let subviewHeight = contentView.layoutMarginsGuide.layoutFrame.height * viewModel.cellHeightRatio
         var leadingAnchor = contentView.layoutMarginsGuide.leadingAnchor
 
         damageModifierCellLabels.enumerated().forEach { index, label in
-            let x = contentView.layoutMarginsGuide.layoutFrame.minX + (subviewWidth * CGFloat(index)) + (paddingWidth * CGFloat(index))
-            let frame = CGRect(x: x, y: contentView.layoutMarginsGuide.layoutFrame.minY,
-                               width: subviewWidth, height: subviewHeight)
+            let size = CGSize(width: subviewWidth, height: subviewHeight)
+            let frame = CGRect(origin: .zero, size: size)
 
             let view = CommonEntryConstructor.simpleHeaderValueCell(frame: frame, labelHeightRatio: viewModel.labelHeightRatio, headerText: label.labelText())
             view.valueLabel.text = viewModel.placeholderValue
@@ -55,10 +45,8 @@ final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOn
 
             contentView.addSubview(cell)
 
-            let constantPadding = index > 0 ? paddingWidth : 0
-
             NSLayoutConstraint.activate([
-                cell.leadingAnchor.constraint(equalTo: leadingAnchor, constant: constantPadding),
+                cell.leadingAnchor.constraint(equalTo: leadingAnchor),
                 cell.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
                 cell.widthAnchor.constraint(equalToConstant: frame.width),
                 cell.heightAnchor.constraint(equalToConstant: frame.height)
