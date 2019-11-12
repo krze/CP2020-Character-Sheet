@@ -11,47 +11,19 @@ import Foundation
 /// Contains a model for the armor equipped by the player
 final class EquippedArmor: Codable {
     
-    /// All armor worn
+    /// All armor on the character
     private(set) var armor = [Armor]()
-    /// Encumbrance penalty induced by layered armor
-    private(set) var layeredEncumberance = 0
     
-    /// The ordering of armor worn
-    private var order = [Int: Armor]()
+    /// Total EV penalty from armor and layered encumberance
+    private(set) var encumberancePenalty = 0
     
-    /// Equips the armor, inserting it in the correct location first by ArmorZone, then by SPS value.
-    /// This layering order determines the final SPS per location based on the layered armor rules.
-    ///
-    /// - Parameter armor: The new armor to equip
-    func equip(_ armor: Armor) {
-        self.armor.append(armor)
-
-        var mutableOrder = [Int: Armor]()
-        var currentLayer = 0
-        var zones = ArmorZone.allCases
-        
-        // Order the armor by layers from inside to out
-        
-        while !zones.isEmpty {
-            let zone = zones.removeFirst()
-            var armorInZone = self.armor.filter { $0.zone == zone }
-            if armor.zone == zone {
-                armorInZone.append(armor)
-            }
-            
-            armorInZone.sort(by: { $0.sps > $1.sps })
-            armorInZone.forEach { armor in
-                mutableOrder[currentLayer] = armor
-                currentLayer += 1
-            }
-        }
-        
-        order = mutableOrder
+    /// The ordering of armor worn. This is from the most internal ArmorZone outward. Within each zone, armor is sorted
+    /// by greatest to least SPS value.
+    private(set) var order = [Int: Armor]()
+    
+    /// When EquippedArmor is created, the encumberance value is updated.
+    init() {
         updateEncumberance()
-    }
-    
-    func currentEV() -> Int {
-        layeredEncumberance + armor.reduce(0) { $0 + $1.ev }
     }
     
     /// Returns the SPS value for the body part location, based on the New Armor Rules
@@ -75,15 +47,66 @@ final class EquippedArmor: Codable {
         
         return sps
     }
+    
+    /// Equips the armor specified.
+    ///
+    /// - Parameter armor: The new armor to equip
+    func equip(_ armor: Armor) {
+        modifyArmorZones(.adding, armor)
+        self.armor.append(armor)
+        updateEncumberance()
+    }
+    
+    /// Removes the armor specified.
+    ///
+    /// - Parameter armor: The armor to remove
+    func remove(_ armor: Armor) {
+        modifyArmorZones(.removing, armor)
+        self.armor.removeAll(where: { $0 == armor})
+        updateEncumberance()
+    }
+    
+    /// Modifies the sorted armor zones
+    /// - Parameters:
+    ///   - process: The specified process of either adding or removing
+    ///   - armor: The armor under process
+    private func modifyArmorZones(_ process: Process, _ armor: Armor) {
+        var mutableOrder = [Int: Armor]()
+        var currentLayer = 0
+        var zones = ArmorZone.allCases
+        
+        // Order the armor by layers from inside to out
+        
+        while !zones.isEmpty {
+            let zone = zones.removeFirst()
+            var armorInZone = self.armor.filter { $0.zone == zone }
+            if armor.zone == zone {
+                process == .adding ? armorInZone.append(armor) : armorInZone.removeAll(where: { $0 == armor})
+            }
+            
+            armorInZone.sort(by: { $0.sps > $1.sps })
+            armorInZone.forEach { armor in
+                mutableOrder[currentLayer] = armor
+                currentLayer += 1
+            }
+        }
+        order = mutableOrder
+    }
+    /// Coalesces all the armor's inherent EV penalty on the character.
+    func armorEncumberancePenalty() -> Int {
+        armor.reduce(0) { $0 + $1.ev }
+    }
 
-    /// Iterates through all the armor on the person and ensures the penalty for extra encumberance is enforced for too many layers
-    private func updateEncumberance() {
-        guard !armor.isEmpty else { return }
+    /// Iterates through all the armor on the person and reports the encumberance penalty from wearing too many layers
+    func layeredArmorEncumberancePenalty() -> Int {
+        guard !armor.isEmpty else { return 0 }
         var mutableArmor = armor
-        var encumberingArmor = Set<Armor>()
+        var encumberingArmor = [Armor]()
 
         while !mutableArmor.isEmpty {
-            // Pluck off each piece of armor and compare it to the rest.
+            // Pluck off each piece of armor and compare it to the rest. This is so it doesn't count the same piece twice.
+            // For example: If you're wearing a bulky flak jacket, a 5 sps t-shirt, and a skinweave, you should only count
+            // the layered encumberance once for the flak jacket. You don't double-penalize.
             let thisArmor = mutableArmor.removeFirst()
             for otherArmorPeice in mutableArmor {
 
@@ -91,16 +114,21 @@ final class EquippedArmor: Codable {
                 if thisArmor.locations.overlaps(otherArmorPeice.locations) &&
                     thisArmor.encumbersWhenLayered() &&
                     otherArmorPeice.encumbersWhenLayered() {
-
-                    // This is a set so it doesn't duplicate pieces. For example: If you're wearing a bulky flak jacket, a 5 sps t-shirt,
-                    // and a skinweave, you should only count the layered encumberance once for the flak jacket. You don't double-penalize.
-                    encumberingArmor.insert(thisArmor)
+                    encumberingArmor.append(thisArmor)
                     break // break just to be sure we don't overdo this. This is extra safety but better safe than sorry.
                 }
             }
         }
 
-        self.layeredEncumberance = encumberingArmor.count
+        return -encumberingArmor.count
+    }
+    
+    private func updateEncumberance() {
+        encumberancePenalty = armorEncumberancePenalty() + layeredArmorEncumberancePenalty()
+    }
+    
+    private enum Process {
+        case adding, removing
     }
     
 }
