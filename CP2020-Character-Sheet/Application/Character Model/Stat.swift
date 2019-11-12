@@ -79,12 +79,7 @@ enum Stat: String, Codable, CaseIterable, EntryTypeProvider {
     // MARK: EntryTypeProvider
     
     func identifier() -> Identifier {
-        switch self.rawValue {
-        case let string where string.count > 8:
-            return abbreviation()
-        default:
-            return rawValue.uppercased()
-        }
+        return plainText()
     }
     
     func entryType(mode: EditorMode) -> EntryType {
