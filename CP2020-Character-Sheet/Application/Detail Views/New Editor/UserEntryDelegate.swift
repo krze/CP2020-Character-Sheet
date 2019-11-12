@@ -10,6 +10,9 @@ import UIKit
 
 protocol UserEntryDelegate: class {
     
+    /// Signals that the user changed a value
+    func userBeganEditing()
+    
     /// Signals that cell's entry has finished editing
     ///
     /// - Parameters:

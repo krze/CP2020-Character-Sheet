@@ -16,7 +16,6 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     private let entryTypes: [Identifier: EntryType]
     private let placeholderValues: [Identifier: String]
     private let descriptions: [Identifier: String]
-    private var fieldValidity = [Identifier: Bool]()
     private let paddingRatio: CGFloat
     
     private var validators = [UserEntryValidating]()
@@ -24,14 +23,11 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     private weak var saveButton: UIBarButtonItem?
     
     private var valuesChanged = false
-    private var currentValues = [Identifier: String]() {
-        didSet {
-            valuesChanged = true
-            saveButton?.isEnabled = true
-        }
-    }
+    private var currentValues = [Identifier: String]()
     
     private var autofillSuggestion: [Identifier: String]?
+    
+    private var saving = false
     
     init(with viewModel: EditorCollectionViewModel) {
         self.enforcedOrder = viewModel.enforcedOrder
@@ -106,7 +102,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
             validator.delegate = self
         }
         
-        fieldValidity[identifier] = (cell as? UserEntryValidating)?.isValid
+        currentValues[identifier] = value
         return cell
     }
     
@@ -116,12 +112,24 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         return UIModalPresentationStyle.none
     }
     
-    // MARK: UserEntryViewDelegate
+    // MARK: UserEntryDelegate
+    
+    func userBeganEditing() {
+        saveButton?.isEnabled = true
+    }
     
     func entryDidFinishEditing(identifier: Identifier, value: String?, shouldGetSuggestion: Bool, resignLastResponder: () -> Void) {
         if let value = value {
+            if let currentValue = currentValues[identifier],
+                currentValue == value {
+                return
+            }
+            
             currentValues[identifier] = value
+            valuesChanged = true
         }
+        
+        guard !saving else { return }
                
         var moveToNextField = true
 
@@ -188,14 +196,22 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     }
     
     @objc private func save() {
-        let allValid = !fieldValidity.contains(where: { $1 == false })
+        defer { saving = false }
+        saving = true
+        
+        NotificationCenter.default.post(name: .saveWasCalled, object: nil)
+    
         validators.forEach { validator in
             currentValues[validator.identifier] = validator.currentValue
         }
-        NotificationCenter.default.post(name: .saveWasCalled, object: nil)
         
+        if let invalidState = validators.first(where: { !$0.isValid }) {
+            invalidState.forceWarning()
+            return
+        }
+                
         // TODO: Fix how we track valuesChanged, it's a bit sloppy. Make a differ instead.
-        if allValid && valuesChanged {
+        if valuesChanged {
             self.delegate?.valuesFromEditorDidChange(currentValues, validationCompletion: dismissOrWarn)
         }
         else {

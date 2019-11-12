@@ -54,6 +54,10 @@ final class LongFormEntryValidator: NSObject, UserEntryValidating, UITextViewDel
         return false
     }
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        delegate?.userBeganEditing()
+    }
+    
     func textViewDidEndEditing(_ textField: UITextView) {
         guard let enteredValue = textField.text else { return }
         delegate?.entryDidFinishEditing(identifier: identifier, value: enteredValue, shouldGetSuggestion: false, resignLastResponder: resign)
@@ -66,5 +70,8 @@ final class LongFormEntryValidator: NSObject, UserEntryValidating, UITextViewDel
     private func resign() {
         cell.textView?.resignFirstResponder()
     }
+    
+    /// LongFormEntry views are not validated, so this does nothing
+    func forceWarning() {}
     
 }

@@ -17,11 +17,18 @@ protocol UserEntryValidating {
     var currentValue: String? { get }
     
     var delegate: UserEntryDelegate? { get set }
-        
+    
+    /// Makes the user entry field the first responder
     func makeFirstResponder()
     
+    /// Used to indicate save was called
     func saveWasCalled()
     
+    /// Replaces the editable field's content with the given string
+    /// - Parameter value: The new value
     func replaceWithSuggestedMatch(_ value: String)
+    
+    /// Forces a warning to appear
+    func forceWarning()
     
 }

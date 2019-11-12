@@ -44,7 +44,6 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
         }
     }
     
-    // DON'T READ FROM ME I DO NOT EXIST
     private var consumedDoneButtonState = false
     
     init(with cell: ShortFormEntryCollectionViewCell, type: EntryType, suggestedMatches: [String] = [String]()) {
@@ -97,6 +96,10 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
         validate(userEntry: value)
     }
     
+    func forceWarning() {
+        showPopup()
+    }
+    
     // MARK: UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -134,6 +137,7 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         hideWarning()
+        delegate?.userBeganEditing()
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
