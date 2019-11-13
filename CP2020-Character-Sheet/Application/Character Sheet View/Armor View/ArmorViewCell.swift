@@ -61,7 +61,7 @@ final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOn
     func armorDidChange(_ armor: [Armor]) {}
     
     func update(dataSource: ArmorDataSource) {
-        dataSource = armorDataSource
-        dataSource?.refreshData()
+        self.dataSource = dataSource
+        self.dataSource?.refreshData()
     }
 }

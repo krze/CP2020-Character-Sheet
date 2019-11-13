@@ -10,4 +10,7 @@ import Foundation
 
 protocol ArmorModel {
     
+    /// Contains and manages equipped armor. If a character has no armor, this will be nil
+    var equippedArmor: EquippedArmor { get }
+    
 }

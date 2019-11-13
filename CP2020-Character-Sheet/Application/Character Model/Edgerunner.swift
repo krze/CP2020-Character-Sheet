@@ -46,7 +46,7 @@ final class Edgerunner: Codable, EditableModel {
     /// The humanity deficit incurred by Cyberware
     private(set) var humanityLoss: Int
     
-    private(set) var equippedArmor: EquippedArmor?
+    private(set) var equippedArmor = EquippedArmor()
 
     // MARK: Modifiers
 
@@ -75,7 +75,7 @@ final class Edgerunner: Codable, EditableModel {
         save = baseStats.body
         bodyType = BodyType.from(bodyPointValue: baseStats.body)
         btm = bodyType.btm()
-        
+        equippedArmor = EquippedArmor()
         self.skills = [SkillListing]() // This is necessary so we can set it on the next line and preserve this class as Codable.
         self.skills = skills.map({ SkillListing(skill: $0, points: 0, modifier: 0, statModifier: value(for: $0.linkedStat).displayValue)})
     }
@@ -271,4 +271,36 @@ final class Edgerunner: Codable, EditableModel {
         NotificationCenter.default.post(name: .saveToDiskRequested, object: JSONData)
     }
     
+    // MARK: Codable Initializer
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        handle = try container.decode(String.self, forKey: .handle)
+        
+        baseStats = try container.decode(Stats.self, forKey: .baseStats)
+        role = try container.decode(Role.self, forKey: .role)
+        skills = try container.decode([SkillListing].self, forKey: .skills)
+        
+        damage = try container.decode(Int.self, forKey: .damage)
+        save = try container.decode(Int.self, forKey: .save)
+
+        bodyType = try container.decode(BodyType.self, forKey: .bodyType)
+        btm = try container.decode(Int.self, forKey: .btm)
+        
+        humanityLoss = try container.decode(Int.self, forKey: .humanityLoss)
+
+        statModifiers = try container.decode([StatModifier].self, forKey: .statModifiers)
+        skillModifiers = try container.decode([SkillModifier].self, forKey: .skillModifiers)
+        arbitraryModifiers = try container.decode([ArbitraryModifier].self, forKey: .arbitraryModifiers)
+
+        // Used for updates to the player model.
+        do {
+            equippedArmor = try container.decode(EquippedArmor.self, forKey: .equippedArmor)
+        } catch let error {
+            print("JSON mismatched the current Edgerunner model. The model has been updated.")
+            print("Original error:\n\(error)")
+            saveCharacter()
+        }
+    }
 }
