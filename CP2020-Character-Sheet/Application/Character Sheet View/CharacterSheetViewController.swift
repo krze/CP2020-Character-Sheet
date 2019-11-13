@@ -15,6 +15,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
     weak var statsView: StatsViewCell?
     weak var roleDescriptionView: RoleDescriptionViewCell?
     weak var highlightedSkillView: HighlightedSkillViewCell?
+    weak var armorView: ArmorViewCell?
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias EditableModel = CharacterDescriptionModel & StatsModel & SkillModel & DamageModel
+typealias EditableModel = CharacterDescriptionModel & StatsModel & SkillModel & DamageModel & ArmorModel
 
 /// The model for the player character
 final class Edgerunner: Codable, EditableModel {
@@ -46,6 +46,8 @@ final class Edgerunner: Codable, EditableModel {
     /// The humanity deficit incurred by Cyberware
     private(set) var humanityLoss: Int
     
+    private(set) var equippedArmor: EquippedArmor?
+
     // MARK: Modifiers
 
     /// Collection of stat modifiers

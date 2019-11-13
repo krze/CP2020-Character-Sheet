@@ -52,6 +52,14 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
         }
     }
     
+    private var armorDataSource: ArmorDataSource? {
+        didSet {
+            if let dataSource = armorDataSource {
+                characterSheetViewController.armorView?.update(dataSource: dataSource)
+            }
+        }
+    }
+    
     let navigationController: UINavigationController
     let characterSheetViewController: CharacterSheetViewController
     
