@@ -166,6 +166,7 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
         characterDescriptionDataSource = CharacterDescriptionDataSource(model: edgerunner)
         totalDamageDataSource = TotalDamageDataSource(model: edgerunner)
         damageModifierDataSource = DamageModifierDataSource(model: edgerunner)
+        armorDataSource = ArmorDataSource(model: edgerunner)
         refreshCharacterSheet()
     }
     

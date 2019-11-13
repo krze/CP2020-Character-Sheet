@@ -9,6 +9,12 @@
 import Foundation
 
 final class ArmorDataSource: EditorValueReciever {
+    
+    private let model: ArmorModel
+    
+    init(model: ArmorModel) {
+        self.model = model
+    }
 
     func valuesFromEditorDidChange(_ values: [Identifier : String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {}
 
