@@ -14,7 +14,8 @@ final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOn
     private var dataSource: ArmorDataSource?
 
     private var cells = [BodyLocation: UILabel]()
-
+    
+    /// Sets up the cell with the given ArmorViewModel
     func setup(with viewModel: ArmorViewModel) {
         if wasSetUp {
             dataSource?.refreshData()
@@ -53,17 +54,26 @@ final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOn
                 ])
 
             leadingAnchor = cell.trailingAnchor
+            view.valueLabel.fitTextToBounds()
        }
         
         backgroundColor = StyleConstants.Color.light
-
         wasSetUp = true
     }
 
-    func armorDidChange(_ armor: [Armor]) {}
+    func armorDidChange(locationSPS: [BodyLocation: Int]) {
+        locationSPS.forEach { location, sps in
+            let cell = cells[location]
+            cell?.text = String(sps)
+            cell?.fitTextToBounds()
+        }
+    }
     
+    /// Updates the view cell with the ArmorDataSource
+    /// - Parameter dataSource: The ArmorDataSource
     func update(dataSource: ArmorDataSource) {
         self.dataSource = dataSource
         self.dataSource?.refreshData()
     }
+    
 }

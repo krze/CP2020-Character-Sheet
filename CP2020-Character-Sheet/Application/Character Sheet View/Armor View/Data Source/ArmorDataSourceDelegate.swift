@@ -10,7 +10,7 @@ import Foundation
 
 protocol ArmorDataSourceDelegate: class {
 
-    func armorDidChange(_ armor: [Armor])
+    func armorDidChange(locationSPS: [BodyLocation: Int])
 
 }
 

@@ -35,6 +35,7 @@
 		9D004E6321DC45F2004DFA4D /* StatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D004E6221DC45F2004DFA4D /* StatsModel.swift */; };
 		9D029D3722D817C500D75A52 /* UserEntryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D029D3622D817C500D75A52 /* UserEntryDelegate.swift */; };
 		9D11763821BDCE0300E297BA /* UILabel+LabelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */; };
+		9D1B14DB237E259100BCB972 /* UIView+Borders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1B14DA237E259100BCB972 /* UIView+Borders.swift */; };
 		9D24375421A085DE0084E77D /* WoundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24375321A085DE0084E77D /* WoundType.swift */; };
 		9D24375621A091AF0084E77D /* CharacterSheetSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24375521A091AE0084E77D /* CharacterSheetSections.swift */; };
 		9D2CF9FE21C4336900EC76D7 /* CharacterDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CF9FD21C4336900EC76D7 /* CharacterDescriptionView.swift */; };
@@ -164,6 +165,7 @@
 		9D004E6221DC45F2004DFA4D /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
 		9D029D3622D817C500D75A52 /* UserEntryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntryDelegate.swift; sourceTree = "<group>"; };
 		9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+LabelContainer.swift"; sourceTree = "<group>"; };
+		9D1B14DA237E259100BCB972 /* UIView+Borders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Borders.swift"; sourceTree = "<group>"; };
 		9D24375321A085DE0084E77D /* WoundType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoundType.swift; sourceTree = "<group>"; };
 		9D24375521A091AE0084E77D /* CharacterSheetSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSheetSections.swift; sourceTree = "<group>"; };
 		9D2CF9FD21C4336900EC76D7 /* CharacterDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionView.swift; sourceTree = "<group>"; };
@@ -522,6 +524,7 @@
 				9DFA19F021CE9EE10092A450 /* Notification+Cyberpunk.swift */,
 				9DFA19F221CF1F260092A450 /* JSONFactory.swift */,
 				9DB6AD8F234AB3FA0068120C /* UITextField+Done.swift */,
+				9D1B14DA237E259100BCB972 /* UIView+Borders.swift */,
 			);
 			path = "Foundation Helpers and Extensions";
 			sourceTree = "<group>";
@@ -857,6 +860,7 @@
 				9DFE711521BD94FD000561B0 /* Stat.swift in Sources */,
 				64157CC12378ACC400667FB0 /* ArmorViewModel.swift in Sources */,
 				9DB6AD90234AB3FA0068120C /* UITextField+Done.swift in Sources */,
+				9D1B14DB237E259100BCB972 /* UIView+Borders.swift in Sources */,
 				9DFCB7BA21D298E000F99798 /* SkillTableViewModel.swift in Sources */,
 				9D004E3121D80C5F004DFA4D /* CharacterDescriptionDataSource.swift in Sources */,
 				9D004E2721D5A97D004DFA4D /* ModelManager.swift in Sources */,
