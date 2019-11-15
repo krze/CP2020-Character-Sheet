@@ -46,9 +46,8 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
         var leadingAnchor = contentView.layoutMarginsGuide.leadingAnchor
         
         damageModifierCellLabels.enumerated().forEach { index, label in
-            let x = contentView.layoutMarginsGuide.layoutFrame.minX + (subviewWidth * CGFloat(index)) + (paddingWidth * CGFloat(index))
-            let frame = CGRect(x: x, y: contentView.layoutMarginsGuide.layoutFrame.minY,
-                               width: subviewWidth, height: subviewHeight)
+            let size = CGSize(width: subviewWidth, height: subviewHeight)
+            let frame = CGRect(origin: .zero, size: size)
             
             let view = CommonEntryConstructor.simpleHeaderValueCell(frame: frame, labelHeightRatio: viewModel.labelHeightRatio, headerText: label.labelText())
             view.valueLabel.text = viewModel.placeholderValue

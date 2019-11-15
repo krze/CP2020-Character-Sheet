@@ -54,6 +54,8 @@ final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOn
 
             leadingAnchor = cell.trailingAnchor
        }
+        
+        backgroundColor = StyleConstants.Color.light
 
         wasSetUp = true
     }

@@ -32,6 +32,8 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
                                 forCellWithReuseIdentifier: CharacterSheetSections.Damage.cellReuseID())
         collectionView.register(HighlightedSkillViewCell.self,
                                 forCellWithReuseIdentifier: CharacterSheetSections.Skill.cellReuseID())
+        collectionView.register(ArmorViewCell.self,
+                                forCellWithReuseIdentifier: CharacterSheetSections.Armor.cellReuseID())
 
         // NEXT: Add the armor track
 
@@ -80,8 +82,13 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
         }
         else if let cell = cell as? HighlightedSkillViewCell {
             let skillViewCellModel = HighlightedSkillViewCellModel(cellDescriptionLabelWidthRatio: 0.55)
-            cell.setup(viewModel: skillViewCellModel, dataSource: nil)
+            cell.setup(viewModel: skillViewCellModel)
             highlightedSkillView = cell
+        }
+        else if let cell = cell as? ArmorViewCell {
+            let armorViewCellModel = ArmorViewModel()
+            cell.setup(with: armorViewCellModel)
+            armorView = cell
         }
         
         return cell

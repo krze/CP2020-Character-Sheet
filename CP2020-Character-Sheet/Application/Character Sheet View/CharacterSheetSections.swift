@@ -11,7 +11,7 @@ import UIKit
 /// Enum for managing the character sheet sections in the collection view.
 enum CharacterSheetSections: Int, CaseIterable {
     // This ordering is strict!
-    case CharacterDescription, Stats, DamageModifier, Damage, Skill
+    case CharacterDescription, Stats, Armor, DamageModifier, Damage, Skill
     
     func cellReuseID() -> String {
         switch self {
@@ -25,12 +25,14 @@ enum CharacterSheetSections: Int, CaseIterable {
             return String(describing: DamageModifierViewCell.self)
         case .Skill:
             return String(describing: HighlightedSkillViewCell.self)
+        case .Armor:
+            return String(describing: ArmorViewCell.self)
         }
     }
     
     func cellHeight() -> CGFloat {
         switch self {
-        case .DamageModifier:
+        case .DamageModifier, .Armor:
             return 80
         case .CharacterDescription:
             return 100

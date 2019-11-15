@@ -13,10 +13,10 @@ enum BodyLocation: String, CaseIterable, Codable {
 
     func labelText() -> String {
         switch self {
-        case .LeftArm: return "Left Arm"
-        case .RightArm: return "Right Arm"
-        case .LeftLeg: return "Left Leg"
-        case .RightLeg: return "Right Leg"
+        case .LeftArm: return "L. Arm"
+        case .RightArm: return "R. Arm"
+        case .LeftLeg: return "L. Leg"
+        case .RightLeg: return "R. Leg"
         default: return rawValue
         }
     }

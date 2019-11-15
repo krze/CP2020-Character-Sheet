@@ -25,13 +25,12 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     
     private var highlightedSkills = [SkillListing]()
     
-    func setup(viewModel: HighlightedSkillViewCellModel, dataSource: HighlightedSkillViewCellDataSource?) {
+    func setup(viewModel: HighlightedSkillViewCellModel) {
         if wasSetUp {
             dataSource?.refreshData()
             return
         }
         self.viewModel = viewModel
-        self.dataSource = dataSource
         
         createObservers()
 
