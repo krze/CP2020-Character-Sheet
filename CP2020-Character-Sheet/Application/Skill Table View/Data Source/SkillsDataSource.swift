@@ -73,16 +73,16 @@ final class SkillsDataSource: EditorValueReciever {
     
     // MARK: EditorValueReceiver
     
-    func valuesFromEditorDidChange(_ values: [Identifier : String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
-        guard var name = values[SkillField.Name.identifier()],
-            let description = values[SkillField.Description.identifier()],
-            let IPMultiplierString = values[SkillField.IPMultiplier.identifier()],
+    func valuesFromEditorDidChange(_ values: [Identifier : AnyHashable], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        guard var name = values[SkillField.Name.identifier()] as? String,
+            let description = values[SkillField.Description.identifier()] as? String,
+            let IPMultiplierString = values[SkillField.IPMultiplier.identifier()] as? String,
             let IPMultiplierInt = Int(IPMultiplierString),
-            let pointsString = values[SkillField.Points.identifier()],
+            let pointsString = values[SkillField.Points.identifier()] as? String,
             let points = Int(pointsString),
-            let IPString = values[SkillField.ImprovementPoints.identifier()],
+            let IPString = values[SkillField.ImprovementPoints.identifier()] as? String,
             let improvementPoints = Int(IPString),
-            let modifierString = values[SkillField.Modifier.identifier()],
+            let modifierString = values[SkillField.Modifier.identifier()] as? String,
             let modifier = Int(modifierString) else {
                 return
         }
@@ -96,7 +96,7 @@ final class SkillsDataSource: EditorValueReciever {
         let isSpecialAbility = name == model.specialAbilityName()
         let IPMultiplier = IPMultiplierInt > 0 ? IPMultiplierInt : 1
         let linkedStat: Stat? = {
-            if let statString = values[SkillField.Stat.identifier()] {
+            if let statString = values[SkillField.Stat.identifier()] as? String {
                 return Stat(rawValue: statString)
             }
             
@@ -104,7 +104,7 @@ final class SkillsDataSource: EditorValueReciever {
         }()
         
         let statModifier: Int? = model.value(for: linkedStat).displayValue
-        let modifiesSkill: String? = values[SkillField.ModifiesSkill.identifier()]
+        let modifiesSkill: String? = values[SkillField.ModifiesSkill.identifier()] as? String
         let skill = Skill(name: name,
                           nameExtension: nameExtension,
                           description: description,
@@ -121,8 +121,11 @@ final class SkillsDataSource: EditorValueReciever {
         getCharacterSkills()
     }
     
-    func autofillSuggestion(for identifier: Identifier, value: String) -> [Identifier : String]? {
-        guard identifier == SkillField.Name.identifier() else { return nil }
+    func autofillSuggestion(for identifier: Identifier, value: AnyHashable) -> [Identifier : AnyHashable]? {
+        guard identifier == SkillField.Name.identifier(),
+            let value = value as? String else {
+                return nil
+        }
         let processedName = process(nameInput: value)
         guard let topMatch = allSkills.first(where: { listing in
             return listing.skill.name == processedName.name && listing.skill.nameExtension == processedName.nameExtension

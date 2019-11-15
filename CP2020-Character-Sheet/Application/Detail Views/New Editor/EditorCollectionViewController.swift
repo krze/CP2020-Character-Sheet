@@ -134,7 +134,9 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         var moveToNextField = true
 
         if shouldGetSuggestion {
-            if let value = value, let autofillSuggestion = delegate?.autofillSuggestion(for: identifier, value: value), self.autofillSuggestion != autofillSuggestion {
+            if let value = value,
+                let autofillSuggestion = delegate?.autofillSuggestion(for: identifier, value: value) as? [Identifier: String],
+                self.autofillSuggestion != autofillSuggestion {
                 self.autofillSuggestion = autofillSuggestion
                 promptForAutoFill(forMatch: value)
                 moveToNextField = false

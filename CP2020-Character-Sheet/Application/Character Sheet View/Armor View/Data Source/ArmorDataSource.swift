@@ -16,10 +16,10 @@ final class ArmorDataSource: EditorValueReciever {
         self.model = model
     }
 
-    func valuesFromEditorDidChange(_ values: [Identifier : String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {}
+    func valuesFromEditorDidChange(_ values: [Identifier: AnyHashable], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {}
 
     func refreshData() {}
 
-    func autofillSuggestion(for identifier: Identifier, value: String) -> [Identifier : String]? { return nil }
+    func autofillSuggestion(for identifier: Identifier, value: AnyHashable) -> [Identifier : AnyHashable]? { return nil }
 
 }

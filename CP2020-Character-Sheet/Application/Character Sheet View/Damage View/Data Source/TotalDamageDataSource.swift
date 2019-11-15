@@ -22,8 +22,8 @@ final class TotalDamageDataSource: EditorValueReciever {
         self.maxDamage = Rules.Damage.maxDamagePoints
     }
     
-    func valuesFromEditorDidChange(_ values: [Identifier : String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
-        guard let incomingDamageString = values[DamageType.Damage.rawValue], let incomingDamage = Int(incomingDamageString) else {
+    func valuesFromEditorDidChange(_ values: [Identifier : AnyHashable], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        guard let incomingDamageString = values[DamageType.Damage.rawValue] as? String, let incomingDamage = Int(incomingDamageString) else {
             return
         }
         
@@ -43,7 +43,7 @@ final class TotalDamageDataSource: EditorValueReciever {
         delegate?.updateCells(to: currentDamage)
     }
     
-    func autofillSuggestion(for identifier: Identifier, value: String) -> [Identifier : String]? {
+    func autofillSuggestion(for identifier: Identifier, value: AnyHashable) -> [Identifier : AnyHashable]? {
         return nil
     }
     

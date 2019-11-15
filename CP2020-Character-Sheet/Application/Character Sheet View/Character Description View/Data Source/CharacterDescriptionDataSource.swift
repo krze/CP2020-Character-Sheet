@@ -23,10 +23,10 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever {
     
     // MARK: EditorValueReceiver
     
-    func valuesFromEditorDidChange(_ values: [Identifier: String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
-        let newName = values[RoleFieldLabel.Name.identifier()]
-        let newHandle = values[RoleFieldLabel.Handle.identifier()]
-        let newRole = values[RoleFieldLabel.CharacterRole.identifier()]
+    func valuesFromEditorDidChange(_ values: [Identifier: AnyHashable], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        let newName = values[RoleFieldLabel.Name.identifier()] as? String
+        let newHandle = values[RoleFieldLabel.Handle.identifier()] as? String
+        let newRole = values[RoleFieldLabel.CharacterRole.identifier()] as? String
         
         if (newName != model.name || newHandle != model.handle) {
             change(name: newName ?? model.name, handle: newHandle ?? model.handle, validationCompletion: completion)
@@ -42,7 +42,7 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever {
         self.delegate?.update(role: self.model.role)
     }
     
-    func autofillSuggestion(for identifier: Identifier, value: String) -> [Identifier : String]? {
+    func autofillSuggestion(for identifier: Identifier, value: AnyHashable) -> [Identifier : AnyHashable]? {
         return nil
     }
     

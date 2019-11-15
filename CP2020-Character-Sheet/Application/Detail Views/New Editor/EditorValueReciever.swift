@@ -17,7 +17,7 @@ protocol EditorValueReciever: class {
     /// - Parameters:
     ///   - values: The identifiers and their values from the UserEntryCollectionViewCells in the editor
     ///   - validationCompletion: The completion handler called by the model to indicate that the results were verified and came back as valid or invalid
-    func valuesFromEditorDidChange(_ values: [Identifier: String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
+    func valuesFromEditorDidChange(_ values: [Identifier: AnyHashable], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
     
     /// Forces a refresh on the receiver of the data
     func refreshData()
@@ -26,7 +26,7 @@ protocol EditorValueReciever: class {
     /// - Parameter identifier: Identifier for the field that needs a suggestion
     /// - Parameter value: The value for the field
     /// - returns: A value to fill out the whole editor, if any
-    func autofillSuggestion(for identifier: Identifier, value: String) -> [Identifier: String]?
+    func autofillSuggestion(for identifier: Identifier, value: AnyHashable) -> [Identifier: AnyHashable]?
     
 }
 

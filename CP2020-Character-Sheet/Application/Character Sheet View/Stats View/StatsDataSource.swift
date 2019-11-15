@@ -25,7 +25,7 @@ final class StatsDataSource: NSObject, EditorValueReciever {
         NotificationCenter.default.addObserver(self, selector: #selector(updateStatsView), name: .statsDidChange, object: nil)
     }
     
-    func valuesFromEditorDidChange(_ values: [Identifier : String], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func valuesFromEditorDidChange(_ values: [Identifier : AnyHashable], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
         let stats = Stats(int: values.statPoint(for: Stat.Intelligence.identifier()) ?? statsModel.value(for: Stat.Intelligence).baseValue,
                           ref: values.statPoint(for: Stat.Reflex.identifier()) ?? statsModel.value(for: Stat.Reflex).baseValue,
                           tech: values.statPoint(for: Stat.Tech.identifier()) ?? statsModel.value(for: Stat.Tech).baseValue,
@@ -44,7 +44,7 @@ final class StatsDataSource: NSObject, EditorValueReciever {
         updateStatsView()
     }
     
-    func autofillSuggestion(for identifier: Identifier, value: String) -> [Identifier : String]? {
+    func autofillSuggestion(for identifier: Identifier, value: AnyHashable) -> [Identifier : AnyHashable]? {
         return nil
     }
     
@@ -66,10 +66,10 @@ final class StatsDataSource: NSObject, EditorValueReciever {
     
 }
 
-private extension Dictionary where Key == Identifier, Value == String {
+private extension Dictionary where Key == Identifier, Value == AnyHashable {
     
     func statPoint(for identifier: Identifier) -> Int? {
-        if let value = self[identifier] {
+        if let value = self[identifier] as? String {
             return Int(value)
         }
         
