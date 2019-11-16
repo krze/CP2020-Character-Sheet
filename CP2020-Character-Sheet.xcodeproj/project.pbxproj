@@ -86,6 +86,8 @@
 		9DAF2DD8235CEC4000EEEDE2 /* BodyLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAF2DD7235CEC4000EEEDE2 /* BodyLocation.swift */; };
 		9DAF2DDA235CF3AF00EEEDE2 /* EquippedArmor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAF2DD9235CF3AF00EEEDE2 /* EquippedArmor.swift */; };
 		9DB6AD90234AB3FA0068120C /* UITextField+Done.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB6AD8F234AB3FA0068120C /* UITextField+Done.swift */; };
+		9DC8D65823809FED003B6C72 /* StatusTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC8D65723809FED003B6C72 /* StatusTableView.swift */; };
+		9DC8D65A2380A0AE003B6C72 /* StatusTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC8D6592380A0AE003B6C72 /* StatusTableViewModel.swift */; };
 		9DCD370121CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD370021CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift */; };
 		9DCD370521CC105900EE00D9 /* Skill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD370421CC105900EE00D9 /* Skill.swift */; };
 		9DCD370721CC135A00EE00D9 /* SkillListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD370621CC135A00EE00D9 /* SkillListing.swift */; };
@@ -222,6 +224,8 @@
 		9DAF2DD7235CEC4000EEEDE2 /* BodyLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyLocation.swift; sourceTree = "<group>"; };
 		9DAF2DD9235CF3AF00EEEDE2 /* EquippedArmor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquippedArmor.swift; sourceTree = "<group>"; };
 		9DB6AD8F234AB3FA0068120C /* UITextField+Done.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Done.swift"; sourceTree = "<group>"; };
+		9DC8D65723809FED003B6C72 /* StatusTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableView.swift; sourceTree = "<group>"; };
+		9DC8D6592380A0AE003B6C72 /* StatusTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewModel.swift; sourceTree = "<group>"; };
 		9DCD370021CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedSkillViewCellModel.swift; sourceTree = "<group>"; };
 		9DCD370421CC105900EE00D9 /* Skill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skill.swift; sourceTree = "<group>"; };
 		9DCD370621CC135A00EE00D9 /* SkillListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillListing.swift; sourceTree = "<group>"; };
@@ -315,7 +319,9 @@
 		9D004E2E21D80A6D004DFA4D /* Detail Views */ = {
 			isa = PBXGroup;
 			children = (
-				9D3761E921EE702C0027513E /* New Editor */,
+				9DCD370C21CC23C000EE00D9 /* Skill Table View */,
+				9DC8D65B2380A39F003B6C72 /* Status Table View */,
+				9D3761E921EE702C0027513E /* Field Editor */,
 				9D004E3921D82B8D004DFA4D /* Decoration View */,
 			);
 			path = "Detail Views";
@@ -348,7 +354,7 @@
 			path = "Decoration View";
 			sourceTree = "<group>";
 		};
-		9D3761E921EE702C0027513E /* New Editor */ = {
+		9D3761E921EE702C0027513E /* Field Editor */ = {
 			isa = PBXGroup;
 			children = (
 				9D0003A321FE46000044F84A /* EditorCollectionViewController.swift */,
@@ -359,7 +365,7 @@
 				9D004E4821D945FB004DFA4D /* EditorValueReciever.swift */,
 				9D0003B921FE5FA30044F84A /* Cells */,
 			);
-			path = "New Editor";
+			path = "Field Editor";
 			sourceTree = "<group>";
 		};
 		9D43614A234AA7D70057D27B /* Validating */ = {
@@ -439,14 +445,12 @@
 			children = (
 				9D5C1F2921A06CE700B3D493 /* AppDelegate.swift */,
 				9DCD370E21CC240600EE00D9 /* App Constants */,
-				9D004E2F21D80A9C004DFA4D /* Coordinator */,
-				9D004E2E21D80A6D004DFA4D /* Detail Views */,
-				9DFCB7AC21D0724B00F99798 /* Persistence */,
 				9D43614D234AA9030057D27B /* Strings */,
-				9DAF2DD6235CEA4600EEEDE2 /* Equipment Model */,
-				9DFA19ED21CE9C210092A450 /* Character Model */,
+				9DA1C3E22380A46000817D9D /* Models */,
+				9D004E2F21D80A9C004DFA4D /* Coordinator */,
+				9DFCB7AC21D0724B00F99798 /* Persistence */,
+				9D004E2E21D80A6D004DFA4D /* Detail Views */,
 				9D5C1F5821A0712E00B3D493 /* Character Sheet View */,
-				9DCD370C21CC23C000EE00D9 /* Skill Table View */,
 				9DCD370D21CC23EE00EE00D9 /* Foundation Helpers and Extensions */,
 			);
 			path = Application;
@@ -480,6 +484,15 @@
 			path = "Damage View";
 			sourceTree = "<group>";
 		};
+		9DA1C3E22380A46000817D9D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9DAF2DD6235CEA4600EEEDE2 /* Equipment Model */,
+				9DFA19ED21CE9C210092A450 /* Character Model */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		9DAF2DD6235CEA4600EEEDE2 /* Equipment Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -488,6 +501,15 @@
 				9DAF2DD9235CF3AF00EEEDE2 /* EquippedArmor.swift */,
 			);
 			path = "Equipment Model";
+			sourceTree = "<group>";
+		};
+		9DC8D65B2380A39F003B6C72 /* Status Table View */ = {
+			isa = PBXGroup;
+			children = (
+				9DC8D65723809FED003B6C72 /* StatusTableView.swift */,
+				9DC8D6592380A0AE003B6C72 /* StatusTableViewModel.swift */,
+			);
+			path = "Status Table View";
 			sourceTree = "<group>";
 		};
 		9DCD370321CC065500EE00D9 /* Character Class */ = {
@@ -844,10 +866,12 @@
 				9D9CC9532341411C005AF278 /* DamageCell.swift in Sources */,
 				9DCD370521CC105900EE00D9 /* Skill.swift in Sources */,
 				9DCD370121CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift in Sources */,
+				9DC8D65823809FED003B6C72 /* StatusTableView.swift in Sources */,
 				9D5C1F2C21A06CE700B3D493 /* CharacterSheetViewController.swift in Sources */,
 				9DFCB7B621D17AD000F99798 /* SkillTableSections.swift in Sources */,
 				9DE335A721A9EB5B00180927 /* HighlightedSkillViewCell.swift in Sources */,
 				9D11763821BDCE0300E297BA /* UILabel+LabelContainer.swift in Sources */,
+				9DC8D65A2380A0AE003B6C72 /* StatusTableViewModel.swift in Sources */,
 				9D4724A42309F2B600CECEA2 /* RoleStrings.swift in Sources */,
 				9D552CF621AB266F008B90E9 /* DamageModifierViewModel.swift in Sources */,
 				9DAF2DD5235CEA3E00EEEDE2 /* Armor.swift in Sources */,
