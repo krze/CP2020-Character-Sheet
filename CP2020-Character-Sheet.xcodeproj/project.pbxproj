@@ -69,6 +69,9 @@
 		9D5C1F5A21A0775B00B3D493 /* DamageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C1F5921A0775B00B3D493 /* DamageViewCell.swift */; };
 		9D5C1F5C21A0794400B3D493 /* DamageSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C1F5B21A0794400B3D493 /* DamageSectionView.swift */; };
 		9D5C1F5E21A07E1500B3D493 /* DamageSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C1F5D21A07E1500B3D493 /* DamageSectionViewModel.swift */; };
+		9D7E12302380A62E0025443D /* AnatomyDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E122F2380A62E0025443D /* AnatomyDisplayView.swift */; };
+		9D7E12332380A70E0025443D /* BodyPartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E12322380A70E0025443D /* BodyPartView.swift */; };
+		9D7E12352380A8EB0025443D /* HeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E12342380A8EB0025443D /* HeadView.swift */; };
 		9D85671B230C93C600295479 /* EditorCollectionViewModel+Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671A230C93C600295479 /* EditorCollectionViewModel+Stats.swift */; };
 		9D85671D230C960100295479 /* StatsStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671C230C960100295479 /* StatsStrings.swift */; };
 		9D85671F230F62EF00295479 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671E230F62EF00295479 /* Rules.swift */; };
@@ -207,6 +210,9 @@
 		9D5C1F5921A0775B00B3D493 /* DamageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageViewCell.swift; sourceTree = "<group>"; };
 		9D5C1F5B21A0794400B3D493 /* DamageSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageSectionView.swift; sourceTree = "<group>"; };
 		9D5C1F5D21A07E1500B3D493 /* DamageSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageSectionViewModel.swift; sourceTree = "<group>"; };
+		9D7E122F2380A62E0025443D /* AnatomyDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnatomyDisplayView.swift; sourceTree = "<group>"; };
+		9D7E12322380A70E0025443D /* BodyPartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyPartView.swift; sourceTree = "<group>"; };
+		9D7E12342380A8EB0025443D /* HeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadView.swift; sourceTree = "<group>"; };
 		9D85671A230C93C600295479 /* EditorCollectionViewModel+Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorCollectionViewModel+Stats.swift"; sourceTree = "<group>"; };
 		9D85671C230C960100295479 /* StatsStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsStrings.swift; sourceTree = "<group>"; };
 		9D85671E230F62EF00295479 /* Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
@@ -319,6 +325,7 @@
 		9D004E2E21D80A6D004DFA4D /* Detail Views */ = {
 			isa = PBXGroup;
 			children = (
+				9D7E12312380A6FC0025443D /* Anatomy */,
 				9DCD370C21CC23C000EE00D9 /* Skill Table View */,
 				9DC8D65B2380A39F003B6C72 /* Status Table View */,
 				9D3761E921EE702C0027513E /* Field Editor */,
@@ -482,6 +489,16 @@
 				9D24375321A085DE0084E77D /* WoundType.swift */,
 			);
 			path = "Damage View";
+			sourceTree = "<group>";
+		};
+		9D7E12312380A6FC0025443D /* Anatomy */ = {
+			isa = PBXGroup;
+			children = (
+				9D7E122F2380A62E0025443D /* AnatomyDisplayView.swift */,
+				9D7E12342380A8EB0025443D /* HeadView.swift */,
+				9D7E12322380A70E0025443D /* BodyPartView.swift */,
+			);
+			path = Anatomy;
 			sourceTree = "<group>";
 		};
 		9DA1C3E22380A46000817D9D /* Models */ = {
@@ -848,6 +865,7 @@
 				64157CB92378A9AF00667FB0 /* ArmorViewCell.swift in Sources */,
 				9D2CFA0821C59B9400EC76D7 /* RoleView.swift in Sources */,
 				9D552CF221AB0E69008B90E9 /* StyleConstants.swift in Sources */,
+				9D7E12352380A8EB0025443D /* HeadView.swift in Sources */,
 				9DFCB7BC21D5121A00F99798 /* CharacterSheetFileHandler.swift in Sources */,
 				9D004E5B21DADCC3004DFA4D /* UIView+Image.swift in Sources */,
 				9D004E3521D8114B004DFA4D /* CharacterDescriptionDataSourceDelegate.swift in Sources */,
@@ -906,6 +924,8 @@
 				9D24375421A085DE0084E77D /* WoundType.swift in Sources */,
 				9D5C1F2A21A06CE700B3D493 /* AppDelegate.swift in Sources */,
 				9D2CFA0221C5913100EC76D7 /* RoleFieldLabel.swift in Sources */,
+				9D7E12302380A62E0025443D /* AnatomyDisplayView.swift in Sources */,
+				9D7E12332380A70E0025443D /* BodyPartView.swift in Sources */,
 				9D552CF821AC899C008B90E9 /* DamageModifierDataSource.swift in Sources */,
 				9D004E4121D93074004DFA4D /* PopoverViewFrameProvider.swift in Sources */,
 				9D004E4921D945FB004DFA4D /* EditorValueReciever.swift in Sources */,
@@ -1102,7 +1122,7 @@
 		9D5C1F4F21A06CE800B3D493 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = CyberpunkAppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 434ZJX8NP2;
@@ -1122,7 +1142,7 @@
 		9D5C1F5021A06CE800B3D493 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = CyberpunkAppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 434ZJX8NP2;

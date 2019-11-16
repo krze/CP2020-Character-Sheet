@@ -72,6 +72,7 @@ final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOn
     /// Updates the view cell with the ArmorDataSource
     /// - Parameter dataSource: The ArmorDataSource
     func update(dataSource: ArmorDataSource) {
+        dataSource.delegate = self
         self.dataSource = dataSource
         self.dataSource?.refreshData()
     }

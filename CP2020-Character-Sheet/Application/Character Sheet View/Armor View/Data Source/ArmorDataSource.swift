@@ -10,6 +10,8 @@ import Foundation
 
 final class ArmorDataSource: EditorValueReciever {
     
+    weak var delegate: ArmorDataSourceDelegate?
+
     private let model: ArmorModel
     
     init(model: ArmorModel) {
