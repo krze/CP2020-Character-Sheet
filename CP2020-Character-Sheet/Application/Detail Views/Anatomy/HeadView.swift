@@ -10,7 +10,6 @@ import UIKit
 
 final class HeadView: UIView, BodyPartView {
 
-    
     let location: BodyLocation = .Head
     private(set) var descriptionView: UIView?
     
