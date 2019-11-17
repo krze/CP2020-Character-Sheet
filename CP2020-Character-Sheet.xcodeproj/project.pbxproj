@@ -72,6 +72,9 @@
 		9D7E12302380A62E0025443D /* AnatomyDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E122F2380A62E0025443D /* AnatomyDisplayView.swift */; };
 		9D7E12332380A70E0025443D /* BodyPartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E12322380A70E0025443D /* BodyPartView.swift */; };
 		9D7E12352380A8EB0025443D /* HeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E12342380A8EB0025443D /* HeadView.swift */; };
+		9D7E12372380DAB00025443D /* TorsoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E12362380DAB00025443D /* TorsoView.swift */; };
+		9D7E12392380DF5C0025443D /* ArmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E12382380DF5C0025443D /* ArmView.swift */; };
+		9D7E123B2380E2160025443D /* LegView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E123A2380E2160025443D /* LegView.swift */; };
 		9D85671B230C93C600295479 /* EditorCollectionViewModel+Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671A230C93C600295479 /* EditorCollectionViewModel+Stats.swift */; };
 		9D85671D230C960100295479 /* StatsStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671C230C960100295479 /* StatsStrings.swift */; };
 		9D85671F230F62EF00295479 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671E230F62EF00295479 /* Rules.swift */; };
@@ -213,6 +216,9 @@
 		9D7E122F2380A62E0025443D /* AnatomyDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnatomyDisplayView.swift; sourceTree = "<group>"; };
 		9D7E12322380A70E0025443D /* BodyPartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyPartView.swift; sourceTree = "<group>"; };
 		9D7E12342380A8EB0025443D /* HeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadView.swift; sourceTree = "<group>"; };
+		9D7E12362380DAB00025443D /* TorsoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorsoView.swift; sourceTree = "<group>"; };
+		9D7E12382380DF5C0025443D /* ArmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmView.swift; sourceTree = "<group>"; };
+		9D7E123A2380E2160025443D /* LegView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegView.swift; sourceTree = "<group>"; };
 		9D85671A230C93C600295479 /* EditorCollectionViewModel+Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorCollectionViewModel+Stats.swift"; sourceTree = "<group>"; };
 		9D85671C230C960100295479 /* StatsStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsStrings.swift; sourceTree = "<group>"; };
 		9D85671E230F62EF00295479 /* Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
@@ -496,6 +502,9 @@
 			children = (
 				9D7E122F2380A62E0025443D /* AnatomyDisplayView.swift */,
 				9D7E12342380A8EB0025443D /* HeadView.swift */,
+				9D7E12362380DAB00025443D /* TorsoView.swift */,
+				9D7E12382380DF5C0025443D /* ArmView.swift */,
+				9D7E123A2380E2160025443D /* LegView.swift */,
 				9D7E12322380A70E0025443D /* BodyPartView.swift */,
 			);
 			path = Anatomy;
@@ -917,6 +926,7 @@
 				9D0003A921FE479D0044F84A /* UserEntryCollectionViewCell.swift in Sources */,
 				9D2CF9FE21C4336900EC76D7 /* CharacterDescriptionView.swift in Sources */,
 				9D2CFA0621C593D200EC76D7 /* MarginCreator.swift in Sources */,
+				9D7E12372380DAB00025443D /* TorsoView.swift in Sources */,
 				9D3761E421E16AA20027513E /* StatsDataSourceDelegate.swift in Sources */,
 				9DE335AC21A9F2C800180927 /* TotalDamageDataSourceDelegate.swift in Sources */,
 				9DCD371521CD598D00EE00D9 /* SkillTableViewCellModel.swift in Sources */,
@@ -928,6 +938,7 @@
 				9D7E12332380A70E0025443D /* BodyPartView.swift in Sources */,
 				9D552CF821AC899C008B90E9 /* DamageModifierDataSource.swift in Sources */,
 				9D004E4121D93074004DFA4D /* PopoverViewFrameProvider.swift in Sources */,
+				9D7E12392380DF5C0025443D /* ArmView.swift in Sources */,
 				9D004E4921D945FB004DFA4D /* EditorValueReciever.swift in Sources */,
 				9DCD370721CC135A00EE00D9 /* SkillListing.swift in Sources */,
 				9D004E2B21D6E282004DFA4D /* PrinterPaperView.swift in Sources */,
@@ -952,6 +963,7 @@
 				9DCD371121CC246300EE00D9 /* SkillTableViewCell.swift in Sources */,
 				9D2CFA0421C5921A00EC76D7 /* CharacterSheetCoordinator.swift in Sources */,
 				9DE3359E21A9EA4100180927 /* StatsViewCell.swift in Sources */,
+				9D7E123B2380E2160025443D /* LegView.swift in Sources */,
 				9D0003B321FE4E9D0044F84A /* EditorStyleConstants.swift in Sources */,
 				9D9CC95A2346BB25005AF278 /* DamageModel.swift in Sources */,
 				9DAF2DD8235CEC4000EEEDE2 /* BodyLocation.swift in Sources */,

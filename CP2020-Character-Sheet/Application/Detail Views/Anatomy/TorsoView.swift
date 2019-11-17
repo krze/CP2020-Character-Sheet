@@ -1,5 +1,5 @@
 //
-//  HeadView.swift
+//  TorsoView.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 11/16/19.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-final class HeadView: UIView, BodyPartView {
+final class TorsoView: UIView, BodyPartView {
 
-    let location: BodyLocation = .Head
+    let location: BodyLocation = .Torso
     private(set) var descriptionView: UIView?
     
-    private let head = UIImageView(image: UIImage(named: "head-thick")?.withRenderingMode(.alwaysTemplate))
+    private let torso = UIImageView(image: UIImage(named: "torso-thick")?.withRenderingMode(.alwaysTemplate))
     
     init() {
         super.init(frame: .zero)
@@ -22,15 +22,15 @@ final class HeadView: UIView, BodyPartView {
     }
     
     private func setupInitialSubviews() {
-        head.translatesAutoresizingMaskIntoConstraints = false
+        torso.translatesAutoresizingMaskIntoConstraints = false
 
-        addSubview(head)
-        
-        head.tintColor = StyleConstants.Color.dark
-        
+        addSubview(torso)
+
+        torso.tintColor = StyleConstants.Color.dark
+
         NSLayoutConstraint.activate([
-            head.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            NSLayoutConstraint(item: head, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 0.25, constant: 0)
+            torso.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            NSLayoutConstraint(item: torso, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 0.75, constant: 0)
         ])
     }
     
@@ -39,7 +39,7 @@ final class HeadView: UIView, BodyPartView {
     }
     
     func setStatus(_ status: BodyPartStatus) {
-        head.tintColor = status.color()
+        torso.tintColor = status.color()
     }
     
     func addDescriptionView(_ view: UIView) {

@@ -12,9 +12,20 @@ import UIKit
 /// within the body.
 final class AnatomyDisplayView: UIView {
     private let head: HeadView
+    private let torso: TorsoView
+    private let leftArm: ArmView
+    private let rightArm: ArmView
+    private let leftLeg: LegView
+    private let rightLeg: LegView
 
     init() {
         head = HeadView()
+        torso = TorsoView()
+        leftArm = ArmView(side: .left)
+        rightArm = ArmView(side: .right)
+        leftLeg = LegView(side: .left)
+        rightLeg = LegView(side: .right)
+        
         super.init(frame: .zero)
         
         backgroundColor = StyleConstants.Color.light
@@ -22,7 +33,7 @@ final class AnatomyDisplayView: UIView {
     }
     
     private func setupInitialSubviews() {
-        let subviews = [head]
+        let subviews = [head, torso, leftArm, rightArm, leftLeg, rightLeg]
         
         subviews.forEach { subview in
             subview.translatesAutoresizingMaskIntoConstraints = false
