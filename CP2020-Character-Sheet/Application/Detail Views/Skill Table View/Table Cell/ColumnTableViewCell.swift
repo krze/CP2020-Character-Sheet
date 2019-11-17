@@ -1,5 +1,5 @@
 //
-//  SkillTableViewCell.swift
+//  ColumnTableViewCell.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 12/20/18.
@@ -8,19 +8,19 @@
 
 import UIKit
 
-/// Custom UITableViewCell which shows a skill listing in unlabeled columns.
-final class SkillTableViewCell: UITableViewCell {
+/// UITableViewCell which contains space for a name, and 3 columns.
+final class ColumnTableViewCell: UITableViewCell {
         
     // MARK: Fields for the cell
     
     private var name: UILabel?
-    private var points: UILabel?
-    private var modifier: UILabel?
-    private var total: UILabel?
+    private var firstColumn: UILabel?
+    private var secondColumn: UILabel?
+    private var thirdColumn: UILabel?
     private let stack = UIStackView()
     private var topView: UIView?
     
-    private var viewModel: SkillTableViewCellModel?
+    private var viewModel: ColumnTableViewCellModel?
     private(set) var skillListing: SkillListing?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -63,7 +63,7 @@ final class SkillTableViewCell: UITableViewCell {
     /// - Parameters:
     ///   - skillListing: SkillListing corresponding with the table view cell
     ///   - viewModel: The cell's view model
-    func prepare(with skillListing: SkillListing, viewModel: SkillTableViewCellModel) {
+    func prepare(with skillListing: SkillListing, viewModel: ColumnTableViewCellModel) {
         if self.skillListing != nil {
             update(skillListing: skillListing)
         }
@@ -91,20 +91,20 @@ final class SkillTableViewCell: UITableViewCell {
         self.name?.textAlignment = .left
         self.name?.fitTextToBounds(maximumSize: viewModel.fontSize)
         
-        points?.text = "\(skillListing.points)"
-        points?.font = viewModel.numberFont
-        points?.textAlignment = .center
-        points?.fitTextToBounds(maximumSize: viewModel.fontSize)
+        firstColumn?.text = "\(skillListing.points)"
+        firstColumn?.font = viewModel.columnFontRegular
+        firstColumn?.textAlignment = .center
+        firstColumn?.fitTextToBounds(maximumSize: viewModel.fontSize)
         
-        modifier?.text = "\(skillListing.modifier)"
-        modifier?.font = viewModel.numberFont
-        modifier?.textAlignment = .center
-        modifier?.fitTextToBounds(maximumSize: viewModel.fontSize)
+        secondColumn?.text = "\(skillListing.modifier)"
+        secondColumn?.font = viewModel.columnFontRegular
+        secondColumn?.textAlignment = .center
+        secondColumn?.fitTextToBounds(maximumSize: viewModel.fontSize)
         
-        total?.text = "\(skillListing.skillRollValue)"
-        total?.font = viewModel.totalFont
-        total?.textAlignment = .center
-        total?.fitTextToBounds(maximumSize: viewModel.fontSize)
+        thirdColumn?.text = "\(skillListing.skillRollValue)"
+        thirdColumn?.font = viewModel.columnFontBold
+        thirdColumn?.textAlignment = .center
+        thirdColumn?.fitTextToBounds(maximumSize: viewModel.fontSize)
     }
     
     private func columnLabel(frame: CGRect) -> UILabel {
@@ -127,7 +127,7 @@ final class SkillTableViewCell: UITableViewCell {
     /// This is a one-time called second stage initializer
     private func topViewContainer() -> UIView {
         let nameCellWidthRatio = CGFloat(0.55) // 55% of view width
-        let numericCellWidthRatio = CGFloat(0.15) // 3 cells, 15% of width each
+        let detailCellWidthRatio = CGFloat(0.15) // 3 cells, 15% of width each
         
         let safeFrame = contentView.frame
         let totalWidth = safeFrame.width
@@ -160,52 +160,52 @@ final class SkillTableViewCell: UITableViewCell {
             nameView.container.heightAnchor.constraint(equalToConstant: SkillTableConstants.rowHeight)
             ])
         
-        // MARK: Numeric Column Construction
+        // MARK: detail Column Construction
         
         var trailingAnchor = topViewContainer.trailingAnchor
         var count = 0
         
-        for numericColumn in 1...3 {
-            let numericFrameWidth = totalWidth * numericCellWidthRatio
-            let numericFrame = CGRect(x: nameFrameWidth + (numericFrameWidth * CGFloat(count)),
+        for detailColumn in 1...3 {
+            let detailFrameWidth = totalWidth * detailCellWidthRatio
+            let detailFrame = CGRect(x: nameFrameWidth + (detailFrameWidth * CGFloat(count)),
                                       y: safeFrame.minY,
-                                      width: numericFrameWidth,
+                                      width: detailFrameWidth,
                                       height: safeFrame.height)
-            let numericMargins = NSDirectionalEdgeInsets(top: numericFrame.height * 0.05,
-                                                         leading: numericFrame.width * 0.05,
-                                                         bottom: numericFrame.height * 0.05,
-                                                         trailing: numericFrame.width * 0.05)
-            let backgroundColor = numericColumn % 2 > 0 ? StyleConstants.Color.gray : StyleConstants.Color.light
-            let numericView = UILabel.container(frame: numericFrame,
-                                                margins: numericMargins,
+            let detailMargins = NSDirectionalEdgeInsets(top: detailFrame.height * 0.05,
+                                                         leading: detailFrame.width * 0.05,
+                                                         bottom: detailFrame.height * 0.05,
+                                                         trailing: detailFrame.width * 0.05)
+            let backgroundColor = detailColumn % 2 > 0 ? StyleConstants.Color.gray : StyleConstants.Color.light
+            let detailView = UILabel.container(frame: detailFrame,
+                                                margins: detailMargins,
                                                 backgroundColor: backgroundColor,
                                                 borderColor: nil, borderWidth: nil,
                                                 labelMaker: columnLabel)
             
-            numericView.label.backgroundColor = backgroundColor
+            detailView.label.backgroundColor = backgroundColor
             
             // Store the labels on the object to be edited by the update function
-            switch numericColumn {
+            switch detailColumn {
             case 3:
-                points = numericView.label
+                firstColumn = detailView.label
             case 2:
-                modifier = numericView.label
+                secondColumn = detailView.label
             case 1:
-                total = numericView.label
+                thirdColumn = detailView.label
             default:
                 break
             }
             
-            topViewContainer.addSubview(numericView.container)
+            topViewContainer.addSubview(detailView.container)
             
             NSLayoutConstraint.activate([
-                numericView.container.trailingAnchor.constraint(equalTo: trailingAnchor),
-                numericView.container.topAnchor.constraint(equalTo: topViewContainer.topAnchor),
-                numericView.container.widthAnchor.constraint(equalTo: topViewContainer.widthAnchor, multiplier: numericCellWidthRatio),
-                numericView.container.heightAnchor.constraint(equalToConstant: SkillTableConstants.rowHeight)
+                detailView.container.trailingAnchor.constraint(equalTo: trailingAnchor),
+                detailView.container.topAnchor.constraint(equalTo: topViewContainer.topAnchor),
+                detailView.container.widthAnchor.constraint(equalTo: topViewContainer.widthAnchor, multiplier: detailCellWidthRatio),
+                detailView.container.heightAnchor.constraint(equalToConstant: SkillTableConstants.rowHeight)
                 ])
             
-            trailingAnchor = numericView.container.leadingAnchor
+            trailingAnchor = detailView.container.leadingAnchor
             count += 1
         }
         return topViewContainer

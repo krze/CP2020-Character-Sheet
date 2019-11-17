@@ -108,7 +108,7 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
         tableView.rowHeight = SkillTableConstants.rowHeight
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(SkillTableViewCell.self, forCellReuseIdentifier: identifier)
+        tableView.register(ColumnTableViewCell.self, forCellReuseIdentifier: identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(tableView)
         
@@ -141,9 +141,9 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         
-        if let cell = cell as? SkillTableViewCell {
+        if let cell = cell as? ColumnTableViewCell {
             let listing = highlightedSkills[indexPath.row]
-            cell.prepare(with: listing, viewModel: SkillTableViewCellModel())
+            cell.prepare(with: listing, viewModel: ColumnTableViewCellModel())
         }
         
         return cell

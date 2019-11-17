@@ -69,7 +69,7 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
         if let skillsDataSource = skillsDataSource {
             return SkillTableViewController(with: skillsDataSource,
                                             viewModel: SkillTableViewModel(),
-                                            tableViewCellModel: SkillTableViewCellModel())
+                                            tableViewCellModel: ColumnTableViewCellModel())
         }
         
         return nil

@@ -14,7 +14,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
     private let dataSource: SkillsDataSource
     
     private let viewModel: SkillTableViewModel
-    private let cellModel: SkillTableViewCellModel
+    private let cellModel: ColumnTableViewCellModel
     
     private var sections = [SkillTableSections: [SkillListing]]()
     private let identifier = SkillTableConstants.identifier
@@ -31,7 +31,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
 
     init(with skillsController: SkillsDataSource,
          viewModel: SkillTableViewModel,
-         tableViewCellModel: SkillTableViewCellModel) {
+         tableViewCellModel: ColumnTableViewCellModel) {
         self.dataSource = skillsController
         self.viewModel = viewModel
         self.expandedRowHeight = SkillTableConstants.rowHeight * 4
@@ -46,7 +46,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.register(SkillTableViewCell.self, forCellReuseIdentifier: identifier)
+        self.tableView.register(ColumnTableViewCell.self, forCellReuseIdentifier: identifier)
 
         // Tableview Setup
         
@@ -136,7 +136,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         
-        if let cell = cell as? SkillTableViewCell, let section = SkillTableSections(rawValue: indexPath.section),
+        if let cell = cell as? ColumnTableViewCell, let section = SkillTableSections(rawValue: indexPath.section),
             let listing = sections[section]?[indexPath.row] {
             cell.prepare(with: listing, viewModel: cellModel)
         }
@@ -145,7 +145,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = self.tableView.cellForRow(at: indexPath) as? SkillTableViewCell else {
+        guard let cell = self.tableView.cellForRow(at: indexPath) as? ColumnTableViewCell else {
             return
         }
         

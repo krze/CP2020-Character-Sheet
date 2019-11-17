@@ -1,5 +1,5 @@
 //
-//  SkillTableViewCellModel.swift
+//  ColumnTableViewCellModel.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 12/21/18.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-struct SkillTableViewCellModel: MarginCreator {
+struct ColumnTableViewCellModel: MarginCreator {
     
     let nameFont = StyleConstants.Font.defaultFont
-    let numberFont = StyleConstants.Font.defaultFont
-    let totalFont = StyleConstants.Font.defaultBold
+    let columnFontRegular = StyleConstants.Font.defaultFont
+    let columnFontBold = StyleConstants.Font.defaultBold
     
     let fontSize = CGFloat(16)
     
