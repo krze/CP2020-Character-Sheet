@@ -79,6 +79,7 @@
 		9D7E12412381C6EA0025443D /* ColumnTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E12402381C6EA0025443D /* ColumnTableViewHeader.swift */; };
 		9D7E12432381CFB50025443D /* ArmorStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E12422381CFB50025443D /* ArmorStrings.swift */; };
 		9D7E12452381E0A20025443D /* AnatomyDisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E12442381E0A20025443D /* AnatomyDisplayController.swift */; };
+		9D7E124723820FCC0025443D /* CheckboxConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E124623820FCC0025443D /* CheckboxConfig.swift */; };
 		9D85671B230C93C600295479 /* EditorCollectionViewModel+Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671A230C93C600295479 /* EditorCollectionViewModel+Stats.swift */; };
 		9D85671D230C960100295479 /* StatsStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671C230C960100295479 /* StatsStrings.swift */; };
 		9D85671F230F62EF00295479 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671E230F62EF00295479 /* Rules.swift */; };
@@ -227,6 +228,7 @@
 		9D7E12402381C6EA0025443D /* ColumnTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnTableViewHeader.swift; sourceTree = "<group>"; };
 		9D7E12422381CFB50025443D /* ArmorStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmorStrings.swift; sourceTree = "<group>"; };
 		9D7E12442381E0A20025443D /* AnatomyDisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnatomyDisplayController.swift; sourceTree = "<group>"; };
+		9D7E124623820FCC0025443D /* CheckboxConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxConfig.swift; sourceTree = "<group>"; };
 		9D85671A230C93C600295479 /* EditorCollectionViewModel+Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorCollectionViewModel+Stats.swift"; sourceTree = "<group>"; };
 		9D85671C230C960100295479 /* StatsStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsStrings.swift; sourceTree = "<group>"; };
 		9D85671E230F62EF00295479 /* Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 				9D0003A821FE479D0044F84A /* UserEntryCollectionViewCell.swift */,
 				9D4458072232BE6B00AC4EFE /* CommonEntryConstructor.swift */,
 				9D004E5821DA7FE1004DFA4D /* EntryType.swift */,
+				9D7E124623820FCC0025443D /* CheckboxConfig.swift */,
 				9D43614A234AA7D70057D27B /* Validating */,
 			);
 			path = Cells;
@@ -881,6 +884,7 @@
 				9D004E2D21D6E37C004DFA4D /* PrinterPaperViewModel.swift in Sources */,
 				9DCD370B21CC239B00EE00D9 /* SkillTableViewController.swift in Sources */,
 				9DFE711721BDA18B000561B0 /* StatsViewCellModel.swift in Sources */,
+				9D7E124723820FCC0025443D /* CheckboxConfig.swift in Sources */,
 				64157CBC2378AA6F00667FB0 /* ArmorDataSourceDelegate.swift in Sources */,
 				9DFE711321BD933A000561B0 /* StatViewModel.swift in Sources */,
 				9DFA19F121CE9EE10092A450 /* Notification+Cyberpunk.swift in Sources */,
