@@ -9,7 +9,7 @@
 import UIKit
 
 /// The table view containing the full listing of every skill available to the player
-final class SkillTableViewController: UITableViewController, SkillsDataSourceDelegate, SkillTableViewCellDelegate, UISearchResultsUpdating {
+final class SkillTableViewController: UITableViewController, SkillsDataSourceDelegate, UISearchResultsUpdating {
 
     private let dataSource: SkillsDataSource
     
@@ -139,7 +139,6 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         if let cell = cell as? SkillTableViewCell, let section = SkillTableSections(rawValue: indexPath.section),
             let listing = sections[section]?[indexPath.row] {
             cell.prepare(with: listing, viewModel: cellModel)
-            cell.delegate = self
         }
         
         return cell
@@ -186,17 +185,6 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         skillListings = skills
         updateSections()
         tableView.reloadData()
-    }
-    
-    
-    // MARK: SkillTableViewCellDelegate
-    
-    func cellHeightDidChange(_ cell: SkillTableViewCell) {
-        if let rowHeight = cell.heightForDescriptionAboutToDisplay() {
-            expandedRowHeight = rowHeight + SkillTableConstants.rowHeight
-        }
-        
-        refreshTableAfterHeightChange()
     }
     
     // MARK: UISearchResultsUpdating
@@ -295,13 +283,6 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
     }
     
     @objc private func forceRefresh() {
-        /// Ensures descriptions are hid again in case they were left open
-        if let indexPath = selectedIndex,
-            let cell = self.tableView.cellForRow(at: indexPath) as? SkillTableViewCell {
-            cell.hideDescription() // TODO: Decide to axe this or keep this.
-            selectedIndex = nil
-        }
-        
         tableView.reloadData()
     }
     

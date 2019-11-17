@@ -6,9 +6,9 @@
 //  Copyright © 2019 Ken Krzeminski. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-final class ArmorDataSource: EditorValueReciever {
+final class ArmorDataSource: NSObject, EditorValueReciever, UITableViewDataSource {
     
     weak var delegate: ArmorDataSourceDelegate?
 
@@ -23,5 +23,16 @@ final class ArmorDataSource: EditorValueReciever {
     func refreshData() {}
 
     func autofillSuggestion(for identifier: Identifier, value: AnyHashable) -> [Identifier : AnyHashable]? { return nil }
+    
+    // MARK: UITableViewDataSource
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        model.equippedArmor.armor.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        UITableViewCell()
+    }
+    
 
 }
