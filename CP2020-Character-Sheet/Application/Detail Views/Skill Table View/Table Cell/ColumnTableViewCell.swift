@@ -21,7 +21,7 @@ final class ColumnTableViewCell: UITableViewCell {
     private var topView: UIView?
     
     private var viewModel: ColumnTableViewCellModel?
-    private(set) var skillListing: SkillListing?
+    private(set) var columnListing: ColumnListing?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -33,7 +33,7 @@ final class ColumnTableViewCell: UITableViewCell {
         let topView = topViewContainer()
         stack.addArrangedSubview(topView)
         
-        let topViewHeightConstraint = topView.heightAnchor.constraint(equalToConstant: SkillTableConstants.rowHeight)
+        let topViewHeightConstraint = topView.heightAnchor.constraint(equalToConstant: ColumnTableConstants.rowHeight)
         topViewHeightConstraint.priority = .defaultLow
         
         NSLayoutConstraint.activate([
@@ -57,51 +57,51 @@ final class ColumnTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    /// Sets up the view with the SkillListing provided. This function is intended for first-time setup.
+    /// Sets up the view with the ColumnListing provided. This function is intended for first-time setup.
     /// Use this as as second-stage initializer after creating the cell in a table view with a reuse identifier.
     ///
     /// - Parameters:
-    ///   - skillListing: SkillListing corresponding with the table view cell
+    ///   - columnListing: ColumnListing corresponding with the table view cell
     ///   - viewModel: The cell's view model
-    func prepare(with skillListing: SkillListing, viewModel: ColumnTableViewCellModel) {
-        if self.skillListing != nil {
-            update(skillListing: skillListing)
+    func prepare(with columnListing: ColumnListing, viewModel: ColumnTableViewCellModel) {
+        if self.columnListing != nil {
+            update(columnListing: columnListing)
         }
         else {
             self.viewModel = viewModel
-            self.skillListing = skillListing
+            self.columnListing = columnListing
         }
     }
     
-    /// Updates the skill listing. This can be called at any time to change the values displayed.
+    /// Updates the columnListing. This can be called at any time to change the values displayed.
     ///
-    /// - Parameter skillListing: The skill listing to display
-    func update(skillListing: SkillListing) {
-        self.skillListing = skillListing
+    /// - Parameter columnListing: The column listing to display
+    func update(columnListing: ColumnListing) {
+        self.columnListing = columnListing
         updateColumnValues()
     }
     
-    /// Update the skill listing for the table view.
+    /// Updates the name and columns for the table view.
     private func updateColumnValues() {
-        guard let viewModel = viewModel, let skillListing = skillListing else { return }
+        guard let viewModel = viewModel, let columnListing = columnListing else { return }
         self.backgroundColor = StyleConstants.Color.light
         
-        self.name?.text = skillListing.displayName()
+        self.name?.text = columnListing.name
         self.name?.font = viewModel.nameFont
         self.name?.textAlignment = .left
         self.name?.fitTextToBounds(maximumSize: viewModel.fontSize)
         
-        firstColumn?.text = "\(skillListing.points)"
+        firstColumn?.text = columnListing.firstColumnValue
         firstColumn?.font = viewModel.columnFontRegular
         firstColumn?.textAlignment = .center
         firstColumn?.fitTextToBounds(maximumSize: viewModel.fontSize)
         
-        secondColumn?.text = "\(skillListing.modifier)"
+        secondColumn?.text = columnListing.secondColumnValue
         secondColumn?.font = viewModel.columnFontRegular
         secondColumn?.textAlignment = .center
         secondColumn?.fitTextToBounds(maximumSize: viewModel.fontSize)
         
-        thirdColumn?.text = "\(skillListing.skillRollValue)"
+        thirdColumn?.text = columnListing.thirdColumnValue
         thirdColumn?.font = viewModel.columnFontBold
         thirdColumn?.textAlignment = .center
         thirdColumn?.fitTextToBounds(maximumSize: viewModel.fontSize)
@@ -139,7 +139,7 @@ final class ColumnTableViewCell: UITableViewCell {
         
         let nameFrameWidth = totalWidth * nameCellWidthRatio
         let nameFrame = CGRect(x: safeFrame.minX, y: safeFrame.minY,
-                               width: nameFrameWidth, height: SkillTableConstants.rowHeight)
+                               width: nameFrameWidth, height: ColumnTableConstants.rowHeight)
         let nameMargins = NSDirectionalEdgeInsets(top: nameFrame.height * 0.05,
                                                   leading: nameFrame.width * 0.05,
                                                   bottom: nameFrame.height * 0.05,
@@ -157,7 +157,7 @@ final class ColumnTableViewCell: UITableViewCell {
             nameView.container.leadingAnchor.constraint(equalTo: topViewContainer.leadingAnchor),
             nameView.container.topAnchor.constraint(equalTo: topViewContainer.topAnchor),
             nameView.container.widthAnchor.constraint(equalToConstant: nameFrameWidth),
-            nameView.container.heightAnchor.constraint(equalToConstant: SkillTableConstants.rowHeight)
+            nameView.container.heightAnchor.constraint(equalToConstant: ColumnTableConstants.rowHeight)
             ])
         
         // MARK: detail Column Construction
@@ -202,7 +202,7 @@ final class ColumnTableViewCell: UITableViewCell {
                 detailView.container.trailingAnchor.constraint(equalTo: trailingAnchor),
                 detailView.container.topAnchor.constraint(equalTo: topViewContainer.topAnchor),
                 detailView.container.widthAnchor.constraint(equalTo: topViewContainer.widthAnchor, multiplier: detailCellWidthRatio),
-                detailView.container.heightAnchor.constraint(equalToConstant: SkillTableConstants.rowHeight)
+                detailView.container.heightAnchor.constraint(equalToConstant: ColumnTableConstants.rowHeight)
                 ])
             
             trailingAnchor = detailView.container.leadingAnchor

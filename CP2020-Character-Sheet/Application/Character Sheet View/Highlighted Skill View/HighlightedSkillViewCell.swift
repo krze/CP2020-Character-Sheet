@@ -17,7 +17,7 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     // MARK: Tableview fields
     
     private let rowCount = SkillTableConstants.highlightedSkillTableViewCellCount
-    private let identifier = SkillTableConstants.identifier
+    private let identifier = ColumnTableConstants.identifier
     private let sectionCount = SkillTableConstants.highlightedSkillTableSectionCount
 
     private var viewModel: HighlightedSkillViewCellModel?
@@ -105,7 +105,7 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
         
         tableView.isScrollEnabled = false
         tableView.allowsSelection = false
-        tableView.rowHeight = SkillTableConstants.rowHeight
+        tableView.rowHeight = ColumnTableConstants.rowHeight
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ColumnTableViewCell.self, forCellReuseIdentifier: identifier)
@@ -143,7 +143,7 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
         
         if let cell = cell as? ColumnTableViewCell {
             let listing = highlightedSkills[indexPath.row]
-            cell.prepare(with: listing, viewModel: ColumnTableViewCellModel())
+            cell.prepare(with: listing.columnListing(), viewModel: ColumnTableViewCellModel())
         }
         
         return cell

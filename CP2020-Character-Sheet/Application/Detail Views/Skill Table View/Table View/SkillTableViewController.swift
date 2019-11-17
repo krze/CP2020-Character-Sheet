@@ -17,7 +17,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
     private let cellModel: ColumnTableViewCellModel
     
     private var sections = [SkillTableSections: [SkillListing]]()
-    private let identifier = SkillTableConstants.identifier
+    private let identifier = ColumnTableConstants.identifier
     
     private var skillListings = [SkillListing]()
     private var filteredSillListings = [SkillListing]()
@@ -34,7 +34,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
          tableViewCellModel: ColumnTableViewCellModel) {
         self.dataSource = skillsController
         self.viewModel = viewModel
-        self.expandedRowHeight = SkillTableConstants.rowHeight * 4
+        self.expandedRowHeight = ColumnTableConstants.rowHeight * 4
         cellModel = tableViewCellModel
         
         super.init(style: .plain)
@@ -50,7 +50,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
 
         // Tableview Setup
         
-        tableView.rowHeight = SkillTableConstants.rowHeight
+        tableView.rowHeight = ColumnTableConstants.rowHeight
         tableView.backgroundColor = viewModel.lightColor
         
         // Search bar setup
@@ -67,14 +67,14 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
             return 0.0
         }
         else {
-            return SkillTableConstants.rowHeight
+            return ColumnTableConstants.rowHeight
             
         }
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard !isFiltering() else { return nil }
-        let frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: SkillTableConstants.rowHeight)
+        let frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: ColumnTableConstants.rowHeight)
         let labelText = SkillTableSections(rawValue: section)?.string() ?? SkillStrings.noAssociatedStat
         
         let view = UIView(frame: frame)
@@ -105,7 +105,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
             let frame = CGRect(x: headerFrame.maxX - (width * CGFloat(index)),
                                y: headerFrame.minY,
                                width: width,
-                               height: SkillTableConstants.rowHeight)
+                               height: ColumnTableConstants.rowHeight)
             let margins = viewModel.createInsets(with: frame)
             let backgroundColor = StyleConstants.Color.dark
             
@@ -136,20 +136,16 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         
-        if let cell = cell as? ColumnTableViewCell, let section = SkillTableSections(rawValue: indexPath.section),
-            let listing = sections[section]?[indexPath.row] {
-            cell.prepare(with: listing, viewModel: cellModel)
+        if let cell = cell as? ColumnTableViewCell,
+            let listing = skillListing(for: indexPath) {
+            cell.prepare(with: listing.columnListing(), viewModel: cellModel)
         }
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = self.tableView.cellForRow(at: indexPath) as? ColumnTableViewCell else {
-            return
-        }
-        
-        if let listing = cell.skillListing {
+        if let listing = skillListing(for: indexPath) {
             let viewModel = EditorCollectionViewModel.model(from: listing, mode: .edit, skillNameFetcher: dataSource.allSkillDisplayNames)
             showSkillDetail(viewModel: viewModel)
         }
@@ -161,7 +157,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
             return expandedRowHeight
         }
         else{
-            return SkillTableConstants.rowHeight
+            return ColumnTableConstants.rowHeight
         }
     }
     
@@ -297,6 +293,14 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
             skillDetail.delegate = self.dataSource
             self.navigationController?.pushViewController(skillDetail, animated: true)
         }
+    }
+    
+    private func skillListing(for indexPath: IndexPath) -> SkillListing? {
+        if let section = SkillTableSections(rawValue: indexPath.section) {
+            return sections[section]?[indexPath.row]
+        }
+        
+        return nil
     }
 
     required init?(coder aDecoder: NSCoder) {

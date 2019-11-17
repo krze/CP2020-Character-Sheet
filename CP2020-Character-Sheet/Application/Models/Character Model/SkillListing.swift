@@ -9,7 +9,7 @@
 import Foundation
 
 /// Represents the listing of a skill as it is known to the character
-final class SkillListing: Codable {
+final class SkillListing: Codable, ColumnListingProviding {
     
     /// The skill tied to the listing
     let skill: Skill
@@ -109,5 +109,9 @@ final class SkillListing: Codable {
         case statModifier = "stat_modifier"
         case improvementPoints = "ip"
         case skill, points, modifier
+    }
+    
+    func columnListing() -> ColumnListing {
+        ColumnListing(name: displayName(), firstColumnValue: "\(points)", secondColumnValue: "\(modifier)", thirdColumnValue: "\(skillRollValue)")
     }
 }

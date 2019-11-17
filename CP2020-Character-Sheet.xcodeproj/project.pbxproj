@@ -74,6 +74,8 @@
 		9D7E12372380DAB00025443D /* TorsoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E12362380DAB00025443D /* TorsoView.swift */; };
 		9D7E12392380DF5C0025443D /* ArmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E12382380DF5C0025443D /* ArmView.swift */; };
 		9D7E123B2380E2160025443D /* LegView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E123A2380E2160025443D /* LegView.swift */; };
+		9D7E123D238191040025443D /* ColumnTableConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E123C238191040025443D /* ColumnTableConstants.swift */; };
+		9D7E123F238191F30025443D /* ColumnListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E123E238191F30025443D /* ColumnListing.swift */; };
 		9D85671B230C93C600295479 /* EditorCollectionViewModel+Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671A230C93C600295479 /* EditorCollectionViewModel+Stats.swift */; };
 		9D85671D230C960100295479 /* StatsStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671C230C960100295479 /* StatsStrings.swift */; };
 		9D85671F230F62EF00295479 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671E230F62EF00295479 /* Rules.swift */; };
@@ -217,6 +219,8 @@
 		9D7E12362380DAB00025443D /* TorsoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorsoView.swift; sourceTree = "<group>"; };
 		9D7E12382380DF5C0025443D /* ArmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmView.swift; sourceTree = "<group>"; };
 		9D7E123A2380E2160025443D /* LegView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegView.swift; sourceTree = "<group>"; };
+		9D7E123C238191040025443D /* ColumnTableConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnTableConstants.swift; sourceTree = "<group>"; };
+		9D7E123E238191F30025443D /* ColumnListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnListing.swift; sourceTree = "<group>"; };
 		9D85671A230C93C600295479 /* EditorCollectionViewModel+Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorCollectionViewModel+Stats.swift"; sourceTree = "<group>"; };
 		9D85671C230C960100295479 /* StatsStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsStrings.swift; sourceTree = "<group>"; };
 		9D85671E230F62EF00295479 /* Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
@@ -715,6 +719,8 @@
 			children = (
 				9DCD371021CC246300EE00D9 /* ColumnTableViewCell.swift */,
 				9DCD371421CD598D00EE00D9 /* ColumnTableViewCellModel.swift */,
+				9D7E123C238191040025443D /* ColumnTableConstants.swift */,
+				9D7E123E238191F30025443D /* ColumnListing.swift */,
 			);
 			path = "Table Cell";
 			sourceTree = "<group>";
@@ -861,6 +867,7 @@
 				9D85671F230F62EF00295479 /* Rules.swift in Sources */,
 				9DFCB7AB21D071EE00F99798 /* IO.swift in Sources */,
 				9D43614C234AA8030057D27B /* AlertViewStrings.swift in Sources */,
+				9D7E123D238191040025443D /* ColumnTableConstants.swift in Sources */,
 				9D004E2D21D6E37C004DFA4D /* PrinterPaperViewModel.swift in Sources */,
 				9DCD370B21CC239B00EE00D9 /* SkillTableViewController.swift in Sources */,
 				9DFE711721BDA18B000561B0 /* StatsViewCellModel.swift in Sources */,
@@ -912,6 +919,7 @@
 				9D004E3121D80C5F004DFA4D /* CharacterDescriptionDataSource.swift in Sources */,
 				9D004E2721D5A97D004DFA4D /* ModelManager.swift in Sources */,
 				9DFA19EF21CE9D920092A450 /* HighlightedSkillViewCellDataSource.swift in Sources */,
+				9D7E123F238191F30025443D /* ColumnListing.swift in Sources */,
 				9DFCB7B021D1506C00F99798 /* SkillModel.swift in Sources */,
 				9D5C1F5C21A0794400B3D493 /* DamageSectionView.swift in Sources */,
 				9D4724A02309EF0100CECEA2 /* EditorCollectionViewModel+Role.swift in Sources */,
