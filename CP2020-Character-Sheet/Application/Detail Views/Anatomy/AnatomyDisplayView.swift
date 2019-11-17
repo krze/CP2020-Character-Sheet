@@ -11,12 +11,12 @@ import UIKit
 /// A view that displays the character's body. Used to indicate statuses that relate to the location
 /// within the body.
 final class AnatomyDisplayView: UIView {
-    private let head: HeadView
-    private let torso: TorsoView
-    private let leftArm: ArmView
-    private let rightArm: ArmView
-    private let leftLeg: LegView
-    private let rightLeg: LegView
+    let head: HeadView
+    let torso: TorsoView
+    let leftArm: ArmView
+    let rightArm: ArmView
+    let leftLeg: LegView
+    let rightLeg: LegView
 
     init() {
         head = HeadView()

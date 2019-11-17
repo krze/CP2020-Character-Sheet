@@ -10,21 +10,41 @@ import UIKit
 
 final class ArmorDataSource: NSObject, EditorValueReciever {
     
+    /// If an AnatomyDisplayController is present, this view will be updated as well
+    weak var anatomyDisplayController: AnatomyDisplayController?
+    
+    /// Responds to updates to armor changes in the model
     weak var delegate: ArmorDataSourceDelegate?
+    
     fileprivate let model: ArmorModel
     
     init(model: ArmorModel) {
         self.model = model
+
+        super.init()
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(refreshData),
+                                               name: .armorDidChange,
+                                               object: nil)
     }
 
     func valuesFromEditorDidChange(_ values: [Identifier: AnyHashable], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {}
 
-    func refreshData() {
+    @objc func refreshData() {
         var locationsSPS = [BodyLocation: Int]()
         
         BodyLocation.allCases.forEach { location in
-            locationsSPS[location] = model.equippedArmor.sps(for: location)
+            let sps = model.equippedArmor.sps(for: location)
+            locationsSPS[location] = sps
+            
+            // MARK: Update AnatomyDisplayController
+            
+            anatomyDisplayController?.updateSPSAccessoryView(for: location, newValue: "\(sps)")
+            anatomyDisplayController?.updateSPSAccessoryView(for: location, newValue: model.equippedArmor.status(for: location))
         }
+        
+        // MARK: Update ArmorViewCell
         
         delegate?.armorDidChange(locationSPS: locationsSPS)
     }

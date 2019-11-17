@@ -82,8 +82,15 @@ final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOn
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             
-            let viewModel = StatusTableViewModel(title: "Armor Status", viewHeaderHeight: 300.0, viewHeader: AnatomyDisplayView(), dataSource: self.dataSource)
-            let statusTableView = StatusTableView(with: viewModel)
+            let viewHeader = AnatomyDisplayView()
+            let headerViewController = AnatomyDisplayController(viewHeader)
+            let viewModel = StatusTableViewModel(title: "Armor Status",
+                                                 viewHeaderHeight: 300.0,
+                                                 viewHeader: viewHeader,
+                                                 dataSource: self.dataSource)
+            let statusTableView = StatusTableView(with: viewModel, headerViewController: headerViewController)
+            
+            self.dataSource?.anatomyDisplayController = headerViewController
             NotificationCenter.default.post(name: .showEditor, object: statusTableView)
         }
     }

@@ -48,6 +48,12 @@ final class EquippedArmor: Codable {
         return sps
     }
     
+    /// Indicates whether the location has sustained damage to the armor
+    /// - Parameter location: The location that you need ArmorLocationStatus for
+    func status(for location: BodyLocation) -> ArmorLocationStatus {
+        return armor.filter({ $0.locations.contains(location) }).contains(where: { $0.damageSustained > 0 }) ? .Damaged : .Undamaged
+    }
+    
     /// Equips the armor specified.
     ///
     /// - Parameter armor: The new armor to equip
@@ -66,32 +72,6 @@ final class EquippedArmor: Codable {
         updateEncumberance()
     }
     
-    /// Modifies the sorted armor zones
-    /// - Parameters:
-    ///   - process: The specified process of either adding or removing
-    ///   - armor: The armor under process
-    private func modifyArmorZones(_ process: Process, _ armor: Armor) {
-        var mutableOrder = [Int: Armor]()
-        var currentLayer = 0
-        var zones = ArmorZone.allCases
-        
-        // Order the armor by layers from inside to out
-        
-        while !zones.isEmpty {
-            let zone = zones.removeFirst()
-            var armorInZone = self.armor.filter { $0.zone == zone }
-            if armor.zone == zone {
-                process == .adding ? armorInZone.append(armor) : armorInZone.removeAll(where: { $0 == armor})
-            }
-            
-            armorInZone.sort(by: { $0.sps > $1.sps })
-            armorInZone.forEach { armor in
-                mutableOrder[currentLayer] = armor
-                currentLayer += 1
-            }
-        }
-        order = mutableOrder
-    }
     /// Coalesces all the armor's inherent EV penalty on the character.
     func armorEncumberancePenalty() -> Int {
         armor.reduce(0) { $0 + $1.ev }
@@ -121,6 +101,33 @@ final class EquippedArmor: Codable {
         }
 
         return -encumberingArmor.count
+    }
+    
+    /// Modifies the sorted armor zones
+    /// - Parameters:
+    ///   - process: The specified process of either adding or removing
+    ///   - armor: The armor under process
+    private func modifyArmorZones(_ process: Process, _ armor: Armor) {
+        var mutableOrder = [Int: Armor]()
+        var currentLayer = 0
+        var zones = ArmorZone.allCases
+        
+        // Order the armor by layers from inside to out
+        
+        while !zones.isEmpty {
+            let zone = zones.removeFirst()
+            var armorInZone = self.armor.filter { $0.zone == zone }
+            if armor.zone == zone {
+                process == .adding ? armorInZone.append(armor) : armorInZone.removeAll(where: { $0 == armor})
+            }
+            
+            armorInZone.sort(by: { $0.sps > $1.sps })
+            armorInZone.forEach { armor in
+                mutableOrder[currentLayer] = armor
+                currentLayer += 1
+            }
+        }
+        order = mutableOrder
     }
     
     private func updateEncumberance() {

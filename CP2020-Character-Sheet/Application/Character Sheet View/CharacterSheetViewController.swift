@@ -34,9 +34,6 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
                                 forCellWithReuseIdentifier: CharacterSheetSections.Skill.cellReuseID())
         collectionView.register(ArmorViewCell.self,
                                 forCellWithReuseIdentifier: CharacterSheetSections.Armor.cellReuseID())
-
-        // NEXT: Add the armor track
-
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

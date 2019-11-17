@@ -8,9 +8,23 @@
 
 import UIKit
 
+
 protocol BodyPartStatus {
+    
     func color() -> UIColor
 }
+
+enum ArmorLocationStatus: BodyPartStatus {
+    case Undamaged, Damaged
+    
+    func color() -> UIColor {
+        switch self {
+        case .Damaged: return StyleConstants.Color.red
+        case .Undamaged: return StyleConstants.Color.dark
+        }
+    }
+}
+
 
 protocol BodyPartView: UIView {
     

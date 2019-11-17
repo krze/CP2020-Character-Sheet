@@ -78,6 +78,7 @@
 		9D7E123F238191F30025443D /* ColumnListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E123E238191F30025443D /* ColumnListing.swift */; };
 		9D7E12412381C6EA0025443D /* ColumnTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E12402381C6EA0025443D /* ColumnTableViewHeader.swift */; };
 		9D7E12432381CFB50025443D /* ArmorStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E12422381CFB50025443D /* ArmorStrings.swift */; };
+		9D7E12452381E0A20025443D /* AnatomyDisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E12442381E0A20025443D /* AnatomyDisplayController.swift */; };
 		9D85671B230C93C600295479 /* EditorCollectionViewModel+Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671A230C93C600295479 /* EditorCollectionViewModel+Stats.swift */; };
 		9D85671D230C960100295479 /* StatsStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671C230C960100295479 /* StatsStrings.swift */; };
 		9D85671F230F62EF00295479 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671E230F62EF00295479 /* Rules.swift */; };
@@ -225,6 +226,7 @@
 		9D7E123E238191F30025443D /* ColumnListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnListing.swift; sourceTree = "<group>"; };
 		9D7E12402381C6EA0025443D /* ColumnTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnTableViewHeader.swift; sourceTree = "<group>"; };
 		9D7E12422381CFB50025443D /* ArmorStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmorStrings.swift; sourceTree = "<group>"; };
+		9D7E12442381E0A20025443D /* AnatomyDisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnatomyDisplayController.swift; sourceTree = "<group>"; };
 		9D85671A230C93C600295479 /* EditorCollectionViewModel+Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorCollectionViewModel+Stats.swift"; sourceTree = "<group>"; };
 		9D85671C230C960100295479 /* StatsStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsStrings.swift; sourceTree = "<group>"; };
 		9D85671E230F62EF00295479 /* Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
@@ -509,6 +511,7 @@
 			isa = PBXGroup;
 			children = (
 				9D7E122F2380A62E0025443D /* AnatomyDisplayView.swift */,
+				9D7E12442381E0A20025443D /* AnatomyDisplayController.swift */,
 				9D7E12342380A8EB0025443D /* HeadView.swift */,
 				9D7E12362380DAB00025443D /* TorsoView.swift */,
 				9D7E12382380DF5C0025443D /* ArmView.swift */,
@@ -869,6 +872,7 @@
 				9D85671D230C960100295479 /* StatsStrings.swift in Sources */,
 				9D4724A22309F06D00CECEA2 /* UICollectionViewLayout+Common.swift in Sources */,
 				9DFCB7A921D0674A00F99798 /* Stats.swift in Sources */,
+				9D7E12452381E0A20025443D /* AnatomyDisplayController.swift in Sources */,
 				9DE3359B21A9E9F700180927 /* DamageModifierViewCell.swift in Sources */,
 				9D85671F230F62EF00295479 /* Rules.swift in Sources */,
 				9DFCB7AB21D071EE00F99798 /* IO.swift in Sources */,
