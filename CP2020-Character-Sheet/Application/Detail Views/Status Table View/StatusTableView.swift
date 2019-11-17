@@ -13,32 +13,47 @@ import UIKit
 /// with items in the tableview that can affect the status. For example, a StatusTableView
 /// for armor can contain a diagram of your armor per location in the static header, and an
 /// editable list of worn armor within the tableview.
-final class StatusTableView: UITableViewController {
+final class StatusTableView: UIViewController {
     private let viewHeader: UIView
     private let viewHeaderHeight: CGFloat
+    private let tableView: UITableView
     
     init(with model: StatusTableViewModel) {
         viewHeaderHeight = model.viewHeaderHeight
         viewHeader = model.viewHeader
-        super.init(style: .plain)
+        tableView = UITableView()
+        super.init(nibName: nil, bundle: nil)
         title = model.title
+        tableView.dataSource = model.dataSource
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.contentInset = UIEdgeInsets(top: viewHeaderHeight,
-                                              left: 0.0,
-                                              bottom: 0.0,
-                                              right: 0.0)
+        let viewHeaderHeight = self.viewHeaderHeight
+        
+        // MARK: TableView layout
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
+        
+        NSLayoutConstraint.activate([
+            tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: viewHeaderHeight)
+        ])
+        
+        // MARK: Header layout
+        
         viewHeader.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(viewHeader)
         
         NSLayoutConstraint.activate([
             viewHeader.heightAnchor.constraint(equalToConstant: viewHeaderHeight),
-            viewHeader.leftAnchor.constraint(equalTo: view.leftAnchor),
-            viewHeader.rightAnchor.constraint(equalTo: view.rightAnchor),
-            viewHeader.topAnchor.constraint(equalTo: view.topAnchor)
+            viewHeader.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            viewHeader.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            viewHeader.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ])
     }
     

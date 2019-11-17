@@ -18,7 +18,7 @@ final class AnatomyDisplayView: UIView {
         super.init(frame: .zero)
         
         backgroundColor = StyleConstants.Color.light
-        setupLayoutConstraints()
+        setupInitialSubviews()
     }
     
     private func setupInitialSubviews() {

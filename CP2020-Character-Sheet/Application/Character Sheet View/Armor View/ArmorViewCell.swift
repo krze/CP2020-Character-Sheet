@@ -58,6 +58,7 @@ final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOn
        }
         
         backgroundColor = StyleConstants.Color.light
+        setupTapTarget()
         wasSetUp = true
     }
 
@@ -77,4 +78,18 @@ final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOn
         self.dataSource?.refreshData()
     }
     
+    @objc private func cellTapped() {
+        DispatchQueue.main.async {
+            let viewModel = StatusTableViewModel(title: "Armor Status", viewHeaderHeight: 300.0, viewHeader: AnatomyDisplayView(), dataSource: nil)
+            let statusTableView = StatusTableView(with: viewModel)
+            NotificationCenter.default.post(name: .showEditor, object: statusTableView)
+        }
+    }
+    
+    private func setupTapTarget() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
+        tap.cancelsTouchesInView = false
+        tap.numberOfTouchesRequired = 1
+        contentView.addGestureRecognizer(tap)
+    }
 }

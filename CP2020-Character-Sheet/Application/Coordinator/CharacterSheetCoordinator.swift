@@ -128,7 +128,7 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
     @objc private func showEditor(notification: Notification) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self, !self.childViewIsPresenting,
-                let editorViewController = notification.object as? EditorCollectionViewController else {
+                let editorViewController = notification.object as? UIViewController else {
                     return
             }
             
