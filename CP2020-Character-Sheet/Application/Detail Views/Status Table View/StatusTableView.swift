@@ -17,22 +17,24 @@ final class StatusTableView: UIViewController {
     private let viewHeader: UIView
     private let viewHeaderHeight: CGFloat
     private let tableView: UITableView
+    private let tableViewManager: TableViewManaging?
     
     init(with model: StatusTableViewModel) {
         viewHeaderHeight = model.viewHeaderHeight
         viewHeader = model.viewHeader
         tableView = UITableView()
+        tableViewManager = model.dataSource
+
         super.init(nibName: nil, bundle: nil)
         title = model.title
-        tableView.dataSource = model.dataSource
+        tableView.dataSource = tableViewManager
+        tableView.delegate = tableViewManager
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let viewHeaderHeight = self.viewHeaderHeight
-        
-        // MARK: TableView layout
+        // MARK: TableView setup
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
@@ -43,6 +45,8 @@ final class StatusTableView: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: viewHeaderHeight)
         ])
+        
+        tableViewManager?.registerCells(for: tableView)
         
         // MARK: Header layout
         

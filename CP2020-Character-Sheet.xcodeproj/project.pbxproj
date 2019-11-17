@@ -77,6 +77,7 @@
 		9D7E123D238191040025443D /* ColumnTableConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E123C238191040025443D /* ColumnTableConstants.swift */; };
 		9D7E123F238191F30025443D /* ColumnListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E123E238191F30025443D /* ColumnListing.swift */; };
 		9D7E12412381C6EA0025443D /* ColumnTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E12402381C6EA0025443D /* ColumnTableViewHeader.swift */; };
+		9D7E12432381CFB50025443D /* ArmorStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E12422381CFB50025443D /* ArmorStrings.swift */; };
 		9D85671B230C93C600295479 /* EditorCollectionViewModel+Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671A230C93C600295479 /* EditorCollectionViewModel+Stats.swift */; };
 		9D85671D230C960100295479 /* StatsStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671C230C960100295479 /* StatsStrings.swift */; };
 		9D85671F230F62EF00295479 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671E230F62EF00295479 /* Rules.swift */; };
@@ -223,6 +224,7 @@
 		9D7E123C238191040025443D /* ColumnTableConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnTableConstants.swift; sourceTree = "<group>"; };
 		9D7E123E238191F30025443D /* ColumnListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnListing.swift; sourceTree = "<group>"; };
 		9D7E12402381C6EA0025443D /* ColumnTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnTableViewHeader.swift; sourceTree = "<group>"; };
+		9D7E12422381CFB50025443D /* ArmorStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmorStrings.swift; sourceTree = "<group>"; };
 		9D85671A230C93C600295479 /* EditorCollectionViewModel+Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorCollectionViewModel+Stats.swift"; sourceTree = "<group>"; };
 		9D85671C230C960100295479 /* StatsStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsStrings.swift; sourceTree = "<group>"; };
 		9D85671E230F62EF00295479 /* Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
@@ -403,6 +405,7 @@
 				9D4724A32309F2B600CECEA2 /* RoleStrings.swift */,
 				9D3761EA21EE704E0027513E /* SkillStrings.swift */,
 				9D85671C230C960100295479 /* StatsStrings.swift */,
+				9D7E12422381CFB50025443D /* ArmorStrings.swift */,
 			);
 			path = Strings;
 			sourceTree = "<group>";
@@ -965,6 +968,7 @@
 				9D004E3821D81BC5004DFA4D /* UsedOnce.swift in Sources */,
 				9D9CC95E2349297D005AF278 /* UIColor+Adjust.swift in Sources */,
 				9DAF2DDA235CF3AF00EEEDE2 /* EquippedArmor.swift in Sources */,
+				9D7E12432381CFB50025443D /* ArmorStrings.swift in Sources */,
 				9D004E3321D80DB5004DFA4D /* CharacterDescriptionModel.swift in Sources */,
 				9D9CC9602349454E005AF278 /* String+CamelCase.swift in Sources */,
 				9DCD371121CC246300EE00D9 /* ColumnTableViewCell.swift in Sources */,

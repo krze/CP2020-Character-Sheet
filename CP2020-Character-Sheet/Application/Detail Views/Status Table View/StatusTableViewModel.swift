@@ -17,6 +17,14 @@ struct StatusTableViewModel {
     /// The heaader view to be placed at the top of the status bar
     let viewHeader: UIView
     /// The data source for the content to be displayed below the header.
-    let dataSource: UITableViewDataSource?
+    let dataSource: TableViewManaging?
     
 }
+
+protocol TableViewCellRegistering {
+    
+    func registerCells(for tableView: UITableView)
+    
+}
+
+typealias TableViewManaging = UITableViewDataSource & UITableViewDelegate & TableViewCellRegistering

@@ -79,8 +79,10 @@ final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOn
     }
     
     @objc private func cellTapped() {
-        DispatchQueue.main.async {
-            let viewModel = StatusTableViewModel(title: "Armor Status", viewHeaderHeight: 300.0, viewHeader: AnatomyDisplayView(), dataSource: nil)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            let viewModel = StatusTableViewModel(title: "Armor Status", viewHeaderHeight: 300.0, viewHeader: AnatomyDisplayView(), dataSource: self.dataSource)
             let statusTableView = StatusTableView(with: viewModel)
             NotificationCenter.default.post(name: .showEditor, object: statusTableView)
         }
