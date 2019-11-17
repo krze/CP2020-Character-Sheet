@@ -43,64 +43,29 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
         
         let safeFrame = contentView.safeAreaLayoutGuide.layoutFrame
         let cellDescriptionLabelFrame = CGRect(x: safeFrame.minX, y: safeFrame.minY,
-                                               width: safeFrame.width * viewModel.cellDescriptionLabelWidthRatio,
+                                               width: safeFrame.width,
                                                height: viewModel.cellDescriptionLabelHeight)
-        let margins = viewModel.createInsets(with: cellDescriptionLabelFrame)
-        let cellDescriptionLabel = UILabel.container(frame: cellDescriptionLabelFrame,
-                                                     margins: margins,
-                                                     backgroundColor: viewModel.darkColor,
-                                                     borderColor: nil, borderWidth: nil,
-                                                     labelMaker: descriptionLabel)
-        cellDescriptionLabel.container.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(cellDescriptionLabel.container)
+        let columnTableViewModel = ColumnTableViewModel(name: viewModel.cellDescriptionLabelText,
+                                                        firstColumn: viewModel.pointsColumnLabelText,
+                                                        secondColumn: viewModel.modifierColumnLabelText,
+                                                        thirdColumn: viewModel.totalColumnLabelText)
+        let cellDescriptionLabel = ColumnTableViewHeader(viewModel: columnTableViewModel, frame: cellDescriptionLabelFrame)
+        
+        cellDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(cellDescriptionLabel)
         
         NSLayoutConstraint.activate([
-            cellDescriptionLabel.container.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            cellDescriptionLabel.container.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            cellDescriptionLabel.container.widthAnchor.constraint(equalToConstant: cellDescriptionLabelFrame.width),
-            cellDescriptionLabel.container.heightAnchor.constraint(equalToConstant: cellDescriptionLabelFrame.height)
+            cellDescriptionLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            cellDescriptionLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            cellDescriptionLabel.widthAnchor.constraint(equalToConstant: cellDescriptionLabelFrame.width),
+            cellDescriptionLabel.heightAnchor.constraint(equalToConstant: cellDescriptionLabelFrame.height)
             ])
         
         let highlightedTableViewFrame = CGRect(x: safeFrame.minX,
                                                y: safeFrame.minY + cellDescriptionLabelFrame.height,
                                                width: safeFrame.width,
                                                height: safeFrame.height - cellDescriptionLabelFrame.height)
-        
-        var trailingAnchor = contentView.trailingAnchor
-        let columnLabelTexts = [viewModel.totalColumnLabelText,
-                                viewModel.modifierColumnLabelText,
-                                viewModel.pointsColumnLabelText]
-        
-        columnLabelTexts.enumerated().forEach { index, text in
-            let width = safeFrame.width * viewModel.columnLabelWidthRatio
-            let frame = CGRect(x: safeFrame.maxX - (width * CGFloat(index)),
-                               y: safeFrame.minY,
-                               width: width,
-                               height: viewModel.cellDescriptionLabelHeight)
-            let margins = viewModel.createInsets(with: frame)
-            let backgroundColor = StyleConstants.Color.dark
-            
-            func columnLabel(frame: CGRect) -> UILabel {
-                let label = self.columnLabel(frame: frame, text: text, backgroundColor: backgroundColor)
-                label.textAlignment = .center
-                label.font = viewModel.columnLabelFont?.withSize(viewModel.columnLabelMaxTextSize)
-                return label
-            }
-            
-            let columnView = UILabel.container(frame: frame, margins: margins, backgroundColor: backgroundColor, borderColor: nil, borderWidth: nil, labelMaker: columnLabel)
-            
-            contentView.addSubview(columnView.container)
-            
-            NSLayoutConstraint.activate([
-                columnView.container.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-                columnView.container.trailingAnchor.constraint(equalTo: trailingAnchor),
-                columnView.container.widthAnchor.constraint(equalToConstant: frame.width),
-                columnView.container.heightAnchor.constraint(equalToConstant: frame.height)
-                ])
-            
-            trailingAnchor = columnView.container.leadingAnchor
-        }
-        
+
         tableView = UITableView(frame: highlightedTableViewFrame)
         
         tableView.isScrollEnabled = false
@@ -113,7 +78,7 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
         contentView.addSubview(tableView)
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: cellDescriptionLabel.container.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: cellDescriptionLabel.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             tableView.widthAnchor.constraint(equalToConstant: tableView.frame.width),
             tableView.heightAnchor.constraint(equalToConstant: tableView.frame.height)

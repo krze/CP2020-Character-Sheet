@@ -51,9 +51,9 @@ final class ColumnTableViewHeader: UIView {
       
         let headerFrame = frame
         var trailingAnchor = self.trailingAnchor
-        let columnLabelTexts = [viewModel.firstColumn,
+        let columnLabelTexts = [viewModel.thirdColumn,
                               viewModel.secondColumn,
-                              viewModel.thirdColumn]
+                              viewModel.firstColumn]
       
         columnLabelTexts.enumerated().forEach { index, text in
             let width = headerFrame.width * viewModel.columnLabelWidthRatio
