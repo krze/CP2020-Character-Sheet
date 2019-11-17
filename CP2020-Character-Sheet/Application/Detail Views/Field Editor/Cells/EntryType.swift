@@ -10,6 +10,34 @@ import UIKit
 
 typealias Identifier = String
 
+/// Configuration for the checkbox style of EntryType
+struct CheckboxConfig {
+
+    let choices: [String]
+    let maxChoices: Int
+    let minChoices: Int
+    
+    init(choices: [String], maxChoices: Int, minChoices: Int){
+        self.choices = choices
+        self.maxChoices = maxChoices
+        self.minChoices = minChoices
+    }
+    
+    init(onlyOneChoiceFrom choices: [String]) {
+        self.choices = choices
+        maxChoices = 1
+        minChoices = 1
+    }
+    
+}
+
+protocol CheckboxConfigProviding {
+    
+    /// Provides a checkbox EntryType configuration for the type
+    static func checkboxConfig() -> CheckboxConfig
+    
+}
+
 /// Configures a user entry field to be set up to accept a certain type of input
 enum EntryType {
     

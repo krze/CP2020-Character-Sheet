@@ -9,13 +9,20 @@
 import Foundation
 
 /// The class of armor that determines penetrability based on weapon/ammunition type
-enum ArmorType: String, Codable {
-    case Hard, Soft
+enum ArmorType: String, Codable, CaseIterable, CheckboxConfigProviding {
+    
+    static func checkboxConfig() -> CheckboxConfig {
+        let choices = ArmorType.allCases.map { $0.rawValue }
+        return CheckboxConfig(onlyOneChoiceFrom: choices)
+    }
+    
+    case Soft, Hard
 }
 
 
 /// The "Zone" of the body which the armor occupies
-enum ArmorZone: Int, CaseIterable, Codable {
+enum ArmorZone: Int, CaseIterable, Codable, CheckboxConfigProviding {
+    
     /// Implanted below the skin
     case Subdermal
     
@@ -32,6 +39,84 @@ enum ArmorZone: Int, CaseIterable, Codable {
         switch self {
         case .SkinWeave: return false
         default: return true
+        }
+    }
+    
+    /// Generates an ArmorZone from the string provided. If no match is found,
+    /// it's considered external, worn armor.
+    ///
+    /// - Parameter string: The string you wish to convert to an ArmorZone
+    static func zone(from string: String) -> ArmorZone {
+        if string == ArmorStrings.bodyPlating {
+            return ArmorZone.BodyPlating
+        }
+        else if string == ArmorStrings.subdermal {
+            return ArmorZone.Subdermal
+        }
+        else if string == ArmorStrings.skinweave {
+            return ArmorZone.SkinWeave
+        }
+        else {
+            return ArmorZone.External
+        }
+    }
+    
+    private func stringValue() -> String {
+        switch self {
+        case .BodyPlating: return ArmorStrings.bodyPlating
+        case .External: return ArmorStrings.external
+        case .SkinWeave: return ArmorStrings.skinweave
+        case .Subdermal: return ArmorStrings.subdermal
+        }
+    }
+    
+    static func checkboxConfig() -> CheckboxConfig {
+        let choices = ArmorZone.allCases.map { $0.stringValue() }
+        return CheckboxConfig(onlyOneChoiceFrom: choices)
+    }
+    
+}
+
+/// Armor-related entry fields for the editor
+enum ArmorField: String, EntryTypeProvider, CaseIterable {
+    
+    case Name, ArmorType, Locations, Zone
+    
+    func identifier() -> Identifier {
+        switch self {
+        case .ArmorType:
+            return ArmorStrings.type
+        default:
+            return rawValue
+        }
+    }
+    
+    func entryType(mode: EditorMode) -> EntryType {
+        switch mode {
+        case .free:
+            return freeEntryMode()
+        default:
+            return .Static
+        }
+    }
+    
+    static func enforcedOrder() -> [String] {
+        return ArmorField.allCases.map { $0.identifier() }
+    }
+    
+    private func freeEntryMode() -> EntryType {
+        switch self {
+        case .Name:
+            return .Text
+        case .ArmorType:
+            let config = CP2020_Character_Sheet.ArmorType.checkboxConfig()
+            return .Static
+        case .Locations:
+            let config = BodyLocation.checkboxConfig()
+            return .Static
+        case .Zone:
+            let config = ArmorZone.checkboxConfig()
+            return .Static
         }
     }
 }

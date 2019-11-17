@@ -8,7 +8,8 @@
 
 import Foundation
 
-enum BodyLocation: String, CaseIterable, Codable {
+enum BodyLocation: String, CaseIterable, Codable, CheckboxConfigProviding {
+    
     case Head, Torso, LeftArm, RightArm, LeftLeg, RightLeg
 
     func labelText() -> String {
@@ -20,6 +21,14 @@ enum BodyLocation: String, CaseIterable, Codable {
         default: return rawValue
         }
     }
+    
+    static func checkboxConfig() -> CheckboxConfig {
+        let choices = BodyLocation.allCases.map { $0.rawValue}
+        return CheckboxConfig(choices: choices,
+                              maxChoices: choices.count,
+                              minChoices: 1)
+    }
+    
 }
 
 /// A set of body locations that represent a single piece of armor

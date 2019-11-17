@@ -15,4 +15,10 @@ struct ArmorStrings {
     static let damage = "Damage"
     static let damageAbbreviation = "Dam"
     static let type = "Type"
+    
+    static let bodyPlating = "Body Plating"
+    static let skinweave = "Skinweave"
+    static let subdermal = "Subdermal"
+    static let external = "External/Worn"
+    
 }
