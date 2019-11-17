@@ -38,14 +38,18 @@ final class LegView: UIView, BodyPartView {
         leg.translatesAutoresizingMaskIntoConstraints = false
         
         let side = location == .RightLeg ? Side.right : Side.left
-        let horizontalMultiplier: CGFloat = side == .left ? 1.10 : 0.90
+        
+        // Calc the offset -- edge aligns w/center  -- Additional offset to the side
+        let horizonalOffset = (leg.frame.width / 2) + (leg.frame.width * 0.3)
+        let horizontalConstant: CGFloat = side == .left ? horizonalOffset : -horizonalOffset
+        
         addSubview(leg)
 
         leg.tintColor = StyleConstants.Color.dark
 
         NSLayoutConstraint.activate([
             NSLayoutConstraint(item: leg, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.40, constant: 0),
-            NSLayoutConstraint(item: leg, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: horizontalMultiplier, constant: 0)
+            NSLayoutConstraint(item: leg, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: horizontalConstant)
         ])
     }
     

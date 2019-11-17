@@ -38,7 +38,10 @@ final class ArmView: UIView, BodyPartView {
         arm.translatesAutoresizingMaskIntoConstraints = false
         
         let side = location == .RightArm ? Side.right : Side.left
-        let horizontalMultiplier: CGFloat = side == .left ? 1.375 : 0.625
+        
+        // Calc the offset -- edge aligns w/center  -- Additional offset to the side
+        let horizonalOffset = (arm.frame.width / 2) + (arm.frame.width * 0.6)
+        let horizontalConstant: CGFloat = side == .left ? horizonalOffset : -horizonalOffset
         
         addSubview(arm)
 
@@ -46,7 +49,7 @@ final class ArmView: UIView, BodyPartView {
 
         NSLayoutConstraint.activate([
             NSLayoutConstraint(item: arm, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 0.75, constant: 0),
-            NSLayoutConstraint(item: arm, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: horizontalMultiplier, constant: 0)
+            NSLayoutConstraint(item: arm, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: horizontalConstant)
         ])
     }
     
