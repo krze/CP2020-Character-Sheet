@@ -135,12 +135,14 @@ struct CommonEntryConstructor {
         return (cell, valueLabel)
     }
     
-    // MARK: Private
 
-    private static func headerLabel(frame: CGRect) -> UILabel {
+
+    static func headerLabel(frame: CGRect) -> UILabel {
         return headerLabel(frame: frame, text: nil)
     }
-
+    
+    // MARK: Private
+    
     private static func headerLabel(frame: CGRect, text: String? = nil) -> UILabel {
         let label = UILabel(frame: frame)
         label.translatesAutoresizingMaskIntoConstraints = false
