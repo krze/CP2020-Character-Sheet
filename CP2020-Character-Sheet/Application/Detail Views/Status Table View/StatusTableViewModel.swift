@@ -19,6 +19,8 @@ struct StatusTableViewModel {
     /// The data source for the content to be displayed below the header.
     let dataSource: TableViewManaging?
     
+    let navigationBarEdtingClosure: ((UINavigationItem) -> Void)?
+    
 }
 
 protocol TableViewCellRegistering {

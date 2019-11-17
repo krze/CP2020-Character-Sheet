@@ -40,7 +40,7 @@ final class ArmView: UIView, BodyPartView {
         let side = location == .RightArm ? Side.right : Side.left
         
         // Calc the offset -- edge aligns w/center  -- Additional offset to the side
-        let horizonalOffset = (arm.frame.width / 2) + (arm.frame.width * 0.6)
+        let horizonalOffset = (arm.frame.width / 2) + (arm.frame.width * 0.55)
         let horizontalConstant: CGFloat = side == .left ? horizonalOffset : -horizonalOffset
         
         addSubview(arm)
@@ -65,7 +65,7 @@ final class ArmView: UIView, BodyPartView {
         addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        let distanceFromCenterX = AnatomyDisplayView.Constants.heightAsStatusHeaderView * 0.42
+        let distanceFromCenterX = AnatomyDisplayView.Constants.heightAsStatusHeaderView * 0.40
         let XAxisConstraint: NSLayoutConstraint = {
             if location == .RightArm {
                 return view.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -distanceFromCenterX)

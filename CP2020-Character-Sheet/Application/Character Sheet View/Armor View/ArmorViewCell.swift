@@ -87,7 +87,8 @@ final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOn
             let viewModel = StatusTableViewModel(title: "Armor Status",
                                                  viewHeaderHeight: AnatomyDisplayView.Constants.heightAsStatusHeaderView,
                                                  viewHeader: viewHeader,
-                                                 dataSource: self.dataSource)
+                                                 dataSource: self.dataSource,
+                                                 navigationBarEdtingClosure: self.dataSource?.createAddArmorButton)
             let statusTableView = StatusTableView(with: viewModel, headerViewController: headerViewController)
             
             self.dataSource?.anatomyDisplayController = headerViewController

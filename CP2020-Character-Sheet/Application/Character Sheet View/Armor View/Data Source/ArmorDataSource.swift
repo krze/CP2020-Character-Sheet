@@ -59,6 +59,10 @@ final class ArmorDataSource: NSObject, EditorValueReciever {
 
 extension ArmorDataSource: TableViewManaging {
     
+    func createAddArmorButton(_ navigationItem: UINavigationItem) {
+        navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showNewArmorEditor)), animated: true)
+    }
+    
     func registerCells(for tableView: UITableView) {
         tableView.register(ColumnTableViewCell.self,
                            forCellReuseIdentifier: ColumnTableConstants.identifier)
@@ -110,6 +114,13 @@ extension ArmorDataSource: TableViewManaging {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return ColumnTableConstants.rowHeight
+    }
+    
+    @objc private func showNewArmorEditor() {
+        // NEXT: Create new editor cells to accomodate armor entry. There will have to be a cell for
+        // selecting what locations the armor covers, as well as hard/soft. Idea: buttons that can be selected
+        // by one or multiple using checks or radio style.
+        print("New Armor Editor View Will Be Popped Here")
     }
     
 }

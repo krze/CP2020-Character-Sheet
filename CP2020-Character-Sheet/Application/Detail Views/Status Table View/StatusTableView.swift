@@ -30,6 +30,9 @@ final class StatusTableView: UIViewController {
         self.headerViewController = headerViewController
         
         super.init(nibName: nil, bundle: nil)
+        
+        model.navigationBarEdtingClosure?(self.navigationItem)
+        
         title = model.title
         tableView.dataSource = tableViewManager
         tableView.delegate = tableViewManager
