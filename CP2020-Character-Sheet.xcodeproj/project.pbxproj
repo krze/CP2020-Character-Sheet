@@ -334,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				9D7E12312380A6FC0025443D /* Anatomy */,
+				9DFCB7B821D298B100F99798 /* Column Table Cell */,
 				9DCD370C21CC23C000EE00D9 /* Skill Table View */,
 				9DC8D65B2380A39F003B6C72 /* Status Table View */,
 				9D3761E921EE702C0027513E /* Field Editor */,
@@ -554,7 +555,6 @@
 			children = (
 				9DFCB7B721D298A300F99798 /* Table View */,
 				9DFCB7B421D16D5800F99798 /* Data Source */,
-				9DFCB7B821D298B100F99798 /* Table Cell */,
 				9DCD371621CD6E5B00EE00D9 /* SkillTableConstants.swift */,
 			);
 			path = "Skill Table View";
@@ -714,7 +714,7 @@
 			path = "Table View";
 			sourceTree = "<group>";
 		};
-		9DFCB7B821D298B100F99798 /* Table Cell */ = {
+		9DFCB7B821D298B100F99798 /* Column Table Cell */ = {
 			isa = PBXGroup;
 			children = (
 				9DCD371021CC246300EE00D9 /* ColumnTableViewCell.swift */,
@@ -722,7 +722,7 @@
 				9D7E123C238191040025443D /* ColumnTableConstants.swift */,
 				9D7E123E238191F30025443D /* ColumnListing.swift */,
 			);
-			path = "Table Cell";
+			path = "Column Table Cell";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
