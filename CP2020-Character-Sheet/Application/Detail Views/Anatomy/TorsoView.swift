@@ -45,6 +45,16 @@ final class TorsoView: UIView, BodyPartView {
     func addDescriptionView(_ view: UIView) {
         addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
+        
+        let paddingConstant = AnatomyDisplayView.Constants.heightAsStatusHeaderView * StyleConstants.SizeConstants.edgePaddingRatio
+        let distanceFromCenterX = AnatomyDisplayView.Constants.heightAsStatusHeaderView * 0.3
+
+        NSLayoutConstraint.activate([
+            view.widthAnchor.constraint(equalToConstant: view.frame.width),
+            view.heightAnchor.constraint(equalToConstant: view.frame.height),
+            view.leadingAnchor.constraint(equalTo: centerXAnchor, constant: distanceFromCenterX),
+            view.topAnchor.constraint(equalTo: topAnchor, constant: paddingConstant)
+        ])
     }
     
 }

@@ -11,7 +11,11 @@ import UIKit
 final class ArmorDataSource: NSObject, EditorValueReciever {
     
     /// If an AnatomyDisplayController is present, this view will be updated as well
-    weak var anatomyDisplayController: AnatomyDisplayController?
+    weak var anatomyDisplayController: AnatomyDisplayController? {
+        didSet {
+            refreshData()
+        }
+    }
     
     /// Responds to updates to armor changes in the model
     weak var delegate: ArmorDataSourceDelegate?

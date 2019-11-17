@@ -20,7 +20,6 @@ final class AnatomyDisplayController: StatusTableViewHeaderControlling {
             let descriptionView = createDescriptionView(for: location)
             valueLabels[location] = descriptionView.valueLabel
             view(for: location).addDescriptionView(descriptionView.wholeView)
-            
         }
     }
     
@@ -46,7 +45,11 @@ final class AnatomyDisplayController: StatusTableViewHeaderControlling {
     }
     
     private func createDescriptionView(for part: BodyLocation) -> (wholeView: UIView, valueLabel: UILabel) {
-        CommonEntryConstructor.simpleHeaderValueCell(frame: .zero, labelHeightRatio: 0.25, headerText: part.labelText())
+        let distance = AnatomyDisplayView.Constants.heightAsStatusHeaderView * AnatomyDisplayView.Constants.accessoryViewSizeRatio
+        let size = CGSize(width: distance, height: distance)
+        let frame = CGRect(origin: .zero, size: size)
+        
+        return CommonEntryConstructor.simpleHeaderValueCell(frame: frame, labelHeightRatio: 0.35, headerText: part.labelText())
     }
     
 }

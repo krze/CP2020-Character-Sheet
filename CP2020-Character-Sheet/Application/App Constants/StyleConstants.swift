@@ -67,6 +67,8 @@ struct StyleConstants {
         
         /// The amount of padding space to provide around text
         static let textPaddingRatio: CGFloat = 0.05
+        /// The amount of padding space to add from the edge of screens
+        static let edgePaddingRatio: CGFloat = 0.05
         
         /// The percentage of a view's height to take up with a popover
         static let popoverViewHeightRatio: CGFloat = 0.6

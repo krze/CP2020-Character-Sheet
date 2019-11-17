@@ -11,6 +11,12 @@ import UIKit
 /// A view that displays the character's body. Used to indicate statuses that relate to the location
 /// within the body.
 final class AnatomyDisplayView: UIView {
+    
+    struct Constants {
+        static let accessoryViewSizeRatio: CGFloat = 0.22
+        static let heightAsStatusHeaderView: CGFloat = 300.0
+    }
+    
     let head: HeadView
     let torso: TorsoView
     let leftArm: ArmView

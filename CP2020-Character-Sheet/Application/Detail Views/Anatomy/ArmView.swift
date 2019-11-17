@@ -64,6 +64,23 @@ final class ArmView: UIView, BodyPartView {
     func addDescriptionView(_ view: UIView) {
         addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
+        
+        let distanceFromCenterX = AnatomyDisplayView.Constants.heightAsStatusHeaderView * 0.42
+        let XAxisConstraint: NSLayoutConstraint = {
+            if location == .RightArm {
+                return view.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -distanceFromCenterX)
+            }
+            else {
+                return view.leadingAnchor.constraint(equalTo: centerXAnchor, constant: distanceFromCenterX)
+            }
+        }()
+        
+        NSLayoutConstraint.activate([
+            view.widthAnchor.constraint(equalToConstant: view.frame.width),
+            view.heightAnchor.constraint(equalToConstant: view.frame.height),
+            XAxisConstraint,
+            view.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
     }
     
 }
