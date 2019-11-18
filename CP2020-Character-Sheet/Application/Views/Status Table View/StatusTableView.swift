@@ -8,7 +8,11 @@
 
 import UIKit
 
-protocol StatusTableViewHeaderControlling { }
+protocol StatusTableViewHeaderControlling {
+    
+    var tableView: UITableView? { get set }
+    
+}
 
 /// A configurable tableview with a static header, and a scrollable table below.
 /// The purpose of this tableview is to provide a detailed status screen of some type,
@@ -16,7 +20,7 @@ protocol StatusTableViewHeaderControlling { }
 /// for armor can contain a diagram of your armor per location in the static header, and an
 /// editable list of worn armor within the tableview.
 final class StatusTableView: UIViewController {
-    let headerViewController: StatusTableViewHeaderControlling?
+    private var headerViewController: StatusTableViewHeaderControlling?
     private let viewHeader: UIView
     private let viewHeaderHeight: CGFloat
     private let tableView: UITableView
@@ -36,6 +40,8 @@ final class StatusTableView: UIViewController {
         title = model.title
         tableView.dataSource = tableViewManager
         tableView.delegate = tableViewManager
+        
+        self.headerViewController?.tableView = tableView
     }
     
     override func viewDidLoad() {

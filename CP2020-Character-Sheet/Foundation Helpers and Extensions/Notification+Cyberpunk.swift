@@ -17,6 +17,8 @@ extension Notification.Name {
     static let damageDidChange = Notification.Name("damageDidChange")
     static let armorDidChange = Notification.Name("armorDidChange")
     
+    static let characterComponentDidChange = Notification.Name("characterComponentDidChange")
+    
     // Show a new view
     static let showEditor = Notification.Name("showEditor")
     static let showSkillDetail = Notification.Name("showSkillDetail")
@@ -24,7 +26,7 @@ extension Notification.Name {
     
     // View dismissals
     static let saveWasCalled = Notification.Name("saveWasCalled")
-    
+
     // Navigation
     static let showSkillTable = Notification.Name("showSkillTable")
     

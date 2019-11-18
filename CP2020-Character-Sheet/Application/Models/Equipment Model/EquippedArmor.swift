@@ -59,9 +59,21 @@ final class EquippedArmor: Codable {
     ///   - armor: The new armor to equip
     ///   - completion: The validation completion
     func equip(_ armor: Armor, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
-        modifyArmorZones(.adding, armor)
-        self.armor.append(armor)
-        updateEncumberance()
+        guard CharacterValidator.validate(newArmor: armor, existingArmor: self.armor, completion: completion) else {
+            return
+        }
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.modifyArmorZones(.adding, armor)
+            self.armor.append(armor)
+            self.updateEncumberance()
+            
+            completion(.success(.valid))
+            NotificationCenter.default.post(name: .armorDidChange, object: nil)
+            self.saveCharacter()
+        }
+
     }
     
     /// Removes the armor specified.
@@ -70,9 +82,17 @@ final class EquippedArmor: Codable {
     ///   - armor: The new armor to remove
     ///   - completion: The validation completion
     func remove(_ armor: Armor, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
-        modifyArmorZones(.removing, armor)
-        self.armor.removeAll(where: { $0 == armor})
-        updateEncumberance()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.modifyArmorZones(.removing, armor)
+            self.armor.removeAll(where: { $0 == armor})
+            self.updateEncumberance()
+            
+            completion(.success(.valid))
+            NotificationCenter.default.post(name: .armorDidChange, object: nil)
+            self.saveCharacter()
+        }
+
     }
     
     /// Coalesces all the armor's inherent EV penalty on the character.
@@ -131,6 +151,11 @@ final class EquippedArmor: Codable {
             }
         }
         order = mutableOrder
+    }
+        
+    private func saveCharacter() {
+        // TODO: This is not a good pattern. Make a model manager that handles all modifications of the model and have it save there. Don't let the model save itself.
+        NotificationCenter.default.post(name: .characterComponentDidChange, object: nil)
     }
     
     private func updateEncumberance() {

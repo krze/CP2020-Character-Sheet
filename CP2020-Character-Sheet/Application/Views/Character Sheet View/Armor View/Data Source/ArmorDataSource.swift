@@ -47,7 +47,7 @@ final class ArmorDataSource: NSObject, EditorValueReciever {
                 return
         }
 
-        let locations = locationsArray.map({ BodyLocation(rawValue: $0) }).compactMap { $0 }
+        let locations = locationsArray.map({ BodyLocation.from(string: $0) }).compactMap { $0 }
        
         guard
             let armorTypeString = armorTypeArray.first,
@@ -59,9 +59,7 @@ final class ArmorDataSource: NSObject, EditorValueReciever {
         
         let armor = Armor(name: name, type: armorType, sp: sp, ev: ev, zone: zone, locations: locations)
         
-        print(armorType)
-        print(locations)
-        print(zone)
+        model.equippedArmor.equip(armor, validationCompletion: completion)
     }
 
     @objc func refreshData() {
@@ -80,6 +78,7 @@ final class ArmorDataSource: NSObject, EditorValueReciever {
         // MARK: Update ArmorViewCell
         
         delegate?.armorDidChange(locationSP: locationsSP)
+        anatomyDisplayController?.tableView?.reloadData()
     }
 
     func autofillSuggestion(for identifier: Identifier, value: AnyHashable) -> [Identifier : AnyHashable]? { return nil }

@@ -32,6 +32,27 @@ enum BodyLocation: String, CaseIterable, Codable, CheckboxConfigProviding {
                               selectedStates: [])
     }
     
+    static func from(string: String) -> BodyLocation? {
+        if string == BodyLocation.LeftArm.labelText() {
+            return BodyLocation.LeftArm
+        }
+        else if string == BodyLocation.RightArm.labelText() {
+            return BodyLocation.RightArm
+
+        }
+        else if string == BodyLocation.RightLeg.labelText() {
+            return BodyLocation.RightLeg
+
+        }
+        else if string == BodyLocation.LeftLeg.labelText() {
+            return BodyLocation.LeftLeg
+
+        }
+        else {
+            return BodyLocation(rawValue: string)
+        }
+    }
+    
 }
 
 /// A set of body locations that represent a single piece of armor

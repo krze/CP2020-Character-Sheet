@@ -10,7 +10,8 @@ import Foundation
 
 typealias EditableModel = CharacterDescriptionModel & StatsModel & SkillModel & DamageModel & ArmorModel
 
-/// The model for the player character
+/// The model for the player character.
+/// TODO: Move responsibilities of modifying this model to another class. Don't let it manage itself.
 final class Edgerunner: Codable, EditableModel {
     
     private(set) var name: String
@@ -78,6 +79,7 @@ final class Edgerunner: Codable, EditableModel {
         equippedArmor = EquippedArmor()
         self.skills = [SkillListing]() // This is necessary so we can set it on the next line and preserve this class as Codable.
         self.skills = skills.map({ SkillListing(skill: $0, points: 0, modifier: 0, statModifier: value(for: $0.linkedStat).displayValue)})
+        addSubscribers()
     }
     
     /// Retrieves the value for the stat requested
@@ -276,7 +278,7 @@ final class Edgerunner: Codable, EditableModel {
     }
     
     /// Saves the character to disk.
-    private func saveCharacter() {
+    @objc private func saveCharacter() {
         guard let JSONData = JSONFactory().encode(with: self) else { return }
         NotificationCenter.default.post(name: .saveToDiskRequested, object: JSONData)
     }
@@ -312,5 +314,11 @@ final class Edgerunner: Codable, EditableModel {
             print("Original error:\n\(error)")
             saveCharacter()
         }
+        
+        addSubscribers()
+    }
+    
+    private func addSubscribers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(saveCharacter), name: .characterComponentDidChange, object: nil)
     }
 }

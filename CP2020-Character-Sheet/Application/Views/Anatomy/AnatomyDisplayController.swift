@@ -10,6 +10,8 @@ import UIKit
 
 final class AnatomyDisplayController: StatusTableViewHeaderControlling {
     
+    weak var tableView: UITableView?
+    
     private let anatomyView: AnatomyDisplayView
     private var valueLabels = [BodyLocation: UILabel]()
     
