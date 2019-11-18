@@ -92,6 +92,7 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
                 let containerModel = CheckboxContainerModel(frame: frame)
                 let thisCheckbox = Checkbox(model: containerModel)
                 thisCheckbox.label.text = checkbox
+                thisCheckbox.label.textAlignment = .center
                 
                 arrangedViews.append(thisCheckbox.container)
                 checkboxes.append(thisCheckbox)
@@ -100,7 +101,7 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
             let thisRow = UIStackView(arrangedSubviews: arrangedViews)
             thisRow.axis = .horizontal
             thisRow.alignment = .center
-            thisRow.distribution = .fill
+            thisRow.distribution = .fillEqually
             thisRow.spacing = contentView.safeAreaLayoutGuide.layoutFrame.width * StyleConstants.SizeConstants.edgePaddingRatio
             verticalStackView.addArrangedSubview(thisRow)
         }
