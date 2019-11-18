@@ -55,13 +55,15 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
         
         NSLayoutConstraint.activate([
             checkboxStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            checkboxStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            checkboxStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sidePadding),
             checkboxStack.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -(sidePadding * 2)),
             checkboxStack.heightAnchor.constraint(equalToConstant: viewModel.checkboxEntryHeight(checkboxConfig))
             ])
         
         setupCheckboxes(verticalStackView: checkboxStack, config: checkboxConfig)
         contentView.backgroundColor = viewModel.lightColor
+        
+        // NEXT: Enforce min/max selections. Respond to checkbox selection and send to the datasource
     }
     
     // MARK: Private
@@ -76,17 +78,16 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
     }
     
     private func setupCheckboxes(verticalStackView: UIStackView, config: CheckboxConfig) {
-        guard let defaultFont = StyleConstants.Font.defaultFont else { return }
         let checkboxRows = config.choices
+        
         verticalStackView.axis = .vertical
         verticalStackView.alignment = .center
         verticalStackView.distribution = .fillEqually
+        
         checkboxRows.forEach { row in
             var arrangedViews = [UIView]()
             row.forEach { checkbox in
-                let labelSize = checkbox.size(withAttributes: [.font: defaultFont])
-                let paddingRatio = Int((StyleConstants.SizeConstants.textPaddingRatio * 2) * 100)
-                let frameSize = CGSize(width: (labelSize.width * 100.0) / CGFloat(paddingRatio), height: viewModel.entryHeight)
+                let frameSize = CGSize(width: contentView.safeAreaLayoutGuide.layoutFrame.width / CGFloat(row.count), height: viewModel.entryHeight)
                 let frame = CGRect(origin: .zero, size: frameSize)
                 let containerModel = CheckboxContainerModel(frame: frame)
                 let thisCheckbox = Checkbox(model: containerModel)
@@ -99,7 +100,8 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
             let thisRow = UIStackView(arrangedSubviews: arrangedViews)
             thisRow.axis = .horizontal
             thisRow.alignment = .center
-            thisRow.distribution = .fillProportionally
+            thisRow.distribution = .fill
+            thisRow.spacing = contentView.safeAreaLayoutGuide.layoutFrame.width * StyleConstants.SizeConstants.edgePaddingRatio
             verticalStackView.addArrangedSubview(thisRow)
         }
     }

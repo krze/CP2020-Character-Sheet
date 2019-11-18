@@ -42,7 +42,7 @@ final class Checkbox {
         let checkbox = UILabel.container(frame: model.frame,
                                          margins: model.createInsets(with: model.frame),
                                          backgroundColor: model.unselectedBackgroundColor,
-                                         borderColor: nil, borderWidth: nil,
+                                         borderColor: StyleConstants.Color.dark90, borderWidth: StyleConstants.SizeConstants.borderWidth,
                                          labelMaker: labelMaker)
         container = checkbox.container
         label = checkbox.label
