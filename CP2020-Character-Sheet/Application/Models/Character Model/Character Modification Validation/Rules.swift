@@ -51,6 +51,35 @@ struct Rules {
             
             return violatingLocations
         }
+        
+        static func statModifier(forEV ev: Int) -> StatModifier {
+            return StatModifier(stat: .Reflex,
+                                amount: ev,
+                                source: ArmorStrings.encumberanceValue,
+                                description: ArmorStrings.evPenaltyDescription,
+                                dismissable: false,
+                                damageRelated: false,
+                                evRelated: true)
+        }
+        
+        /// New Armor layering rules for the bonus gained by the difference between each layer's value
+        /// - Parameter diff: The diff between each layer, as a positive number
+        static func spDiffBonus(fromDiff diff: Int) -> Int {
+            switch diff {
+            case 0...4:
+                return 5
+            case 5...8:
+                return 4
+            case 9...14:
+                return 3
+            case 15...20:
+                return 2
+            case 21...26:
+                return 1
+            default:
+                return 0
+            }
+        }
     }
     
     struct Skills {
@@ -130,7 +159,13 @@ struct Rules {
             let source = "Damage"
             switch totalDamage {
             case 5...8:
-                return [StatModifier(stat: .Reflex, amount: -2, source: source, description: "Penalty from a Serious wound", dismissable: false, damageRelated: true)]
+                return [StatModifier(stat: .Reflex,
+                                     amount: -2,
+                                     source: source,
+                                     description: "Penalty from a Serious wound",
+                                     dismissable: false,
+                                     damageRelated: true,
+                                     evRelated: false)]
             case 9...12:
                 let desc = "Penalty from a Critical wound"
                 let refDouble = Double(baseStats.ref)
@@ -142,19 +177,22 @@ struct Rules {
                                      source: source,
                                      description: desc,
                                      dismissable: false,
-                                     damageRelated: true),
+                                     damageRelated: true,
+                                     evRelated: false),
                         StatModifier(stat: .Intelligence,
                                      amount: Int(-(intDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
                                      source: source,
                                      description: desc,
                                      dismissable: false,
-                                     damageRelated: true),
+                                     damageRelated: true,
+                                     evRelated: false),
                         StatModifier(stat: .Cool,
                                      amount: Int(-(coolDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
                                      source: source,
                                      description: desc,
                                      dismissable: false,
-                                     damageRelated: true)
+                                     damageRelated: true,
+                                     evRelated: false)
                 ]
             case 13...40:
                 let desc = "Penalty from a Mortal wound"
@@ -167,19 +205,22 @@ struct Rules {
                                      source: source,
                                      description: desc,
                                      dismissable: false,
-                                     damageRelated: true),
+                                     damageRelated: true,
+                                     evRelated: false),
                         StatModifier(stat: .Intelligence,
                                      amount: Int(-(intDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
                                      source: source,
                                      description: desc,
                                      dismissable: false,
-                                     damageRelated: true),
+                                     damageRelated: true,
+                                     evRelated: false),
                         StatModifier(stat: .Cool,
                                      amount: Int(-(coolDouble * multiplier).rounded(.toNearestOrAwayFromZero)),
                                      source: source,
                                      description: desc,
                                      dismissable: false,
-                                     damageRelated: true)
+                                     damageRelated: true,
+                                     evRelated: false)
                 ]
             default:
                 return []

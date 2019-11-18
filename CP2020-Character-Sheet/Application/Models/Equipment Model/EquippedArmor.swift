@@ -14,7 +14,7 @@ final class EquippedArmor: Codable {
     /// All armor on the character
     private(set) var armor = [Armor]()
     
-    /// Total EV penalty from armor and layered encumberance
+    /// Total EV penalty from armor and layered encumberance.
     private(set) var encumberancePenalty = 0
     
     /// The ordering of armor worn. This is from the most internal ArmorZone outward. Within each zone, armor is sorted
@@ -30,22 +30,27 @@ final class EquippedArmor: Codable {
     /// - Parameter location: The location that you need an SP value for
     func sp(for location: BodyLocation) -> Int {
         var currentLayer = 0
-        var sp = 0
+        var previousLayerSP = 0
+        var diffBonus = 0
+        var largestSP = 0
         
         while let thisLayer = order[currentLayer] {
             if thisLayer.locations.contains(location) {
-                if sp > 0 {
-                    let diff = abs(sp - thisLayer.currentSP())
-                    sp = sp > thisLayer.currentSP() ? sp + diff : thisLayer.currentSP() + diff
+                if previousLayerSP > 0 {
+                    let diff = abs(previousLayerSP - thisLayer.currentSP())
+                    diffBonus = diffBonus + spDiffBonus(fromDiff: diff)
                 }
-                else {
-                    sp = thisLayer.currentSP()
+                
+                if thisLayer.currentSP() > largestSP {
+                    largestSP = thisLayer.currentSP()
                 }
+                
+                previousLayerSP = thisLayer.currentSP()
             }
             currentLayer += 1
         }
         
-        return sp
+        return largestSP + diffBonus
     }
     
     /// Indicates whether the location has sustained damage to the armor
@@ -95,13 +100,19 @@ final class EquippedArmor: Codable {
 
     }
     
+    private func spDiffBonus(fromDiff diff: Int) -> Int {
+        guard diff >= 0 else { return 0 }
+        
+        return Rules.WornArmor.spDiffBonus(fromDiff: diff)
+    }
+    
     /// Coalesces all the armor's inherent EV penalty on the character.
-    func armorEncumberancePenalty() -> Int {
+    private func armorEncumberancePenalty() -> Int {
         armor.reduce(0) { $0 + $1.ev }
     }
 
     /// Iterates through all the armor on the person and reports the encumberance penalty from wearing too many layers
-    func layeredArmorEncumberancePenalty() -> Int {
+    private func layeredArmorEncumberancePenalty() -> Int {
         guard !armor.isEmpty else { return 0 }
         var mutableArmor = armor
         var encumberingArmor = [Armor]()
@@ -123,7 +134,7 @@ final class EquippedArmor: Codable {
             }
         }
 
-        return -encumberingArmor.count
+        return encumberingArmor.count
     }
     
     /// Modifies the sorted armor zones
@@ -155,11 +166,12 @@ final class EquippedArmor: Codable {
         
     private func saveCharacter() {
         // TODO: This is not a good pattern. Make a model manager that handles all modifications of the model and have it save there. Don't let the model save itself.
-        NotificationCenter.default.post(name: .characterComponentDidChange, object: nil)
+        NotificationCenter.default.post(name: .characterComponentDidRequestSaveToDisk, object: nil)
     }
     
+    /// Updates the encumberance penalty. Encumberance is converted from a cumulative positive to the negative penalty here
     private func updateEncumberance() {
-        encumberancePenalty = armorEncumberancePenalty() + layeredArmorEncumberancePenalty()
+        encumberancePenalty = -(armorEncumberancePenalty() + layeredArmorEncumberancePenalty())
     }
     
     private enum Process {

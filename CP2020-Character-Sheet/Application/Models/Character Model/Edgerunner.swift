@@ -231,7 +231,8 @@ final class Edgerunner: Codable, EditableModel {
             let modifiers = Rules.Damage.statModifiers(forTotalDamage: self.damage, baseStats: self.baseStats)
             
             self.statModifiers.append(contentsOf: modifiers)
-            
+            self.refreshSkillListings()
+
             completion(.success(.valid))
 
             NotificationCenter.default.post(name: .statsDidChange, object: nil)
@@ -273,8 +274,21 @@ final class Edgerunner: Codable, EditableModel {
         return int
     }
     
-    private func damageUpdate() {
-
+    /// Called when reflex refresh is needed.
+    @objc private func updateReflex() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.statModifiers.removeAll(where: { $0.evRelated })
+            
+            let reflexModifier = Rules.WornArmor.statModifier(forEV: self.equippedArmor.encumberancePenalty)
+            self.statModifiers.append(reflexModifier)
+            
+            self.refreshSkillListings()
+            
+            NotificationCenter.default.post(name: .statsDidChange, object: nil)
+            self.saveCharacter()
+        }
+        
     }
     
     /// Saves the character to disk.
@@ -319,6 +333,7 @@ final class Edgerunner: Codable, EditableModel {
     }
     
     private func addSubscribers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(saveCharacter), name: .characterComponentDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateReflex), name: .armorDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(saveCharacter), name: .characterComponentDidRequestSaveToDisk, object: nil)
     }
 }

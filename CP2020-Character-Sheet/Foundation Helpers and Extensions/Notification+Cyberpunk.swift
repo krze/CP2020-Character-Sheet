@@ -17,7 +17,7 @@ extension Notification.Name {
     static let damageDidChange = Notification.Name("damageDidChange")
     static let armorDidChange = Notification.Name("armorDidChange")
     
-    static let characterComponentDidChange = Notification.Name("characterComponentDidChange")
+    static let characterComponentDidRequestSaveToDisk = Notification.Name("characterComponentDidRequestSaveToDisk")
     
     // Show a new view
     static let showEditor = Notification.Name("showEditor")

@@ -34,6 +34,7 @@ struct StatModifier: Modifying {
     
     /// If this modifier is related to damage taken, set this to true.
     let damageRelated: Bool
+    let evRelated: Bool
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(stat)
@@ -42,6 +43,7 @@ struct StatModifier: Modifying {
         hasher.combine(description)
         hasher.combine(dismissable)
         hasher.combine(damageRelated)
+        hasher.combine(evRelated)
     }
     
     static func == (lhs: StatModifier, rhs: StatModifier) -> Bool {
