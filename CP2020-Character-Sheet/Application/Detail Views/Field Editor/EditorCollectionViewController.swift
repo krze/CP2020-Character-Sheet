@@ -104,10 +104,9 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
             cell.setup(with: identifier, value: value, description: description)
             var validator = self.validator(for: cell, identifier: identifier, entryType: entryType, suggestedMatches: choices)
             validator.delegate = self
-        case .Checkbox(let config):
+        case .Checkbox(_):
             guard let cell = cell as? CheckboxEntryCollectionViewCell,
                 let value = value as? CheckboxConfig else { return UICollectionViewCell() }
-
             cell.setup(with: identifier, checkboxConfig: value, description: description)
             return cell
         }
