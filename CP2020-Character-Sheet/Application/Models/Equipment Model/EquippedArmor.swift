@@ -18,7 +18,7 @@ final class EquippedArmor: Codable {
     private(set) var encumberancePenalty = 0
     
     /// The ordering of armor worn. This is from the most internal ArmorZone outward. Within each zone, armor is sorted
-    /// by greatest to least SPS value.
+    /// by greatest to least SP value.
     private(set) var order = [Int: Armor]()
     
     /// When EquippedArmor is created, the encumberance value is updated.
@@ -26,26 +26,26 @@ final class EquippedArmor: Codable {
         updateEncumberance()
     }
     
-    /// Returns the SPS value for the body part location, based on the New Armor Rules
-    /// - Parameter location: The location that you need an SPS value for
-    func sps(for location: BodyLocation) -> Int {
+    /// Returns the SP value for the body part location, based on the New Armor Rules
+    /// - Parameter location: The location that you need an SP value for
+    func sp(for location: BodyLocation) -> Int {
         var currentLayer = 0
-        var sps = 0
+        var sp = 0
         
         while let thisLayer = order[currentLayer] {
             if thisLayer.locations.contains(location) {
-                if sps > 0 {
-                    let diff = abs(sps - thisLayer.currentSPS())
-                    sps = sps > thisLayer.currentSPS() ? sps + diff : thisLayer.currentSPS() + diff
+                if sp > 0 {
+                    let diff = abs(sp - thisLayer.currentSP())
+                    sp = sp > thisLayer.currentSP() ? sp + diff : thisLayer.currentSP() + diff
                 }
                 else {
-                    sps = thisLayer.currentSPS()
+                    sp = thisLayer.currentSP()
                 }
             }
             currentLayer += 1
         }
         
-        return sps
+        return sp
     }
     
     /// Indicates whether the location has sustained damage to the armor
@@ -55,9 +55,10 @@ final class EquippedArmor: Codable {
     }
     
     /// Equips the armor specified.
-    ///
-    /// - Parameter armor: The new armor to equip
-    func equip(_ armor: Armor) {
+    /// - Parameters:
+    ///   - armor: The new armor to equip
+    ///   - completion: The validation completion
+    func equip(_ armor: Armor, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
         modifyArmorZones(.adding, armor)
         self.armor.append(armor)
         updateEncumberance()
@@ -65,8 +66,10 @@ final class EquippedArmor: Codable {
     
     /// Removes the armor specified.
     ///
-    /// - Parameter armor: The armor to remove
-    func remove(_ armor: Armor) {
+    /// - Parameters:
+    ///   - armor: The new armor to remove
+    ///   - completion: The validation completion
+    func remove(_ armor: Armor, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
         modifyArmorZones(.removing, armor)
         self.armor.removeAll(where: { $0 == armor})
         updateEncumberance()
@@ -85,7 +88,7 @@ final class EquippedArmor: Codable {
 
         while !mutableArmor.isEmpty {
             // Pluck off each piece of armor and compare it to the rest. This is so it doesn't count the same piece twice.
-            // For example: If you're wearing a bulky flak jacket, a 5 sps t-shirt, and a skinweave, you should only count
+            // For example: If you're wearing a bulky flak jacket, a 5 sp t-shirt, and a skinweave, you should only count
             // the layered encumberance once for the flak jacket. You don't double-penalize.
             let thisArmor = mutableArmor.removeFirst()
             for otherArmorPeice in mutableArmor {
@@ -121,7 +124,7 @@ final class EquippedArmor: Codable {
                 process == .adding ? armorInZone.append(armor) : armorInZone.removeAll(where: { $0 == armor})
             }
             
-            armorInZone.sort(by: { $0.sps > $1.sps })
+            armorInZone.sort(by: { $0.sp > $1.sp })
             armorInZone.forEach { armor in
                 mutableOrder[currentLayer] = armor
                 currentLayer += 1

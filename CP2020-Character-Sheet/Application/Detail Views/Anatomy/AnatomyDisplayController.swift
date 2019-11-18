@@ -23,13 +23,13 @@ final class AnatomyDisplayController: StatusTableViewHeaderControlling {
         }
     }
     
-    func updateSPSAccessoryView(for part: BodyLocation, newValue: String) {
+    func updateSPAccessoryView(for part: BodyLocation, newValue: String) {
         let label = valueLabels[part]
         label?.text = newValue
         label?.fitTextToBounds()
     }
     
-    func updateSPSAccessoryView(for part: BodyLocation, newValue: BodyPartStatus) {
+    func updateSPAccessoryView(for part: BodyLocation, newValue: BodyPartStatus) {
         view(for: part).setStatus(newValue)
     }
     

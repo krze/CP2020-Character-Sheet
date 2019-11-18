@@ -83,7 +83,7 @@ enum ArmorZone: Int, CaseIterable, Codable, CheckboxConfigProviding {
 /// Armor-related entry fields for the editor
 enum ArmorField: String, EntryTypeProvider, CaseIterable {
     
-    case Name, SPS, ArmorType, Locations, Zone
+    case Name, SP, ArmorType, EV, Locations, Zone
     
     func identifier() -> Identifier {
         switch self {
@@ -111,7 +111,7 @@ enum ArmorField: String, EntryTypeProvider, CaseIterable {
         switch self {
         case .Name:
             return .Text
-        case .SPS:
+        case .SP, .EV:
             return .Integer
         case .ArmorType:
             let config = CP2020_Character_Sheet.ArmorType.checkboxConfig()
@@ -136,15 +136,15 @@ final class Armor: Codable, Hashable {
     
     let ev: Int
     
-    /// The base SPS that the armor provides when undamaged
-    let sps: Int
+    /// The base SP that the armor provides when undamaged
+    let sp: Int
     
     /// Damage sustained across the whole piece of armor
     var damageSustained: Int = 0
     
-    /// The calculated SPS value factoring in damage sustained
-    func currentSPS() -> Int {
-        return sps - damageSustained
+    /// The calculated SP value factoring in damage sustained
+    func currentSP() -> Int {
+        return sp - damageSustained
     }
     
     func encumbersWhenLayered() -> Bool {
@@ -153,14 +153,14 @@ final class Armor: Codable, Hashable {
     
     /// Creates an armor class
     /// - Parameter type: Classification of armor rigidity
-    /// - Parameter sps: Standard Protection
+    /// - Parameter sp: Standard Protection
     /// - Parameter ev: Encumberance Value
     /// - Parameter zone: The zone in which the armor occupies inside or outside of the body
     /// - Parameter locations: The locations covered by the single piece of armor
-    init(name: String, type: ArmorType, sps: Int, ev: Int, zone: ArmorZone, locations: [BodyLocation]) {
+    init(name: String, type: ArmorType, sp: Int, ev: Int, zone: ArmorZone, locations: [BodyLocation]) {
         self.name = name
         self.type = type
-        self.sps = sps
+        self.sp = sp
         self.ev = ev
         self.zone = zone
         self.locations = locations
@@ -173,7 +173,7 @@ final class Armor: Codable, Hashable {
         hasher.combine(locations)
         hasher.combine(zone)
         hasher.combine(type)
-        hasher.combine(sps)
+        hasher.combine(sp)
         hasher.combine(ev)
     }
 

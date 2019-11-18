@@ -29,7 +29,7 @@ extension EditorCollectionViewModel {
                     return BodyLocation.checkboxConfig()
                 case .Zone:
                     return ArmorZone.checkboxConfig()
-                default:
+                case .Name, .SP, .EV:
                     return ""
                 }
             }()
@@ -53,6 +53,10 @@ extension EditorCollectionViewModel {
             return ArmorStrings.armorNameDescription
         case .Zone:
             return ArmorStrings.armorZoneDescription
+        case .SP:
+            return ArmorStrings.spDescription
+        case .EV:
+            return ArmorStrings.evDescription
         }
     }
 }

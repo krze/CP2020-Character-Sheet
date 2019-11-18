@@ -33,24 +33,53 @@ final class ArmorDataSource: NSObject, EditorValueReciever {
                                                object: nil)
     }
 
-    func valuesFromEditorDidChange(_ values: [Identifier: AnyHashable], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {}
+    func valuesFromEditorDidChange(_ values: [Identifier: AnyHashable], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        guard
+            let name = values[ArmorField.Name.identifier()] as? String,
+            let spString = values[ArmorField.SP.identifier()] as? String,
+            let sp = Int(spString),
+            let armorTypeArray = values[ArmorField.ArmorType.identifier()] as? [String],
+            let evString = values[ArmorField.EV.identifier()] as? String,
+            let ev = Int(evString),
+            let locationsArray = values[ArmorField.Locations.identifier()] as? [String],
+            let zoneArray = values[ArmorField.ArmorType.identifier()] as? [String]
+            else {
+                return
+        }
+
+        let locations = locationsArray.map({ BodyLocation(rawValue: $0) }).compactMap { $0 }
+       
+        guard
+            let armorTypeString = armorTypeArray.first,
+            let armorType = ArmorType(rawValue: armorTypeString),
+            let zone = zoneArray.map({ ArmorZone.zone(from: $0) }).first
+            else {
+                return
+        }
+        
+        let armor = Armor(name: name, type: armorType, sp: sp, ev: ev, zone: zone, locations: locations)
+        
+        print(armorType)
+        print(locations)
+        print(zone)
+    }
 
     @objc func refreshData() {
-        var locationsSPS = [BodyLocation: Int]()
+        var locationsSP = [BodyLocation: Int]()
         
         BodyLocation.allCases.forEach { location in
-            let sps = model.equippedArmor.sps(for: location)
-            locationsSPS[location] = sps
+            let sp = model.equippedArmor.sp(for: location)
+            locationsSP[location] = sp
             
             // MARK: Update AnatomyDisplayController
             
-            anatomyDisplayController?.updateSPSAccessoryView(for: location, newValue: "\(sps)")
-            anatomyDisplayController?.updateSPSAccessoryView(for: location, newValue: model.equippedArmor.status(for: location))
+            anatomyDisplayController?.updateSPAccessoryView(for: location, newValue: "\(sp)")
+            anatomyDisplayController?.updateSPAccessoryView(for: location, newValue: model.equippedArmor.status(for: location))
         }
         
         // MARK: Update ArmorViewCell
         
-        delegate?.armorDidChange(locationSPS: locationsSPS)
+        delegate?.armorDidChange(locationSP: locationsSP)
     }
 
     func autofillSuggestion(for identifier: Identifier, value: AnyHashable) -> [Identifier : AnyHashable]? { return nil }
@@ -86,7 +115,7 @@ extension ArmorDataSource: TableViewManaging {
             
             let armor = model.equippedArmor.armor[indexPath.row]
             let columnListing = ColumnListing(name: armor.name,
-                                              firstColumnValue: "\(armor.sps)",
+                                              firstColumnValue: "\(armor.sp)",
                                              secondColumnValue: "\(armor.damageSustained)",
                                               thirdColumnValue: armor.type.rawValue)
 
@@ -102,7 +131,7 @@ extension ArmorDataSource: TableViewManaging {
         let labelText = ArmorStrings.armorName
 
         let model = ColumnTableViewModel(name: labelText,
-                                         firstColumn: ArmorStrings.SPS,
+                                         firstColumn: ArmorStrings.SP,
                                          secondColumn: ArmorStrings.damageAbbreviation,
                                          thirdColumn: ArmorStrings.type)
         return ColumnTableViewHeader(viewModel: model, frame: frame)
@@ -118,6 +147,7 @@ extension ArmorDataSource: TableViewManaging {
     
     @objc private func showNewArmorEditor() {
         let editorViewController = EditorCollectionViewController(with: EditorCollectionViewModel.newArmor())
+        editorViewController.delegate = self
         NotificationCenter.default.post(name: .showEditor, object: editorViewController)
     }
     

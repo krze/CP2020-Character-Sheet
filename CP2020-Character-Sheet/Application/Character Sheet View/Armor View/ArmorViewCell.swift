@@ -62,10 +62,10 @@ final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOn
         wasSetUp = true
     }
 
-    func armorDidChange(locationSPS: [BodyLocation: Int]) {
-        locationSPS.forEach { location, sps in
+    func armorDidChange(locationSP: [BodyLocation: Int]) {
+        locationSP.forEach { location, sp in
             let cell = cells[location]
-            cell?.text = String(sps)
+            cell?.text = String(sp)
             cell?.fitTextToBounds()
         }
     }

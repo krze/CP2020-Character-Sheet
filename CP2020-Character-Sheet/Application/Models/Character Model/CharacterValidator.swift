@@ -14,7 +14,7 @@ struct CharacterValidator {
     ///
     /// - Parameters:
     ///   - skillListing: The skill listing to validate.
-    ///   - completion: Validation completion handler
+    ///   - violationFound: Validation completion handler. Only gets called in this method if a violation occurs.
     static func validate(skillListing: SkillListing, completion violationFound: (ValidatedEditorResult) -> Void) -> Bool {
         guard Rules.Skills.validPointRange.contains(skillListing.points) else {
             violationFound(.failure(Violation(ofType: .invalidSkillPointAmount, violators: [skillListing.skill.name])))
@@ -34,6 +34,11 @@ struct CharacterValidator {
         return true
     }
     
+    /// Validates the new stats provided
+    /// - Parameters:
+    ///   - stats: Incoming stat values
+    ///   - humanityLoss: Incoming humanity loss value
+    ///   - violationFound: Validation completion handler. Only gets called in this method if a violation occurs.
     static func validate(baseStats stats: Stats, humanityLoss: Int, completion violationFound: (ValidatedEditorResult) -> Void) -> Bool {
         var violations = [Stat: Int]()
         
@@ -63,6 +68,11 @@ struct CharacterValidator {
         return true
     }
     
+    /// Validates the incoming damage to ensure it can be applied
+    /// - Parameters:
+    ///   - incomingDamage: The damage amount incoming
+    ///   - currentDamage: The current damage of the character
+    ///   - violationFound: Validation completion handler. Only gets called in this method if a violation occurs.
     static func validate(incomingDamage: Int, currentDamage: Int, completion violationFound: (ValidatedEditorResult) -> Void) -> Bool {
         let (pendingCurrentDamage, didOverflow): (Int, Bool) = currentDamage.addingReportingOverflow(incomingDamage)
         guard !didOverflow,
@@ -73,6 +83,46 @@ struct CharacterValidator {
             return false
         }
 
+        return true
+    }
+    
+    /// Validates the armor being added to the player
+    /// - Parameters:
+    ///   - newArmor: The new armor piece being added
+    ///   - existingArmor: The armor already worn by the player
+    ///   - violationFound: Validation completion handler. Only gets called in this method if a violation occurs.
+    static func validate(newArmor: Armor, existingArmor: [Armor], completion violationFound: (ValidatedEditorResult) -> Void) -> Bool {
+        
+        guard newArmor.locations.count >= Rules.WornArmor.minimumLocationCount else {
+            violationFound(.failure(Violation(ofType: .invalidArmorLocationsCount, violators: [newArmor.name])))
+            return false
+        }
+        
+        var proposedNewArmor = existingArmor
+        proposedNewArmor.append(newArmor)
+        
+        let exceedMaxLayersLocations = Rules.WornArmor.locationsExceedMaxLayers(proposedNewArmor)
+        
+        if exceedMaxLayersLocations.count > 0 {
+            let violators = exceedMaxLayersLocations.compactMap { (key, value) -> String in
+                return "\(key.labelText()): \(value)"
+            }
+            
+            violationFound(.failure(Violation(ofType: .maximumArmorLayersExceeded, violators: violators)))
+            return false
+        }
+        
+        let exceedsMaxHardArmorLocations = Rules.WornArmor.locationExceedsMaxHardArmor(proposedNewArmor)
+        
+        if exceedsMaxHardArmorLocations.count > 0 {
+            let violators = exceedsMaxHardArmorLocations.compactMap { (key, value) -> String in
+                return "\(key.labelText()): \(value)"
+            }
+            
+            violationFound(.failure(Violation(ofType: .maximumHardArmorExceeded, violators: violators)))
+            return false
+        }
+        
         return true
     }
 }
