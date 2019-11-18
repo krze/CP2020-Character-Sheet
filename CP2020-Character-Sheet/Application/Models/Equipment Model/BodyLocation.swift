@@ -27,7 +27,7 @@ enum BodyLocation: String, CaseIterable, Codable, CheckboxConfigProviding {
                        [BodyLocation.RightArm.labelText(), BodyLocation.Torso.labelText(), BodyLocation.LeftArm.labelText()],
                        [BodyLocation.RightLeg.labelText(), BodyLocation.LeftLeg.labelText()]]
         return CheckboxConfig(choices: choices,
-                              maxChoices: choices.count,
+                              maxChoices: BodyLocation.allCases.count,
                               minChoices: 1,
                               selectedStates: [])
     }

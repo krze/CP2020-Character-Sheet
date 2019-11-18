@@ -72,8 +72,8 @@ enum ArmorZone: Int, CaseIterable, Codable, CheckboxConfigProviding {
     }
     
     static func checkboxConfig() -> CheckboxConfig {
-        let choices = [[ArmorZone.Subdermal.stringValue(), ArmorZone.SkinWeave.stringValue()],
-                       [ArmorZone.BodyPlating.stringValue(), ArmorZone.External.stringValue()]]
+        let choices = [[ArmorZone.External.stringValue(), ArmorZone.BodyPlating.stringValue()],
+                       [ArmorZone.SkinWeave.stringValue(), ArmorZone.Subdermal.stringValue()]]
         return CheckboxConfig(onlyOneChoiceFrom: choices,
                               selectedState: ArmorZone.External.stringValue())
     }
@@ -163,6 +163,8 @@ final class Armor: Codable, Hashable {
         self.zone = zone
         self.locations = locations
     }
+    
+    // MARK: Hashable
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)
