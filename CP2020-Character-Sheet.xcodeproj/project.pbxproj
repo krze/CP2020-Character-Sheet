@@ -83,6 +83,7 @@
 		9D7E1249238214680025443D /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E1248238214680025443D /* Checkbox.swift */; };
 		9D7E124B2382187C0025443D /* CheckboxEntryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E124A2382187C0025443D /* CheckboxEntryCollectionViewCell.swift */; };
 		9D7E124D23821DF00025443D /* EditorCollectionViewModel+Armor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E124C23821DF00025443D /* EditorCollectionViewModel+Armor.swift */; };
+		9D7E124F238317830025443D /* CheckboxEntryValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E124E238317830025443D /* CheckboxEntryValidator.swift */; };
 		9D85671B230C93C600295479 /* EditorCollectionViewModel+Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671A230C93C600295479 /* EditorCollectionViewModel+Stats.swift */; };
 		9D85671D230C960100295479 /* StatsStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671C230C960100295479 /* StatsStrings.swift */; };
 		9D85671F230F62EF00295479 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671E230F62EF00295479 /* Rules.swift */; };
@@ -235,6 +236,7 @@
 		9D7E1248238214680025443D /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		9D7E124A2382187C0025443D /* CheckboxEntryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxEntryCollectionViewCell.swift; sourceTree = "<group>"; };
 		9D7E124C23821DF00025443D /* EditorCollectionViewModel+Armor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorCollectionViewModel+Armor.swift"; sourceTree = "<group>"; };
+		9D7E124E238317830025443D /* CheckboxEntryValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxEntryValidator.swift; sourceTree = "<group>"; };
 		9D85671A230C93C600295479 /* EditorCollectionViewModel+Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorCollectionViewModel+Stats.swift"; sourceTree = "<group>"; };
 		9D85671C230C960100295479 /* StatsStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsStrings.swift; sourceTree = "<group>"; };
 		9D85671E230F62EF00295479 /* Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
@@ -408,6 +410,7 @@
 				9D9CC961234A5B2D005AF278 /* UserEntryValidating.swift */,
 				9D9CC963234A5DA7005AF278 /* ShortFormEntryValidator.swift */,
 				9D9CC965234A761E005AF278 /* LongFormEntryValidator.swift */,
+				9D7E124E238317830025443D /* CheckboxEntryValidator.swift */,
 			);
 			path = Validating;
 			sourceTree = "<group>";
@@ -967,6 +970,7 @@
 				9D552CF821AC899C008B90E9 /* DamageModifierDataSource.swift in Sources */,
 				9D004E4121D93074004DFA4D /* PopoverViewFrameProvider.swift in Sources */,
 				9D7E12392380DF5C0025443D /* ArmView.swift in Sources */,
+				9D7E124F238317830025443D /* CheckboxEntryValidator.swift in Sources */,
 				9D004E4921D945FB004DFA4D /* EditorValueReciever.swift in Sources */,
 				9DCD370721CC135A00EE00D9 /* SkillListing.swift in Sources */,
 				9D004E2B21D6E282004DFA4D /* PrinterPaperView.swift in Sources */,

@@ -108,6 +108,8 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
             guard let cell = cell as? CheckboxEntryCollectionViewCell,
                 let value = value as? CheckboxConfig else { return UICollectionViewCell() }
             cell.setup(with: identifier, checkboxConfig: value, description: description)
+            var validator = self.validator(for: cell, identifier: identifier, entryType: entryType)
+            validator.delegate = self
             return cell
         }
         
@@ -140,7 +142,11 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         
         guard !saving else { return }
                
-        var moveToNextField = true
+        // Only consider moving to the next field if the value supplied is not one of multiple values.
+        // This indicates that the field has multiple selection states and a keyboard is not present.
+        // This is not future proof and is bound to break if the `value` is ever anything other than
+        // a String or a [String]. This block is a fucking mess and needs reworking.
+        var moveToNextField = !(value is [String])
 
         if shouldGetSuggestion {
             if let value = value,
@@ -168,8 +174,14 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
                         currentIndex = nextIndex
                         continue
                     default:
-                        makeNextCellFirstResponder(currentIndex: currentIndex)
-                        return
+                        if makeNextCellFirstResponder(currentIndex: currentIndex) {
+                            return
+                        }
+                        else {
+                            resignLastResponder()
+                            return
+                        }
+                        
                     }
                 }
                 resignLastResponder()
@@ -198,12 +210,14 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         self.navigationController?.popViewController(animated: true)
     }
     
-    private func makeNextCellFirstResponder(currentIndex: Int?) {
-        guard let currentIndex = currentIndex else { return }
+    private func makeNextCellFirstResponder(currentIndex: Int?) -> Bool {
+        guard let currentIndex = currentIndex else { return false }
         
         if let cell = collectionView.cellForItem(at: IndexPath(item: currentIndex + 1, section: 0)) as? UserEntryCollectionViewCell, let validator = validators.first(where: { $0.identifier == cell.identifier }) {
-            validator.makeFirstResponder()
+            return validator.makeFirstResponder()
         }
+        
+        return false
     }
     
     @objc private func save() {
@@ -261,6 +275,9 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         }
         else if let cell = cell as? LongFormEntryCollectionViewCell {
             validator = LongFormEntryValidator(with: cell, type: entryType, suggestedMatches: suggestedMatches)
+        }
+        else if let cell = cell as? CheckboxEntryCollectionViewCell {
+            validator = CheckboxEntryValidator(with: cell)
         }
         else {
             fatalError("You added a new UserEntryCollectionViewCell but didnt add it here")

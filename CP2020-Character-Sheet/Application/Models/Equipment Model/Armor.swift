@@ -83,7 +83,7 @@ enum ArmorZone: Int, CaseIterable, Codable, CheckboxConfigProviding {
 /// Armor-related entry fields for the editor
 enum ArmorField: String, EntryTypeProvider, CaseIterable {
     
-    case Name, ArmorType, Locations, Zone
+    case Name, SPS, ArmorType, Locations, Zone
     
     func identifier() -> Identifier {
         switch self {
@@ -111,6 +111,8 @@ enum ArmorField: String, EntryTypeProvider, CaseIterable {
         switch self {
         case .Name:
             return .Text
+        case .SPS:
+            return .Integer
         case .ArmorType:
             let config = CP2020_Character_Sheet.ArmorType.checkboxConfig()
             return .Checkbox(config)

@@ -14,9 +14,8 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
     
     let suggestedMatches: [String]
     let identifier: Identifier
-    let helpText: String
     private(set) var isValid: Bool = true
-    var currentValue: String? {
+    var currentValue: AnyHashable? {
         return cell.textField?.text
     }
     
@@ -49,7 +48,6 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
     init(with cell: ShortFormEntryCollectionViewCell, type: EntryType, suggestedMatches: [String] = [String]()) {
         self.cell = cell
         self.identifier = cell.identifier
-        self.helpText = cell.fieldDescription
         self.type = type
         self.suggestedMatches = suggestedMatches
         super.init()
@@ -81,8 +79,9 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
     
     // MARK: UserEntryValidating
     
-    func makeFirstResponder() {
+    func makeFirstResponder() -> Bool {
         cell.textField?.becomeFirstResponder()
+        return true
     }
     
     @objc func saveWasCalled() {
@@ -315,7 +314,6 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
      
     private func showWarning() {
          cell.textField?.backgroundColor = StyleConstants.Color.red.withAlphaComponent(0.5)
-        
     }
 
     private func hideWarning() {

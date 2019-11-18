@@ -8,12 +8,13 @@
 
 import UIKit
 
-final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxCollectionViewCell, CheckboxSelectionDelegate, UsedOnce {
+final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxCollectionViewCell, UsedOnce {
     
     private(set) var checkboxes = [Checkbox]()
     private(set) var identifier = ""
     private(set) var fieldDescription = ""
-    
+    private(set) var checkboxConfig: CheckboxConfig?
+
     // MARK: UsedOnce
     
     private(set) var wasSetUp = false
@@ -22,7 +23,6 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
     
     private let viewModel = EditorStyleConstants()
     private var header: UILabel?
-    private var checkboxConfig: CheckboxConfig?
     
     func setup(with identifier: Identifier, checkboxConfig: CheckboxConfig, description: String) {
         guard !wasSetUp else { return }
@@ -72,29 +72,6 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
         // NEXT: Enforce min/max selections. Respond to checkbox selection and send to the datasource
     }
     
-    // MARK: CheckboxSelectionDelegate
-    
-    func checkboxSelected(_ checkbox: Checkbox) {
-        guard let config = checkboxConfig else { return }
-        
-        var selectedCheckboxCount: Int {
-            checkboxes.filter({ $0.selected }).count
-        }
-        
-        while selectedCheckboxCount > config.maxChoices {
-            let allOtherCheckboxes = checkboxes.filter { $0 != checkbox && $0.selected }
-            allOtherCheckboxes.first?.flipSelectionState()
-        }
-    }
-    
-    func checkboxDeselected(_ checkbox: Checkbox) {
-        
-    }
-    
-    func checkboxTappedWhileSelectionDisabled(_ checkbox: Checkbox) {
-        
-    }
-    
     // MARK: Private
     
     private func helpButton(size: CGSize) -> UIButton {
@@ -123,7 +100,6 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
                 
                 thisCheckbox.label.text = checkbox
                 thisCheckbox.label.textAlignment = .center
-                thisCheckbox.delegate = self
                 
                 arrangedViews.append(thisCheckbox.container)
                 checkboxes.append(thisCheckbox)

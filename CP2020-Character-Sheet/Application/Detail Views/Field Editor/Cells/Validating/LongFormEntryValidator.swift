@@ -14,9 +14,8 @@ final class LongFormEntryValidator: NSObject, UserEntryValidating, UITextViewDel
     
     let suggestedMatches: [String]
     var identifier: Identifier
-    var helpText: String
     let isValid = true
-    var currentValue: String? {
+    var currentValue: AnyHashable? {
         return cell.textView?.text
     }
     
@@ -28,7 +27,6 @@ final class LongFormEntryValidator: NSObject, UserEntryValidating, UITextViewDel
     init(with cell: LongFormEntryCollectionViewCell, type: EntryType, suggestedMatches: [String] = [String]()) {
         self.cell = cell
         self.identifier = cell.identifier
-        self.helpText = cell.fieldDescription
         self.type = type
         self.suggestedMatches = suggestedMatches
         super.init()
@@ -38,8 +36,9 @@ final class LongFormEntryValidator: NSObject, UserEntryValidating, UITextViewDel
         NotificationCenter.default.addObserver(self, selector: #selector(saveWasCalled), name: .saveWasCalled, object: nil)
     }
     
-    func makeFirstResponder() {
+    func makeFirstResponder() -> Bool {
         cell.textView?.becomeFirstResponder()
+        return true
     }
     
     func replaceWithSuggestedMatch(_ value: AnyHashable) {

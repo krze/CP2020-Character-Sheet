@@ -12,14 +12,13 @@ protocol UserEntryValidating {
     
     var suggestedMatches: [String] { get }
     var identifier: Identifier { get }
-    var helpText: String { get }
     var isValid: Bool { get }
-    var currentValue: String? { get }
+    var currentValue: AnyHashable? { get }
     
     var delegate: UserEntryDelegate? { get set }
     
-    /// Makes the user entry field the first responder
-    func makeFirstResponder()
+    /// Makes the user entry field the first responder. Returns true if resigned successfully.
+    func makeFirstResponder() -> Bool
     
     /// Used to indicate save was called
     func saveWasCalled()
