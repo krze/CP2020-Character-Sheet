@@ -42,9 +42,9 @@ final class LongFormEntryValidator: NSObject, UserEntryValidating, UITextViewDel
         cell.textView?.becomeFirstResponder()
     }
     
-    func replaceWithSuggestedMatch(_ value: String) {
+    func replaceWithSuggestedMatch(_ value: AnyHashable) {
         resign()
-        cell.textView?.text = value
+        cell.textView?.text = value as? String
     }
     
     // MARK: UITextFieldDelegate

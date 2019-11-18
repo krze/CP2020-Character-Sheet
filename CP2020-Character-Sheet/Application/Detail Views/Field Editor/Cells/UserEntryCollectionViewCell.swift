@@ -14,9 +14,7 @@ protocol UserEntryValue {
     
     var identifier: Identifier { get }
     var fieldDescription: String { get }
-    
-    func setup(with identifier: Identifier, value: String, description: String)
-    
+        
 }
 
 protocol ShortFormEntryCollectionViewCell: UserEntryCollectionViewCell {
@@ -29,4 +27,10 @@ protocol LongFormEntryCollectionViewCell: UserEntryCollectionViewCell {
     
     var textView: UITextView? { get }
 
+}
+
+protocol CheckboxCollectionViewCell: UserEntryCollectionViewCell {
+    
+    var checkboxes: [Checkbox] { get }
+    
 }

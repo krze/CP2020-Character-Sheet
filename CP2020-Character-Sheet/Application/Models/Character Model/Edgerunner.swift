@@ -106,8 +106,18 @@ final class Edgerunner: Codable, EditableModel {
             return (baseValue: baseStats.body, displayValue: cantGoBelowZero(int: baseStats.body + modifier(for: .Body)))
         case .Empathy:
             // TODO: Cyberpsychosis
-            let empathy = value(for: .Humanity).displayValue / 10
-            
+            let empathyDouble: Double = Double(value(for: .Humanity).displayValue) / 10.0
+            let empathy: Int = {
+                if empathyDouble < 1.0 && empathyDouble > 0 {
+                    return 1
+                }
+                else if empathyDouble < 0 {
+                    return 0
+                }
+                else {
+                    return Int(empathyDouble.rounded(.down))
+                }
+            }()
             return (baseValue: baseStats.emp, displayValue: cantGoBelowZero(int: empathy < 0 ? 0 : empathy))
         case .Run:
             let runValue = value(for: .MovementAllowance).displayValue * 3

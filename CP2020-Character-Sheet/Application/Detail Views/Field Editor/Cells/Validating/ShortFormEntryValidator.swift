@@ -91,7 +91,8 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
         }
     }
     
-    func replaceWithSuggestedMatch(_ value: String) {
+    func replaceWithSuggestedMatch(_ value: AnyHashable) {
+        guard let value = value as? String else { return }
         cell.textField?.text = value
         validate(userEntry: value)
     }

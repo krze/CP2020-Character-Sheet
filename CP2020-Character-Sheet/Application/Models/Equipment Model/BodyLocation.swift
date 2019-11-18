@@ -23,10 +23,13 @@ enum BodyLocation: String, CaseIterable, Codable, CheckboxConfigProviding {
     }
     
     static func checkboxConfig() -> CheckboxConfig {
-        let choices = BodyLocation.allCases.map { $0.rawValue}
+        let choices = [[BodyLocation.Head.rawValue],
+                       [BodyLocation.RightArm.rawValue, BodyLocation.Torso.rawValue, BodyLocation.LeftArm.rawValue],
+                       [BodyLocation.RightLeg.rawValue, BodyLocation.LeftLeg.rawValue]]
         return CheckboxConfig(choices: choices,
                               maxChoices: choices.count,
-                              minChoices: 1)
+                              minChoices: 1,
+                              selectedStates: [])
     }
     
 }

@@ -21,4 +21,9 @@ struct ArmorStrings {
     static let subdermal = "Subdermal"
     static let external = "External/Worn"
     
+    static let armorNameDescription = "The name that identifies the armor"
+    static let armorTypeDescription = "The Armor Type is usually Soft (i.e leather, kevlar), or Hard (i.e steel, MetalGear). Hard armor offers more resistance to damage, but usually at a lower mobility cost."
+    static let armorZoneDescription = "The zone in which the armor occupies.\n\(external) armor is armor you put on your body.\n\(bodyPlating) is rigid armor mounted to the body, usually this is a type of cyberwear, and it sits between \(external) and \(skinweave).\n\(skinweave) is armor woven into directly into the skin.\n\(subdermal) armor is armor implanted under the skin."
+    static let armorLocationDescription = "The location(s) that the armor covers. This can be one or more parts of the body in one piece."
+    
 }

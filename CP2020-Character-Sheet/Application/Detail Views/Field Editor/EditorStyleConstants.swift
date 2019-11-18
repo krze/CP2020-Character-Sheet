@@ -26,4 +26,11 @@ struct EditorStyleConstants: MarginCreator {
     let headerHeight: CGFloat = EditorCollectionViewConstants.headerRowHeight
     let entryHeight: CGFloat = EditorCollectionViewConstants.editableSingleLineRowHeight
     let longFormEntryHeight: CGFloat = EditorCollectionViewConstants.editableMultiLineRowHeightMaximum
+    
+    /// Calculates the height of the entry view based on the number of checkboxes provided
+    /// - Parameter config: CheckboxConfig
+    func checkboxEntryHeight(_ config: CheckboxConfig) -> CGFloat {
+        EditorCollectionViewConstants.editableSingleLineRowHeight * CGFloat(config.choices.count)
+    }
+    
 }

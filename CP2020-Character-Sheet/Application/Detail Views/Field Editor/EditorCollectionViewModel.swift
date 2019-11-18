@@ -10,10 +10,10 @@ import UIKit
 
 struct EditorCollectionViewModel: MarginCreator {
     let layout: UICollectionViewLayout
-    let entryTypesForIdentifiers: [Identifier : EntryType]
+    let entryTypesForIdentifiers: [Identifier: EntryType]
     
-    let placeholdersWithIdentifiers: [Identifier : String]?
-    let descriptionsWithIdentifiers: [Identifier : String]?
+    let placeholdersWithIdentifiers: [Identifier: AnyHashable]?
+    let descriptionsWithIdentifiers: [Identifier: String]?
     
     let enforcedOrder: [Identifier]
     

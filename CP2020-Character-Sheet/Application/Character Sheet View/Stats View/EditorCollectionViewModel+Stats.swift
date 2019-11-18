@@ -39,7 +39,12 @@ extension EditorCollectionViewModel {
         
         enforcedOrder.append(humanityLoss)
         
-        return EditorCollectionViewModel(layout: .editorDefault(), entryTypesForIdentifiers: entryTypesForIdentifiers, placeholdersWithIdentifiers: placeholdersWithIdentifiers, descriptionsWithIdentifiers: descriptionsWithIdentifiers, enforcedOrder: enforcedOrder, mode: .free)
+        return EditorCollectionViewModel(layout: .editorDefault(),
+                                         entryTypesForIdentifiers: entryTypesForIdentifiers,
+                                         placeholdersWithIdentifiers: placeholdersWithIdentifiers,
+                                         descriptionsWithIdentifiers: descriptionsWithIdentifiers,
+                                         enforcedOrder: enforcedOrder,
+                                         mode: .free)
     }
     
     private static func description(for stat: Stat) -> String {

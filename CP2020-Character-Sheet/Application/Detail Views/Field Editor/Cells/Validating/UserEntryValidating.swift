@@ -26,7 +26,7 @@ protocol UserEntryValidating {
     
     /// Replaces the editable field's content with the given string
     /// - Parameter value: The new value
-    func replaceWithSuggestedMatch(_ value: String)
+    func replaceWithSuggestedMatch(_ value: AnyHashable)
     
     /// Forces a warning to appear
     func forceWarning()

@@ -1,40 +1,26 @@
 //
-//  ShortTextEntryCollectionViewCell.swift
+//  CheckboxEntryCollectionViewCell.swift
 //  CP2020-Character-Sheet
 //
-//  Created by Ken Krzeminski on 1/27/19.
+//  Created by Ken Krzeminski on 11/17/19.
 //  Copyright © 2019 Ken Krzeminski. All rights reserved.
 //
 
-// This file contains all the single-line entry views. I don't like subclassing,
-// and this should be re-worked for composition, but this was a fast MVP build to
-// test out the revamped editor.
-
 import UIKit
 
-/// A single-line textfield that accepts user entry without validation
-final class ShortTextEntryCollectionViewCell: UICollectionViewCell, ShortFormEntryCollectionViewCell, UsedOnce {
+final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxCollectionViewCell, UsedOnce {
     
-    override var tag: Int {
-        didSet {
-            textField?.tag = tag
-        }
-    }
-    
-    // MARK: UsedOnce
-    
-    var wasSetUp = false
-    
-    // MARK: ShortFormEntryCollectionViewCell
-    
+    private(set) var checkboxes = [Checkbox]()
     private(set) var identifier = ""
     private(set) var fieldDescription = ""
-    private(set) var textField: UITextField?
+    
+    private(set) var wasSetUp = false
 
     private let viewModel = EditorStyleConstants()
     private var header: UILabel?
-
-    func setup(with identifier: Identifier, value: String, description: String) {
+    private var checkboxCollection: UIView?
+    
+    func setup(with identifier: Identifier, checkboxConfig: CheckboxConfig, description: String) {
         guard !wasSetUp else { return }
         
         self.identifier = identifier
@@ -63,24 +49,23 @@ final class ShortTextEntryCollectionViewCell: UICollectionViewCell, ShortFormEnt
             helpButton.heightAnchor.constraint(equalToConstant: viewModel.headerHeight)
             ])
         
-        let textField = CommonEntryConstructor.textField(frame: .zero, placeholder: value)
+        let checkboxCollection = UIView(frame: .zero)
+        checkboxCollection.translatesAutoresizingMaskIntoConstraints = false
         
-        contentView.addSubview(textField)
+        contentView.addSubview(checkboxCollection)
         
         NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-            textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sidePadding),
-            textField.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -(sidePadding * 2)),
-            textField.heightAnchor.constraint(equalToConstant: viewModel.entryHeight)
+            checkboxCollection.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            checkboxCollection.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            checkboxCollection.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -(sidePadding * 2)),
+            checkboxCollection.heightAnchor.constraint(equalToConstant: viewModel.checkboxEntryHeight(checkboxConfig))
             ])
-
-        self.textField = textField
-        self.contentView.backgroundColor = viewModel.lightColor
-        wasSetUp = true
+        
+        contentView.backgroundColor = viewModel.lightColor
     }
-
+    
     // MARK: Private
-
+    
     private func helpButton(size: CGSize) -> UIButton {
         let button = UIButton(type: .infoDark)
         button.frame.size = size

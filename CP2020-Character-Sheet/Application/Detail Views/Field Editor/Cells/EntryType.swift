@@ -33,6 +33,8 @@ enum EntryType {
     /// A field that simply displays text, without allowing the user to edit it
     case Static
     
+    case Checkbox(CheckboxConfig)
+    
     /// Gets the cell reuse ID for use in a collection view. Ordering does not matter for this enum.
     ///
     /// - Returns: Reuse Identifier for use in a collection view
@@ -42,7 +44,8 @@ enum EntryType {
             return "ShortFormTextEntryCell"
         case .LongFormText:
             return "LongFormTextEntryCell"
- 
+        case .Checkbox:
+            return CheckboxConfig.editorCellReuseID
         }
     }
     
@@ -53,6 +56,9 @@ enum EntryType {
         switch self {
         case .Text, .Integer, .SuggestedText, .EnforcedChoiceText, .Static:
             return EditorCollectionViewConstants.headerRowHeight + EditorCollectionViewConstants.editableSingleLineRowHeight
+        case .Checkbox(let config):
+            let editableRowHeight = EditorCollectionViewConstants.editableSingleLineRowHeight * CGFloat(config.choices.count)
+            return EditorCollectionViewConstants.headerRowHeight + editableRowHeight
         case .LongFormText:
             return EditorCollectionViewConstants.headerRowHeight + EditorCollectionViewConstants.editableMultiLineRowHeightMaximum
         }

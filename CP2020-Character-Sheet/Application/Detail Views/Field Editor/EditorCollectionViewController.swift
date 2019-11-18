@@ -14,7 +14,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
 
     private let enforcedOrder: [Identifier]
     private let entryTypes: [Identifier: EntryType]
-    private let placeholderValues: [Identifier: String]
+    private let placeholderValues: [Identifier: AnyHashable]
     private let descriptions: [Identifier: String]
     private let paddingRatio: CGFloat
     
@@ -23,15 +23,15 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     private weak var saveButton: UIBarButtonItem?
     
     private var valuesChanged = false
-    private var currentValues = [Identifier: String]()
+    private var currentValues = [Identifier: AnyHashable]()
     
-    private var autofillSuggestion: [Identifier: String]?
+    private var autofillSuggestion: [Identifier: AnyHashable]?
     
     private var saving = false
     
     init(with viewModel: EditorCollectionViewModel) {
         self.enforcedOrder = viewModel.enforcedOrder
-        self.placeholderValues = viewModel.placeholdersWithIdentifiers ?? [Identifier: String]()
+        self.placeholderValues = viewModel.placeholdersWithIdentifiers ?? [Identifier: AnyHashable]()
         self.descriptions = viewModel.descriptionsWithIdentifiers ?? [Identifier: String]()
         self.entryTypes = viewModel.entryTypesForIdentifiers
         self.paddingRatio = viewModel.paddingRatio
@@ -51,6 +51,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         // Register cell classes
         collectionView.register(ShortTextEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.Text.cellReuseID())
         collectionView.register(LongTextEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.LongFormText.cellReuseID())
+        collectionView.register(CheckboxEntryCollectionViewCell.self, forCellWithReuseIdentifier: CheckboxConfig.editorCellReuseID)
     }
 
     // MARK: UICollectionViewDataSource
@@ -75,7 +76,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         let reuseIdentifier = entryType.cellReuseID()
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         
-        let value: String = {
+        let value: AnyHashable = {
             if let value = currentValues[identifier] {
                 return value
             }
@@ -86,20 +87,29 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         
         switch entryType {
         case .Text, .Integer, .Static:
-            guard let cell = cell as? ShortTextEntryCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = cell as? ShortTextEntryCollectionViewCell,
+                let value = value as? String else { return UICollectionViewCell() }
             cell.setup(with: identifier, value: value, description: description)
             var validator = self.validator(for: cell, identifier: identifier, entryType: entryType)
             validator.delegate = self
         case .LongFormText:
-            guard let cell = cell as? LongTextEntryCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = cell as? LongTextEntryCollectionViewCell,
+                let value = value as? String else { return UICollectionViewCell() }
             cell.setup(with: identifier, value: value, description: description)
             var validator = self.validator(for: cell, identifier: identifier, entryType: entryType)
             validator.delegate = self
         case .EnforcedChoiceText(let choices), .SuggestedText(let choices):
-            guard let cell = cell as? ShortTextEntryCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = cell as? ShortTextEntryCollectionViewCell,
+                let value = value as? String else { return UICollectionViewCell() }
             cell.setup(with: identifier, value: value, description: description)
             var validator = self.validator(for: cell, identifier: identifier, entryType: entryType, suggestedMatches: choices)
             validator.delegate = self
+        case .Checkbox(let config):
+            guard let cell = cell as? CheckboxEntryCollectionViewCell,
+                let value = value as? CheckboxConfig else { return UICollectionViewCell() }
+
+            cell.setup(with: identifier, checkboxConfig: value, description: description)
+            return cell
         }
         
         currentValues[identifier] = value
@@ -118,7 +128,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         saveButton?.isEnabled = true
     }
     
-    func entryDidFinishEditing(identifier: Identifier, value: String?, shouldGetSuggestion: Bool, resignLastResponder: () -> Void) {
+    func entryDidFinishEditing(identifier: Identifier, value: AnyHashable?, shouldGetSuggestion: Bool, resignLastResponder: () -> Void) {
         if let value = value {
             if let currentValue = currentValues[identifier],
                 currentValue == value {
@@ -135,7 +145,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
 
         if shouldGetSuggestion {
             if let value = value,
-                let autofillSuggestion = delegate?.autofillSuggestion(for: identifier, value: value) as? [Identifier: String],
+                let autofillSuggestion = delegate?.autofillSuggestion(for: identifier, value: value),
                 self.autofillSuggestion != autofillSuggestion {
                 self.autofillSuggestion = autofillSuggestion
                 promptForAutoFill(forMatch: value)
@@ -261,7 +271,8 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         return validator
     }
     
-    private func promptForAutoFill(forMatch match: String) {
+    private func promptForAutoFill(forMatch match: AnyHashable) {
+        let match = match as? String ?? "the entry you just provided"
         let alert = UIAlertController(title: "Match for \(match)", message: "Would you like to auto-fill the remaining fields?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: AlertViewStrings.confirmButtonTitle, style: .default, handler: acceptAutoFill(_:)))
         alert.addAction(UIAlertAction(title: AlertViewStrings.rejectButtonTitle, style: .cancel, handler: rejectAutoFill(_:)))

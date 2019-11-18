@@ -13,7 +13,8 @@ enum ArmorType: String, Codable, CaseIterable, CheckboxConfigProviding {
     
     static func checkboxConfig() -> CheckboxConfig {
         let choices = ArmorType.allCases.map { $0.rawValue }
-        return CheckboxConfig(onlyOneChoiceFrom: choices)
+        return CheckboxConfig(onlyOneChoiceFrom: [choices],
+                              selectedState: ArmorType.Soft.rawValue)
     }
     
     case Soft, Hard
@@ -71,8 +72,10 @@ enum ArmorZone: Int, CaseIterable, Codable, CheckboxConfigProviding {
     }
     
     static func checkboxConfig() -> CheckboxConfig {
-        let choices = ArmorZone.allCases.map { $0.stringValue() }
-        return CheckboxConfig(onlyOneChoiceFrom: choices)
+        let choices = [[ArmorZone.Subdermal.stringValue(), ArmorZone.SkinWeave.stringValue()],
+                       [ArmorZone.BodyPlating.stringValue(), ArmorZone.External.stringValue()]]
+        return CheckboxConfig(onlyOneChoiceFrom: choices,
+                              selectedState: ArmorZone.External.stringValue())
     }
     
 }
@@ -110,13 +113,13 @@ enum ArmorField: String, EntryTypeProvider, CaseIterable {
             return .Text
         case .ArmorType:
             let config = CP2020_Character_Sheet.ArmorType.checkboxConfig()
-            return .Static
+            return .Checkbox(config)
         case .Locations:
             let config = BodyLocation.checkboxConfig()
-            return .Static
+            return .Checkbox(config)
         case .Zone:
             let config = ArmorZone.checkboxConfig()
-            return .Static
+            return .Checkbox(config)
         }
     }
 }
