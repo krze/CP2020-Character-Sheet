@@ -18,7 +18,6 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
 
     private let viewModel = EditorStyleConstants()
     private var header: UILabel?
-    private var checkboxCollection: UIView?
     
     func setup(with identifier: Identifier, checkboxConfig: CheckboxConfig, description: String) {
         guard !wasSetUp else { return }
@@ -49,18 +48,19 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
             helpButton.heightAnchor.constraint(equalToConstant: viewModel.headerHeight)
             ])
         
-        let checkboxCollection = UIView(frame: .zero)
-        checkboxCollection.translatesAutoresizingMaskIntoConstraints = false
+        let checkboxStack = UIStackView(frame: .zero)
+        checkboxStack.translatesAutoresizingMaskIntoConstraints = false
         
-        contentView.addSubview(checkboxCollection)
+        contentView.addSubview(checkboxStack)
         
         NSLayoutConstraint.activate([
-            checkboxCollection.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            checkboxCollection.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            checkboxCollection.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -(sidePadding * 2)),
-            checkboxCollection.heightAnchor.constraint(equalToConstant: viewModel.checkboxEntryHeight(checkboxConfig))
+            checkboxStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            checkboxStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            checkboxStack.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -(sidePadding * 2)),
+            checkboxStack.heightAnchor.constraint(equalToConstant: viewModel.checkboxEntryHeight(checkboxConfig))
             ])
         
+        setupCheckboxes(verticalStackView: checkboxStack, config: checkboxConfig)
         contentView.backgroundColor = viewModel.lightColor
     }
     
@@ -73,6 +73,35 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(presentHelpText), for: .touchUpInside)
         return button
+    }
+    
+    private func setupCheckboxes(verticalStackView: UIStackView, config: CheckboxConfig) {
+        guard let defaultFont = StyleConstants.Font.defaultFont else { return }
+        let checkboxRows = config.choices
+        verticalStackView.axis = .vertical
+        verticalStackView.alignment = .center
+        verticalStackView.distribution = .fillEqually
+        checkboxRows.forEach { row in
+            var arrangedViews = [UIView]()
+            row.forEach { checkbox in
+                let labelSize = checkbox.size(withAttributes: [.font: defaultFont])
+                let paddingRatio = Int((StyleConstants.SizeConstants.textPaddingRatio * 2) * 100)
+                let frameSize = CGSize(width: (labelSize.width * 100.0) / CGFloat(paddingRatio), height: viewModel.entryHeight)
+                let frame = CGRect(origin: .zero, size: frameSize)
+                let containerModel = CheckboxContainerModel(frame: frame)
+                let thisCheckbox = Checkbox(model: containerModel)
+                thisCheckbox.label.text = checkbox
+                
+                arrangedViews.append(thisCheckbox.container)
+                checkboxes.append(thisCheckbox)
+            }
+            
+            let thisRow = UIStackView(arrangedSubviews: arrangedViews)
+            thisRow.axis = .horizontal
+            thisRow.alignment = .center
+            thisRow.distribution = .fillProportionally
+            verticalStackView.addArrangedSubview(thisRow)
+        }
     }
     
     @objc private func presentHelpText() {
