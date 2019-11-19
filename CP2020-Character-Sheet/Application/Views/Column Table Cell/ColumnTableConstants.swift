@@ -11,7 +11,8 @@ import UIKit
 struct ColumnTableConstants {
     
     static let identifier = "columnTableCell"
-    static let rowHeight: CGFloat = 32
+    static let headerHeight: CGFloat = 20
+    static let rowHeight: CGFloat = 40
     
     static let highlightedSkillTableSectionCount = 1
     static let highlightedSkillTableViewCellCount = 10

@@ -12,9 +12,9 @@ import UIKit
 struct HighlightedSkillViewCellModel: MarginCreator {
     
     let cellDescriptionLabelWidthRatio: CGFloat
-    let cellDescriptionLabelHeight: CGFloat = ColumnTableConstants.rowHeight
+    let cellDescriptionLabelHeight: CGFloat = ColumnTableConstants.headerHeight
     
-    let cellDescriptionLabelText = "HIGHLIGHTED SKILLS"
+    let cellDescriptionLabelText = "Highlighted Skills"
     let cellDescriptionLabelFont = StyleConstants.Font.defaultBold
     let paddingRatio: CGFloat = StyleConstants.SizeConstants.textPaddingRatio
     

@@ -16,7 +16,7 @@ struct ColumnTableViewModel: MarginCreator {
     let thirdColumn: String
     
     let columnLabelWidthRatio = CGFloat(0.15)
-    let paddingRatio: CGFloat = StyleConstants.SizeConstants.textPaddingRatio
+    let paddingRatio: CGFloat = 0.02
     let darkColor = StyleConstants.Color.dark
     let lightColor = StyleConstants.Color.light
     let headerFont = StyleConstants.Font.defaultBold
@@ -33,7 +33,7 @@ final class ColumnTableViewHeader: UIView {
         directionalLayoutMargins = viewModel.createInsets(with: frame)
         let labelFrame = CGRect(x: frame.minX,
                                 y: frame.minY,
-                                width: frame.width - directionalLayoutMargins.leading -     directionalLayoutMargins.trailing,
+                                width: frame.width - directionalLayoutMargins.leading - directionalLayoutMargins.trailing,
                                 height: frame.height - directionalLayoutMargins.top - directionalLayoutMargins.bottom)
         let label = CommonEntryConstructor.headerLabel(frame: labelFrame)
         label.font = viewModel.headerFont
@@ -60,7 +60,7 @@ final class ColumnTableViewHeader: UIView {
             let frame = CGRect(x: headerFrame.maxX - (width * CGFloat(index)),
                                y: headerFrame.minY,
                                width: width,
-                               height: ColumnTableConstants.rowHeight)
+                               height: headerFrame.height)
             let margins = viewModel.createInsets(with: frame)
             let backgroundColor = StyleConstants.Color.dark
           
@@ -85,10 +85,12 @@ final class ColumnTableViewHeader: UIView {
                 columnView.container.widthAnchor.constraint(equalToConstant: frame.width),
                 columnView.container.heightAnchor.constraint(equalToConstant: frame.height)
               ])
-          
+            columnView.label.text = columnView.label.text?.uppercased()
+            columnView.label.fitTextToBounds()
             trailingAnchor = columnView.container.leadingAnchor
-      }
-          
+        }
+        label.text = label.text?.uppercased()
+        label.fitTextToBounds()
     }
     
     required init?(coder: NSCoder) {

@@ -23,18 +23,12 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
     private var filteredSillListings = [SkillListing]()
     
     private let searchController = UISearchController(searchResultsController: nil)
-    
-    // MARK: Cell expansion
-    
-    private var expandedRowHeight: CGFloat
-    private var selectedIndex: IndexPath?
 
     init(with skillsController: SkillsDataSource,
          viewModel: SkillTableViewModel,
          tableViewCellModel: ColumnTableViewCellModel) {
         self.dataSource = skillsController
         self.viewModel = viewModel
-        self.expandedRowHeight = ColumnTableConstants.rowHeight * 4
         cellModel = tableViewCellModel
         
         super.init(style: .plain)
@@ -67,14 +61,14 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
             return 0.0
         }
         else {
-            return ColumnTableConstants.rowHeight
+            return ColumnTableConstants.headerHeight
             
         }
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard !isFiltering() else { return nil }
-        let frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: ColumnTableConstants.rowHeight)
+        let frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: ColumnTableConstants.headerHeight)
         let labelText = SkillTableSections(rawValue: section)?.string() ?? SkillStrings.noAssociatedStat
         
         let model = ColumnTableViewModel(name: labelText,
@@ -104,12 +98,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if self.selectedIndex == indexPath {
-            return expandedRowHeight
-        }
-        else{
-            return ColumnTableConstants.rowHeight
-        }
+        return ColumnTableConstants.rowHeight
     }
     
     // MARK: - TableViewDataSource
