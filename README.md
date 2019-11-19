@@ -42,6 +42,8 @@ A WIP character sheet app for the Cyberpunk 2020 tabletop RPG. The goal of this 
   - [ ] Smart weapons
 - [x] Armor list
   - [x] New Armor Rules incorporated
+  - [x] Armor that occupies the various zones and all body locations
+  - [x] Encumbrance values
 - [ ] Cyberware list
 - [ ] Status display
   - [ ] Damage and effects listed
