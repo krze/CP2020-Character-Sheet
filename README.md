@@ -45,6 +45,12 @@ A WIP character sheet app for the Cyberpunk 2020 tabletop RPG. The goal of this 
   - [x] Armor that occupies the various zones and all body locations
   - [x] Encumbrance values
 - [ ] Cyberware list
+  - [ ] Cyber body part replacements for Head, Torso, Arms, and Legs
+  - [ ] A list of Cyberwear that modifies your humanity
+- [x] Improved skills
+  - [x] Taggable skills
+  - [x] Resettable skills
+  - [x] Skills that respond to skill modifiers
 - [ ] Status display
   - [ ] Damage and effects listed
   - [ ] Cyberwear and its damage
