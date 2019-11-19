@@ -85,6 +85,8 @@ final class ArmorDataSource: NSObject, EditorValueReciever {
 
 }
 
+// MARK: TableViewManaging
+
 extension ArmorDataSource: TableViewManaging {
     
     func createAddArmorButton(_ navigationItem: UINavigationItem) {
@@ -97,6 +99,8 @@ extension ArmorDataSource: TableViewManaging {
         tableView.rowHeight = ColumnTableConstants.rowHeight
         tableView.backgroundColor = StyleConstants.Color.light
     }
+    
+    // MARK: UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -125,6 +129,8 @@ extension ArmorDataSource: TableViewManaging {
         return cell
     }
     
+    // MARK: UITableViewDelegate
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: ColumnTableConstants.rowHeight)
         let labelText = ArmorStrings.armorName
@@ -143,6 +149,25 @@ extension ArmorDataSource: TableViewManaging {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return ColumnTableConstants.rowHeight
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let armor = model.equippedArmor.armor[indexPath.row]
+        let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completion) in
+            self.model.equippedArmor.remove(armor) { (result) in
+                switch result {
+                case .success:
+                    completion(true)
+                default:
+                    completion(false)
+                }
+            }
+        }
+        
+        action.backgroundColor = StyleConstants.Color.red
+        return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    // MARK: Private
     
     @objc private func showNewArmorEditor() {
         let editorViewController = EditorCollectionViewController(with: EditorCollectionViewModel.newArmor())
