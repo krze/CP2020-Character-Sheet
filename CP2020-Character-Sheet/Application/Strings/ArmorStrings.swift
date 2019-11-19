@@ -19,7 +19,7 @@ struct ArmorStrings {
     static let type = "Type"
     
     static let bodyPlating = "Body Plating"
-    static let skinweave = "Skinweave"
+    static let skinweave = "SkinWeave"
     static let subdermal = "Subdermal"
     static let external = "External/Worn"
     

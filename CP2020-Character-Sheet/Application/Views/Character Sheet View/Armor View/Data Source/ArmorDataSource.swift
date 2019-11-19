@@ -38,11 +38,11 @@ final class ArmorDataSource: NSObject, EditorValueReciever {
             let name = values[ArmorField.Name.identifier()] as? String,
             let spString = values[ArmorField.SP.identifier()] as? String,
             let sp = Int(spString),
-            let armorTypeArray = values[ArmorField.ArmorType.identifier()] as? [String],
+            let armorTypeArray = (values[ArmorField.ArmorType.identifier()] as? CheckboxConfig)?.selectedStates,
             let evString = values[ArmorField.EV.identifier()] as? String,
             let ev = Int(evString),
-            let locationsArray = values[ArmorField.Locations.identifier()] as? [String],
-            let zoneArray = values[ArmorField.ArmorType.identifier()] as? [String]
+            let locationsArray = (values[ArmorField.Locations.identifier()] as? CheckboxConfig)?.selectedStates,
+            let zoneArray = (values[ArmorField.Zone.identifier()] as? CheckboxConfig)?.selectedStates
             else {
                 return
         }

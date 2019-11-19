@@ -35,7 +35,11 @@ final class ShortTextEntryCollectionViewCell: UICollectionViewCell, ShortFormEnt
     private var header: UILabel?
 
     func setup(with identifier: Identifier, value: String, description: String) {
-        guard !wasSetUp else { return }
+        guard !wasSetUp else {
+            self.identifier = identifier
+            self.textField?.text = value
+            return
+        }
         
         self.identifier = identifier
         self.fieldDescription = description

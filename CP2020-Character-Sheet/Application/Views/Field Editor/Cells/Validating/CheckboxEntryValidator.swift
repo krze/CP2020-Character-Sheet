@@ -16,6 +16,7 @@ final class CheckboxEntryValidator: UserEntryValidating, CheckboxSelectionDelega
     private var invalidState: InvalidState?
     
     var currentValue: AnyHashable? {
+        guard let existingConfig = cell.checkboxConfig else { return nil }
         let selectedCheckboxes = cell.checkboxes.filter({ $0.selected })
         
         // Ensures we're returning [String]? rather than [String?]?
@@ -26,10 +27,15 @@ final class CheckboxEntryValidator: UserEntryValidating, CheckboxSelectionDelega
             }
         }
         
-        return selectedIdentifiers
+        let config = CheckboxConfig(choices: existingConfig.choices,
+                                    maxChoices: existingConfig.maxChoices,
+                                    minChoices: existingConfig.minChoices,
+                                    selectedStates: selectedIdentifiers)
+        
+        return config
     }
     
-    var delegate: UserEntryDelegate?
+    weak var delegate: UserEntryDelegate?
     
     private let cell: CheckboxEntryCollectionViewCell
     

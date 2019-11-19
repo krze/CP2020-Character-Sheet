@@ -8,32 +8,27 @@
 
 import UIKit
 
-final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxCollectionViewCell, UsedOnce {
+final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxCollectionViewCell {
     
     private(set) var checkboxes = [Checkbox]()
     private(set) var identifier = ""
     private(set) var fieldDescription = ""
     private(set) var checkboxConfig: CheckboxConfig?
 
-    // MARK: UsedOnce
-    
-    private(set) var wasSetUp = false
-
     // Private
     
     private let viewModel = EditorStyleConstants()
-    private var header: UILabel?
+    private var header: UIView?
+    private var checkboxView: UIView?
     
     func setup(with identifier: Identifier, checkboxConfig: CheckboxConfig, description: String) {
-        guard !wasSetUp else { return }
-        
         self.identifier = identifier
         self.fieldDescription = description
         self.checkboxConfig = checkboxConfig
         
         let headerView = CommonEntryConstructor.headerView(size: .zero, text: identifier)
         let sidePadding = self.contentView.frame.width * viewModel.paddingRatio
-
+        
         contentView.addSubview(headerView)
         
         NSLayoutConstraint.activate([
@@ -54,6 +49,8 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
             helpButton.heightAnchor.constraint(equalToConstant: viewModel.headerHeight)
             ])
         
+        header = headerView
+        
         let checkboxStack = UIStackView(frame: .zero)
         checkboxStack.translatesAutoresizingMaskIntoConstraints = false
         
@@ -67,6 +64,8 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
             ])
         
         setupCheckboxes(verticalStackView: checkboxStack, config: checkboxConfig)
+        
+        checkboxView = checkboxStack
         contentView.backgroundColor = viewModel.lightColor
         
         // NEXT: Enforce min/max selections. Respond to checkbox selection and send to the datasource
@@ -118,6 +117,14 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
         let alert = UIAlertController(title: identifier, message: fieldDescription, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: AlertViewStrings.dismissButtonTitle, style: .default, handler: nil))
         NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
+    }
+    
+    override func prepareForReuse() {
+        checkboxes = [Checkbox]()
+        identifier = ""
+        fieldDescription = ""
+        checkboxConfig = nil
+        checkboxView = nil
     }
     
 }

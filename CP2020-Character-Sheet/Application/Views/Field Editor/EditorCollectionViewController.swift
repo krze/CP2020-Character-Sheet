@@ -142,11 +142,11 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         
         guard !saving else { return }
                
-        // Only consider moving to the next field if the value supplied is not one of multiple values.
-        // This indicates that the field has multiple selection states and a keyboard is not present.
-        // This is not future proof and is bound to break if the `value` is ever anything other than
-        // a String or a [String]. This block is a fucking mess and needs reworking.
-        var moveToNextField = !(value is [String])
+        // Only consider moving to the next field if the value supplied is not a checkbox config.
+        // This indicates that a keyboard is not present. This is not future proof and is bound to
+        // break if the `value` is ever anything other than a String or a CheckboxConfig.
+        // This block is a fucking mess and needs reworking.
+        var moveToNextField = !(value is CheckboxConfig)
 
         if shouldGetSuggestion {
             if let value = value,
