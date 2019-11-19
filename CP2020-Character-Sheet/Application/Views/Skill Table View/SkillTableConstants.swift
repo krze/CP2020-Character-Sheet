@@ -14,6 +14,6 @@ struct SkillTableConstants {
     static let highlightedSkillTableViewCellCount = 10
     static let highlightedSkillViewHeight: CGFloat = {
         // provides enough height to show the cell count plus a header view
-        return ColumnTableConstants.rowHeight * CGFloat(highlightedSkillTableViewCellCount + 1)
+        return ColumnTableConstants.headerHeight + (ColumnTableConstants.rowHeight * CGFloat(highlightedSkillTableViewCellCount))
     }()
 }
