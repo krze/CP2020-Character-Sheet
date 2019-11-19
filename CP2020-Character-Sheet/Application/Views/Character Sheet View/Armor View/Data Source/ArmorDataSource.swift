@@ -132,7 +132,7 @@ extension ArmorDataSource: TableViewManaging {
     // MARK: UITableViewDelegate
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: ColumnTableConstants.rowHeight)
+        let frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: ColumnTableConstants.headerHeight)
         let labelText = ArmorStrings.armorName
 
         let model = ColumnTableViewModel(name: labelText,
@@ -143,7 +143,7 @@ extension ArmorDataSource: TableViewManaging {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return ColumnTableConstants.rowHeight
+        return ColumnTableConstants.headerHeight
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
