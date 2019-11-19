@@ -201,6 +201,7 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     
     @objc private func forceRefresh() {
         self.dataSource?.refreshData()
+        tableView.reloadData()
     }
     
 }

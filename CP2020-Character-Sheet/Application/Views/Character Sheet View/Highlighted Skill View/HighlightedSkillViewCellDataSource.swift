@@ -38,18 +38,37 @@ final class HighlightedSkillViewCellDataSource: EditorValueReciever {
         return nil
     }
     
-    
     /// Synchronously fetches and sorts all skills into highlighted skills.
     @objc private func updateHighlightedSkills()  {
         var highlightedSkills = [SkillListing]()
         var allSkills = model.skills.filter { !$0.skill.isSpecialAbility || $0.skill.name == model.role.specialAbility() }
+        
+        // First, append the special ability
+        
         if let specialAbilityIndex = allSkills.firstIndex(where: { $0.skill.isSpecialAbility }) {
             let specialAbility = allSkills.remove(at: specialAbilityIndex)
             highlightedSkills.append(specialAbility)
         }
+        
+        // Next: Fill the rest of the list, first by starred skills, then by highest skill roll values
+        
+        let starredSkills = allSkills.filter({ $0.starred })
+        var mutableStarredSkills = [SkillListing]()
+        starredSkills.forEach { skill in
+            if let index = allSkills.firstIndex(where: { $0.skill == skill.skill }) {
+                mutableStarredSkills.append(allSkills.remove(at: index))
+            }
+        }
         allSkills.sort(by: { $0.skillRollValue > $1.skillRollValue })
+        mutableStarredSkills.sort(by: { $0.skillRollValue > $1.skillRollValue })
+        
         while highlightedSkills.count <= 10 || !allSkills.isEmpty {
-            highlightedSkills.append(allSkills.removeFirst())
+            if mutableStarredSkills.isEmpty {
+                highlightedSkills.append(allSkills.removeFirst())
+            }
+            else {
+                highlightedSkills.append(mutableStarredSkills.removeFirst())
+            }
         }
         
         self.highlightedSkills = highlightedSkills

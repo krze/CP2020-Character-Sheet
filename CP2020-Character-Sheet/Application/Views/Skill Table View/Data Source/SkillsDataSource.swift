@@ -64,6 +64,22 @@ final class SkillsDataSource: EditorValueReciever {
         }
     }
     
+    /// Resets the given skill to zero without deleting it
+    /// - Parameters:
+    ///   - skillListing: The listing to reset
+    ///   - completion: The completion handler which will be returned by the model
+    func reset(_ skillListing: SkillListing, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        model.reset(skill: skillListing, validationCompletion: completion)
+    }
+    
+    /// Stars or unstars the given skill
+    /// - Parameters:
+    ///   - skillListing: The skill listing you wish to flip
+    ///   - completion: The completion handler which will be returned by the model
+    func flipStar(_ skillListing: SkillListing, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        model.flipStar(skill: skillListing, validationCompletion: completion)
+    }
+    
     /// Creates a highlighted skills data source that only reads from the skill model
     ///
     /// - Returns: HighlightedSkillViewCellDataSource

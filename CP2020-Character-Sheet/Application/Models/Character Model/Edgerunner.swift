@@ -169,6 +169,51 @@ final class Edgerunner: Codable, EditableModel {
         }
     }
     
+    /// Resets the skill to zero, using its default values
+    /// - Parameters:
+    ///   - skillListing: The Skill to reset
+    ///   - validationCompletion: Completion for validating the skill
+    func reset(skill skillListing: SkillListing, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        // TODO: When chipped skills are added, there will have to be a warning regarding this
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            if let existingSkillIndex = self.skills.firstIndex(where: { $0.skill == skillListing.skill }) {
+                self.skills.remove(at: existingSkillIndex)
+            }
+            
+            let skill = SkillListing(skill: skillListing.skill,
+                                     points: 0,
+                                     modifier: 0,
+                                     statModifier: self.value(for: skillListing.skill.linkedStat).displayValue)
+            
+            self.skills.append(skill)
+            
+            completion(.success(.valid))
+            NotificationCenter.default.post(name: .skillDidChange, object: skill)
+            self.saveCharacter()
+        }
+    }
+    
+    /// Flips the star state of the skill
+    /// - Parameters:
+    ///   - skillListing: The Skill to flip the star state
+    ///   - validationCompletion: Completion for validating the skill
+    func flipStar(skill skillListing: SkillListing, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self,
+                let currentState = self.skills.first(where: { $0.skill == skillListing.skill } )?.starred else {
+                    return
+            }
+            
+            self.skills.first(where: { $0.skill == skillListing.skill } )?.starred = !currentState
+            completion(.success(.valid))
+            NotificationCenter.default.post(name: .skillDidChange, object: skillListing)
+            self.saveCharacter()
+        }
+
+    }
+    
     /// Updates the stats. This should only be called if editing the character.
     /// Stats are immutable during normal gameplay.
     ///

@@ -14,6 +14,10 @@ protocol SkillModel {
     var skills: [SkillListing] { get }
     
     func add(skill newSkill: SkillListing, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
+    
+    func reset(skill skillListing: SkillListing, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
+    
+    func flipStar(skill skillListing: SkillListing, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
 
     func specialAbilityName() -> String
     

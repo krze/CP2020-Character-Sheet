@@ -56,6 +56,8 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         definesPresentationContext = true
     }
     
+    // MARK: - UITableViewDelegate
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if isFiltering() {
             return 0.0
@@ -101,7 +103,51 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         return ColumnTableConstants.rowHeight
     }
     
-    // MARK: - TableViewDataSource
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let listing = skillListing(for: indexPath) else  { return nil }
+        
+        let action = UIContextualAction(style: .destructive, title: "Reset") { (action, view, completion) in
+            self.resetConfirmation(title: "Are You Sure?",
+                                   message: "Resetting the skill resets everything back to zero, including Improvement Points!",
+                                   acceptHandler: { _ in
+                                    self.dataSource.reset(listing) { (result) in
+                                        switch result {
+                                        case .success:
+                                            completion(true)
+                                        default:
+                                            completion(false)
+                                        }
+                                    }
+            },
+                                   rejectHandler: { _ in
+                                    completion(true)
+                
+            })
+        }
+        
+        action.backgroundColor = StyleConstants.Color.red
+        return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let listing = skillListing(for: indexPath) else  { return nil }
+        let title = listing.starred ? "Untag" : "Tag"
+        let action = UIContextualAction(style: .normal, title: title) { (action, view, completion) in
+            self.dataSource.flipStar(listing) { (result) in
+                switch result {
+                case .success:
+                    completion(true)
+                default:
+                    completion(false)
+                }
+            }
+        }
+        
+        action.backgroundColor = listing.starred ?  StyleConstants.Color.gray : StyleConstants.Color.blue
+        return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    // MARK: - UITableViewDataSource
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
@@ -241,6 +287,15 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         }
         
         return nil
+    }
+    
+    private func resetConfirmation(title: String, message: String,
+                                   acceptHandler: @escaping (UIAlertAction) -> Void,
+                                   rejectHandler: @escaping (UIAlertAction) -> Void) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: AlertViewStrings.confirmButtonTitle, style: .destructive, handler: acceptHandler))
+        alert.addAction(UIAlertAction(title: AlertViewStrings.rejectButtonTitle, style: .cancel, handler: rejectHandler))
+        NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
     }
 
     required init?(coder aDecoder: NSCoder) {
