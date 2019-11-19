@@ -40,8 +40,8 @@ A WIP character sheet app for the Cyberpunk 2020 tabletop RPG. The goal of this 
   - [ ] Monobladed weapons
 - [ ] Weapons list
   - [ ] Smart weapons
-- [ ] Armor list
-  - [ ] New Armor Rules incorporated
+- [x] Armor list
+  - [x] New Armor Rules incorporated
 - [ ] Cyberware list
 - [ ] Status display
   - [ ] Damage and effects listed
