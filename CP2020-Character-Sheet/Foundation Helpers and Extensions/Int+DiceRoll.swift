@@ -10,7 +10,7 @@ import Foundation
 
 extension Int {
     
-    /// Generates a die roll, rolling the dice however many times is the value of the integer,
+    /// Generates a dice roll, rolling the dice however many times is the value of the integer,
     /// using the sides specified as the number of sides on the die.
     ///
     /// This is modeled after standard dice notation (i.e. 3D6 is 3.D(6))
