@@ -9,7 +9,6 @@
 import Foundation
 
 extension String {
-
     func camelCaseToWords() -> String {
         return unicodeScalars.reduce("") {
             if CharacterSet.uppercaseLetters.contains($1) {
