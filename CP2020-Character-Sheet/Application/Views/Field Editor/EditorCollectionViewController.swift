@@ -29,12 +29,15 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     
     private var saving = false
     
+    private let viewModel: EditorCollectionViewModel
+    
     init(with viewModel: EditorCollectionViewModel) {
         self.enforcedOrder = viewModel.enforcedOrder
         self.placeholderValues = viewModel.placeholdersWithIdentifiers ?? [Identifier: AnyHashable]()
         self.descriptions = viewModel.descriptionsWithIdentifiers ?? [Identifier: String]()
         self.entryTypes = viewModel.entryTypesForIdentifiers
         self.paddingRatio = viewModel.paddingRatio
+        self.viewModel = viewModel
         super.init(collectionViewLayout: viewModel.layout)
     }
     
@@ -203,7 +206,17 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
             return CGSize.zero
         }
         
-        return CGSize(width: view.safeAreaLayoutGuide.layoutFrame.width, height: entryType.cellHeight())
+        let width: CGFloat = {
+            let frameWidth = view.safeAreaLayoutGuide.layoutFrame.width
+            if let ratio = viewModel.cellWidthRatioForIdentifiers[identifier] {
+                return (frameWidth * ratio) - EditorCollectionViewConstants.itemSpacing
+            }
+            else {
+                return frameWidth
+            }
+        }()
+        
+        return CGSize(width: width, height: entryType.cellHeight())
     }
     
     private func dismissEditor() {

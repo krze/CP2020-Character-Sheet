@@ -8,12 +8,13 @@
 
 import UIKit
 
+
 extension UICollectionViewLayout {
     
     static func editorDefault() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 5
-        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = EditorCollectionViewConstants.itemSpacing
+        layout.minimumInteritemSpacing = EditorCollectionViewConstants.itemSpacing
         
         return layout
     }

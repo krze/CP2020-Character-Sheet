@@ -6,7 +6,7 @@
 //  Copyright © 2019 Ken Krzeminski. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension EditorCollectionViewModel {
     
@@ -17,6 +17,7 @@ extension EditorCollectionViewModel {
         var placeholders = [Identifier: AnyHashable]()
         var descriptions = [Identifier: String]()
         let enforcedOrder = ArmorField.enforcedOrder()
+        var customCellWidths = [Identifier: CGFloat]()
         
         allFields.forEach { field in
             entryTypes[field.identifier()] = field.entryType(mode: mode)
@@ -33,13 +34,24 @@ extension EditorCollectionViewModel {
                     return ""
                 }
             }()
+            
+            customCellWidths[field.identifier()] = {
+                switch field {
+                case .SP, .EV, .ArmorType:
+                    return 1.0 / 3
+                default:
+                    return nil
+                }
+            }()
         }
+        
         
         return EditorCollectionViewModel(layout: .editorDefault(),
                                          entryTypesForIdentifiers: entryTypes,
                                          placeholdersWithIdentifiers: placeholders,
                                          descriptionsWithIdentifiers: descriptions,
-                                         enforcedOrder: enforcedOrder, mode: mode)
+                                         enforcedOrder: enforcedOrder, mode: mode,
+                                         cellWidthRatioForIdentifiers: customCellWidths)
         
     }
     

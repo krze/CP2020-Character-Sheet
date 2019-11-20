@@ -24,7 +24,8 @@ struct EditorCollectionViewModel: MarginCreator {
     let paddingRatio = StyleConstants.SizeConstants.textPaddingRatio
     
     let mode: EditorMode
-
+    
+    var cellWidthRatioForIdentifiers = [Identifier: CGFloat]()
 }
 
 struct EditorCollectionViewConstants {
@@ -32,6 +33,7 @@ struct EditorCollectionViewConstants {
     static let headerRowHeight: CGFloat = 32
     static let editableSingleLineRowHeight: CGFloat = 44
     static let editableMultiLineRowHeightMaximum: CGFloat = 132
+    static let itemSpacing: CGFloat = 3
     
 }
 
