@@ -18,7 +18,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         #if RELEASE
-        AppCenterHokum.initiateAppCenter()
+        AppCenterHokum().initiateAppCenter()
         #endif
         
         let window = UIWindow(frame: UIScreen.main.bounds)

@@ -10,9 +10,9 @@ import AppCenter
 import AppCenterCrashes
 import AppCenterDistribute
 
-struct AppCenterHokum {
+final class AppCenterHokum {
     
-    static func initiateAppCenter() {
+    func initiateAppCenter() {
         if let path = Bundle.main.path(forResource: "AppCenterConfig", ofType: "plist"),
             let config = NSDictionary(contentsOfFile: path),
             let storeKey = config.value(forKey: "StoreKey") as? String {
@@ -20,6 +20,8 @@ struct AppCenterHokum {
                 MSCrashes.self,
                 MSDistribute.self
             ])
+            
+            MSDistribute.setEnabled(true)
         }
     }
     
