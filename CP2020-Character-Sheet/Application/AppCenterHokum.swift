@@ -8,6 +8,7 @@
 
 import AppCenter
 import AppCenterCrashes
+import AppCenterDistribute
 
 struct AppCenterHokum {
     
@@ -16,7 +17,8 @@ struct AppCenterHokum {
             let config = NSDictionary(contentsOfFile: path),
             let storeKey = config.value(forKey: "StoreKey") as? String {
             MSAppCenter.start(storeKey, withServices:[
-                MSCrashes.self
+                MSCrashes.self,
+                MSDistribute.self
             ])
         }
     }
