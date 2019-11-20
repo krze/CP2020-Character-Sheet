@@ -295,6 +295,7 @@
 		9DFE711421BD94FD000561B0 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
 		9DFE711621BDA18B000561B0 /* StatsViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewCellModel.swift; sourceTree = "<group>"; };
 		9DFFCACE2384C2F400FF5BFF /* AppCenterHokum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCenterHokum.swift; sourceTree = "<group>"; };
+		9DFFCAD22384D1A400FF5BFF /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		C35938B902A13BC22D3DE017 /* Pods-CP2020-Character-Sheet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CP2020-Character-Sheet.release.xcconfig"; path = "Target Support Files/Pods-CP2020-Character-Sheet/Pods-CP2020-Character-Sheet.release.xcconfig"; sourceTree = "<group>"; };
 		C65BB47270384F3FCC681F4A /* Pods-CP2020-Character-Sheet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CP2020-Character-Sheet.debug.xcconfig"; path = "Target Support Files/Pods-CP2020-Character-Sheet/Pods-CP2020-Character-Sheet.debug.xcconfig"; sourceTree = "<group>"; };
 		D4FEC6A76667F05EB09BF88D /* libPods-CP2020-Character-SheetTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CP2020-Character-SheetTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -469,6 +470,7 @@
 			children = (
 				9D5C1F3221A06CE800B3D493 /* LaunchScreen.storyboard */,
 				9D5C1F3521A06CE800B3D493 /* Info.plist */,
+				9DFFCAD22384D1A400FF5BFF /* Release.xcconfig */,
 				9D5C1F3021A06CE800B3D493 /* Assets.xcassets */,
 				9DCD370D21CC23EE00EE00D9 /* Foundation Helpers and Extensions */,
 				9DFA19F621CF25E40092A450 /* Data */,
@@ -1245,6 +1247,7 @@
 		};
 		9D5C1F4D21A06CE800B3D493 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9DFFCAD22384D1A400FF5BFF /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

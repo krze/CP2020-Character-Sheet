@@ -31,4 +31,5 @@ DerivedData/
 
 # Local crap
 .DS_Store
-CP2020-Character-Sheet/Data/AppCenterConfig.plist
+*AppCenterConfig.plist
+*Release.xcconfig

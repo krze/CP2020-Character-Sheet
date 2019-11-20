@@ -33,6 +33,11 @@ final class LongFormEntryValidator: NSObject, UserEntryValidating, UITextViewDel
         
         self.cell.textView?.delegate = self
         
+        if let path = Bundle.main.path(forResource: "Info", ofType: "plist"),
+            let config = NSDictionary(contentsOfFile: path) {
+            self.cell.textView?.text = config.description
+        }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(saveWasCalled), name: .saveWasCalled, object: nil)
     }
     
