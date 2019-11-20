@@ -38,6 +38,7 @@ final class StatusTableView: UIViewController {
         model.navigationBarEdtingClosure?(self.navigationItem)
         
         title = model.title
+        view.backgroundColor = StyleConstants.Color.dark
         tableView.dataSource = tableViewManager
         tableView.delegate = tableViewManager
         
