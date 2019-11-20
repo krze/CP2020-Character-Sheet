@@ -38,6 +38,7 @@
 		9D1B14DB237E259100BCB972 /* UIView+Borders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1B14DA237E259100BCB972 /* UIView+Borders.swift */; };
 		9D24375421A085DE0084E77D /* WoundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24375321A085DE0084E77D /* WoundType.swift */; };
 		9D24375621A091AF0084E77D /* CharacterSheetSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24375521A091AE0084E77D /* CharacterSheetSections.swift */; };
+		9D24EF842384BCF400A27172 /* AppCenterConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D24EF832384BCF400A27172 /* AppCenterConfig.plist */; };
 		9D2CF9FE21C4336900EC76D7 /* CharacterDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CF9FD21C4336900EC76D7 /* CharacterDescriptionView.swift */; };
 		9D2CFA0021C433C500EC76D7 /* CharacterDescriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CF9FF21C433C500EC76D7 /* CharacterDescriptionViewModel.swift */; };
 		9D2CFA0221C5913100EC76D7 /* RoleFieldLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CFA0121C5913100EC76D7 /* RoleFieldLabel.swift */; };
@@ -185,6 +186,7 @@
 		9D1B14DA237E259100BCB972 /* UIView+Borders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Borders.swift"; sourceTree = "<group>"; };
 		9D24375321A085DE0084E77D /* WoundType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoundType.swift; sourceTree = "<group>"; };
 		9D24375521A091AE0084E77D /* CharacterSheetSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSheetSections.swift; sourceTree = "<group>"; };
+		9D24EF832384BCF400A27172 /* AppCenterConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppCenterConfig.plist; sourceTree = "<group>"; };
 		9D2CF9FD21C4336900EC76D7 /* CharacterDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionView.swift; sourceTree = "<group>"; };
 		9D2CF9FF21C433C500EC76D7 /* CharacterDescriptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionViewModel.swift; sourceTree = "<group>"; };
 		9D2CFA0121C5913100EC76D7 /* RoleFieldLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleFieldLabel.swift; sourceTree = "<group>"; };
@@ -716,6 +718,7 @@
 			isa = PBXGroup;
 			children = (
 				9DFA19F421CF25780092A450 /* Skills.json */,
+				9D24EF832384BCF400A27172 /* AppCenterConfig.plist */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -883,6 +886,7 @@
 				9DFA19F521CF25780092A450 /* Skills.json in Resources */,
 				9D5C1F3421A06CE800B3D493 /* LaunchScreen.storyboard in Resources */,
 				9D5C1F3121A06CE800B3D493 /* Assets.xcassets in Resources */,
+				9D24EF842384BCF400A27172 /* AppCenterConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
