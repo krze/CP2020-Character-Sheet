@@ -121,7 +121,8 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
                 return
             }
             
-            self.navigationController.pushViewController(skillTableViewController, animated: true)
+            let modalView = UINavigationController(rootViewController: skillTableViewController)
+            self.navigationController.present(modalView, animated: true)
         }
     }
     
@@ -132,7 +133,8 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
                     return
             }
             
-            self.navigationController.pushViewController(editorViewController, animated: true)
+            let modalView = UINavigationController(rootViewController: editorViewController)
+            self.navigationController.present(modalView, animated: true)
         }
     }
     

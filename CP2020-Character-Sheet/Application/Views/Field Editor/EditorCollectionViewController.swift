@@ -220,7 +220,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     }
     
     private func dismissEditor() {
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true)
     }
     
     private func makeNextCellFirstResponder(currentIndex: Int?) -> Bool {
