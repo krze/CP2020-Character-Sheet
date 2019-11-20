@@ -1,4 +1,4 @@
-\# Xcode
+# Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
@@ -31,3 +31,4 @@ DerivedData/
 
 # Local crap
 .DS_Store
+*/AppCenterConfig.plist
