@@ -20,6 +20,7 @@ final class TotalDamageDataSource: EditorValueReciever {
     init(model: DamageModel) {
         self.model = model
         self.maxDamage = Rules.Damage.maxDamagePoints
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: .damageDidChange, object: nil)
     }
     
     func valuesFromEditorDidChange(_ values: [Identifier : AnyHashable], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
@@ -34,12 +35,12 @@ final class TotalDamageDataSource: EditorValueReciever {
                 alert.addAction(UIAlertAction(title: AlertViewStrings.dismissButtonTitle, style: .default, handler: nil))
                 NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
             case .success(_):
-                self.delegate?.updateCells(to: self.currentDamage)
+                return
             }
         }
     }
     
-    func refreshData() {
+    @objc func refreshData() {
         delegate?.updateCells(to: currentDamage)
     }
     
