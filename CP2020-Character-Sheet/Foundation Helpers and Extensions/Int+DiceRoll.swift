@@ -1,5 +1,5 @@
 //
-//  Dice.swift
+//  Int+DiceRoll.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 11/19/19.

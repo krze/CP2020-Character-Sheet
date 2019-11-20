@@ -136,7 +136,7 @@
 		9DFE711521BD94FD000561B0 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711421BD94FD000561B0 /* Stat.swift */; };
 		9DFE711721BDA18B000561B0 /* StatsViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711621BDA18B000561B0 /* StatsViewCellModel.swift */; };
 		9DFFCACF2384C2F400FF5BFF /* AppCenterHokum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFFCACE2384C2F400FF5BFF /* AppCenterHokum.swift */; };
-		9DFFCAD42384DABC00FF5BFF /* Dice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFFCAD32384DABC00FF5BFF /* Dice.swift */; };
+		9DFFCAD42384DABC00FF5BFF /* Int+DiceRoll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFFCAD32384DABC00FF5BFF /* Int+DiceRoll.swift */; };
 		B015A39FBD917B71C3D49062 /* libPods-CP2020-Character-SheetTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4FEC6A76667F05EB09BF88D /* libPods-CP2020-Character-SheetTests.a */; };
 		D9C10573D7CB59E54CF95A51 /* libPods-CP2020-Character-Sheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7B8BE8C6628A6E142C97F9 /* libPods-CP2020-Character-Sheet.a */; };
 /* End PBXBuildFile section */
@@ -297,7 +297,7 @@
 		9DFE711621BDA18B000561B0 /* StatsViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewCellModel.swift; sourceTree = "<group>"; };
 		9DFFCACE2384C2F400FF5BFF /* AppCenterHokum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCenterHokum.swift; sourceTree = "<group>"; };
 		9DFFCAD22384D1A400FF5BFF /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
-		9DFFCAD32384DABC00FF5BFF /* Dice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dice.swift; sourceTree = "<group>"; };
+		9DFFCAD32384DABC00FF5BFF /* Int+DiceRoll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+DiceRoll.swift"; sourceTree = "<group>"; };
 		C35938B902A13BC22D3DE017 /* Pods-CP2020-Character-Sheet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CP2020-Character-Sheet.release.xcconfig"; path = "Target Support Files/Pods-CP2020-Character-Sheet/Pods-CP2020-Character-Sheet.release.xcconfig"; sourceTree = "<group>"; };
 		C65BB47270384F3FCC681F4A /* Pods-CP2020-Character-Sheet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CP2020-Character-Sheet.debug.xcconfig"; path = "Target Support Files/Pods-CP2020-Character-Sheet/Pods-CP2020-Character-Sheet.debug.xcconfig"; sourceTree = "<group>"; };
 		D4FEC6A76667F05EB09BF88D /* libPods-CP2020-Character-SheetTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CP2020-Character-SheetTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -590,7 +590,6 @@
 			isa = PBXGroup;
 			children = (
 				9D2CFA0B21C59D7900EC76D7 /* Role.swift */,
-				9DFFCAD32384DABC00FF5BFF /* Dice.swift */,
 				9D9CC95423414EC7005AF278 /* Modifier.swift */,
 				9D7E1251238344090025443D /* Stat Model */,
 				9D7E1250238343EC0025443D /* Skill Model */,
@@ -650,6 +649,7 @@
 		9DCD370D21CC23EE00EE00D9 /* Foundation Helpers and Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				9DFFCAD32384DABC00FF5BFF /* Int+DiceRoll.swift */,
 				9D11763721BDCE0300E297BA /* UILabel+LabelContainer.swift */,
 				9D9CC95F2349454E005AF278 /* String+CamelCase.swift */,
 				9D4724A12309F06D00CECEA2 /* UICollectionViewLayout+Common.swift */,
@@ -1088,7 +1088,7 @@
 				9D2CFA0A21C59BEA00EC76D7 /* RoleViewModel.swift in Sources */,
 				9D7E124D23821DF00025443D /* EditorCollectionViewModel+Armor.swift in Sources */,
 				9D0003B721FE5CC20044F84A /* EditorCollectionViewModel+SkillListing.swift in Sources */,
-				9DFFCAD42384DABC00FF5BFF /* Dice.swift in Sources */,
+				9DFFCAD42384DABC00FF5BFF /* Int+DiceRoll.swift in Sources */,
 				9D0003AB21FE48C20044F84A /* ShortTextEntryCollectionViewCell.swift in Sources */,
 				9DFE711121BD92C9000561B0 /* StatView.swift in Sources */,
 				9D0003A921FE479D0044F84A /* UserEntryCollectionViewCell.swift in Sources */,
