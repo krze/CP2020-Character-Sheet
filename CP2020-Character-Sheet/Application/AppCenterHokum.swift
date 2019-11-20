@@ -13,9 +13,9 @@ import AppCenterDistribute
 final class AppCenterHokum {
     
     func initiateAppCenter() {
-        if let path = Bundle.main.path(forResource: "AppCenterConfig", ofType: "plist"),
+        if let path = Bundle.main.path(forResource: "Info", ofType: "plist"),
             let config = NSDictionary(contentsOfFile: path),
-            let storeKey = config.value(forKey: "StoreKey") as? String {
+            let storeKey = config.value(forKey: "AppCenterKey") as? String {
             MSAppCenter.start(storeKey, withServices:[
                 MSCrashes.self,
                 MSDistribute.self
