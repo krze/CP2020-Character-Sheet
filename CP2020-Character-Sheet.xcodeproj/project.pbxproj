@@ -191,7 +191,7 @@
 		9D1B14DA237E259100BCB972 /* UIView+Borders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Borders.swift"; sourceTree = "<group>"; };
 		9D24375321A085DE0084E77D /* WoundType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoundType.swift; sourceTree = "<group>"; };
 		9D24375521A091AE0084E77D /* CharacterSheetSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSheetSections.swift; sourceTree = "<group>"; };
-		9D24EF832384BCF400A27172 /* AppCenterConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = AppCenterConfig.plist; path = Data/AppCenterConfig.plist; sourceTree = "<group>"; };
+		9D24EF832384BCF400A27172 /* AppCenterConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppCenterConfig.plist; sourceTree = "<group>"; };
 		9D2CF9FD21C4336900EC76D7 /* CharacterDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionView.swift; sourceTree = "<group>"; };
 		9D2CF9FF21C433C500EC76D7 /* CharacterDescriptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionViewModel.swift; sourceTree = "<group>"; };
 		9D2CFA0121C5913100EC76D7 /* RoleFieldLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleFieldLabel.swift; sourceTree = "<group>"; };
@@ -470,7 +470,6 @@
 			children = (
 				9D5C1F3221A06CE800B3D493 /* LaunchScreen.storyboard */,
 				9D5C1F3521A06CE800B3D493 /* Info.plist */,
-				9D24EF832384BCF400A27172 /* AppCenterConfig.plist */,
 				9DFFCAD22384D1A400FF5BFF /* Release.xcconfig */,
 				9D5C1F3021A06CE800B3D493 /* Assets.xcassets */,
 				9DCD370D21CC23EE00EE00D9 /* Foundation Helpers and Extensions */,
@@ -744,6 +743,7 @@
 		9DFA19F621CF25E40092A450 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				9D24EF832384BCF400A27172 /* AppCenterConfig.plist */,
 				9DFA19F421CF25780092A450 /* Skills.json */,
 			);
 			path = Data;
