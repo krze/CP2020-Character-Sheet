@@ -16,6 +16,16 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     private var coordinator: CharacterSheetCoordinator?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        if let path = Bundle.main.path(forResource: "AppCenterConfig", ofType: "plist"),
+            let config = NSDictionary(contentsOfFile: path),
+            let storeKey = config.value(forKey: "StoreKey") as? String {
+          //        MSAppCenter.start("", withServices:[
+          //          MSCrashes.self
+          //        ])
+        }
+
+        
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.makeKeyAndVisible()
         
