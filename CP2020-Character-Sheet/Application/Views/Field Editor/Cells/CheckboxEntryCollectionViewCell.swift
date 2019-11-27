@@ -20,6 +20,7 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
     private let viewModel = EditorStyleConstants()
     private var header: UIView?
     private var checkboxView: UIView?
+    private var checkboxViewBackground: UIView?
     
     func setup(with identifier: Identifier, checkboxConfig: CheckboxConfig, description: String) {
         self.identifier = identifier
@@ -71,6 +72,10 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
         // NEXT: Enforce min/max selections. Respond to checkbox selection and send to the datasource
     }
     
+    func setCheckboxBackgroundColor(_ color: UIColor) {
+        checkboxViewBackground?.backgroundColor = color
+    }
+    
     // MARK: Private
     
     private func helpButton(size: CGSize) -> UIButton {
@@ -111,6 +116,12 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
             thisRow.spacing = contentView.safeAreaLayoutGuide.layoutFrame.width * StyleConstants.SizeConstants.edgePaddingRatio
             verticalStackView.addArrangedSubview(thisRow)
         }
+        let backgroundView = UIView(frame: verticalStackView.bounds)
+        backgroundView.backgroundColor = StyleConstants.Color.light
+        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        verticalStackView.insertSubview(backgroundView, at: 0)
+        
+        checkboxViewBackground = backgroundView
     }
     
     @objc private func presentHelpText() {

@@ -75,6 +75,18 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
         return nil
     }()
     
+    private var topVC: UIViewController {
+        if var topController = window.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+
+            return topController
+        }
+        
+        return navigationController
+    }
+    
     /// Check this to prevent multiple view controllers from being presented
     private var childViewIsPresenting: Bool {
         return skillTableViewController != nil && skillTableViewController?.isBeingPresented == true
@@ -121,7 +133,8 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
                 return
             }
             
-            self.navigationController.pushViewController(skillTableViewController, animated: true)
+            let modalView = UINavigationController(rootViewController: skillTableViewController)
+            self.navigationController.present(modalView, animated: true)
         }
     }
     
@@ -132,7 +145,8 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
                     return
             }
             
-            self.navigationController.pushViewController(editorViewController, animated: true)
+            let modalView = UINavigationController(rootViewController: editorViewController)
+            self.topVC.present(modalView, animated: true)
         }
     }
     
@@ -145,7 +159,7 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
     
     private func display(alert: UIAlertController) {
         DispatchQueue.main.async {
-            self.window.rootViewController?.present(alert, animated: true)
+            self.topVC.present(alert, animated: true)
         }
     }
     

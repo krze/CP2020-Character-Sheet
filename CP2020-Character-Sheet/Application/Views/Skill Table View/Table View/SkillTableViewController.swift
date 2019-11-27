@@ -277,7 +277,7 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
             guard let self = self else { return }
             let skillDetail = EditorCollectionViewController(with: viewModel)
             skillDetail.delegate = self.dataSource
-            self.navigationController?.pushViewController(skillDetail, animated: true)
+            NotificationCenter.default.post(name: .showEditor, object: skillDetail)
         }
     }
     

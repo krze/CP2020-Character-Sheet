@@ -60,7 +60,7 @@ final class CheckboxEntryValidator: UserEntryValidating, CheckboxSelectionDelega
         validate()
         
         if !isValid {
-            showPopup()
+            showWarning()
         }
     }
     
@@ -161,11 +161,11 @@ final class CheckboxEntryValidator: UserEntryValidating, CheckboxSelectionDelega
     }
     
     private func showWarning() {
-        cell.backgroundColor = StyleConstants.Color.red.withAlphaComponent(0.5)
+        cell.setCheckboxBackgroundColor(StyleConstants.Color.red.withAlphaComponent(0.5))
     }
 
     private func hideWarning() {
-        cell.backgroundColor = StyleConstants.Color.light
+        cell.setCheckboxBackgroundColor(StyleConstants.Color.light)
     }
     
     // MARK: Private
