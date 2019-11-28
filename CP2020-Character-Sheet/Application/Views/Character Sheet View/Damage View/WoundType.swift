@@ -25,7 +25,7 @@ enum StunType: String, CaseIterable {
     case Stun
 }
 
-/// Categories of Damage types. In the future, this will be used for blunt vs piercing
-enum DamageType: String, CaseIterable {
-    case Damage
+/// Categories of Damage types
+enum TraumaType: String, CaseIterable {
+    case Blunt, Piercing, Burn
 }

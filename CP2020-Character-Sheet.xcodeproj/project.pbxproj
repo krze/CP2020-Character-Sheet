@@ -136,6 +136,8 @@
 		9DFE711721BDA18B000561B0 /* StatsViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE711621BDA18B000561B0 /* StatsViewCellModel.swift */; };
 		9DFFCACF2384C2F400FF5BFF /* AppCenterHokum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFFCACE2384C2F400FF5BFF /* AppCenterHokum.swift */; };
 		9DFFCAD42384DABC00FF5BFF /* Int+DiceRoll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFFCAD32384DABC00FF5BFF /* Int+DiceRoll.swift */; };
+		9DFFCAD8238F551F00FF5BFF /* DamageField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFFCAD7238F551E00FF5BFF /* DamageField.swift */; };
+		9DFFCADA238F563600FF5BFF /* DamageStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFFCAD9238F563600FF5BFF /* DamageStrings.swift */; };
 		B015A39FBD917B71C3D49062 /* libPods-CP2020-Character-SheetTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4FEC6A76667F05EB09BF88D /* libPods-CP2020-Character-SheetTests.a */; };
 		D9C10573D7CB59E54CF95A51 /* libPods-CP2020-Character-Sheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7B8BE8C6628A6E142C97F9 /* libPods-CP2020-Character-Sheet.a */; };
 /* End PBXBuildFile section */
@@ -296,6 +298,8 @@
 		9DFFCACE2384C2F400FF5BFF /* AppCenterHokum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCenterHokum.swift; sourceTree = "<group>"; };
 		9DFFCAD22384D1A400FF5BFF /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		9DFFCAD32384DABC00FF5BFF /* Int+DiceRoll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+DiceRoll.swift"; sourceTree = "<group>"; };
+		9DFFCAD7238F551E00FF5BFF /* DamageField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageField.swift; sourceTree = "<group>"; };
+		9DFFCAD9238F563600FF5BFF /* DamageStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageStrings.swift; sourceTree = "<group>"; };
 		C35938B902A13BC22D3DE017 /* Pods-CP2020-Character-Sheet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CP2020-Character-Sheet.release.xcconfig"; path = "Target Support Files/Pods-CP2020-Character-Sheet/Pods-CP2020-Character-Sheet.release.xcconfig"; sourceTree = "<group>"; };
 		C65BB47270384F3FCC681F4A /* Pods-CP2020-Character-Sheet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CP2020-Character-Sheet.debug.xcconfig"; path = "Target Support Files/Pods-CP2020-Character-Sheet/Pods-CP2020-Character-Sheet.debug.xcconfig"; sourceTree = "<group>"; };
 		D4FEC6A76667F05EB09BF88D /* libPods-CP2020-Character-SheetTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CP2020-Character-SheetTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -439,6 +443,7 @@
 				9D3761EA21EE704E0027513E /* SkillStrings.swift */,
 				9D85671C230C960100295479 /* StatsStrings.swift */,
 				9D7E12422381CFB50025443D /* ArmorStrings.swift */,
+				9DFFCAD9238F563600FF5BFF /* DamageStrings.swift */,
 			);
 			path = Strings;
 			sourceTree = "<group>";
@@ -589,6 +594,7 @@
 			children = (
 				9D2CFA0B21C59D7900EC76D7 /* Role.swift */,
 				9D9CC95423414EC7005AF278 /* Modifier.swift */,
+				9DFFCAD7238F551E00FF5BFF /* DamageField.swift */,
 				9D7E1251238344090025443D /* Stat Model */,
 				9D7E1250238343EC0025443D /* Skill Model */,
 				9DAF2DD6235CEA4600EEEDE2 /* Equipment Model */,
@@ -1030,6 +1036,7 @@
 				9D7E124723820FCC0025443D /* CheckboxConfig.swift in Sources */,
 				64157CBC2378AA6F00667FB0 /* ArmorDataSourceDelegate.swift in Sources */,
 				9DFE711321BD933A000561B0 /* StatViewModel.swift in Sources */,
+				9DFFCAD8238F551F00FF5BFF /* DamageField.swift in Sources */,
 				9DFA19F121CE9EE10092A450 /* Notification+Cyberpunk.swift in Sources */,
 				9DFCB7BE21D5156A00F99798 /* ModelReceiver.swift in Sources */,
 				64157CB92378A9AF00667FB0 /* ArmorViewCell.swift in Sources */,
@@ -1110,6 +1117,7 @@
 				9D7E1249238214680025443D /* Checkbox.swift in Sources */,
 				9D9CC95523414EC7005AF278 /* Modifier.swift in Sources */,
 				9D9CC962234A5B2D005AF278 /* UserEntryValidating.swift in Sources */,
+				9DFFCADA238F563600FF5BFF /* DamageStrings.swift in Sources */,
 				9DFCB7A721D0666100F99798 /* Edgerunner.swift in Sources */,
 				9DE335A121A9EA7900180927 /* RoleDescriptionViewCell.swift in Sources */,
 				9D004E6121DC44F5004DFA4D /* StatsDataSource.swift in Sources */,

@@ -24,7 +24,7 @@ final class TotalDamageDataSource: EditorValueReciever {
     }
     
     func valuesFromEditorDidChange(_ values: [Identifier : AnyHashable], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
-        guard let incomingDamageString = values[DamageType.Damage.rawValue] as? String, let incomingDamage = Int(incomingDamageString) else {
+        guard let incomingDamageString = values[DamageStrings.damage] as? String, let incomingDamage = Int(incomingDamageString) else {
             return
         }
         
