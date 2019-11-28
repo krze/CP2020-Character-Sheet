@@ -15,18 +15,22 @@ enum DamageField: String, EntryTypeProvider, CaseIterable {
         switch self {
         case .NumberOfHits:
             return DamageStrings.numberOfHits
+        case .DamageType:
+            return DamageStrings.damageType
         default:
-            <#code#>
+            return rawValue
         }
     }
     
     func entryType(mode: EditorMode) -> EntryType {
-        <#code#>
+        return .Integer
     }
     
     static func enforcedOrder() -> [String] {
-        <#code#>
+        return allCases.map { $0.identifier() }
     }
     
     
 }
+
+
