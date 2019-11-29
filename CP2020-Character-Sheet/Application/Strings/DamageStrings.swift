@@ -24,5 +24,6 @@ struct DamageStrings {
     static let damageTypeExplosiveDescription = "Explosive damage is a concussive force; it ignores location and is applied to the entire body. Half the damage is applied as piercing, and half is applied as blunt. All soft armor takes 2 SP points of damage. All hard armor takes 1/4 of the explosion value as damage. All items with SDP (i.e. Cyberlimbs) takes half of the explosion value as damage."
     static let damageTypeBladedDescription = "Damage from Bladed weapons is reduced by half of the SP value of soft armor in the hit location. Hard armor is fully effective. Any remaining damage is applied to the location as piercing damage."
     static let damageTypeMonoBladedDescription = "Damage from Bladed weapons is reduced by 1/3rd of the SP value of soft armor in the hit location, and half of the SP value of hard armor. Any remaining damage is applied to the location as piercing damage."
-    static let damageTypeBluntDescription = ""
+    static let damageTypeBluntDescription = "Blunt weapon damage is reduced by the SP value of the armor in the hit location, and any remaining damage is applied as blunt damage."
+    static let damageTypeCustomDescription = "Custom damage allows you to specify how much damage the armor and body location takes."
 }
