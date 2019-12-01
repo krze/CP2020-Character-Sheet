@@ -9,7 +9,7 @@
 import Foundation
 
 enum DamageField: String, EntryTypeProvider, CaseIterable {
-    case NumberOfHits, Roll, Location, DamageType
+    case NumberOfHits, Roll, Location, DamageType, CoverSP
 
     func identifier() -> Identifier {
         switch self {
@@ -17,6 +17,8 @@ enum DamageField: String, EntryTypeProvider, CaseIterable {
             return DamageStrings.numberOfHits
         case .DamageType:
             return DamageStrings.damageType
+        case .CoverSP:
+            return DamageStrings.coverSP
         default:
             return rawValue
         }

@@ -55,6 +55,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         collectionView.register(ShortTextEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.Text.cellReuseID())
         collectionView.register(LongTextEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.LongFormText.cellReuseID())
         collectionView.register(CheckboxEntryCollectionViewCell.self, forCellWithReuseIdentifier: CheckboxConfig.editorCellReuseID)
+        collectionView.register(DiceRollEntryCollectionViewCell.self, forCellWithReuseIdentifier: EntryType.DiceRoll.cellReuseID())
     }
 
     // MARK: UICollectionViewDataSource
@@ -114,6 +115,9 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
             var validator = self.validator(for: cell, identifier: identifier, entryType: entryType)
             validator.delegate = self
             return cell
+        case .DiceRoll:
+            // FIXME
+            return UICollectionViewCell()
         }
         
         currentValues[identifier] = value

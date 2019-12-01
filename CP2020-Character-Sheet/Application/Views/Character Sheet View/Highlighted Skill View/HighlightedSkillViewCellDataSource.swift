@@ -49,9 +49,7 @@ final class HighlightedSkillViewCellDataSource: EditorValueReciever {
             let specialAbility = allSkills.remove(at: specialAbilityIndex)
             highlightedSkills.append(specialAbility)
         }
-        
-        // Next: Fill the rest of the list, first by starred skills, then by highest skill roll values
-        
+                
         let starredSkills = allSkills.filter({ $0.starred })
         var mutableStarredSkills = [SkillListing]()
         starredSkills.forEach { skill in

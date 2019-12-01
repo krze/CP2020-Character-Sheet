@@ -9,5 +9,5 @@
 import Foundation
 
 enum DamageType: String, CaseIterable {
-    case Normal, AP, HyPen, Explosive, Bladed, Monobladed, Blunt, Custom
+    case Normal, AP, HyPen, Explosive, Bladed, Monobladed, Blunt
 }

@@ -68,8 +68,6 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
         
         checkboxView = checkboxStack
         contentView.backgroundColor = viewModel.lightColor
-        
-        // NEXT: Enforce min/max selections. Respond to checkbox selection and send to the datasource
     }
     
     func setCheckboxBackgroundColor(_ color: UIColor) {
@@ -136,6 +134,7 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
         fieldDescription = ""
         checkboxConfig = nil
         checkboxView = nil
+        header = nil
     }
     
 }

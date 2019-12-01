@@ -33,7 +33,11 @@ enum EntryType {
     /// A field that simply displays text, without allowing the user to edit it
     case Static
     
+    /// A collection of "checkbox" style selections, with a configuration that dictates their behavior
     case Checkbox(CheckboxConfig)
+    
+    /// The standard dice entry field (i.e. 3D6+1). These values will be rolled.
+    case DiceRoll
     
     /// Gets the cell reuse ID for use in a collection view. Ordering does not matter for this enum.
     ///
@@ -44,6 +48,8 @@ enum EntryType {
             return "ShortFormTextEntryCell"
         case .LongFormText:
             return "LongFormTextEntryCell"
+        case .DiceRoll:
+            return "DiceRollEntryCell"
         case .Checkbox:
             return CheckboxConfig.editorCellReuseID
         }
@@ -54,7 +60,7 @@ enum EntryType {
     /// - Returns: CGFloat height
     func cellHeight() -> CGFloat {
         switch self {
-        case .Text, .Integer, .SuggestedText, .EnforcedChoiceText, .Static:
+        case .Text, .Integer, .SuggestedText, .EnforcedChoiceText, .Static, .DiceRoll:
             return EditorCollectionViewConstants.headerRowHeight + EditorCollectionViewConstants.editableSingleLineRowHeight
         case .Checkbox(let config):
             let editableRowHeight = EditorCollectionViewConstants.editableSingleLineRowHeight * CGFloat(config.choices.count)
