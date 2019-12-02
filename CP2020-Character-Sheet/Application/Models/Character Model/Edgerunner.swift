@@ -264,7 +264,7 @@ final class Edgerunner: Codable, EditableModel {
         }
     }
     
-    func apply(damage: Int, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func apply(damage: DamageModel, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
         guard CharacterValidator.validate(incomingDamage: damage, currentDamage: self.damage, completion: completion) else { return }
         
         DispatchQueue.main.async { [weak self] in

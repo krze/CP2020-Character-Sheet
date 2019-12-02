@@ -73,15 +73,15 @@ struct CharacterValidator {
     ///   - incomingDamage: The damage amount incoming
     ///   - currentDamage: The current damage of the character
     ///   - violationFound: Validation completion handler. Only gets called in this method if a violation occurs.
-    static func validate(incomingDamage: Int, currentDamage: Int, completion violationFound: (ValidatedEditorResult) -> Void) -> Bool {
-        let (pendingCurrentDamage, didOverflow): (Int, Bool) = currentDamage.addingReportingOverflow(incomingDamage)
-        guard !didOverflow,
-            pendingCurrentDamage >= 0,
-            pendingCurrentDamage <= Rules.Damage.maxDamagePoints,
-            pendingCurrentDamage != currentDamage else {
-            violationFound(.failure(Violation(ofType: .invalidNewDamageValue, violators: [String(incomingDamage), String(currentDamage)])))
-            return false
-        }
+    static func validate(incomingDamage: IncomingDamage, currentDamage: Int, completion violationFound: (ValidatedEditorResult) -> Void) -> Bool {
+//        let (pendingCurrentDamage, didOverflow): (Int, Bool) = currentDamage.addingReportingOverflow(incomingDamage)
+//        guard !didOverflow,
+//            pendingCurrentDamage >= 0,
+//            pendingCurrentDamage <= Rules.Damage.maxDamagePoints,
+//            pendingCurrentDamage != currentDamage else {
+//            violationFound(.failure(Violation(ofType: .invalidNewDamageValue, violators: [String(incomingDamage), String(currentDamage)])))
+//            return false
+//        }
 
         return true
     }

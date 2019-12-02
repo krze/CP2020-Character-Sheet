@@ -23,8 +23,8 @@ protocol DamageModel {
     var btm: Int { get }
     
     /// Applies the damage described to the player.
-    /// - Parameter damage: The incoming damage value (can be positive or negative)
+    /// - Parameter damage: The incoming damage value
     /// - Parameter completion: Completion closure called with validity state
-    func apply(damage: Int, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
+    func apply(damage: IncomingDamage, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
     
 }
