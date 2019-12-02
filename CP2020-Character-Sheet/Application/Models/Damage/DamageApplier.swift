@@ -20,11 +20,11 @@ struct DamageApplier {
         let damageType = incomingDamage.damageType
         let location = incomingDamage.hitLocation
         let allLocations = BodyLocation.allCases
-        var damages = [BodyLocation: Int]()
+        var damages = [DamageRollResult]()
         
         incomingDamage.rollResult.forEach { rollResult in
             let location = location ?? allLocations.randomElement() ?? .Torso
-            damages[location] = rollResult
+            damages.append(DamageRollResult(location: location, amount: rollResult, type: damageType))
         }
         
         var wounds = [Wound]()

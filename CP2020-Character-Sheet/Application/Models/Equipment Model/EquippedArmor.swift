@@ -120,17 +120,17 @@ final class EquippedArmor: Codable {
     /// attacks. Returns the remaining damage, which should be applied to the location under the armor.
     ///
     /// - Parameters:
-    ///   - damages: A series of locations with the amount of damage for the location
+    ///   - damages: A series of DamageRollResults
     ///   - coverSP: The coverSP before the damage is applied
-    func applyDamages(_ damages: [BodyLocation: Int], coverSP: Int) -> [BodyLocation: [Int]] {
+    func applyDamages(_ damages: [DamageRollResult], coverSP: Int) -> [BodyLocation: [Int]] {
         var coverSP = coverSP
         var remainingDamages = [BodyLocation: [Int]]()
         
-        damages.forEach { location, amount in
-            let thisRemaining = applyDamage(amount, location: location, coverSP: coverSP)
+        damages.forEach { damage in
+            let thisRemaining = applyDamage(damage.amount, damageType: damage.type, location: damage.location, coverSP: coverSP)
             
             if thisRemaining > 0 {
-                remainingDamages[location]?.append(thisRemaining)
+                remainingDamages[damage.location]?.append(thisRemaining)
 
                 if coverSP > 0 {
                  coverSP -= 1
@@ -147,7 +147,7 @@ final class EquippedArmor: Codable {
     ///   - damage: Damage amount
     ///   - location: Location where the damage hit
     ///   - coverSP: The SP of the cover
-    func applyDamage(_ damage: Int, location: BodyLocation, coverSP: Int) -> Int {
+    func applyDamage(_ damage: Int, damageType: DamageType, location: BodyLocation, coverSP: Int) -> Int {
         var locationSP = sp(for: location)
         
         if coverSP > 0 {

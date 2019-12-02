@@ -106,6 +106,7 @@
 		9DB876532395700600A13FDD /* IncomingDamage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB876522395700600A13FDD /* IncomingDamage.swift */; };
 		9DB876552395A54E00A13FDD /* DamageApplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB876542395A54E00A13FDD /* DamageApplier.swift */; };
 		9DB876592395A5CA00A13FDD /* Wound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB876582395A5CA00A13FDD /* Wound.swift */; };
+		9DB8765B2395BEF900A13FDD /* DamageRollResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB8765A2395BEF900A13FDD /* DamageRollResult.swift */; };
 		9DC8D65823809FED003B6C72 /* StatusTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC8D65723809FED003B6C72 /* StatusTableView.swift */; };
 		9DC8D65A2380A0AE003B6C72 /* StatusTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC8D6592380A0AE003B6C72 /* StatusTableViewModel.swift */; };
 		9DCD370121CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD370021CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift */; };
@@ -275,6 +276,7 @@
 		9DB876522395700600A13FDD /* IncomingDamage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingDamage.swift; sourceTree = "<group>"; };
 		9DB876542395A54E00A13FDD /* DamageApplier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageApplier.swift; sourceTree = "<group>"; };
 		9DB876582395A5CA00A13FDD /* Wound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wound.swift; sourceTree = "<group>"; };
+		9DB8765A2395BEF900A13FDD /* DamageRollResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageRollResult.swift; sourceTree = "<group>"; };
 		9DC8D65723809FED003B6C72 /* StatusTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableView.swift; sourceTree = "<group>"; };
 		9DC8D6592380A0AE003B6C72 /* StatusTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewModel.swift; sourceTree = "<group>"; };
 		9DCD370021CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedSkillViewCellModel.swift; sourceTree = "<group>"; };
@@ -650,6 +652,7 @@
 				9DB876542395A54E00A13FDD /* DamageApplier.swift */,
 				9DB876522395700600A13FDD /* IncomingDamage.swift */,
 				9DB876582395A5CA00A13FDD /* Wound.swift */,
+				9DB8765A2395BEF900A13FDD /* DamageRollResult.swift */,
 			);
 			path = Damage;
 			sourceTree = "<group>";
@@ -1160,6 +1163,7 @@
 				9D004E6121DC44F5004DFA4D /* StatsDataSource.swift in Sources */,
 				9D567FD3237B9513003F69F5 /* ArmorModel.swift in Sources */,
 				9D9CC964234A5DA7005AF278 /* ShortFormEntryValidator.swift in Sources */,
+				9DB8765B2395BEF900A13FDD /* DamageRollResult.swift in Sources */,
 				9DCD371721CD6E5B00EE00D9 /* SkillTableConstants.swift in Sources */,
 				9D3761EB21EE704E0027513E /* SkillStrings.swift in Sources */,
 				9D004E2521D59B9E004DFA4D /* SkillsDataSourceDelegate.swift in Sources */,

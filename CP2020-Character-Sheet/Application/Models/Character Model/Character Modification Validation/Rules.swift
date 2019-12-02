@@ -80,6 +80,55 @@ struct Rules {
                 return 0
             }
         }
+        
+        static func realSPValue(sp: Int, armorType: ArmorType, damageType: DamageType) -> Int {
+            let hard = armorType == .Hard
+            
+            switch damageType {
+            case .Monobladed:
+                return hard ? halvedDown(sp) : thirdedDown(sp)
+            case .Bladed:
+                return hard ? sp : halvedDown(sp)
+            case .AP, .HyPen:
+                return halvedDown(sp)
+            case .Explosive:
+                return 0
+            default:
+                return sp
+            }
+        }
+        
+        static func realDamageValue(damage: Int, damageType: DamageType) -> Int {
+            switch damageType {
+            case .AP:
+                return halvedUp(damage)
+            default:
+                return damage
+            }
+        }
+        
+        static func halvedDown(_ amount: Int) -> Int {
+            let amount = Double(amount)
+            let result = amount * 0.5
+            
+            return Int(floor(result))
+        }
+        
+        static func halvedUp(_ amount: Int) -> Int {
+            let amount = Double(amount)
+            let result = amount * 0.5
+            
+            return Int(ceil(result))
+        }
+        
+        static func thirdedDown(_ amount: Int) -> Int {
+            let amount = Double(amount)
+            let multiplier: Double = 1.0/3.0
+            let result = amount * multiplier
+            
+            return Int(floor(result))
+        }
+        
     }
     
     struct Skills {
