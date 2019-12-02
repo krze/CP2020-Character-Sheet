@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// The table view containing the full listing of every skill available to the player
+/// The table view containing the full listing of every skill available to the Edgerunner
 final class SkillTableViewController: UITableViewController, SkillsDataSourceDelegate, UISearchResultsUpdating {
 
     private let dataSource: SkillsDataSource

@@ -26,6 +26,28 @@ enum StunType: String, CaseIterable {
 }
 
 /// Categories of Damage types
-enum TraumaType: String, CaseIterable {
-    case Blunt, Piercing, Burn
+enum TraumaType: String, CaseIterable, Codable {
+    case Blunt, Piercing, Burn, CyberwareDamage
+    
+    func abbreviation() -> String {
+        switch self {
+        case .Burn:
+            return "BRN"
+        case .Blunt:
+            return "BLT"
+        case .Piercing:
+            return "PRC"
+        case .CyberwareDamage:
+            return "CYB"
+        }
+    }
+    
+    func identifier() -> String {
+        switch self {
+        case .CyberwareDamage:
+            return "Cyberware Damage"
+        default:
+            return rawValue
+        }
+    }
 }

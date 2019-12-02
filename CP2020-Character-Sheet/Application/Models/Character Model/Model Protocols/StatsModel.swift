@@ -15,7 +15,7 @@ protocol StatsModel {
     var humanityLoss: Int { get }
     
     /// Sets the base stat and humanity loss.
-    /// NOTE: This will change in the future. Humanity loss will be calulcated by cyberwear.
+    /// NOTE: This will change in the future. Humanity loss will be calulcated by cyberware.
     /// TODO: Once humanity loss is removed from the editor, modify this method
     ///
     /// - Parameters:

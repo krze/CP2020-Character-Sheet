@@ -56,7 +56,7 @@ final class SkillsDataSource: EditorValueReciever {
         return mutableSkills.map { $0.displayName() }
     }
     
-    /// Asynchronously returns all skills that are useable by the player, filtering out irrelevent skills
+    /// Asynchronously returns all skills that are useable by the Edgerunner, filtering out irrelevent skills
     func getCharacterSkills() {
         DispatchQueue.main.async {
             let skills = self.allSkills.isEmpty ? self.getAllSkills() : self.allSkills
@@ -163,7 +163,7 @@ final class SkillsDataSource: EditorValueReciever {
     
     /// Synchronously returns all skills
     ///
-    /// - Returns: Every skill listing potentially relevent to the player based on the character role.
+    /// - Returns: Every skill listing potentially relevent to the Edgerunner based on the character role.
     private func getAllSkills() -> [SkillListing] {
         return model.skills.filter { !$0.skill.isSpecialAbility || $0.skill.name == model.role.specialAbility() }
     }

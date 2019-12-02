@@ -22,7 +22,7 @@ struct IncomingDamage {
     /// The body location. Nil value means random location
     let hitLocation: BodyLocation?
     
-    /// The SP value of cover the player is hiding behind
+    /// The SP value of cover the Edgerunner is hiding behind
     let coverSP: Int
     
     /// Each dice roll is performed and added to this array, in order.

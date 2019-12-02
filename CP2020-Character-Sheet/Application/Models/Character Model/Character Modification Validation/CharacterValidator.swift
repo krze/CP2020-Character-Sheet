@@ -74,22 +74,22 @@ struct CharacterValidator {
     ///   - currentDamage: The current damage of the character
     ///   - violationFound: Validation completion handler. Only gets called in this method if a violation occurs.
     static func validate(incomingDamage: IncomingDamage, currentDamage: Int, completion violationFound: (ValidatedEditorResult) -> Void) -> Bool {
-//        let (pendingCurrentDamage, didOverflow): (Int, Bool) = currentDamage.addingReportingOverflow(incomingDamage)
-//        guard !didOverflow,
-//            pendingCurrentDamage >= 0,
-//            pendingCurrentDamage <= Rules.Damage.maxDamagePoints,
-//            pendingCurrentDamage != currentDamage else {
-//            violationFound(.failure(Violation(ofType: .invalidNewDamageValue, violators: [String(incomingDamage), String(currentDamage)])))
-//            return false
-//        }
+        let maxPotentialIncomingDamage = incomingDamage.rollResult.reduce(0, { $0 + $1 })
+        let (pendingCurrentDamage, didOverflow): (Int, Bool) = currentDamage.addingReportingOverflow(maxPotentialIncomingDamage)
+        guard !didOverflow,
+            pendingCurrentDamage >= 0,
+            pendingCurrentDamage != currentDamage else {
+            violationFound(.failure(Violation(ofType: .invalidNewDamageValue, violators: [String(maxPotentialIncomingDamage), String(currentDamage)])))
+            return false
+        }
 
         return true
     }
     
-    /// Validates the armor being added to the player
+    /// Validates the armor being added to the Edgerunner
     /// - Parameters:
     ///   - newArmor: The new armor piece being added
-    ///   - existingArmor: The armor already worn by the player
+    ///   - existingArmor: The armor already worn by the Edgerunner
     ///   - violationFound: Validation completion handler. Only gets called in this method if a violation occurs.
     static func validate(newArmor: Armor, existingArmor: [Armor], completion violationFound: (ValidatedEditorResult) -> Void) -> Bool {
         

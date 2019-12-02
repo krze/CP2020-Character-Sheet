@@ -50,24 +50,33 @@ final class TotalDamageDataSource: EditorValueReciever {
 //                                                 damageType: damageType,
 //                                                hitLocation: location,
 //                                                coverSP: coverSP)
-//
-//
-        // TODO: This will be replaced by the incoming editor above. Once it's plugged in, uncomment the above code, pass it to the model, then delete the below.
+//        model.apply(damage: incomingDamage) { result in
+//            switch result {
+//            case .failure(let violation):
+//                let alert = UIAlertController(title: violation.title(), message: violation.helpText(), preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: AlertViewStrings.dismissButtonTitle, style: .default, handler: nil))
+//                NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
+//            case .success(_):
+//                return
+//            }
+//        }
         
-        guard let incomingDamageString = values[DamageStrings.damage] as? String, let incomingDamage = Int(incomingDamageString) else {
-            return
-        }
-
-        model.apply(damage: incomingDamage) { result in
-            switch result {
-            case .failure(let violation):
-                let alert = UIAlertController(title: violation.title(), message: violation.helpText(), preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: AlertViewStrings.dismissButtonTitle, style: .default, handler: nil))
-                NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
-            case .success(_):
-                return
-            }
-        }
+        // TODO: This code below will be replaced by the incoming editor above. Once it's plugged in, uncomment the above code, then delete the below.
+        
+//        guard let incomingDamageString = values[DamageStrings.damage] as? String, let incomingDamage = Int(incomingDamageString) else {
+//            return
+//        }
+//
+//        model.apply(damage: incomingDamage) { result in
+//            switch result {
+//            case .failure(let violation):
+//                let alert = UIAlertController(title: violation.title(), message: violation.helpText(), preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: AlertViewStrings.dismissButtonTitle, style: .default, handler: nil))
+//                NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
+//            case .success(_):
+//                return
+//            }
+//        }
     }
     
     @objc func refreshData() {

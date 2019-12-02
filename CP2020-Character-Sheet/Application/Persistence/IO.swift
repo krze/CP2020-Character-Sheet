@@ -106,7 +106,7 @@ final class IO {
     /// Names of files commonly used with JSON operations
     ///
     /// - Skills: The Skills JSON
-    /// - Edgerunner: The player Edgerunner JSON
+    /// - Edgerunner: The Edgerunner Edgerunner JSON
     enum JSONFile {
         case DefaultSkills, Edgerunner, CustomSkills
         

@@ -10,19 +10,22 @@ import Foundation
 
 protocol DamageModel {
     
-    /// Current damage of the player
+    /// Current damage of the Edgerunner
     var damage: Int { get }
     
-    /// Current save of the player for stun or mortal saves
+    /// Current save of the Edgerunner for stun or mortal saves
     var save: Int { get }
     
-    /// The player's Body Type
+    /// The Edgerunner's Body Type
     var bodyType: BodyType { get }
     
-    /// Current Body Type Modifier of the player
+    /// Current Body Type Modifier of the Edgerunner
     var btm: Int { get }
     
-    /// Applies the damage described to the player.
+    /// Current wounds the edgerunner has sustained
+    var wounds: [Wound] { get }
+    
+    /// Applies the damage described to the Edgerunner.
     /// - Parameter damage: The incoming damage value
     /// - Parameter completion: Completion closure called with validity state
     func apply(damage: IncomingDamage, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)

@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Contains a model for the armor equipped by the player
+/// Contains a model for the armor equipped by the Edgerunner
 final class EquippedArmor: Codable {
     
     /// All armor on the character

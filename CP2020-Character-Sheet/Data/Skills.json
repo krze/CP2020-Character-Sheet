@@ -44,7 +44,7 @@
     "linked_stat": "Intelligence",
     "modifies_skill": null,
     "ip_multiplier": 1,
-    "description": "This skill reflects the Netrunner's ability to manipulate Interface programs, and is the Skill used when operating Menu functions such as locate Remote, Run Software, Control Remote, Downlink, Load, Create and Delete. Other players can enter the Net, but cannot use the Menu. Interface is based on the INT Stat.",
+    "description": "This skill reflects the Netrunner's ability to manipulate Interface programs, and is the Skill used when operating Menu functions such as locate Remote, Run Software, Control Remote, Downlink, Load, Create and Delete. Other Edgerunners can enter the Net, but cannot use the Menu. Interface is based on the INT Stat.",
     "special_ability": true
 }, {
     "name": "Jury Rig",
@@ -84,7 +84,7 @@
     "linked_stat": "Attractiveness",
     "modifies_skill": null,
     "ip_multiplier": 1,
-    "description": "This is the skill of knowing proper grooming, hair styling, etc., to maximize your physical attractiveness. Use of this skill allows players to increase their Attractiveness, and thus their chances of successful Relationships or Persuasions. A basically good looking person would be at +2. A fashion model might have a Personal Grooming of +5 or +6. At +8 or better, you could be a major fashion model, film star, or trendsetter. You are always \"together\". And you know it.",
+    "description": "This is the skill of knowing proper grooming, hair styling, etc., to maximize your physical attractiveness. Use of this skill allows Edgerunners to increase their Attractiveness, and thus their chances of successful Relationships or Persuasions. A basically good looking person would be at +2. A fashion model might have a Personal Grooming of +5 or +6. At +8 or better, you could be a major fashion model, film star, or trendsetter. You are always \"together\". And you know it.",
     "special_ability": false
 }, {
     "name": "Wardrobe & Style",
@@ -188,7 +188,7 @@
     "linked_stat": "Empathy",
     "modifies_skill": null,
     "ip_multiplier": 1,
-    "description": "The skill of forming and maintaining romantic relationships (this includes your abilities as a lover). This skill may be used to determine whether or not players can form relationships with other non-player characters and the intensity of these relationships. In certain cases, Referees may want to average this skill with a player's Attractiveness to get a more realistic outcome.",
+    "description": "The skill of forming and maintaining romantic relationships (this includes your abilities as a lover). This skill may be used to determine whether or not Edgerunners can form relationships with other non-Edgerunner characters and the intensity of these relationships. In certain cases, Referees may want to average this skill with a Edgerunner's Attractiveness to get a more realistic outcome.",
     "special_ability": false
 }, {
     "name": "Social",
@@ -236,7 +236,7 @@
     "linked_stat": "Intelligence",
     "modifies_skill": null,
     "ip_multiplier": 1,
-    "description": ": This is the equivalent of a \"trained observer\" skill, allowing characters to notice or be aware of dues, shadowers and other events. With an Awareness of +2 you will usually spot small pieces of paper with notes on them, doors left ajar, and obvious expressions of lying or dislike. An Awareness of +5 or better allows you to spot fairly well hidden clues, notice small changes in expression, and fairly sophisticated attempts to \"shadow\" you. With an Awareness of +8 or greater, you routinely perform the sorts of deductive reasoning seen in the average TV cop show (\"The murderer was left handed because this knife has a specialized handle\"). Sherlock Holmes has a +10 Awareness. Players without this skill may only use their Intelligence Stat.",
+    "description": ": This is the equivalent of a \"trained observer\" skill, allowing characters to notice or be aware of dues, shadowers and other events. With an Awareness of +2 you will usually spot small pieces of paper with notes on them, doors left ajar, and obvious expressions of lying or dislike. An Awareness of +5 or better allows you to spot fairly well hidden clues, notice small changes in expression, and fairly sophisticated attempts to \"shadow\" you. With an Awareness of +8 or greater, you routinely perform the sorts of deductive reasoning seen in the average TV cop show (\"The murderer was left handed because this knife has a specialized handle\"). Sherlock Holmes has a +10 Awareness. Edgerunners without this skill may only use their Intelligence Stat.",
     "special_ability": false
 }, {
     "name": "Biology",
@@ -788,7 +788,7 @@
     "linked_stat": "Intelligence",
     "modifies_skill": null,
     "ip_multiplier": 1,
-    "description": "The required skill to write programs and to re-program computer systems. This skill does not allow players to actually do repairs on a computer (this requires Electronics). With a Programming Skill of +1, you can do simple Python programs. A Programming Skill of +3 or better allows you to know some higher level languages and be able to write reasonably complex programs (including video games). Players with a Programming Skill +6 or better are considered to be professionals, who can build operating software, design mainframe systems, and hold down a steady job at your average Silicon Valley firm. With a Programming Skill of +9 or better, other programmers speak your name with reverence (\"You invented Rust? Wow!\"}, young hackers set out to crack your systems, and any computer software you design instantly gets used by every business application in the world.",
+    "description": "The required skill to write programs and to re-program computer systems. This skill does not allow Edgerunners to actually do repairs on a computer (this requires Electronics). With a Programming Skill of +1, you can do simple Python programs. A Programming Skill of +3 or better allows you to know some higher level languages and be able to write reasonably complex programs (including video games). Edgerunners with a Programming Skill +6 or better are considered to be professionals, who can build operating software, design mainframe systems, and hold down a steady job at your average Silicon Valley firm. With a Programming Skill of +9 or better, other programmers speak your name with reverence (\"You invented Rust? Wow!\"}, young hackers set out to crack your systems, and any computer software you design instantly gets used by every business application in the world.",
     "special_ability": false
 }, {
     "name": "Stock Market",
@@ -812,7 +812,7 @@
     "linked_stat": "Intelligence",
     "modifies_skill": null,
     "ip_multiplier": 1,
-    "description": "The skill of imparting knowledge to someone else (if you don't think this is a skill, you ought to try it sometime). Players may not teach any skill unless they have a higher skill level than the student. The referee is the final arbiter of how long it takes to teach a skill. At a Teaching Skill of +3 or better, you can professionally teach students up to High School. At +6, you know enough to be a college professor (if you wanted). At +9 or greater, you are recognized by others in the field as good enough to guest lecture at MIT or Cal Tech; your texts on the subject are quoted as the major references, and you might have a TV show on the equivalent of the PBS channel.",
+    "description": "The skill of imparting knowledge to someone else (if you don't think this is a skill, you ought to try it sometime). Edgerunners may not teach any skill unless they have a higher skill level than the student. The referee is the final arbiter of how long it takes to teach a skill. At a Teaching Skill of +3 or better, you can professionally teach students up to High School. At +6, you know enough to be a college professor (if you wanted). At +9 or greater, you are recognized by others in the field as good enough to guest lecture at MIT or Cal Tech; your texts on the subject are quoted as the major references, and you might have a TV show on the equivalent of the PBS channel.",
     "special_ability": false
 }, {
     "name": "Wilderness Survival",
@@ -892,7 +892,7 @@
     "linked_stat": "Reflex",
     "modifies_skill": null,
     "ip_multiplier": 1,
-    "description": "You must have this skill to effec- tively use handguns of any type, including cyberwear types. At +2, you can use a handgun effectively on a target range, though combat will still rattle you. At +5, you are as skilled as most military officers or policemen. At +7, you can do the sort of fancy shooting you see on TV, and have begun to get a reputation of being \"good with a gun\". At +8, you are a recognized gunslinger with a \"rep\". The very sound of your name makes some people back down in fear. Atv+10, you are a legendary gunslinger, feared by all except the stupid young punks who keep trying to \"take\" you in innumerable gunfight challenges.",
+    "description": "You must have this skill to effec- tively use handguns of any type, including cyberware types. At +2, you can use a handgun effectively on a target range, though combat will still rattle you. At +5, you are as skilled as most military officers or policemen. At +7, you can do the sort of fancy shooting you see on TV, and have begun to get a reputation of being \"good with a gun\". At +8, you are a recognized gunslinger with a \"rep\". The very sound of your name makes some people back down in fear. Atv+10, you are a legendary gunslinger, feared by all except the stupid young punks who keep trying to \"take\" you in innumerable gunfight challenges.",
     "special_ability": false
 }, {
     "name": "Heavy Weapons",
@@ -1124,7 +1124,7 @@
     "linked_stat": "Tech",
     "modifies_skill": null,
     "ip_multiplier": 2,
-    "description": "The required skill for repairing and maintaining cyberwear. At level +2, you can keep your cyberwear tuned up and can replace its power batteries. At level +6, you can strip down most cyberwear and even make simple modifications. At level +8, you can design your own cyberwear to order.",
+    "description": "The required skill for repairing and maintaining cyberware. At level +2, you can keep your cyberware tuned up and can replace its power batteries. At level +6, you can strip down most cyberware and even make simple modifications. At level +8, you can design your own cyberware to order.",
     "special_ability": false
 }, {
     "name": "Demolitions",
@@ -1212,7 +1212,7 @@
     "linked_stat": "Tech",
     "modifies_skill": null,
     "ip_multiplier": 1,
-    "description": "The skill required to pick locks and break into sealed containers and rooms. At +3, you can jimmy most simple locks. At +6 you can crack most safes. At +9 or better, you have a rep as a master cracksman, and are known to all the major players In the Cyberpunk world.",
+    "description": "The skill required to pick locks and break into sealed containers and rooms. At +3, you can jimmy most simple locks. At +6 you can crack most safes. At +9 or better, you have a rep as a master cracksman, and are known to all the major Edgerunners In the Cyberpunk world.",
     "special_ability": false
 }, {
     "name": "Pick Pocket",

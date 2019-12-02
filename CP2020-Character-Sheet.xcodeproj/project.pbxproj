@@ -104,6 +104,8 @@
 		9DB8764E2395515300A13FDD /* DiceRollEntryValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB8764D2395515300A13FDD /* DiceRollEntryValidator.swift */; };
 		9DB8765023955E1400A13FDD /* EditorCollectionViewModel+Damage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB8764F23955E1400A13FDD /* EditorCollectionViewModel+Damage.swift */; };
 		9DB876532395700600A13FDD /* IncomingDamage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB876522395700600A13FDD /* IncomingDamage.swift */; };
+		9DB876552395A54E00A13FDD /* DamageApplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB876542395A54E00A13FDD /* DamageApplier.swift */; };
+		9DB876592395A5CA00A13FDD /* Wound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB876582395A5CA00A13FDD /* Wound.swift */; };
 		9DC8D65823809FED003B6C72 /* StatusTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC8D65723809FED003B6C72 /* StatusTableView.swift */; };
 		9DC8D65A2380A0AE003B6C72 /* StatusTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC8D6592380A0AE003B6C72 /* StatusTableViewModel.swift */; };
 		9DCD370121CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD370021CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift */; };
@@ -271,6 +273,8 @@
 		9DB8764D2395515300A13FDD /* DiceRollEntryValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceRollEntryValidator.swift; sourceTree = "<group>"; };
 		9DB8764F23955E1400A13FDD /* EditorCollectionViewModel+Damage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorCollectionViewModel+Damage.swift"; sourceTree = "<group>"; };
 		9DB876522395700600A13FDD /* IncomingDamage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingDamage.swift; sourceTree = "<group>"; };
+		9DB876542395A54E00A13FDD /* DamageApplier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageApplier.swift; sourceTree = "<group>"; };
+		9DB876582395A5CA00A13FDD /* Wound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wound.swift; sourceTree = "<group>"; };
 		9DC8D65723809FED003B6C72 /* StatusTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableView.swift; sourceTree = "<group>"; };
 		9DC8D6592380A0AE003B6C72 /* StatusTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewModel.swift; sourceTree = "<group>"; };
 		9DCD370021CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedSkillViewCellModel.swift; sourceTree = "<group>"; };
@@ -643,7 +647,9 @@
 			children = (
 				9DFFCAD7238F551E00FF5BFF /* DamageField.swift */,
 				9DFFCADB239008E600FF5BFF /* DamageType.swift */,
+				9DB876542395A54E00A13FDD /* DamageApplier.swift */,
 				9DB876522395700600A13FDD /* IncomingDamage.swift */,
+				9DB876582395A5CA00A13FDD /* Wound.swift */,
 			);
 			path = Damage;
 			sourceTree = "<group>";
@@ -1076,6 +1082,7 @@
 				9D004E3521D8114B004DFA4D /* CharacterDescriptionDataSourceDelegate.swift in Sources */,
 				9D004E5921DA7FE1004DFA4D /* EntryType.swift in Sources */,
 				9DFA19F321CF1F260092A450 /* JSONFactory.swift in Sources */,
+				9DB876552395A54E00A13FDD /* DamageApplier.swift in Sources */,
 				9D2CFA0C21C59D7900EC76D7 /* Role.swift in Sources */,
 				9D9CC966234A761E005AF278 /* LongFormEntryValidator.swift in Sources */,
 				9D029D3722D817C500D75A52 /* UserEntryDelegate.swift in Sources */,
@@ -1176,6 +1183,7 @@
 				9DAF2DD8235CEC4000EEEDE2 /* BodyLocation.swift in Sources */,
 				9D7E12412381C6EA0025443D /* ColumnTableViewHeader.swift in Sources */,
 				9D7E124B2382187C0025443D /* CheckboxEntryCollectionViewCell.swift in Sources */,
+				9DB876592395A5CA00A13FDD /* Wound.swift in Sources */,
 				9D004E6321DC45F2004DFA4D /* StatsModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

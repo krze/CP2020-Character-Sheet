@@ -13,7 +13,7 @@ final class StatsDataSource: NSObject, EditorValueReciever {
     private let statsModel: StatsModel
     weak var delegate: StatsDataSourceDelegate?
 
-    // TODO: Remove this when humanity loss is calculated by cyberwear
+    // TODO: Remove this when humanity loss is calculated by cyberware
     var humanityLoss: Int {
         return statsModel.humanityLoss
     }

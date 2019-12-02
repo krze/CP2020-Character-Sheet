@@ -33,8 +33,8 @@ protocol EditorValueReciever: class {
 /// An object containing the results from an editor, validated by the model. If the result was successful,
 /// a Validated will be returned, which is merely a placeholder for now. In future iterations, editors may
 /// utilize a more complex success object to convey information to the user. For example, if editing the
-/// player's damage levls by using an attack roll, the success condition may return the results of the damage
-/// to the player textualized or visualized.
+/// Edgerunner's damage levls by using an attack roll, the success condition may return the results of the damage
+/// to the Edgerunner textualized or visualized.
 ///
 /// If the results were not valid at all, an error is returned containing a user-facing message. It's up to the
 /// editor to display the message.

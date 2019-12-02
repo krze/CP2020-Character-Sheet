@@ -113,8 +113,16 @@ struct Rules {
     
     struct Damage {
         
+        /// The maximum number of points an edgerunner can sustain
         static let maxDamagePoints = 40
+        
+        /// The number of poins per section in an edgerunner's health track
         static let pointsPerSection = 4
+        
+        /// The amount of damage, if part of a single wound, that requires an immediate mortal check
+        static let mortalWoundThreshold = 8
+        static let headWoundMultiplier = 2
+        static let immediateMortalWoundLevelModifier = 0
         
         static func wound(forTotalDamage totalDamage: Int) -> WoundType? {
             switch totalDamage {

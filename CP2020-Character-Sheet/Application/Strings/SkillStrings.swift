@@ -13,9 +13,9 @@ struct SkillStrings {
     
     static let skillNameHelpText = "The name of the skill. A colon is used to specify the focus of a skill, if it has one (i.e. 'Language: English' to specify a language)."
     
-    static let associatedStatHelpText = "The player stat associated with this skill. The points in the stat are added to the total points for the skill."
+    static let associatedStatHelpText = "The Edgerunner stat associated with this skill. The points in the stat are added to the total points for the skill."
     
-    static let pointsAssignedHelpText = "Points assigned by player"
+    static let pointsAssignedHelpText = "Points assigned by Edgerunner"
     static let modifierPointsHelpText = "Modifier points due to equipment, or emphemeral states."
     
     static let improvementPoints = "IP"

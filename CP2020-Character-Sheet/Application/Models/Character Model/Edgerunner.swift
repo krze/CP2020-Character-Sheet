@@ -10,14 +10,14 @@ import Foundation
 
 typealias EditableModel = CharacterDescriptionModel & StatsModel & SkillModel & DamageModel & ArmorModel
 
-/// The model for the player character.
+/// The model for the Edgerunner character.
 /// TODO: Move responsibilities of modifying this model to another class. Don't let it manage itself.
 final class Edgerunner: Codable, EditableModel {
     
     private(set) var name: String
     private(set) var handle: String
     
-    /// The player stats assigned at creation. These stats are immutable according to game rules; you must
+    /// The Edgerunner stats assigned at creation. These stats are immutable according to game rules; you must
     /// update the stat via set(stats: Stats). These are the raw, base stats. Use value(for: Stat) to retrieve
     /// the calculated stat values includng pentalties
     private(set) var baseStats: Stats
@@ -25,20 +25,23 @@ final class Edgerunner: Codable, EditableModel {
     /// Character role, aka "Class"
     private(set) var role: Role
     
-    /// All skills available to a player
+    /// All skills available to a Edgerunner
     private(set) var skills: [SkillListing]
     
-    /// Damage on the player
+    /// Damage on the Edgerunner
     private(set) var damage: Int
     
-    /// The player's save value for Stun or Mortal saves
+    /// The Edgerunner's save value for Stun or Mortal saves
     private(set) var save: Int
     
-    /// The player's Body Type
+    /// The Edgerunner's Body Type
     private(set) var bodyType: BodyType
     
-    /// The player's BTM
+    /// The Edgerunner's BTM
     private(set) var btm: Int
+    
+    /// The Wounds the edgerunner has sustained
+    private(set) var wounds: [Wound] = [Wound]()
     
     private var baseHumanity: Int {
         return baseStats.emp * 10
@@ -77,6 +80,7 @@ final class Edgerunner: Codable, EditableModel {
         bodyType = BodyType.from(bodyPointValue: baseStats.body)
         btm = bodyType.btm()
         equippedArmor = EquippedArmor()
+        wounds = [Wound]()
         self.skills = [SkillListing]() // This is necessary so we can set it on the next line and preserve this class as Codable.
         self.skills = skills.map({ SkillListing(skill: $0, points: 0, modifier: 0, statModifier: value(for: $0.linkedStat).displayValue)})
         addSubscribers()
@@ -243,7 +247,7 @@ final class Edgerunner: Codable, EditableModel {
     /// this value should be immutable during normal gameplay.
     ///
     /// - Parameters:
-    ///   - role: The new player role
+    ///   - role: The new Edgerunner role
     ///   - validationCompletion: Completion for validating the skill
     func set(role: Role, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
         DispatchQueue.main.async {
@@ -264,12 +268,12 @@ final class Edgerunner: Codable, EditableModel {
         }
     }
     
-    func apply(damage: DamageModel, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func apply(damage: IncomingDamage, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
         guard CharacterValidator.validate(incomingDamage: damage, currentDamage: self.damage, completion: completion) else { return }
         
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.damage += damage
+            self.damage += damage.rollResult.reduce(0, { $0 + $1 })
 
             self.statModifiers.removeAll(where: { $0.damageRelated })
             
@@ -365,9 +369,10 @@ final class Edgerunner: Codable, EditableModel {
         skillModifiers = try container.decode([SkillModifier].self, forKey: .skillModifiers)
         arbitraryModifiers = try container.decode([ArbitraryModifier].self, forKey: .arbitraryModifiers)
 
-        // Used for updates to the player model.
+        // Used for updates to the Edgerunner model.
         do {
             equippedArmor = try container.decode(EquippedArmor.self, forKey: .equippedArmor)
+            wounds = try container.decode([Wound].self, forKey: .wounds)
         } catch let error {
             print("JSON mismatched the current Edgerunner model. The model has been updated.")
             print("Original error:\n\(error)")

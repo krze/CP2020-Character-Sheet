@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Non-mutable player stat points. This struct includes the stats that are assinged during
+/// Non-mutable Edgerunner stat points. This struct includes the stats that are assinged during
 /// character creation. This does not include calculated stats.
 struct Stats: Codable {
     

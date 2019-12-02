@@ -14,7 +14,7 @@ final class SkillListing: Codable, ColumnListingProviding {
     /// The skill tied to the listing
     let skill: Skill
     
-    /// Number of points alloted to the skill by the player
+    /// Number of points alloted to the skill by the Edgerunner
     private(set) var points: Int
     
     /// The number of IP in the skill
