@@ -79,8 +79,6 @@ final class Edgerunner: Codable, EditableModel {
         save = baseStats.body
         bodyType = BodyType.from(bodyPointValue: baseStats.body)
         btm = bodyType.btm()
-        equippedArmor = EquippedArmor()
-        wounds = [Wound]()
         self.skills = [SkillListing]() // This is necessary so we can set it on the next line and preserve this class as Codable.
         self.skills = skills.map({ SkillListing(skill: $0, points: 0, modifier: 0, statModifier: value(for: $0.linkedStat).displayValue)})
         addSubscribers()
@@ -273,7 +271,9 @@ final class Edgerunner: Codable, EditableModel {
         
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.damage += damage.rollResult.reduce(0, { $0 + $1 })
+            let newWounds = DamageApplier.applyArmorDamage(to: self, incomingDamage: damage)
+            self.wounds.append(contentsOf: newWounds)
+            self.damage = self.wounds.map({$0.damageAmount}).reduce(0, { $0 + $1 })
 
             self.statModifiers.removeAll(where: { $0.damageRelated })
             

@@ -234,6 +234,15 @@ struct Rules {
                 return []
             }
         }
+        
+        static func traumaType(for damageType: DamageType) -> TraumaType {
+            switch damageType {
+            case .Blunt:
+                return .Blunt
+            default:
+                return .Piercing
+            }
+        }
     }
 }
 

@@ -17,6 +17,15 @@ protocol BodyPartStatus {
 enum ArmorLocationStatus: BodyPartStatus {
     case Undamaged, Damaged
     
+    func abbreviation() -> String {
+        switch self {
+        case .Undamaged:
+            return "NO"
+        case .Damaged:
+            return "YES"
+        }
+    }
+    
     func color() -> UIColor {
         switch self {
         case .Damaged: return StyleConstants.Color.red

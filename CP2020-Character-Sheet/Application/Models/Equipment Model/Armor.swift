@@ -139,14 +139,6 @@ final class Armor: Codable, Hashable {
     /// The base SP that the armor provides when undamaged
     let sp: Int
     
-    /// Damage sustained across the whole piece of armor
-    var damageSustained: Int = 0
-    
-    /// The calculated SP value factoring in damage sustained
-    func currentSP() -> Int {
-        return sp - damageSustained
-    }
-    
     func encumbersWhenLayered() -> Bool {
         return zone.encumbersWhenLayered
     }

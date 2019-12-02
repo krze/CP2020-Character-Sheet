@@ -21,6 +21,9 @@ final class EquippedArmor: Codable {
     /// by greatest to least SP value.
     private(set) var order = [Int: Armor]()
     
+    /// The amount of damage to armor in the location. This subtracts the SP.
+    private(set) var damagePerLocation = [BodyLocation: Int]()
+    
     /// When EquippedArmor is created, the encumberance value is updated.
     init() {
         updateEncumberance()
@@ -36,16 +39,17 @@ final class EquippedArmor: Codable {
         
         while let thisLayer = order[currentLayer] {
             if thisLayer.locations.contains(location) {
+                let thisLayerSP = currentSP(for: thisLayer, location: location)
                 if previousLayerSP > 0 {
-                    let diff = abs(previousLayerSP - thisLayer.currentSP())
+                    let diff = abs(previousLayerSP - thisLayerSP)
                     diffBonus = diffBonus + spDiffBonus(fromDiff: diff)
                 }
                 
-                if thisLayer.currentSP() > largestSP {
-                    largestSP = thisLayer.currentSP()
+                if thisLayerSP > largestSP {
+                    largestSP = thisLayerSP
                 }
                 
-                previousLayerSP = thisLayer.currentSP()
+                previousLayerSP = thisLayerSP
             }
             currentLayer += 1
         }
@@ -56,7 +60,19 @@ final class EquippedArmor: Codable {
     /// Indicates whether the location has sustained damage to the armor
     /// - Parameter location: The location that you need ArmorLocationStatus for
     func status(for location: BodyLocation) -> ArmorLocationStatus {
-        return armor.filter({ $0.locations.contains(location) }).contains(where: { $0.damageSustained > 0 }) ? .Damaged : .Undamaged
+        return armor.filter({ $0.locations.contains(location) }).contains(where: { currentSP(for: $0, location: location) < $0.sp }) ? .Damaged : .Undamaged
+    }
+    
+    /// Indicates whether the Armor is damaged at all
+    /// - Parameter armor: The armor to check
+    func status(for armor: Armor) -> ArmorLocationStatus {
+        for location in BodyLocation.allCases {
+            if currentSP(for: armor, location: location) < armor.sp {
+                return .Damaged
+            }
+        }
+        
+        return .Undamaged
     }
     
     /// Equips the armor specified.
@@ -98,6 +114,67 @@ final class EquippedArmor: Codable {
             self.saveCharacter()
         }
 
+    }
+    
+    /// Applies the series of damages and locations, maintaining track of the coverSP and reducing it for repeated
+    /// attacks. Returns the remaining damage, which should be applied to the location under the armor.
+    ///
+    /// - Parameters:
+    ///   - damages: A series of locations with the amount of damage for the location
+    ///   - coverSP: The coverSP before the damage is applied
+    func applyDamages(_ damages: [BodyLocation: Int], coverSP: Int) -> [BodyLocation: [Int]] {
+        var coverSP = coverSP
+        var remainingDamages = [BodyLocation: [Int]]()
+        
+        damages.forEach { location, amount in
+            let thisRemaining = applyDamage(amount, location: location, coverSP: coverSP)
+            
+            if thisRemaining > 0 {
+                remainingDamages[location]?.append(thisRemaining)
+
+                if coverSP > 0 {
+                 coverSP -= 1
+                }
+            }
+        }
+        
+        return remainingDamages
+    }
+    
+    /// Applies damage to the specified location. If any damage exceeds the armor, this will return a value > 0
+    ///
+    /// - Parameters:
+    ///   - damage: Damage amount
+    ///   - location: Location where the damage hit
+    ///   - coverSP: The SP of the cover
+    func applyDamage(_ damage: Int, location: BodyLocation, coverSP: Int) -> Int {
+        var locationSP = sp(for: location)
+        
+        if coverSP > 0 {
+            let diffBonus = spDiffBonus(fromDiff: abs(locationSP - coverSP))
+            locationSP = locationSP > coverSP ? locationSP + diffBonus : coverSP + diffBonus
+        }
+        
+        let remaining = locationSP - damage
+        
+        if remaining > 0 {
+            if let previousDamage = damagePerLocation[location] {
+                damagePerLocation[location] = previousDamage + 1
+            }
+            else {
+                damagePerLocation[location] = 1
+            }
+            
+            return remaining
+        }
+        
+        return 0
+    }
+    
+    private func currentSP(for armor: Armor, location: BodyLocation) -> Int {
+        guard let damageAmount = damagePerLocation[location] else { return armor.sp }
+        
+        return armor.sp - damageAmount
     }
     
     private func spDiffBonus(fromDiff diff: Int) -> Int {
