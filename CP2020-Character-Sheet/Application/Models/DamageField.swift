@@ -37,6 +37,15 @@ enum DamageField: String, EntryTypeProvider, CaseIterable {
         }
     }
     
+    func defaultPlaceholder() -> String? {
+        switch self {
+        case .CoverSP:
+            return "0"
+        default:
+            return nil
+        }
+    }
+    
     static func enforcedOrder() -> [String] {
         return allCases.map { $0.identifier() }
     }

@@ -10,7 +10,7 @@ import Foundation
 
 extension EditorCollectionViewModel {
     
-    func incomingDamage() {
+    func incomingDamage() -> EditorCollectionViewModel {
         let mode = EditorMode.free
         let allDamageFields = DamageField.allCases
         var entryTypesForIdentifiers = [Identifier: EntryType]()
@@ -21,7 +21,30 @@ extension EditorCollectionViewModel {
         allDamageFields.forEach { field in
             let identifier = field.identifier()
             entryTypesForIdentifiers[identifier] = field.entryType(mode: mode)
-            
+            placeholdersWithIdentifiers[identifier] = field.defaultPlaceholder()
+            descriptionsWithIdentifiers[identifier] = description(for: field)
+        }
+        
+        return EditorCollectionViewModel(layout: .editorDefault(),
+                                         entryTypesForIdentifiers: entryTypesForIdentifiers,
+                                         placeholdersWithIdentifiers: placeholdersWithIdentifiers,
+                                         descriptionsWithIdentifiers: descriptionsWithIdentifiers,
+                                         enforcedOrder: DamageField.enforcedOrder(),
+                                         mode: mode)
+    }
+    
+    private func description(for field: DamageField) -> String {
+        switch field {
+        case .Roll:
+            return DamageStrings.damageRollDescription
+        case .NumberOfHits:
+            return DamageStrings.numberOfHitsDescription
+        case .Location:
+            return DamageStrings.locationDescription
+        case .DamageType:
+            return DamageStrings.damageTypeDescription
+        case .CoverSP:
+            return DamageStrings.coverSPDescription
         }
     }
     
