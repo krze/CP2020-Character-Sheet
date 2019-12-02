@@ -126,6 +126,7 @@ final class EquippedArmor: Codable {
         var coverSP = coverSP
         var remainingDamages = [BodyLocation: [Int]]()
         
+        // NEXT: Figure out how to deal with explosive damage. Since it ignores armor maybe it shouldn't pass through here.
         damages.forEach { damage in
             let thisRemaining = applyDamage(damage.amount, damageType: damage.type, location: damage.location, coverSP: coverSP)
             
