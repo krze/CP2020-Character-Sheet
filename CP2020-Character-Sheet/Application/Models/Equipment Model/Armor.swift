@@ -177,7 +177,6 @@ final class Armor: Codable, Hashable {
         hasher.combine(ev)
     }
 
-
     static func == (lhs: Armor, rhs: Armor) -> Bool {
         return lhs.hashValue == rhs.hashValue
     }

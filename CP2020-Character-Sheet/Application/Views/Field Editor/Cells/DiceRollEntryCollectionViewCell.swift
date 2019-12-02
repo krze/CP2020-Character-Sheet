@@ -20,11 +20,11 @@ final class DiceRollEntryCollectionViewCell: UICollectionViewCell, DiceRollColle
     private var stackView: UIStackView?
     
     // Number of dice
-    private var numberTextField: UITextField?
+    private(set) var numberTextField: UITextField?
     // Sides per dice
-    private var sidesTextField: UITextField?
+    private(set) var sidesTextField: UITextField?
     // Modifier
-    private var modifierTextField: UITextField?
+    private(set) var modifierTextField: UITextField?
     
     func setup(with identifier: Identifier, description: String, placeholder: DiceRoll?) {
         self.identifier = identifier

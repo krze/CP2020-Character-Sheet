@@ -116,8 +116,11 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
             validator.delegate = self
             return cell
         case .DiceRoll:
-            // FIXME
-            return UICollectionViewCell()
+            guard let cell = cell as? DiceRollEntryCollectionViewCell else { return UICollectionViewCell() }
+            cell.setup(with: identifier, description: description, placeholder: placeholder as? DiceRoll)
+            var validator = self.validator(for: cell, identifier: identifier, entryType: entryType)
+            validator.delegate = self
+            return cell
         }
         
         currentValues[identifier] = value
@@ -295,6 +298,9 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         }
         else if let cell = cell as? CheckboxEntryCollectionViewCell {
             validator = CheckboxEntryValidator(with: cell)
+        }
+        else if let cell = cell as? DiceRollEntryCollectionViewCell {
+            validator = DiceRollEntryValidator(with: cell)
         }
         else {
             fatalError("You added a new UserEntryCollectionViewCell but didnt add it here")
