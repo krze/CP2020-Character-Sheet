@@ -25,13 +25,30 @@ enum DamageField: String, EntryTypeProvider, CaseIterable {
     }
     
     func entryType(mode: EditorMode) -> EntryType {
-        return .Integer
+        switch self {
+        case .NumberOfHits, .CoverSP:
+            return .Integer
+        case .Roll:
+            return .DiceRoll
+        case .Location:
+            return .Checkbox(locationCheckboxConfig())
+        case .DamageType:
+            return .Checkbox(CP2020_Character_Sheet.DamageType.checkboxConfig())
+        }
     }
     
     static func enforcedOrder() -> [String] {
         return allCases.map { $0.identifier() }
     }
     
+    private func locationCheckboxConfig() -> CheckboxConfig {
+        let defaultConfig = BodyLocation.checkboxConfig()
+        
+        return CheckboxConfig(choices: defaultConfig.choices,
+                              maxChoices: 1,
+                              minChoices: 0,
+                              selectedStates: [])
+    }
     
 }
 
