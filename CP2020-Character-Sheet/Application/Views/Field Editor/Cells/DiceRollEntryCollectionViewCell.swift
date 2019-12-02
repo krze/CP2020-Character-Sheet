@@ -143,6 +143,11 @@ final class DiceRollEntryCollectionViewCell: UICollectionViewCell, DiceRollColle
         
         stackView.addArrangedSubview(modifierEntryView)
         modifierTextField = modifierEntryView
+        
+        let backgroundView = UIView(frame: stackView.bounds)
+        backgroundView.backgroundColor = StyleConstants.Color.light
+        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        stackView.insertSubview(backgroundView, at: 0)
     }
     
     private func digitEntryField(frame: CGRect, alignment: NSTextAlignment) -> UITextField {
