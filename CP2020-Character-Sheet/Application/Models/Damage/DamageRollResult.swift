@@ -9,7 +9,7 @@
 import Foundation
 
 struct DamageRollResult {
-    let location: BodyLocation
+    let locations: [BodyLocation]
     let amount: Int
     let type: DamageType
 }

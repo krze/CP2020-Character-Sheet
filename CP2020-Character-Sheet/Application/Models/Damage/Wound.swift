@@ -18,12 +18,12 @@ struct Wound: Codable {
     let damageAmount: Int
     
     /// Where the wound is located
-    let location: BodyLocation
+    let locations: [BodyLocation]
     
     /// Calculates the total damage based on location variables. Use this instead of `damageAmount` to get the actual damage
     /// caused to the location.
     func totalDamage() -> Int {
-        if traumaType != .CyberwareDamage && location == .Head {
+        if traumaType != .CyberwareDamage && locations.contains(.Head) {
             return damageAmount * Rules.Damage.headWoundMultiplier
         }
         
@@ -40,6 +40,6 @@ struct Wound: Codable {
     
     /// Specifieds whether this wound is instantly fatal. This cannot be resisted with a Mortal check.
     func isFatal() -> Bool {
-        return isMortal() && location == .Head
+        return isMortal() && locations.contains(.Head)
     }
 }

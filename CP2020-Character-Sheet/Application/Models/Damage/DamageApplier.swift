@@ -11,7 +11,8 @@ import Foundation
 /// Contains methods that help apply damage to the Edgerunner.
 struct DamageApplier {
     
-    /// Applies damage to the Edgerunner. Any damage that exceeds the Edgerunner's maximum damage will be ignored. Returns any wounds
+    /// Applies damage to the Edgerunner. Any damage that exceeds the Edgerunner's maximum damage will be ignored.
+    /// Returns any wounds that would be sustained by the edgerunner.
     /// sustained that would not be protected by armor.
     /// - Parameters:
     ///   - edgerunner: The unlucky Edgerunner being attacked
@@ -34,7 +35,25 @@ struct DamageApplier {
             
             result.forEach { location, hits in
                 hits.forEach { hit in
-                    wounds.append(Wound(traumaType: Rules.Damage.traumaType(for: damageType), damageAmount: hit, location: location))
+                    var traumaTypes = Rules.Damage.traumaType(for: damageType)
+                    
+                    if traumaTypes.count > 0 {
+                        let amountPerWound = hit / traumaTypes.count
+                        let remainder = hit % traumaTypes.count
+                        
+                        while traumaTypes.count > 1 {
+                            let thisType = traumaTypes.removeFirst()
+                            let amount = traumaTypes.isEmpty ? amountPerWound + remainder : amountPerWound
+                            
+                             wounds.append(Wound(traumaType: thisType, damageAmount: amount, location: location))
+                        }
+                    }
+                    else {
+                        if let traumaType = traumaTypes.first {
+                            wounds.append(Wound(traumaType: traumaType, damageAmount: hit, locations: location))
+                        }
+                    }
+                    
                 }
             }
         }
