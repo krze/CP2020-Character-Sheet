@@ -22,7 +22,7 @@ final class EquippedArmor: Codable {
     private(set) var order = [Int: Armor]()
     
     /// The amount of damage to armor in the location. This subtracts the SP.
-    private(set) var damagePerLocation = [BodyLocation: Int]()
+    private(set) var armorDamages = [ArmorDamage]()
     
     /// When EquippedArmor is created, the encumberance value is updated.
     init() {
@@ -66,10 +66,24 @@ final class EquippedArmor: Codable {
     /// Indicates whether the Armor is damaged at all
     /// - Parameter armor: The armor to check
     func status(for armor: Armor) -> ArmorLocationStatus {
+        var destroyedLocations = [BodyLocation]()
+        var damagedLocations = [BodyLocation]()
         for location in BodyLocation.allCases {
-            if currentSP(for: armor, location: location) < armor.sp {
-                return .Damaged
+            let currentSP = self.currentSP(for: armor, location: location)
+            
+            if currentSP == 0 {
+                destroyedLocations.append(location)
             }
+            else if currentSP < armor.sp {
+                damagedLocations.append(location)
+            }
+        }
+        
+        if destroyedLocations.count == BodyLocation.allCases.count {
+            return .Destroyed
+        }
+        else if destroyedLocations.count > 0 || damagedLocations.count > 0 {
+            return .Damaged
         }
         
         return .Undamaged
@@ -122,66 +136,95 @@ final class EquippedArmor: Codable {
     /// - Parameters:
     ///   - damages: A series of DamageRollResults
     ///   - coverSP: The coverSP before the damage is applied
-    func applyDamages(_ damages: [DamageRollResult], coverSP: Int) -> [BodyLocation: [Int]] {
+    ///   - leftoverDamageHandler: This closure is called for each event where the damage bypasses armor
+    func applyDamages(_ damages: [DamageRollResult], coverSP: Int, leftoverDamageHandler: (Int) -> Void) {
         var coverSP = coverSP
-        var remainingDamages = [BodyLocation: [Int]]()
         
-        // NEXT: Figure out how to deal with explosive damage. Since it ignores armor maybe it shouldn't pass through here.
-        damages.forEach { damage in
-            let thisRemaining = applyDamage(damage.amount, damageType: damage.type, location: damage.location, coverSP: coverSP)
+        for damage in damages {
+            guard damage.locations.count == 1,
+                let location = damage.locations.first
+                else {
+                    // Currently there are no cases where multi-location damage results in damage
+                    // that ignores armor. Therefore, if there's more than one location, it must be
+                    // ignoring armor.
+                    
+                    applyDirectArmorDamage(totalDamage: damage.amount, damageType: damage.type, locations: damage.locations)
+                    leftoverDamageHandler(damage.amount)
+                    continue
+            }
+            let thisRemaining = applyDamage(damage.amount, damageType: damage.type, location: location, coverSP: coverSP)
             
             if thisRemaining > 0 {
-                remainingDamages[damage.location]?.append(thisRemaining)
+                leftoverDamageHandler(thisRemaining)
 
                 if coverSP > 0 {
                  coverSP -= 1
                 }
             }
         }
-        
-        return remainingDamages
     }
-    
+        
     /// Applies damage to the specified location. If any damage exceeds the armor, this will return a value > 0
     ///
     /// - Parameters:
     ///   - damage: Damage amount
     ///   - location: Location where the damage hit
     ///   - coverSP: The SP of the cover
-    func applyDamage(_ damage: Int, damageType: DamageType, location: BodyLocation, coverSP: Int) -> Int {
-        var locationSP = sp(for: location)
+    private func applyDamage(_ damage: Int, damageType: DamageType, location: BodyLocation, coverSP: Int) -> Int {
+        var locationSP = Rules.WornArmor.effectiveSPValue(of: armorType(for: location),
+                                                          sp: sp(for: location),
+                                                          damageType: damageType)
         
         if coverSP > 0 {
             let diffBonus = spDiffBonus(fromDiff: abs(locationSP - coverSP))
             locationSP = locationSP > coverSP ? locationSP + diffBonus : coverSP + diffBonus
         }
         
-        let remaining = locationSP - damage
+        let remaining = damageType.ignoresArmor() ? damage : locationSP - damage
         
-        if remaining > 0 {
-            if let previousDamage = damagePerLocation[location] {
-                damagePerLocation[location] = previousDamage + 1
-            }
-            else {
-                damagePerLocation[location] = 1
-            }
-            
+        if remaining > 0 || damageType.alwaysDamagesArmor() {
+            applyDirectArmorDamage(totalDamage: damage, damageType: damageType, locations: [location])
             return remaining
         }
         
         return 0
     }
     
+    private func armorDamage(for damageType: DamageType, totalDamage: Int, locations: [BodyLocation]) -> ArmorDamage {
+        let damages = Rules.WornArmor.armorDamage(damageType: damageType, totalDamageAmount: totalDamage)
+        return ArmorDamage(type: Rules.WornArmor.armorDamageType(for: damageType),
+                           locations: locations,
+                           softDamage: damages.soft,
+                           hardDamage: damages.hard)
+    }
+    
+    private func applyDirectArmorDamage(totalDamage damage: Int, damageType: DamageType, locations: [BodyLocation]) {
+        let armorDamage = self.armorDamage(for: damageType, totalDamage: damage, locations: locations)
+        armorDamages.append(armorDamage)
+    }
+    
     private func currentSP(for armor: Armor, location: BodyLocation) -> Int {
-        guard let damageAmount = damagePerLocation[location] else { return armor.sp }
+        let damageAmount: Int = {
+            let damages = armorDamages.filter { $0.locations.contains(location)}
+            
+            return damages.reduce(0, { $0 + (armor.type == .Hard ? $1.hardDamage : $1.softDamage) })
+        }()
         
-        return armor.sp - damageAmount
+        let finalSP = armor.sp - damageAmount
+        
+        return finalSP > 0 ? finalSP : 0
     }
     
     private func spDiffBonus(fromDiff diff: Int) -> Int {
         guard diff >= 0 else { return 0 }
         
         return Rules.WornArmor.spDiffBonus(fromDiff: diff)
+    }
+    
+    private func armorType(for location: BodyLocation) -> ArmorType {
+        let armorCoveringLocation = armor.filter { $0.locations.contains(location) }
+        
+        return armorCoveringLocation.contains(where: { $0.type == .Hard }) ? .Hard : .Soft
     }
     
     /// Coalesces all the armor's inherent EV penalty on the character.

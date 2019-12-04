@@ -9,7 +9,7 @@
 import Foundation
 
 enum DamageType: String, CaseIterable {
-    case Normal, AP, HyPen, Explosive, Bladed, Monobladed, Blunt
+    case Normal, AP, HyPen, Explosive, Bladed, Monobladed, Blunt, Corrosive
     
     static func checkboxConfig() -> CheckboxConfig {
         let allCases = DamageType.allCases
@@ -33,6 +33,26 @@ enum DamageType: String, CaseIterable {
                               maxChoices: 1,
                               minChoices: 1,
                               selectedStates: [DamageType.Normal.rawValue])
+    }
+    
+    /// This damage will always damage armor, even if it doesn't exceed the SP of the armor.
+    func alwaysDamagesArmor() -> Bool {
+        switch self {
+        case .Corrosive, .Explosive:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    /// This damage ignores armor, meaning the SP of the armor doesn't reduce its damage amount
+    func ignoresArmor() -> Bool {
+        switch self {
+        case .Explosive:
+            return true
+        default:
+            return false
+        }
     }
     
 }

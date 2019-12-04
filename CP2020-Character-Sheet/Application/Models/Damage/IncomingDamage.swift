@@ -20,7 +20,7 @@ struct IncomingDamage {
     let damageType: DamageType
     
     /// The body location. Nil value means random location
-    let hitLocation: BodyLocation?
+    let hitLocations: [BodyLocation]
     
     /// The SP value of cover the Edgerunner is hiding behind
     let coverSP: Int
@@ -29,11 +29,11 @@ struct IncomingDamage {
     let rollResult: [Int]
     
     /// Creates a DiceRoll. When this object is initialied, the roll is performed and is immutable.
-    init(roll: DiceRoll, numberOfHits: Int, damageType: DamageType, hitLocation: BodyLocation?, coverSP: Int) {
+    init(roll: DiceRoll, numberOfHits: Int, damageType: DamageType, hitLocations: [BodyLocation], coverSP: Int) {
         self.roll = roll
         self.numberOfHits = numberOfHits
         self.damageType = damageType
-        self.hitLocation = hitLocation
+        self.hitLocations = hitLocations
         self.coverSP = coverSP
         
         var rollResult = [Int]()

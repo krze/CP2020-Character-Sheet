@@ -19,43 +19,38 @@ struct DamageApplier {
     ///   - incomingDamage: The Incoming Damage
     static func applyArmorDamage(to edgerunner: ArmorModel, incomingDamage: IncomingDamage) -> [Wound] {
         let damageType = incomingDamage.damageType
-        let location = incomingDamage.hitLocation
+        let locations = incomingDamage.hitLocations
         let allLocations = BodyLocation.allCases
         var damages = [DamageRollResult]()
         
         incomingDamage.rollResult.forEach { rollResult in
-            let location = location ?? allLocations.randomElement() ?? .Torso
-            damages.append(DamageRollResult(location: location, amount: rollResult, type: damageType))
+            let locations = locations.isEmpty ? [allLocations.randomElement() ?? .Torso] : locations
+            damages.append(DamageRollResult(locations: locations, amount: rollResult, type: damageType))
         }
         
         var wounds = [Wound]()
         
         if !damages.isEmpty {
-            let result = edgerunner.equippedArmor.applyDamages(damages, coverSP: incomingDamage.coverSP)
-            
-            result.forEach { location, hits in
-                hits.forEach { hit in
-                    var traumaTypes = Rules.Damage.traumaType(for: damageType)
-                    
-                    if traumaTypes.count > 0 {
-                        let amountPerWound = hit / traumaTypes.count
-                        let remainder = hit % traumaTypes.count
-                        
-                        while traumaTypes.count > 1 {
-                            let thisType = traumaTypes.removeFirst()
-                            let amount = traumaTypes.isEmpty ? amountPerWound + remainder : amountPerWound
-                            
-                             wounds.append(Wound(traumaType: thisType, damageAmount: amount, location: location))
-                        }
+            edgerunner.equippedArmor.applyDamages(damages, coverSP: incomingDamage.coverSP, leftoverDamageHandler: { leftoverDamage in
+                var traumaTypes = Rules.Damage.traumaTypes(for: damageType)
+
+                if traumaTypes.count > 0 {
+                    let amountPerWound = leftoverDamage / traumaTypes.count
+                    let remainder = leftoverDamage % traumaTypes.count
+
+                    while traumaTypes.count > 1 {
+                        let thisType = traumaTypes.removeFirst()
+                        let amount = traumaTypes.isEmpty ? amountPerWound + remainder : amountPerWound
+
+                         wounds.append(Wound(traumaType: thisType, damageAmount: amount, locations: locations))
                     }
-                    else {
-                        if let traumaType = traumaTypes.first {
-                            wounds.append(Wound(traumaType: traumaType, damageAmount: hit, locations: location))
-                        }
-                    }
-                    
                 }
-            }
+                else {
+                    if let traumaType = traumaTypes.first {
+                        wounds.append(Wound(traumaType: traumaType, damageAmount: leftoverDamage, locations: locations))
+                    }
+                }
+            })
         }
         
         return wounds

@@ -17,6 +17,8 @@ struct Rules {
         static let maxLayersPerLocation = 3
         static let maxHardArmorPerLocation = 1
         static let minimumLocationCount = 1
+        static let softArmorExplosiveDamage = 2
+        static let standardArmorDamage = 1
         
         /// Checks the armor to see if you exceed the maximum number of layers per location
         /// - Parameter armor: The armor that needs inspecting
@@ -81,7 +83,11 @@ struct Rules {
             }
         }
         
-        static func realSPValue(sp: Int, armorType: ArmorType, damageType: DamageType) -> Int {
+        /// Returns the effective SP value of armor, taking in variances of the damage type
+        ///   - armorType: The type of Armor that needs to be checked
+        ///   - sp: The SP of the armor, after any damage reductions are applied
+        ///   - damageType: The incoming damageType
+        static func effectiveSPValue(of armorType: ArmorType, sp: Int, damageType: DamageType) -> Int {
             let hard = armorType == .Hard
             
             switch damageType {
@@ -98,7 +104,35 @@ struct Rules {
             }
         }
         
-        static func realDamageValue(damage: Int, damageType: DamageType) -> Int {
+        /// Converts DamageType to ArmorDamageType
+        /// - Parameter damageType: The type of damage the armor is about to sustain
+        static func armorDamageType(for damageType: DamageType) -> ArmorDamageType {
+            switch damageType {
+            case .Explosive:
+                return .Explosive
+            case .Corrosive:
+                return .Corrosive
+            default:
+                return .Penetrative
+            }
+        }
+        
+        /// Returns the damage armor would sustain if it was penetrated by the damage specified
+        /// - Parameters:
+        ///   - damageType: The type of damage
+        ///   - totalDamageAmount: The total amount of damage in the attack, before armor reduction
+        static func armorDamage(damageType: DamageType, totalDamageAmount: Int) -> (soft: Int, hard: Int) {
+            switch damageType {
+            case .Explosive:
+                return (soft: softArmorExplosiveDamage, hard: quarteredUp(totalDamageAmount))
+            case .Corrosive:
+                return (soft: totalDamageAmount, hard: totalDamageAmount)
+            default:
+                return (soft: standardArmorDamage, hard: standardArmorDamage)
+            }
+        }
+        
+        static func woundDamageValue(damage: Int, damageType: DamageType) -> Int {
             switch damageType {
             case .AP:
                 return halvedUp(damage)
@@ -117,6 +151,13 @@ struct Rules {
         static func halvedUp(_ amount: Int) -> Int {
             let amount = Double(amount)
             let result = amount * 0.5
+            
+            return Int(ceil(result))
+        }
+        
+        static func quarteredUp(_ amount: Int) -> Int {
+            let amount = Double(amount)
+            let result = amount * 0.25
             
             return Int(ceil(result))
         }
@@ -284,7 +325,7 @@ struct Rules {
             }
         }
         
-        static func traumaType(for damageType: DamageType) -> [TraumaType] {
+        static func traumaTypes(for damageType: DamageType) -> [TraumaType] {
             switch damageType {
             case .Blunt:
                 return [.Blunt]

@@ -46,6 +46,7 @@
 		9D2CFA0821C59B9400EC76D7 /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CFA0721C59B9400EC76D7 /* RoleView.swift */; };
 		9D2CFA0A21C59BEA00EC76D7 /* RoleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CFA0921C59BEA00EC76D7 /* RoleViewModel.swift */; };
 		9D2CFA0C21C59D7900EC76D7 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CFA0B21C59D7900EC76D7 /* Role.swift */; };
+		9D2D1DB623986E6100F28FE2 /* ArmorDamage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2D1DB523986E6100F28FE2 /* ArmorDamage.swift */; };
 		9D3761E421E16AA20027513E /* StatsDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3761E321E16AA20027513E /* StatsDataSourceDelegate.swift */; };
 		9D3761EB21EE704E0027513E /* SkillStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3761EA21EE704E0027513E /* SkillStrings.swift */; };
 		9D43614C234AA8030057D27B /* AlertViewStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43614B234AA8030057D27B /* AlertViewStrings.swift */; };
@@ -210,6 +211,7 @@
 		9D2CFA0721C59B9400EC76D7 /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
 		9D2CFA0921C59BEA00EC76D7 /* RoleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleViewModel.swift; sourceTree = "<group>"; };
 		9D2CFA0B21C59D7900EC76D7 /* Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
+		9D2D1DB523986E6100F28FE2 /* ArmorDamage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmorDamage.swift; sourceTree = "<group>"; };
 		9D3761E321E16AA20027513E /* StatsDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsDataSourceDelegate.swift; sourceTree = "<group>"; };
 		9D3761EA21EE704E0027513E /* SkillStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillStrings.swift; sourceTree = "<group>"; };
 		9D43614B234AA8030057D27B /* AlertViewStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewStrings.swift; sourceTree = "<group>"; };
@@ -652,6 +654,7 @@
 				9DB876542395A54E00A13FDD /* DamageApplier.swift */,
 				9DB876522395700600A13FDD /* IncomingDamage.swift */,
 				9DB876582395A5CA00A13FDD /* Wound.swift */,
+				9D2D1DB523986E6100F28FE2 /* ArmorDamage.swift */,
 				9DB8765A2395BEF900A13FDD /* DamageRollResult.swift */,
 			);
 			path = Damage;
@@ -1069,6 +1072,7 @@
 				9DFFCADE23934CA400FF5BFF /* DiceRoll.swift in Sources */,
 				9DB8765023955E1400A13FDD /* EditorCollectionViewModel+Damage.swift in Sources */,
 				9DCD370B21CC239B00EE00D9 /* SkillTableViewController.swift in Sources */,
+				9D2D1DB623986E6100F28FE2 /* ArmorDamage.swift in Sources */,
 				9DFE711721BDA18B000561B0 /* StatsViewCellModel.swift in Sources */,
 				9D7E124723820FCC0025443D /* CheckboxConfig.swift in Sources */,
 				64157CBC2378AA6F00667FB0 /* ArmorDataSourceDelegate.swift in Sources */,

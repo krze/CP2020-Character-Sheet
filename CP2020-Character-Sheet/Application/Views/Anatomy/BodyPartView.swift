@@ -15,20 +15,22 @@ protocol BodyPartStatus {
 }
 
 enum ArmorLocationStatus: BodyPartStatus {
-    case Undamaged, Damaged
+    case Undamaged, Damaged, Destroyed
     
     func abbreviation() -> String {
         switch self {
         case .Undamaged:
-            return "NO"
+            return "OK"
         case .Damaged:
-            return "YES"
+            return "DAM"
+        case .Destroyed:
+            return "RIP"
         }
     }
     
     func color() -> UIColor {
         switch self {
-        case .Damaged: return StyleConstants.Color.red
+        case .Damaged, .Destroyed: return StyleConstants.Color.red
         case .Undamaged: return StyleConstants.Color.dark
         }
     }
