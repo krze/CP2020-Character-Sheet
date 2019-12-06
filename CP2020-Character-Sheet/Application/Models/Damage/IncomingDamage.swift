@@ -19,7 +19,7 @@ struct IncomingDamage {
     /// The DamageType
     let damageType: DamageType
     
-    /// The body location. Nil value means random location
+    /// The body location. Empty value means random location
     let hitLocations: [BodyLocation]
     
     /// The SP value of cover the Edgerunner is hiding behind
