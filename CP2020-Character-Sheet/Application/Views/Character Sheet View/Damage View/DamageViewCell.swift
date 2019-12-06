@@ -157,29 +157,19 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
     
     private func setupGestureRecognizers() {
         // Single tap iterate
-        let iterateDamageTap = UITapGestureRecognizer(target: self, action: #selector(DamageViewCell.iterateDamage))
+        let iterateDamageTap = UITapGestureRecognizer(target: self, action: #selector(DamageViewCell.cellWasTapped))
         iterateDamageTap.cancelsTouchesInView = false
         iterateDamageTap.numberOfTouchesRequired = 1
         contentView.addGestureRecognizer(iterateDamageTap)
-        
-        // Two-finger tap decrement
-        let decrementDamageTap = UITapGestureRecognizer(target: self, action: #selector(DamageViewCell.decrementDamage))
-        decrementDamageTap.cancelsTouchesInView = false
-        decrementDamageTap.numberOfTouchesRequired = 2
-        contentView.addGestureRecognizer(decrementDamageTap)
     }
     
-    @objc private func iterateDamage() {
-        DispatchQueue.global(qos: .background).async { [weak self] in
+    @objc private func cellWasTapped() {
+        DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.dataSource?.valuesFromEditorDidChange([DamageStrings.damage: "1"], validationCompletion: { _ in })
-        }
-    }
-    
-    @objc private func decrementDamage() {
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let self = self else { return }
-            self.dataSource?.valuesFromEditorDidChange([DamageStrings.damage: "-1"], validationCompletion: { _ in })
+            let model = EditorCollectionViewModel.incomingDamage()
+            let viewController = EditorCollectionViewController(with: model)
+            viewController.delegate = self.dataSource
+            NotificationCenter.default.post(name: .showEditor, object: viewController)
         }
     }
     

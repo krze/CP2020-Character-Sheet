@@ -10,7 +10,9 @@ import Foundation
 
 enum DamageField: String, EntryTypeProvider, CaseIterable {
     case NumberOfHits, Roll, Location, DamageType, CoverSP
-
+    
+    private typealias TypeOfDamage = CP2020_Character_Sheet.DamageType
+    
     func identifier() -> Identifier {
         switch self {
         case .NumberOfHits:
@@ -33,16 +35,22 @@ enum DamageField: String, EntryTypeProvider, CaseIterable {
         case .Location:
             return .Checkbox(locationCheckboxConfig())
         case .DamageType:
-            return .Checkbox(CP2020_Character_Sheet.DamageType.checkboxConfig())
+            return .Checkbox(TypeOfDamage.checkboxConfig())
         }
     }
     
-    func defaultPlaceholder() -> String? {
+    func defaultPlaceholder() -> AnyHashable {
         switch self {
         case .CoverSP:
             return "0"
-        default:
-            return nil
+        case .NumberOfHits:
+            return ""
+        case .Roll:
+            return DiceRoll(number: 0, sides: 0, modifier: 0)
+        case .Location:
+            return locationCheckboxConfig()
+        case .DamageType:
+            return TypeOfDamage.checkboxConfig()
         }
     }
     

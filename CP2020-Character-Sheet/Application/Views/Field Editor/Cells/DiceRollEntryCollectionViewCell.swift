@@ -68,7 +68,8 @@ final class DiceRollEntryCollectionViewCell: UICollectionViewCell, DiceRollColle
             stackView.heightAnchor.constraint(equalToConstant: viewModel.entryHeight)
             ])
         
-        setupDiceStackView(stackView)
+        contentView.backgroundColor = StyleConstants.Color.light
+        setupDiceStackView(stackView, placeholder: placeholder)
     }
     
     /// Call this to set the DiceRoll property with the latest entry provided
@@ -95,15 +96,16 @@ final class DiceRollEntryCollectionViewCell: UICollectionViewCell, DiceRollColle
         stackView = nil
     }
     
-    private func setupDiceStackView(_ stackView: UIStackView) {
+    private func setupDiceStackView(_ stackView: UIStackView, placeholder: DiceRoll?) {
         stackView.axis = .horizontal
         stackView.alignment = .leading
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .fill
         
         let digitEntrySize = "00".size(withAttributes: [.font: StyleConstants.Font.defaultFont as Any])
         let digitEntryFrame = CGRect(origin: .zero, size: digitEntrySize)
         
         let numberEntryView = digitEntryField(frame: digitEntryFrame, alignment: .right)
+        numberEntryView.text = "\(placeholder?.number ?? 0)"
         
         stackView.addArrangedSubview(numberEntryView)
         numberTextField = numberEntryView
@@ -111,17 +113,19 @@ final class DiceRollEntryCollectionViewCell: UICollectionViewCell, DiceRollColle
         let d = "D"
         let dSize = d.size(withAttributes: [.font: StyleConstants.Font.defaultFont as Any])
         let dFrame = CGRect(origin: .zero, size: dSize)
-        let dMargins = viewModel.createInsets(with: dFrame)
-        let dView = UILabel.container(frame: dFrame,
-                                      margins: dMargins,
-                                      backgroundColor: StyleConstants.Color.light,
-                                      borderColor: nil,
-                                      borderWidth: nil,
-                                      labelMaker: CommonEntryConstructor.headerLabel(frame:))
-        
-        stackView.addArrangedSubview(dView.container)
+//        let dMargins = viewModel.createInsets(with: dFrame)
+        let dView = CommonEntryConstructor.headerLabel(frame: dFrame)
+//        let dView = UILabel.container(frame: dFrame,
+//                                      margins: dMargins,
+//                                      backgroundColor: StyleConstants.Color.light,
+//                                      borderColor: nil,
+//                                      borderWidth: nil,
+//                                      labelMaker: CommonEntryConstructor.headerLabel(frame:))
+        dView.text = d
+        stackView.addArrangedSubview(dView)
         
         let sidesEntryView = digitEntryField(frame: digitEntryFrame, alignment: .left)
+        sidesEntryView.text = "\(placeholder?.sides ?? 0)"
         
         stackView.addArrangedSubview(sidesEntryView)
         sidesTextField = sidesEntryView
@@ -129,20 +133,25 @@ final class DiceRollEntryCollectionViewCell: UICollectionViewCell, DiceRollColle
         let plus = "+"
         let plusSize = plus.size(withAttributes: [.font: StyleConstants.Font.defaultFont as Any])
         let plusFrame = CGRect(origin: .zero, size: plusSize)
-        let plusMargins = viewModel.createInsets(with: dFrame)
-        let plusView = UILabel.container(frame: plusFrame,
-                                         margins: plusMargins,
-                                         backgroundColor: StyleConstants.Color.light,
-                                         borderColor: nil,
-                                         borderWidth: nil,
-                                         labelMaker: CommonEntryConstructor.headerLabel(frame:))
-        
-        stackView.addArrangedSubview(plusView.container)
+//        let plusMargins = viewModel.createInsets(with: dFrame)
+        let plusView = CommonEntryConstructor.headerLabel(frame: plusFrame)
+//        let plusView = UILabel.container(frame: plusFrame,
+//                                         margins: plusMargins,
+//                                         backgroundColor: StyleConstants.Color.light,
+//                                         borderColor: nil,
+//                                         borderWidth: nil,
+//                                         labelMaker: CommonEntryConstructor.headerLabel(frame:))
+        plusView.text = plus
+        stackView.addArrangedSubview(plusView)
         
         let modifierEntryView = digitEntryField(frame: digitEntryFrame, alignment: .center)
+        modifierEntryView.text = "\(placeholder?.modifier ?? 0)"
         
         stackView.addArrangedSubview(modifierEntryView)
         modifierTextField = modifierEntryView
+        
+        let rightFillerView = UIView(frame: stackView.bounds)
+        stackView.addArrangedSubview(rightFillerView)
         
         let backgroundView = UIView(frame: stackView.bounds)
         backgroundView.backgroundColor = StyleConstants.Color.light
@@ -157,7 +166,8 @@ final class DiceRollEntryCollectionViewCell: UICollectionViewCell, DiceRollColle
         textField.textColor = StyleConstants.Color.dark
         textField.backgroundColor = StyleConstants.Color.light
         textField.keyboardType = .decimalPad
-        
+        textField.keyboardAppearance = .dark
+        textField.addDoneButtonOnKeyboard()
         return textField
     }
     
