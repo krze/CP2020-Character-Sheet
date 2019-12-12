@@ -39,7 +39,7 @@ final class EquippedArmor: Codable {
         
         while let thisLayer = order[currentLayer] {
             if thisLayer.locations.contains(location) {
-                let thisLayerSP = currentSP(for: thisLayer, location: location)
+                let thisLayerSP = thisLayer.currentSP(for: location)
                 if previousLayerSP > 0 {
                     let diff = abs(previousLayerSP - thisLayerSP)
                     diffBonus = diffBonus + spDiffBonus(fromDiff: diff)
@@ -60,33 +60,23 @@ final class EquippedArmor: Codable {
     /// Indicates whether the location has sustained damage to the armor
     /// - Parameter location: The location that you need ArmorLocationStatus for
     func status(for location: BodyLocation) -> ArmorLocationStatus {
-        return armor.filter({ $0.locations.contains(location) }).contains(where: { currentSP(for: $0, location: location) < $0.sp }) ? .Damaged : .Undamaged
-    }
-    
-    /// Indicates whether the Armor is damaged at all
-    /// - Parameter armor: The armor to check
-    func status(for armor: Armor) -> ArmorLocationStatus {
-        var destroyedLocations = [BodyLocation]()
-        var damagedLocations = [BodyLocation]()
-        for location in BodyLocation.allCases {
-            let currentSP = self.currentSP(for: armor, location: location)
-            
-            if currentSP == 0 {
-                destroyedLocations.append(location)
-            }
-            else if currentSP < armor.sp {
-                damagedLocations.append(location)
-            }
-        }
+        let allStatuses = armor.filter({ $0.locations.contains(location) }).map { $0.status() }
         
-        if destroyedLocations.count == BodyLocation.allCases.count {
+        let armorIsDestroyed = allStatuses.contains(.Damaged)
+        let armorIsDamaged = allStatuses.contains(.Destroyed)
+        let armorIsUndamaged = allStatuses.contains(.Undamaged)
+        
+        // All armor is in this location has a status of destroyed
+        if armorIsDestroyed && !armorIsDamaged && !armorIsUndamaged {
             return .Destroyed
         }
-        else if destroyedLocations.count > 0 || damagedLocations.count > 0 {
+        // Armor is a mix of damaged or destroyed
+        else if armorIsDamaged || armorIsDestroyed {
             return .Damaged
         }
-        
-        return .Undamaged
+        else {
+            return .Undamaged
+        }
     }
     
     /// Equips the armor specified.
@@ -144,11 +134,28 @@ final class EquippedArmor: Codable {
             guard damage.locations.count == 1,
                 let location = damage.locations.first
                 else {
+                    // Iterate over all armor individually and apply damage to its affected parts
+                    var allArmor = armor
+                    while !allArmor.isEmpty {
+                        let thisArmor = allArmor.removeFirst()
+                        var affectedLocations = [BodyLocation]()
+                        
+                        for location in damage.locations {
+                            // If the damage locations overlap with locations the armor covers,
+                            // ensure only those locations are listed in the damage.
+                            if thisArmor.locations.contains(location) {
+                                affectedLocations.append(location)
+                            }
+                        }
+                        
+                        if !affectedLocations.isEmpty {
+                            thisArmor.applyDamage(totalDamage: damage.amount, damageType: damage.type, locations: affectedLocations)
+                        }
+                    }
+                    
                     // Currently there are no cases where multi-location damage results in damage
                     // that ignores armor. Therefore, if there's more than one location, it must be
                     // ignoring armor.
-                    
-                    applyDirectArmorDamage(totalDamage: damage.amount, damageType: damage.type, locations: damage.locations)
                     leftoverDamageHandler(damage.amount)
                     continue
             }
@@ -183,36 +190,14 @@ final class EquippedArmor: Codable {
         let remaining = damageType.ignoresArmor() ? damage : locationSP - damage
         
         if remaining > 0 || damageType.alwaysDamagesArmor() {
-            applyDirectArmorDamage(totalDamage: damage, damageType: damageType, locations: [location])
+            let affectedArmor = armor.filter { $0.locations.contains(location) }
+            affectedArmor.forEach { armor in
+                armor.applyDamage(totalDamage: damage, damageType: damageType, locations: [location])
+            }
             return remaining
         }
         
         return 0
-    }
-    
-    private func armorDamage(for damageType: DamageType, totalDamage: Int, locations: [BodyLocation]) -> ArmorDamage {
-        let damages = Rules.WornArmor.armorDamage(damageType: damageType, totalDamageAmount: totalDamage)
-        return ArmorDamage(type: Rules.WornArmor.armorDamageType(for: damageType),
-                           locations: locations,
-                           softDamage: damages.soft,
-                           hardDamage: damages.hard)
-    }
-    
-    private func applyDirectArmorDamage(totalDamage damage: Int, damageType: DamageType, locations: [BodyLocation]) {
-        let armorDamage = self.armorDamage(for: damageType, totalDamage: damage, locations: locations)
-        armorDamages.append(armorDamage)
-    }
-    
-    private func currentSP(for armor: Armor, location: BodyLocation) -> Int {
-        let damageAmount: Int = {
-            let damages = armorDamages.filter { $0.locations.contains(location)}
-            
-            return damages.reduce(0, { $0 + (armor.type == .Hard ? $1.hardDamage : $1.softDamage) })
-        }()
-        
-        let finalSP = armor.sp - damageAmount
-        
-        return finalSP > 0 ? finalSP : 0
     }
     
     private func spDiffBonus(fromDiff diff: Int) -> Int {

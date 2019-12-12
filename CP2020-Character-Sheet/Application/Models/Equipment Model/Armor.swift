@@ -139,9 +139,7 @@ final class Armor: Codable, Hashable {
     /// The base SP that the armor provides when undamaged
     let sp: Int
     
-    func encumbersWhenLayered() -> Bool {
-        return zone.encumbersWhenLayered
-    }
+    private(set) var damages = [ArmorDamage]()
     
     /// Creates an armor class
     /// - Parameter type: Classification of armor rigidity
@@ -158,6 +156,60 @@ final class Armor: Codable, Hashable {
         self.locations = locations
     }
     
+    func encumbersWhenLayered() -> Bool {
+        return zone.encumbersWhenLayered
+    }
+    
+    func currentSP(for location: BodyLocation) -> Int {
+        let damageAmount: Int = {
+            let damages = self.damages.filter { $0.locations.contains(location)}
+            
+            return damages.reduce(0, { $0 + $1.amount })
+        }()
+        
+        let finalSP = sp - damageAmount
+        
+        return finalSP > 0 ? finalSP : 0
+    }
+    
+    func applyDamage(totalDamage damage: Int, damageType: DamageType, locations: [BodyLocation]) {
+        let armorDamage = self.armorDamage(for: damageType, totalDamage: damage, locations: locations)
+        damages.append(armorDamage)
+    }
+    
+    /// Indicates whether the Armor is damaged at all
+    /// - Parameter armor: The armor to check
+    func status() -> ArmorLocationStatus {
+        var destroyedLocations = [BodyLocation]()
+        var damagedLocations = [BodyLocation]()
+        for location in locations {
+            let currentSP = self.currentSP(for: location)
+            
+            if currentSP == 0 {
+                destroyedLocations.append(location)
+            }
+            else if currentSP < sp {
+                damagedLocations.append(location)
+            }
+        }
+        
+        if destroyedLocations.count == locations.count {
+            return .Destroyed
+        }
+        else if destroyedLocations.count > 0 || damagedLocations.count > 0 {
+            return .Damaged
+        }
+        
+        return .Undamaged
+    }
+    
+    private func armorDamage(for damageType: DamageType, totalDamage: Int, locations: [BodyLocation]) -> ArmorDamage {
+        let damages = Rules.WornArmor.armorDamage(damageType: damageType, totalDamageAmount: totalDamage)
+        return ArmorDamage(type: Rules.WornArmor.armorDamageType(for: damageType),
+                           locations: locations,
+                           amount: type == .Hard ? damages.hard : damages.soft) // FIXME
+    }
+    
     // MARK: Hashable
 
     func hash(into hasher: inout Hasher) {
@@ -167,6 +219,7 @@ final class Armor: Codable, Hashable {
         hasher.combine(type)
         hasher.combine(sp)
         hasher.combine(ev)
+        hasher.combine(damages)
     }
 
     static func == (lhs: Armor, rhs: Armor) -> Bool {

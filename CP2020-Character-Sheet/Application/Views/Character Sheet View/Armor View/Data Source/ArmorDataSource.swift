@@ -119,7 +119,7 @@ extension ArmorDataSource: TableViewManaging {
             let armor = model.equippedArmor.armor[indexPath.row]
             let columnListing = ColumnListing(name: armor.name,
                                   firstColumnValue: "\(armor.sp)",
-                                 secondColumnValue: "\(model.equippedArmor.status(for: armor).abbreviation())",
+                                 secondColumnValue: "\(armor.status().abbreviation())",
                                   thirdColumnValue: armor.type.rawValue)
 
             cell.prepare(with: columnListing, viewModel: ColumnTableViewCellModel())

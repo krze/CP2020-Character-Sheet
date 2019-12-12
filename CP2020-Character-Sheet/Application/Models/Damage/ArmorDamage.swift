@@ -8,11 +8,22 @@
 
 import Foundation
 
-struct ArmorDamage: Codable {
+struct ArmorDamage: Codable, Hashable {
     let type: ArmorDamageType
     let locations: [BodyLocation]
-    let softDamage: Int
-    let hardDamage: Int
+    let amount: Int
+    
+    // MARK: Hashable
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(type)
+        hasher.combine(locations)
+        hasher.combine(amount)
+    }
+
+    static func == (lhs: ArmorDamage, rhs: ArmorDamage) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
 }
 
 enum ArmorDamageType: String, Codable {
