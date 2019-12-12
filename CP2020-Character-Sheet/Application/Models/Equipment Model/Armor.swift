@@ -139,6 +139,9 @@ final class Armor: Codable, Hashable {
     /// The base SP that the armor provides when undamaged
     let sp: Int
     
+    /// A unique ID created to ensure two armors don't get mixed up
+    let uniqueID: UUID
+    
     private(set) var damages = [ArmorDamage]()
     
     /// Creates an armor class
@@ -154,6 +157,7 @@ final class Armor: Codable, Hashable {
         self.ev = ev
         self.zone = zone
         self.locations = locations
+        self.uniqueID = UUID()
     }
     
     func encumbersWhenLayered() -> Bool {
@@ -220,6 +224,7 @@ final class Armor: Codable, Hashable {
         hasher.combine(sp)
         hasher.combine(ev)
         hasher.combine(damages)
+        hasher.combine(uniqueID)
     }
 
     static func == (lhs: Armor, rhs: Armor) -> Bool {

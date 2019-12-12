@@ -9,7 +9,7 @@
 import Foundation
 
 /// Represents a wound taken on the individual.
-struct Wound: Codable {
+struct Wound: Codable, Hashable {
     
     /// The nature of the wound
     let traumaType: TraumaType
@@ -19,6 +19,9 @@ struct Wound: Codable {
     
     /// Where the wound is located
     let locations: [BodyLocation]
+    
+    /// A unique ID created to ensure two wounds don't get mixed up
+    let uniqueID: UUID = UUID()
     
     /// Calculates the total damage based on location variables. Use this instead of `damageAmount` to get the actual damage
     /// caused to the location.
@@ -42,4 +45,18 @@ struct Wound: Codable {
     func isFatal() -> Bool {
         return isMortal() && locations.contains(.Head)
     }
+    
+    // MARK: Hashable
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(traumaType)
+        hasher.combine(damageAmount)
+        hasher.combine(locations)
+        hasher.combine(uniqueID)
+    }
+
+    static func == (lhs: Wound, rhs: Wound) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    
 }
