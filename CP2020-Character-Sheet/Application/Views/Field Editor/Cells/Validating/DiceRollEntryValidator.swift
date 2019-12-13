@@ -23,6 +23,8 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
     
     private var invalidFields = [Field]()
     
+    private var validFields = [Field: Int]()
+    
     init(with cell: DiceRollEntryCollectionViewCell) {
         self.cell = cell
         
@@ -31,7 +33,7 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
         self.cell.numberTextField?.delegate = self
         self.cell.sidesTextField?.delegate = self
         self.cell.modifierTextField?.delegate = self
-        
+        self.identifier = cell.identifier
         validateAllFields()
         
         NotificationCenter.default.addObserver(self, selector: #selector(saveWasCalled), name: .saveWasCalled, object: nil)
@@ -59,8 +61,6 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
     // MARK - UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        validate(textField)
-
         if textField == cell.numberTextField {
             cell.sidesTextField?.becomeFirstResponder()
         }
@@ -72,6 +72,8 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        delegate?.userBeganEditing()
+        
         if textField == cell.modifierTextField {
             modifierAdded()
         }
@@ -111,6 +113,7 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
         if let intValue = Int(enteredValue), intValue >= 1, intValue <= 99 {
             textField.text = String(intValue)
             invalidFields.removeAll(where: { $0 == field })
+            validFields[field] = intValue
             isValid = invalidFields.count == 0
             hideWarning(on: textField)
         }
@@ -119,7 +122,22 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
             isValid = false
             showWarning(on: textField)
         }
+    }
+    
+    private func processCurrentEntryIntoValue() {
+        guard let numberOfDice = validFields[.numberOfDice],
+            let numberOfSides = validFields[.numberOfSides] else {
+            currentValue = nil
+            return
+        }
         
+        currentValue = DiceRoll(number: numberOfDice,
+                                sides: numberOfSides,
+                                modifier: validFields[.modifier])
+        
+        if let currentValue = currentValue {
+            delegate?.entryDidFinishEditing(identifier: identifier, value: currentValue, shouldGetSuggestion: false, resignLastResponder: {})
+        }
     }
     
     private func validateAllFields() {
