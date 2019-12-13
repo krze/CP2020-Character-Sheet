@@ -13,7 +13,7 @@ struct DiceRoll: Hashable {
     
     let number: Int
     let sides: Int
-    let modifier: Int
+    let modifier: Int?
     
     
     // MARK: Hashable

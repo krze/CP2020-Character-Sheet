@@ -19,12 +19,17 @@ final class DiceRollEntryCollectionViewCell: UICollectionViewCell, DiceRollColle
     private var header: UIView?
     private var stackView: UIStackView?
     
+    private let diceRollFont = StyleConstants.Font.defaultFont?.withSize(28.0)
+
     // Number of dice
     private(set) var numberTextField: UITextField?
     // Sides per dice
     private(set) var sidesTextField: UITextField?
     // Modifier
     private(set) var modifierTextField: UITextField?
+    
+    // The plus sign
+    private(set) var plusSignLabel: UITextField?
     
     func setup(with identifier: Identifier, description: String, placeholder: DiceRoll?) {
         self.identifier = identifier
@@ -98,55 +103,60 @@ final class DiceRollEntryCollectionViewCell: UICollectionViewCell, DiceRollColle
     
     private func setupDiceStackView(_ stackView: UIStackView, placeholder: DiceRoll?) {
         stackView.axis = .horizontal
-        stackView.alignment = .leading
+        stackView.alignment = .center
         stackView.distribution = .fill
         
-        let digitEntrySize = "00".size(withAttributes: [.font: StyleConstants.Font.defaultFont as Any])
+        let digitEntrySize = "00".size(withAttributes: [.font: diceRollFont as Any])
         let digitEntryFrame = CGRect(origin: .zero, size: digitEntrySize)
         
         let numberEntryView = digitEntryField(frame: digitEntryFrame, alignment: .right)
         numberEntryView.text = "\(placeholder?.number ?? 0)"
-        
+        numberEntryView.widthAnchor.constraint(equalToConstant: digitEntrySize.width).isActive = true
+        numberEntryView.heightAnchor.constraint(equalToConstant: digitEntrySize.height).isActive = true
         stackView.addArrangedSubview(numberEntryView)
         numberTextField = numberEntryView
         
         let d = "D"
-        let dSize = d.size(withAttributes: [.font: StyleConstants.Font.defaultFont as Any])
+        let dSize = d.size(withAttributes: [.font: diceRollFont as Any])
         let dFrame = CGRect(origin: .zero, size: dSize)
-//        let dMargins = viewModel.createInsets(with: dFrame)
-        let dView = CommonEntryConstructor.headerLabel(frame: dFrame)
-//        let dView = UILabel.container(frame: dFrame,
-//                                      margins: dMargins,
-//                                      backgroundColor: StyleConstants.Color.light,
-//                                      borderColor: nil,
-//                                      borderWidth: nil,
-//                                      labelMaker: CommonEntryConstructor.headerLabel(frame:))
+        let dView = digitEntryField(frame: dFrame, alignment: .center)
+        dView.isUserInteractionEnabled = false
+        dView.font = diceRollFont
         dView.text = d
+        dView.heightAnchor.constraint(equalToConstant: digitEntrySize.height).isActive = true
+        
         stackView.addArrangedSubview(dView)
         
         let sidesEntryView = digitEntryField(frame: digitEntryFrame, alignment: .left)
         sidesEntryView.text = "\(placeholder?.sides ?? 0)"
+        sidesEntryView.widthAnchor.constraint(equalToConstant: digitEntrySize.width).isActive = true
         
         stackView.addArrangedSubview(sidesEntryView)
         sidesTextField = sidesEntryView
         
         let plus = "+"
-        let plusSize = plus.size(withAttributes: [.font: StyleConstants.Font.defaultFont as Any])
+        let plusSize = plus.size(withAttributes: [.font: diceRollFont as Any])
         let plusFrame = CGRect(origin: .zero, size: plusSize)
-//        let plusMargins = viewModel.createInsets(with: dFrame)
-        let plusView = CommonEntryConstructor.headerLabel(frame: plusFrame)
-//        let plusView = UILabel.container(frame: plusFrame,
-//                                         margins: plusMargins,
-//                                         backgroundColor: StyleConstants.Color.light,
-//                                         borderColor: nil,
-//                                         borderWidth: nil,
-//                                         labelMaker: CommonEntryConstructor.headerLabel(frame:))
+        let plusView = digitEntryField(frame: plusFrame, alignment: .center)
+        plusView.isUserInteractionEnabled = false
+        plusView.font = diceRollFont
         plusView.text = plus
+        plusView.heightAnchor.constraint(equalToConstant: digitEntrySize.height).isActive = true
+        
+        plusSignLabel = plusView
+        
         stackView.addArrangedSubview(plusView)
         
-        let modifierEntryView = digitEntryField(frame: digitEntryFrame, alignment: .center)
-        modifierEntryView.text = "\(placeholder?.modifier ?? 0)"
-        
+        let modifierEntryView = digitEntryField(frame: digitEntryFrame, alignment: .left)
+        modifierEntryView.text = {
+            if let existingModifier = placeholder?.modifier {
+                return "\(existingModifier)"
+            }
+            
+            return ""
+        }()
+        modifierEntryView.widthAnchor.constraint(equalToConstant: digitEntrySize.width * 3).isActive = true
+        modifierEntryView.heightAnchor.constraint(equalToConstant: digitEntrySize.height).isActive = true
         stackView.addArrangedSubview(modifierEntryView)
         modifierTextField = modifierEntryView
         
@@ -161,7 +171,7 @@ final class DiceRollEntryCollectionViewCell: UICollectionViewCell, DiceRollColle
     
     private func digitEntryField(frame: CGRect, alignment: NSTextAlignment) -> UITextField {
         let textField = UITextField(frame: frame)
-        textField.font = StyleConstants.Font.defaultFont
+        textField.font = diceRollFont
         textField.textAlignment = alignment
         textField.textColor = StyleConstants.Color.dark
         textField.backgroundColor = StyleConstants.Color.light

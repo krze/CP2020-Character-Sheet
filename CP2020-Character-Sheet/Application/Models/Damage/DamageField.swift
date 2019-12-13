@@ -46,7 +46,7 @@ enum DamageField: String, EntryTypeProvider, CaseIterable {
         case .NumberOfHits:
             return ""
         case .Roll:
-            return DiceRoll(number: 0, sides: 0, modifier: 0)
+            return DiceRoll(number: 0, sides: 0, modifier: nil)
         case .Location:
             return locationCheckboxConfig()
         case .DamageType:

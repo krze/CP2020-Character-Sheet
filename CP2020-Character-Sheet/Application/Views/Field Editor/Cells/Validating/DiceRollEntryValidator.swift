@@ -58,7 +58,6 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
     
     // MARK - UITextFieldDelegate
     
-    // TODO: switch between available fields within the dice roll cell here
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         validate(textField)
 
@@ -70,6 +69,20 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
         }
         
         return false
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == cell.modifierTextField {
+            modifierAdded()
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        validate(textField)
+        
+        if textField == cell.modifierTextField && textField.text?.count == 0 {
+            modifierRemoved()
+        }
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -90,18 +103,23 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
         guard let field = field(for: textField) else { return }
         let enteredValue = textField.text ?? ""
         
-        guard enteredValue.count > 0 else { return }
+        if enteredValue.count == 0 && field == .modifier {
+            modifierRemoved()
+            return
+        }
         
-        if let intValue = Int(enteredValue), intValue >= 0, intValue <= 99 {
+        if let intValue = Int(enteredValue), intValue >= 1, intValue <= 99 {
             textField.text = String(intValue)
             invalidFields.removeAll(where: { $0 == field })
             isValid = invalidFields.count == 0
             hideWarning(on: textField)
         }
+        else {
+            invalidFields.append(field)
+            isValid = false
+            showWarning(on: textField)
+        }
         
-        invalidFields.append(field)
-        isValid = false
-        showWarning(on: textField)
     }
     
     private func validateAllFields() {
@@ -134,6 +152,14 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
     
     private func hideWarning(on textField: UITextField) {
         textField.backgroundColor = StyleConstants.Color.light
+    }
+    
+    private func modifierAdded() {
+        cell.plusSignLabel?.textColor = StyleConstants.Color.dark
+    }
+    
+    private func modifierRemoved() {
+        cell.plusSignLabel?.textColor = StyleConstants.Color.gray
     }
     
     private func showPopup() {
