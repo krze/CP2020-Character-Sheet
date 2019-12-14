@@ -271,7 +271,7 @@ final class Edgerunner: Codable, EditableModel {
         
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            let newWounds = DamageApplier.applyArmorDamage(to: self, incomingDamage: damage)
+            let newWounds = DamageHelper.applyArmorDamage(to: self, incomingDamage: damage)
             self.wounds.append(contentsOf: newWounds)
             self.damage = self.wounds.map({$0.damageAmount}).reduce(0, { $0 + $1 })
 

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Contains methods that help apply damage to the Edgerunner.
-struct DamageApplier {
+struct DamageHelper {
     
     /// Applies damage to the Edgerunner. Any damage that exceeds the Edgerunner's maximum damage will be ignored.
     /// Returns any wounds that would be sustained by the edgerunner.

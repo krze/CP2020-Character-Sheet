@@ -156,14 +156,31 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
     // MARK: Gesture Recognition and actions
     
     private func setupGestureRecognizers() {
-        // Single tap iterate
-        let iterateDamageTap = UITapGestureRecognizer(target: self, action: #selector(DamageViewCell.cellWasTapped))
-        iterateDamageTap.cancelsTouchesInView = false
-        iterateDamageTap.numberOfTouchesRequired = 1
-        contentView.addGestureRecognizer(iterateDamageTap)
+        // Single tap
+        let openStatusTap = UITapGestureRecognizer(target: self, action: #selector(DamageViewCell.cellWasTapped))
+        openStatusTap.cancelsTouchesInView = false
+        openStatusTap.numberOfTouchesRequired = 1
+        contentView.addGestureRecognizer(openStatusTap)
+        
+        // Long Press
+        let jumpToNewDamagePress = UILongPressGestureRecognizer(target: self, action: #selector(DamageViewCell.cellWasLongPressed))
+        jumpToNewDamagePress.cancelsTouchesInView = false
+        jumpToNewDamagePress.numberOfTouchesRequired = 1
+        contentView.addGestureRecognizer(jumpToNewDamagePress)
     }
     
     @objc private func cellWasTapped() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            let model = EditorCollectionViewModel.incomingDamage()
+            let viewController = EditorCollectionViewController(with: model)
+            viewController.delegate = self.dataSource
+            NotificationCenter.default.post(name: .showEditor, object: viewController)
+        }
+    }
+    
+    @objc private func cellWasLongPressed(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        guard gestureRecognizer.state == .ended else { return }
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             let model = EditorCollectionViewModel.incomingDamage()
