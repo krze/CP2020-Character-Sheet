@@ -67,6 +67,9 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
         else if textField == cell.sidesTextField {
             cell.modifierTextField?.becomeFirstResponder()
         }
+        else {
+            textField.endEditing(false)
+        }
         
         return false
     }
@@ -107,6 +110,7 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
         
         if enteredValue.count == 0 && field == .modifier {
             modifierRemoved()
+            processCurrentEntryIntoValue()
             return
         }
         
@@ -122,6 +126,8 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
             isValid = false
             showWarning(on: textField)
         }
+        
+        processCurrentEntryIntoValue()
     }
     
     private func processCurrentEntryIntoValue() {

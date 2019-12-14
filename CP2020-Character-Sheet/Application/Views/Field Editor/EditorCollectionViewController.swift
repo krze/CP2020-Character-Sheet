@@ -141,13 +141,10 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     
     func entryDidFinishEditing(identifier: Identifier, value: AnyHashable?, shouldGetSuggestion: Bool, resignLastResponder: () -> Void) {
         if let value = value {
-            if let currentValue = currentValues[identifier],
-                currentValue == value {
-                return
+            if currentValues[identifier] != value {
+                currentValues[identifier] = value
+                valuesChanged = true
             }
-            
-            currentValues[identifier] = value
-            valuesChanged = true
         }
         
         guard !saving else { return }

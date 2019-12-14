@@ -110,8 +110,20 @@ final class DiceRollEntryCollectionViewCell: UICollectionViewCell, DiceRollColle
         let digitEntryFrame = CGRect(origin: .zero, size: digitEntrySize)
         
         let numberEntryView = digitEntryField(frame: digitEntryFrame, alignment: .right)
-        numberEntryView.text = "\(placeholder?.number ?? 0)"
-        numberEntryView.widthAnchor.constraint(equalToConstant: digitEntrySize.width).isActive = true
+        numberEntryView.text = {
+            guard let placeholder = placeholder?.number else {
+                return ""
+            }
+            
+            if placeholder == 0 {
+                return ""
+            }
+            else {
+                return "\(placeholder)"
+            }
+        }()
+        
+        numberEntryView.widthAnchor.constraint(equalToConstant: digitEntrySize.width + 5).isActive = true
         numberEntryView.heightAnchor.constraint(equalToConstant: digitEntrySize.height).isActive = true
         stackView.addArrangedSubview(numberEntryView)
         numberTextField = numberEntryView
@@ -128,8 +140,20 @@ final class DiceRollEntryCollectionViewCell: UICollectionViewCell, DiceRollColle
         stackView.addArrangedSubview(dView)
         
         let sidesEntryView = digitEntryField(frame: digitEntryFrame, alignment: .left)
-        sidesEntryView.text = "\(placeholder?.sides ?? 0)"
-        sidesEntryView.widthAnchor.constraint(equalToConstant: digitEntrySize.width).isActive = true
+        sidesEntryView.text = {
+            guard let placeholder = placeholder?.sides else {
+                return ""
+            }
+            
+            if placeholder == 0 {
+                return ""
+            }
+            else {
+                return "\(placeholder)"
+            }
+        }()
+        
+        sidesEntryView.widthAnchor.constraint(equalToConstant: digitEntrySize.width + 5).isActive = true
         
         stackView.addArrangedSubview(sidesEntryView)
         sidesTextField = sidesEntryView
