@@ -22,6 +22,21 @@ enum BodyLocation: String, CaseIterable, Codable, CheckboxConfigProviding {
         }
     }
     
+    func descriptiveText() -> String {
+        switch self {
+        case .Head, .Torso:
+            return rawValue
+        case .LeftArm:
+            return BodyStrings.leftArm
+        case .RightArm:
+            return BodyStrings.rightArm
+        case .LeftLeg:
+            return BodyStrings.leftLeg
+        case .RightLeg:
+            return BodyStrings.rightLeg
+        }
+    }
+    
     static func checkboxConfig() -> CheckboxConfig {
         let choices = [[BodyLocation.Head.labelText()],
                        [BodyLocation.RightArm.labelText(), BodyLocation.Torso.labelText(), BodyLocation.LeftArm.labelText()],
