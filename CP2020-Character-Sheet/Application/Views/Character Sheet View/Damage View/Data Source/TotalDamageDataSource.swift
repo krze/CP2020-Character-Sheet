@@ -73,6 +73,7 @@ final class TotalDamageDataSource: NSObject, EditorValueReciever {
 extension TotalDamageDataSource: TableViewManaging {
     
     func createAddArmorButton(_ navigationItem: UINavigationItem) {
+        // NEXT: figre out how to pop options for healing damage
         navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showNewArmorEditor)), animated: true)
     }
     

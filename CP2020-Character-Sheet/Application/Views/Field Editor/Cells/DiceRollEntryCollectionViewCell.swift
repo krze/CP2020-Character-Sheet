@@ -89,8 +89,6 @@ final class DiceRollEntryCollectionViewCell: UICollectionViewCell, DiceRollColle
         let modifier = Int(modifierTextField?.text ?? "") ?? 0
         
         diceRoll = DiceRoll(number: number, sides: sides, modifier: modifier)
-        
-        // NEXT: Create a verifier for this cell. We'll probably have to respond to textfield changes to ensure we're verifying correctly.
     }
     
     override func prepareForReuse() {
