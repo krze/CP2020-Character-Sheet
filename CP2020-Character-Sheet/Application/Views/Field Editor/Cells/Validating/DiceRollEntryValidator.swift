@@ -16,7 +16,7 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
     
     private(set) var currentValue: AnyHashable? = nil
     
-    var delegate: UserEntryDelegate?
+    weak var delegate: UserEntryDelegate?
     
     private let cell: DiceRollEntryCollectionViewCell
     private let maximumLength = 2
