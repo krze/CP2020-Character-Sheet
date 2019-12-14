@@ -187,7 +187,7 @@ final class EquippedArmor: Codable {
             locationSP = locationSP > coverSP ? locationSP + diffBonus : coverSP + diffBonus
         }
         
-        let remaining = damageType.ignoresArmor() ? damage : locationSP - damage
+        let remaining = damageType.ignoresArmor() ? damage : damage - locationSP
         
         if remaining > 0 || damageType.alwaysDamagesArmor() {
             let affectedArmor = armor.filter { $0.locations.contains(location) }

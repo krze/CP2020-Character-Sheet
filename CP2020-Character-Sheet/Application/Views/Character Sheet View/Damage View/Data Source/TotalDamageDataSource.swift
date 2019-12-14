@@ -53,16 +53,7 @@ final class TotalDamageDataSource: EditorValueReciever {
                                                  damageType: damageType,
                                                  hitLocations: locations,
                                                  coverSP: coverSP)
-        model.apply(damage: incomingDamageModel) { result in
-            switch result {
-            case .failure(let violation):
-                let alert = UIAlertController(title: violation.title(), message: violation.helpText(), preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: AlertViewStrings.dismissButtonTitle, style: .default, handler: nil))
-                NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
-            case .success(_):
-                return
-            }
-        }
+        model.apply(damage: incomingDamageModel, validationCompletion: completion)
     }
     
     @objc func refreshData() {

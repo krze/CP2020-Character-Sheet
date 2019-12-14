@@ -82,7 +82,7 @@ struct CharacterValidator {
             violationFound(.failure(Violation(ofType: .invalidNewDamageValue, violators: [String(maxPotentialIncomingDamage), String(currentDamage)])))
             return false
         }
-
+        
         return true
     }
     
