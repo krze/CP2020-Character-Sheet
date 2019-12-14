@@ -192,7 +192,7 @@ final class EquippedArmor: Codable {
         if remaining > 0 || damageType.alwaysDamagesArmor() {
             let affectedArmor = armor.filter { $0.locations.contains(location) }
             affectedArmor.forEach { armor in
-                armor.applyDamage(totalDamage: damage, damageType: damageType, locations: [location])
+                armor.applyDamage(totalDamage: damage, damageType: damageType, location: location)
             }
             return remaining
         }

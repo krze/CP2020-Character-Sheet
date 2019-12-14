@@ -160,10 +160,14 @@ final class Armor: Codable, Hashable {
         self.uniqueID = UUID()
     }
     
+    /// Indicates that the armor adds an enumberance penalty when layered. This is an innate property
+    /// of armor placed in certain zones of the Edgerunner.
     func encumbersWhenLayered() -> Bool {
         return zone.encumbersWhenLayered
     }
     
+    /// Returns the current SP for the specified location
+    /// - Parameter location: The location
     func currentSP(for location: BodyLocation) -> Int {
         let damageAmount: Int = {
             let damages = self.damages.filter { $0.locations.contains(location)}
@@ -176,6 +180,20 @@ final class Armor: Codable, Hashable {
         return finalSP > 0 ? finalSP : 0
     }
     
+    /// Applies damage to the specified location
+    /// - Parameters:
+    ///   - damage: The total damage caused by the attack
+    ///   - damageType: The type of damage
+    ///   - location: The location affected by the damage
+    func applyDamage(totalDamage damage: Int, damageType: DamageType, location: BodyLocation) {
+        applyDamage(totalDamage: damage, damageType: damageType, locations: [location])
+    }
+    
+    /// Applies damage to the specified locations
+    /// - Parameters:
+    ///   - damage: The total damage caused by the attack
+    ///   - damageType: The type of damage
+    ///   - locations: The locations affected by the damage
     func applyDamage(totalDamage damage: Int, damageType: DamageType, locations: [BodyLocation]) {
         let armorDamage = self.armorDamage(for: damageType, totalDamage: damage, locations: locations)
         damages.append(armorDamage)
