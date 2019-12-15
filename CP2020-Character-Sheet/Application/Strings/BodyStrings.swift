@@ -10,6 +10,7 @@ import Foundation
 
 struct BodyStrings {
     
+    static let locationOfDamage = "Location of Damage"
     static let multipleLocations = "Multiple locations"
     static let head = "Head"
     static let torso = "Torso"

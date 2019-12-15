@@ -31,7 +31,7 @@ final class AnatomyDisplayController: StatusTableViewHeaderControlling {
         label?.fitTextToBounds()
     }
     
-    func updateSPAccessoryView(for part: BodyLocation, newValue: BodyPartStatus) {
+    func updateSPAccessoryView(for part: BodyLocation, newValue: BodyPartStatusIndicating) {
         view(for: part).setStatus(newValue)
     }
     

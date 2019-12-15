@@ -26,6 +26,8 @@ struct Wound: Codable, Hashable {
     /// Calculates the total damage based on location variables. Use this instead of `damageAmount` to get the actual damage
     /// caused to the location.
     func totalDamage() -> Int {
+        guard !isMultiLocation() else { return damageAmount }
+        
         if traumaType != .CyberwareDamage && locations.contains(.Head) {
             return damageAmount * Rules.Damage.headWoundMultiplier
         }
@@ -41,9 +43,14 @@ struct Wound: Codable, Hashable {
         return totalDamage() >= Rules.Damage.mortalWoundThreshold
     }
     
-    /// Specifieds whether this wound is instantly fatal. This cannot be resisted with a Mortal check.
+    /// Specifies whether this wound is instantly fatal. This cannot be resisted with a Mortal check.
     func isFatal() -> Bool {
         return isMortal() && locations.contains(.Head)
+    }
+    
+    /// Specifies if the wound covers multiple locations.
+    func isMultiLocation() -> Bool {
+        return locations.count > 1
     }
     
     // MARK: Hashable

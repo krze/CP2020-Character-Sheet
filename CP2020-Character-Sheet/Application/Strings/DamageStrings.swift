@@ -28,4 +28,8 @@ struct DamageStrings {
     static let damageTypeCorrosiveDescription = "Corrosive damage is not blocked by armor, and damage both armor and the part beneath the same amount."
     static let coverSP = "Cover SP"
     static let coverSPDescription = "If you enter a value greater than 0, this SP value will be treated as cover, shielding you from damage."
+    
+    static let damageAbbreviation = "Dam"
+    static let traumaAbbreviation = "Type"
+    static let fatal = "Fatal"
 }

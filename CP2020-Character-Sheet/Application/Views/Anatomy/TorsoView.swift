@@ -38,7 +38,7 @@ final class TorsoView: UIView, BodyPartView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setStatus(_ status: BodyPartStatus) {
+    func setStatus(_ status: BodyPartStatusIndicating) {
         torso.tintColor = status.color()
     }
     

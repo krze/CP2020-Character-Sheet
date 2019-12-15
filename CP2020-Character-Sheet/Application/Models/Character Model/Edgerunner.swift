@@ -273,14 +273,8 @@ final class Edgerunner: Codable, EditableModel {
             guard let self = self else { return }
             let newWounds = DamageHelper.applyArmorDamage(to: self, incomingDamage: damage)
             self.wounds.append(contentsOf: newWounds)
-            self.damage = self.wounds.map({$0.damageAmount}).reduce(0, { $0 + $1 })
 
-            self.statModifiers.removeAll(where: { $0.damageRelated })
-            
-            let modifiers = Rules.Damage.statModifiers(forTotalDamage: self.damage, baseStats: self.baseStats)
-            
-            self.statModifiers.append(contentsOf: modifiers)
-            self.refreshSkillListings()
+            self.woundsChanged()
 
             completion(.success(.valid))
 
@@ -289,6 +283,38 @@ final class Edgerunner: Codable, EditableModel {
             
             self.saveCharacter()
         }
+    }
+
+    func remove(_ wound: Wound, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self,
+                let woundIndex = self.wounds.firstIndex(of: wound)
+                else {
+                    return
+            }
+            
+            self.wounds.remove(at: woundIndex)
+            
+            self.woundsChanged()
+            
+            completion(.success(.valid))
+
+            NotificationCenter.default.post(name: .statsDidChange, object: nil)
+            NotificationCenter.default.post(name: .damageDidChange, object: nil)
+            
+            self.saveCharacter()
+        }
+    }
+    
+    private func woundsChanged() {
+        self.damage = self.wounds.map({$0.damageAmount}).reduce(0, { $0 + $1 })
+
+        self.statModifiers.removeAll(where: { $0.damageRelated })
+        
+        let modifiers = Rules.Damage.statModifiers(forTotalDamage: self.damage, baseStats: self.baseStats)
+        
+        self.statModifiers.append(contentsOf: modifiers)
+        self.refreshSkillListings()
     }
     
     /// Refreshes each skill listing

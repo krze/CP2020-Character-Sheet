@@ -117,7 +117,6 @@ final class EquippedArmor: Codable {
             NotificationCenter.default.post(name: .armorDidChange, object: nil)
             self.saveCharacter()
         }
-
     }
     
     /// Applies the series of damages and locations, maintaining track of the coverSP and reducing it for repeated
@@ -127,7 +126,7 @@ final class EquippedArmor: Codable {
     ///   - damages: A series of DamageRollResults
     ///   - coverSP: The coverSP before the damage is applied
     ///   - leftoverDamageHandler: This closure is called for each event where the damage bypasses armor
-    func applyDamages(_ damages: [DamageRollResult], coverSP: Int, leftoverDamageHandler: (Int) -> Void) {
+    func applyDamages(_ damages: [DamageRollResult], coverSP: Int, leftoverDamageHandler: (Int, [BodyLocation]) -> Void) {
         var coverSP = coverSP
         
         for damage in damages {
@@ -156,13 +155,13 @@ final class EquippedArmor: Codable {
                     // Currently there are no cases where multi-location damage results in damage
                     // that ignores armor. Therefore, if there's more than one location, it must be
                     // ignoring armor.
-                    leftoverDamageHandler(damage.amount)
+                    leftoverDamageHandler(damage.amount, damage.locations)
                     continue
             }
             let thisRemaining = applyDamage(damage.amount, damageType: damage.type, location: location, coverSP: coverSP)
             
             if thisRemaining > 0 {
-                leftoverDamageHandler(thisRemaining)
+                leftoverDamageHandler(thisRemaining, damage.locations)
 
                 if coverSP > 0 {
                  coverSP -= 1

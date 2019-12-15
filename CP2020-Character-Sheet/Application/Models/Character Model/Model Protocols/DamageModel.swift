@@ -26,8 +26,16 @@ protocol DamageModel {
     var wounds: [Wound] { get }
     
     /// Applies the damage described to the Edgerunner.
-    /// - Parameter damage: The incoming damage value
-    /// - Parameter completion: Completion closure called with validity state
+    ///
+    /// - Parameters:
+    ///   - damage: The incoming damage value
+    ///   - completion: Completion closure called with validity state
     func apply(damage: IncomingDamage, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
     
+    /// Removes the wound specified.
+    ///
+    /// - Parameters:
+    ///   - wound: The wound to remove
+    ///   - completion: The validation completion
+    func remove(_ wound: Wound, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
 }

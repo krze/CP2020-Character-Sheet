@@ -260,12 +260,12 @@ struct Rules {
                 return [StatModifier(stat: .Reflex,
                                      amount: -2,
                                      source: source,
-                                     description: "Penalty from a Serious wound",
+                                     description: "Penalty from Serious damgage level",
                                      dismissable: false,
                                      damageRelated: true,
                                      evRelated: false)]
             case 9...12:
-                let desc = "Penalty from a Critical wound"
+                let desc = "Penalty from Critical damage level"
                 let refDouble = Double(baseStats.ref)
                 let intDouble = Double(baseStats.int)
                 let coolDouble = Double(baseStats.cool)
@@ -293,7 +293,7 @@ struct Rules {
                                      evRelated: false)
                 ]
             case 13...40:
-                let desc = "Penalty from a Mortal wound"
+                let desc = "Penalty from Mortal damage level"
                 let refDouble = Double(baseStats.ref)
                 let intDouble = Double(baseStats.int)
                 let coolDouble = Double(baseStats.cool)
@@ -335,6 +335,25 @@ struct Rules {
                 return [.Burn]
             default:
                 return [.Piercing]
+            }
+        }
+        
+        static func randomBodyLocation() -> BodyLocation {
+            let result = DiceRoll.d10().perform()
+            
+            switch result {
+            case 2...4:
+                return .Torso
+            case 5:
+                return .RightArm
+            case 6:
+                return .LeftArm
+            case 7...8:
+                return .RightLeg
+            case 9...10:
+                return .LeftLeg
+            default:
+                return .Head
             }
         }
     }

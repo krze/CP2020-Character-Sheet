@@ -126,13 +126,13 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
                 increasing = false
                 next = currentDamageIndex
             }
-            
-            // Do nothing if we can't apply the damage
-            guard self.damageCells.indices.contains(next) else {
-                return
-            }
         
             while currentDamage != newDamage {
+                // Do nothing if we can't apply the damage
+                guard self.damageCells.indices.contains(next) else {
+                    break
+                }
+                
                 let color: UIColor = increasing ? StyleConstants.Color.red : StyleConstants.Color.light
                 self.damageCells[next].backgroundColor = color
                 
@@ -172,10 +172,17 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
     @objc private func cellWasTapped() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            let model = EditorCollectionViewModel.incomingDamage()
-            let viewController = EditorCollectionViewController(with: model)
-            viewController.delegate = self.dataSource
-            NotificationCenter.default.post(name: .showEditor, object: viewController)
+            let viewHeader = AnatomyDisplayView()
+            let headerViewController = AnatomyDisplayController(viewHeader)
+            let viewModel = StatusTableViewModel(title: "Damage Status",
+                                                 viewHeaderHeight: AnatomyDisplayView.Constants.heightAsStatusHeaderView,
+                                                 viewHeader: viewHeader,
+                                                 dataSource: self.dataSource,
+                                                 navigationBarEdtingClosure: self.dataSource?.createDamageButtons)
+            let statusTableView = StatusTableView(with: viewModel, headerViewController: headerViewController)
+            
+            self.dataSource?.anatomyDisplayController = headerViewController
+            NotificationCenter.default.post(name: .showEditor, object: statusTableView)
         }
     }
     

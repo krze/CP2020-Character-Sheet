@@ -15,6 +15,10 @@ struct DiceRoll: Hashable {
     let sides: Int
     let modifier: Int?
     
+    /// Rolls the dice
+    func perform() -> Int {
+        return number.D(sides) + (modifier ?? 0)
+    }
     
     // MARK: Hashable
 
@@ -26,5 +30,9 @@ struct DiceRoll: Hashable {
 
     static func == (lhs: DiceRoll, rhs: DiceRoll) -> Bool {
         return lhs.hashValue == rhs.hashValue
+    }
+    
+    static func d10() -> DiceRoll {
+        return DiceRoll(number: 1, sides: 10, modifier: 0)
     }
 }

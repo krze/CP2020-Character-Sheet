@@ -9,12 +9,36 @@
 import UIKit
 
 
-protocol BodyPartStatus {
+protocol BodyPartStatusIndicating {
     
     func color() -> UIColor
+    
+    func abbreviation() -> String
 }
 
-enum ArmorLocationStatus: BodyPartStatus {
+enum ArmorLocationStatus: BodyPartStatusIndicating {
+    case Undamaged, Damaged, Destroyed
+    
+    func abbreviation() -> String {
+        switch self {
+        case .Undamaged:
+            return "OK"
+        case .Damaged:
+            return "DAM"
+        case .Destroyed:
+            return "RIP"
+        }
+    }
+    
+    func color() -> UIColor {
+        switch self {
+        case .Damaged, .Destroyed: return StyleConstants.Color.red
+        case .Undamaged: return StyleConstants.Color.dark
+        }
+    }
+}
+
+enum BodyPartStatus: BodyPartStatusIndicating {
     case Undamaged, Damaged, Destroyed
     
     func abbreviation() -> String {
@@ -47,7 +71,7 @@ protocol BodyPartView: UIView {
     
     /// Sets the status for the body part
     /// - Parameter status: The new body part status
-    func setStatus(_ status: BodyPartStatus)
+    func setStatus(_ status: BodyPartStatusIndicating)
     
     /// Adds the given description view to the view.
     /// - Parameter view: View to add

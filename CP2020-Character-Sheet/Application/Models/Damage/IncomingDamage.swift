@@ -40,7 +40,7 @@ struct IncomingDamage {
         
         for _ in 1...numberOfHits {
             // Here's where we roll the dice for XDY+N
-            rollResult.append(roll.number.D(roll.sides) + (roll.modifier ?? 0))
+            rollResult.append(roll.perform())
         }
         
         self.rollResult = rollResult

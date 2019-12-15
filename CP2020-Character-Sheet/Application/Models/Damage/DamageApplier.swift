@@ -20,25 +20,25 @@ struct DamageHelper {
     static func applyArmorDamage(to edgerunner: ArmorModel, incomingDamage: IncomingDamage) -> [Wound] {
         let damageType = incomingDamage.damageType
         let locations = incomingDamage.hitLocations
-        let allLocations = BodyLocation.allCases
         var damages = [DamageRollResult]()
         
         incomingDamage.rollResult.forEach { rollResult in
-            let locations = locations.isEmpty ? [allLocations.randomElement() ?? .Torso] : locations
+            // Verify there's a location, or else pick a random one
+            let locations = locations.isEmpty ? [Rules.Damage.randomBodyLocation()] : locations
             damages.append(DamageRollResult(locations: locations, amount: rollResult, type: damageType))
         }
         
         var wounds = [Wound]()
         
         if !damages.isEmpty {
-            edgerunner.equippedArmor.applyDamages(damages, coverSP: incomingDamage.coverSP, leftoverDamageHandler: { leftoverDamage in
+            edgerunner.equippedArmor.applyDamages(damages, coverSP: incomingDamage.coverSP) { leftoverDamage, locations in
                 var traumaTypes = Rules.Damage.traumaTypes(for: damageType)
 
-                if traumaTypes.count > 0 {
+                if traumaTypes.count > 1 {
                     let amountPerWound = leftoverDamage / traumaTypes.count
                     let remainder = leftoverDamage % traumaTypes.count
 
-                    while traumaTypes.count > 1 {
+                    while traumaTypes.count > 0 {
                         let thisType = traumaTypes.removeFirst()
                         let amount = traumaTypes.isEmpty ? amountPerWound + remainder : amountPerWound
 
@@ -50,7 +50,7 @@ struct DamageHelper {
                         wounds.append(Wound(traumaType: traumaType, damageAmount: leftoverDamage, locations: locations))
                     }
                 }
-            })
+            }
         }
         
         return wounds

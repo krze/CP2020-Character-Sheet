@@ -57,7 +57,7 @@ final class LegView: UIView, BodyPartView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setStatus(_ status: BodyPartStatus) {
+    func setStatus(_ status: BodyPartStatusIndicating) {
         leg.tintColor = status.color()
     }
     
