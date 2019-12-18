@@ -248,9 +248,8 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         
         NotificationCenter.default.post(name: .saveWasCalled, object: nil)
     
-        // NEXT: If a cell was never scrolled on screen, the validator was never created. Ensure there's a validator for each cell created and add it later.
         validators.forEach { validator in
-            currentValues[validator.identifier] = validator.currentValue
+            currentValues[validator.identifier] = validator.currentValue ?? placeholderValues[validator.identifier]
         }
         
         if let invalidState = validators.first(where: { !$0.isValid }) {
