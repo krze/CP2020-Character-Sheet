@@ -38,7 +38,14 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         self.entryTypes = viewModel.entryTypesForIdentifiers
         self.paddingRatio = viewModel.paddingRatio
         self.viewModel = viewModel
+    
         super.init(collectionViewLayout: viewModel.layout)
+        entryTypes.forEach { identifier, entryType in
+            var validator = self.validator(for: identifier, entryType: entryType)
+            validators.append(validator)
+            validator.delegate = self
+        }
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -94,33 +101,31 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
             guard let cell = cell as? ShortTextEntryCollectionViewCell,
                 let value = value as? String else { return UICollectionViewCell() }
             cell.setup(with: identifier, value: value, description: description)
-            var validator = self.validator(for: cell, identifier: identifier, entryType: entryType)
-            validator.delegate = self
+            let validator = self.validator(for: identifier, entryType: entryType) as? ShortFormEntryValidator
+            validator?.add(cell: cell)
         case .LongFormText:
             guard let cell = cell as? LongTextEntryCollectionViewCell,
                 let value = value as? String else { return UICollectionViewCell() }
             cell.setup(with: identifier, value: value, description: description)
-            var validator = self.validator(for: cell, identifier: identifier, entryType: entryType)
-            validator.delegate = self
-        case .EnforcedChoiceText(let choices), .SuggestedText(let choices):
+            let validator = self.validator(for: identifier, entryType: entryType) as? LongFormEntryValidator
+            validator?.add(cell: cell)
+        case .EnforcedChoiceText(_), .SuggestedText(_):
             guard let cell = cell as? ShortTextEntryCollectionViewCell,
                 let value = value as? String else { return UICollectionViewCell() }
             cell.setup(with: identifier, value: value, description: description)
-            var validator = self.validator(for: cell, identifier: identifier, entryType: entryType, suggestedMatches: choices)
-            validator.delegate = self
+            let validator = self.validator(for: identifier, entryType: entryType) as? ShortFormEntryValidator
+            validator?.add(cell: cell)
         case .Checkbox(_):
             guard let cell = cell as? CheckboxEntryCollectionViewCell,
                 let value = value as? CheckboxConfig else { return UICollectionViewCell() }
             cell.setup(with: identifier, checkboxConfig: value, description: description)
-            var validator = self.validator(for: cell, identifier: identifier, entryType: entryType)
-            validator.delegate = self
-            return cell
+            let validator = self.validator(for: identifier, entryType: entryType) as? CheckboxEntryValidator
+            validator?.add(cell: cell)
         case .DiceRoll:
             guard let cell = cell as? DiceRollEntryCollectionViewCell else { return UICollectionViewCell() }
             cell.setup(with: identifier, description: description, placeholder: placeholder as? DiceRoll)
-            var validator = self.validator(for: cell, identifier: identifier, entryType: entryType)
-            validator.delegate = self
-            return cell
+            let validator = self.validator(for: identifier, entryType: entryType) as? DiceRollEntryValidator
+            validator?.add(cell: cell)
         }
         
         currentValues[identifier] = value
@@ -281,32 +286,29 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         }
     }
     
-    private func validator(for cell: UserEntryCollectionViewCell, identifier: Identifier, entryType: EntryType, suggestedMatches: [String] = [String]()) -> UserEntryValidating {
+    private func validator(for identifier: Identifier, entryType: EntryType) -> UserEntryValidating {
         if let validator = validators.first(where: { $0.identifier == identifier }) {
             return validator
         }
         
         let validator: UserEntryValidating
         
-        if let cell = cell as? ShortTextEntryCollectionViewCell {
-           validator = ShortFormEntryValidator(with: cell, type: entryType, suggestedMatches: suggestedMatches)
-        }
-        else if let cell = cell as? LongFormEntryCollectionViewCell {
-            validator = LongFormEntryValidator(with: cell, type: entryType, suggestedMatches: suggestedMatches)
-        }
-        else if let cell = cell as? CheckboxEntryCollectionViewCell {
-            validator = CheckboxEntryValidator(with: cell)
-        }
-        else if let cell = cell as? DiceRollEntryCollectionViewCell {
-            validator = DiceRollEntryValidator(with: cell)
-        }
-        else {
-            fatalError("You added a new UserEntryCollectionViewCell but didnt add it here")
+        switch entryType {
+        case .Text, .Static, .Integer:
+            validator = ShortFormEntryValidator(identifier: identifier, type: entryType)
+        case .SuggestedText(let suggestedMatches), .EnforcedChoiceText(let suggestedMatches):
+            validator = ShortFormEntryValidator(identifier: identifier, type: entryType, suggestedMatches: suggestedMatches)
+        case .LongFormText:
+            validator = LongFormEntryValidator(identifier: identifier, type: entryType)
+        case .DiceRoll:
+            validator = DiceRollEntryValidator(identifier: identifier)
+        case .Checkbox(_):
+             validator = CheckboxEntryValidator(identifier: identifier)
         }
         
-        validators.append(validator)
         return validator
     }
+
     
     private func promptForAutoFill(forMatch match: AnyHashable) {
         let match = match as? String ?? "the entry you just provided"

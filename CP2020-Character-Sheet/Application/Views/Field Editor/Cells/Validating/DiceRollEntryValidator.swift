@@ -18,29 +18,30 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
     
     weak var delegate: UserEntryDelegate?
     
-    private let cell: DiceRollEntryCollectionViewCell
+    private var cell: DiceRollEntryCollectionViewCell?
     private let maximumLength = 2
     
     private var invalidFields = [Field]()
     
     private var validFields = [Field: Int]()
     
-    init(with cell: DiceRollEntryCollectionViewCell) {
-        self.cell = cell
-        
+    init(identifier: Identifier) {
         super.init()
-        
-        self.cell.numberTextField?.delegate = self
-        self.cell.sidesTextField?.delegate = self
-        self.cell.modifierTextField?.delegate = self
-        self.identifier = cell.identifier
-        validateAllFields()
+        self.identifier = identifier
         
         NotificationCenter.default.addObserver(self, selector: #selector(saveWasCalled), name: .saveWasCalled, object: nil)
     }
     
+    func add(cell: DiceRollEntryCollectionViewCell) {
+        self.cell = cell
+        self.cell?.numberTextField?.delegate = self
+        self.cell?.sidesTextField?.delegate = self
+        self.cell?.modifierTextField?.delegate = self
+        validateAllFields()
+    }
+    
     func makeFirstResponder() -> Bool {
-        cell.numberTextField?.becomeFirstResponder()
+        cell?.numberTextField?.becomeFirstResponder()
         return true
     }
     
@@ -61,11 +62,11 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
     // MARK - UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == cell.numberTextField {
-            cell.sidesTextField?.becomeFirstResponder()
+        if textField == cell?.numberTextField {
+            cell?.sidesTextField?.becomeFirstResponder()
         }
-        else if textField == cell.sidesTextField {
-            cell.modifierTextField?.becomeFirstResponder()
+        else if textField == cell?.sidesTextField {
+            cell?.modifierTextField?.becomeFirstResponder()
         }
         else {
             textField.endEditing(false)
@@ -77,7 +78,7 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
     func textFieldDidBeginEditing(_ textField: UITextField) {
         delegate?.userBeganEditing()
         
-        if textField == cell.modifierTextField {
+        if textField == cell?.modifierTextField {
             modifierAdded()
         }
     }
@@ -85,7 +86,7 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
     func textFieldDidEndEditing(_ textField: UITextField) {
         validate(textField)
         
-        if textField == cell.modifierTextField && textField.text?.count == 0 {
+        if textField == cell?.modifierTextField && textField.text?.count == 0 {
             modifierRemoved()
         }
     }
@@ -147,9 +148,9 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
     }
     
     private func validateAllFields() {
-        if let numberTextField = self.cell.numberTextField,
-            let sidesTextField = self.cell.sidesTextField,
-            let modifierTextField = self.cell.modifierTextField {
+        if let numberTextField = self.cell?.numberTextField,
+            let sidesTextField = self.cell?.sidesTextField,
+            let modifierTextField = self.cell?.modifierTextField {
             validate(numberTextField)
             validate(sidesTextField)
             validate(modifierTextField)
@@ -157,13 +158,13 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
     }
     
     private func field(for textField: UITextField) -> Field? {
-        if textField == cell.numberTextField {
+        if textField == cell?.numberTextField {
             return .numberOfDice
         }
-        else if textField == cell.sidesTextField {
+        else if textField == cell?.sidesTextField {
             return .numberOfSides
         }
-        else if textField == cell.modifierTextField {
+        else if textField == cell?.modifierTextField {
             return .modifier
         }
         
@@ -179,11 +180,11 @@ final class DiceRollEntryValidator: NSObject, UserEntryValidating, UITextFieldDe
     }
     
     private func modifierAdded() {
-        cell.plusSignLabel?.textColor = StyleConstants.Color.dark
+        cell?.plusSignLabel?.textColor = StyleConstants.Color.dark
     }
     
     private func modifierRemoved() {
-        cell.plusSignLabel?.textColor = StyleConstants.Color.gray
+        cell?.plusSignLabel?.textColor = StyleConstants.Color.gray
     }
     
     private func showPopup() {

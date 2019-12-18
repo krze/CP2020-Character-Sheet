@@ -16,34 +16,36 @@ final class LongFormEntryValidator: NSObject, UserEntryValidating, UITextViewDel
     var identifier: Identifier
     let isValid = true
     var currentValue: AnyHashable? {
-        return cell.textView?.text
+        return cell?.textView?.text
     }
     
     weak var delegate: UserEntryDelegate?
     
-    private let cell: LongFormEntryCollectionViewCell
+    private var cell: LongFormEntryCollectionViewCell?
     private let type: EntryType
     
-    init(with cell: LongFormEntryCollectionViewCell, type: EntryType, suggestedMatches: [String] = [String]()) {
-        self.cell = cell
-        self.identifier = cell.identifier
+    init(identifier: Identifier, type: EntryType, suggestedMatches: [String] = [String]()) {
+        self.identifier = identifier
         self.type = type
         self.suggestedMatches = suggestedMatches
         super.init()
         
-        self.cell.textView?.delegate = self
-        
         NotificationCenter.default.addObserver(self, selector: #selector(saveWasCalled), name: .saveWasCalled, object: nil)
     }
     
+    func add(cell: LongFormEntryCollectionViewCell) {
+        self.cell = cell
+        self.cell?.textView?.delegate = self
+    }
+    
     func makeFirstResponder() -> Bool {
-        cell.textView?.becomeFirstResponder()
+        cell?.textView?.becomeFirstResponder()
         return true
     }
     
     func replaceWithSuggestedMatch(_ value: AnyHashable) {
         resign()
-        cell.textView?.text = value as? String
+        cell?.textView?.text = value as? String
     }
     
     // MARK: UITextFieldDelegate
@@ -63,11 +65,11 @@ final class LongFormEntryValidator: NSObject, UserEntryValidating, UITextViewDel
     }
     
     @objc func saveWasCalled() {
-        cell.textView?.endEditing(true)
+        cell?.textView?.endEditing(true)
     }
     
     private func resign() {
-        cell.textView?.resignFirstResponder()
+        cell?.textView?.resignFirstResponder()
     }
     
     /// LongFormEntry views are not validated, so this does nothing

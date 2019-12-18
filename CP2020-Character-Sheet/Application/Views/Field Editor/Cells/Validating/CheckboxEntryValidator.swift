@@ -16,8 +16,8 @@ final class CheckboxEntryValidator: UserEntryValidating, CheckboxSelectionDelega
     private var invalidState: InvalidState?
     
     var currentValue: AnyHashable? {
-        guard let existingConfig = cell.checkboxConfig else { return nil }
-        let selectedCheckboxes = cell.checkboxes.filter({ $0.selected })
+        guard let existingConfig = cell?.checkboxConfig else { return nil }
+        let selectedCheckboxes = cell?.checkboxes.filter({ $0.selected }) ?? []
         
         // Ensures we're returning [String]? rather than [String?]?
         var selectedIdentifiers = [Identifier]()
@@ -37,17 +37,18 @@ final class CheckboxEntryValidator: UserEntryValidating, CheckboxSelectionDelega
     
     weak var delegate: UserEntryDelegate?
     
-    private let cell: CheckboxEntryCollectionViewCell
+    private var cell: CheckboxEntryCollectionViewCell?
     
-    init(with cell: CheckboxEntryCollectionViewCell) {
+    init(identifier: Identifier) {
+        self.identifier = identifier
+        NotificationCenter.default.addObserver(self, selector: #selector(saveWasCalled), name: .saveWasCalled, object: nil)
+    }
+    
+    func add(cell: CheckboxEntryCollectionViewCell) {
+        cell.checkboxes.forEach { $0.delegate = self }
         self.cell = cell
-        identifier = cell.identifier
-        
-        self.cell.checkboxes.forEach { $0.delegate = self }
         
         validate()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(saveWasCalled), name: .saveWasCalled, object: nil)
     }
     
     // MARK: UserEntryValidating
@@ -68,12 +69,12 @@ final class CheckboxEntryValidator: UserEntryValidating, CheckboxSelectionDelega
         guard let suggestedMatches = value as? [String] else { return }
         var matchingCheckboxes = [Checkbox]()
         suggestedMatches.forEach { identifier in
-            if let match = cell.checkboxes.first(where: { $0.label.text == identifier }) {
+            if let match = cell?.checkboxes.first(where: { $0.label.text == identifier }) {
                 matchingCheckboxes.append(match)
             }
         }
         
-        var nonMatchingCheckboxes = cell.checkboxes
+        var nonMatchingCheckboxes = cell?.checkboxes ?? []
         
         matchingCheckboxes.forEach { checkbox in
             nonMatchingCheckboxes.removeAll(where: { $0 == checkbox })
@@ -107,14 +108,14 @@ final class CheckboxEntryValidator: UserEntryValidating, CheckboxSelectionDelega
     // MARK: CheckboxSelectionDelegate
     
     func checkboxSelected(_ checkbox: Checkbox) {
-        guard let config = cell.checkboxConfig else { return }
+        guard let config = cell?.checkboxConfig else { return }
         
         var selectedCheckboxCount: Int {
-            cell.checkboxes.filter({ $0.selected }).count
+            cell?.checkboxes.filter({ $0.selected }).count ?? 0
         }
         
         while selectedCheckboxCount > config.maxChoices {
-            let allOtherCheckboxes = cell.checkboxes.filter { $0 != checkbox && $0.selected }
+            let allOtherCheckboxes = cell?.checkboxes.filter { $0 != checkbox && $0.selected } ?? []
             allOtherCheckboxes.first?.flipSelectionState()
         }
         
@@ -134,10 +135,10 @@ final class CheckboxEntryValidator: UserEntryValidating, CheckboxSelectionDelega
     }
     
     private func validate() {
-        guard let config = cell.checkboxConfig else { return }
+        guard let config = cell?.checkboxConfig else { return }
         let minimumNotMet = config.minChoices > 0 &&
-            cell.checkboxes.filter({ $0.selected }).count == 0
-        let maxiumumExceeded = cell.checkboxes.filter({ $0.selected }).count > config.maxChoices
+            cell?.checkboxes.filter({ $0.selected }).count == 0
+        let maxiumumExceeded = cell?.checkboxes.filter({ $0.selected }).count ?? 0 > config.maxChoices
         
         invalidState = {
             if minimumNotMet {
@@ -161,18 +162,18 @@ final class CheckboxEntryValidator: UserEntryValidating, CheckboxSelectionDelega
     }
     
     private func showWarning() {
-        cell.setCheckboxBackgroundColor(StyleConstants.Color.red.withAlphaComponent(0.5))
+        cell?.setCheckboxBackgroundColor(StyleConstants.Color.red.withAlphaComponent(0.5))
     }
 
     private func hideWarning() {
-        cell.setCheckboxBackgroundColor(StyleConstants.Color.light)
+        cell?.setCheckboxBackgroundColor(StyleConstants.Color.light)
     }
     
     // MARK: Private
     
     private func showPopup() {
         guard let invalidState = invalidState,
-            let config = cell.checkboxConfig else {
+            let config = cell?.checkboxConfig else {
                 return
         }
         
@@ -181,10 +182,10 @@ final class CheckboxEntryValidator: UserEntryValidating, CheckboxSelectionDelega
         
         switch invalidState {
         case .minimumNotMet:
-            title = "\(cell.identifier) requires more information"
+            title = "\(identifier) requires more information"
             message = "A minimum of \(config.minChoices) selected choice\(config.minChoices > 1 ? "s" : "") is required. Please select more options."
         case .maximumExceeded:
-            title = "\(cell.identifier) exceded maximum options selected"
+            title = "\(identifier) exceded maximum options selected"
             message = "Exceeding \(config.maxChoices) selected choice\(config.maxChoices > 1 ? "s" : "") is forbidden. Please select fewer options."
         }
         

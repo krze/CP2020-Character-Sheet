@@ -16,12 +16,12 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
     let identifier: Identifier
     private(set) var isValid: Bool = true
     var currentValue: AnyHashable? {
-        return cell.textField?.text
+        return cell?.textField?.text
     }
     
     weak var delegate: UserEntryDelegate?
     
-    private let cell: ShortFormEntryCollectionViewCell
+    private var cell: ShortFormEntryCollectionViewCell?
     private let type: EntryType
     private var needsValidation: Bool = false
     
@@ -45,31 +45,33 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
     
     private var consumedDoneButtonState = false
     
-    init(with cell: ShortFormEntryCollectionViewCell, type: EntryType, suggestedMatches: [String] = [String]()) {
-        self.cell = cell
-        self.identifier = cell.identifier
+    init(identifier: Identifier, type: EntryType, suggestedMatches: [String] = [String]()) {
+        self.identifier = identifier
         self.type = type
         self.suggestedMatches = suggestedMatches
         super.init()
         
-        self.cell.textField?.delegate = self
-        setupForType()
-        
         NotificationCenter.default.addObserver(self, selector: #selector(saveWasCalled), name: .saveWasCalled, object: nil)
+    }
+    
+    func add(cell: ShortFormEntryCollectionViewCell) {
+        self.cell = cell
+        self.cell?.textField?.delegate = self
+        setupForType()
     }
     
     private func setupForType() {
         switch type {
         case .Static:
-            cell.textField?.isUserInteractionEnabled = false
-            cell.contentView.backgroundColor = StyleConstants.Color.gray
-            cell.textField?.backgroundColor = StyleConstants.Color.gray
+            cell?.textField?.isUserInteractionEnabled = false
+            cell?.contentView.backgroundColor = StyleConstants.Color.gray
+            cell?.textField?.backgroundColor = StyleConstants.Color.gray
         case .Integer:
-            cell.textField?.keyboardType = .numberPad
-            cell.textField?.addDoneButtonOnKeyboard()
+            cell?.textField?.keyboardType = .numberPad
+            cell?.textField?.addDoneButtonOnKeyboard()
             fallthrough
         case .EnforcedChoiceText(_):
-            if let existingValue = cell.textField?.text {
+            if let existingValue = cell?.textField?.text {
                 validate(userEntry: existingValue)
             }
             needsValidation = true
@@ -80,19 +82,19 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
     // MARK: UserEntryValidating
     
     func makeFirstResponder() -> Bool {
-        cell.textField?.becomeFirstResponder()
+        cell?.textField?.becomeFirstResponder()
         return true
     }
     
     @objc func saveWasCalled() {
-        if cell.textField?.isEditing == true {
-            cell.textField?.endEditing(true)
+        if cell?.textField?.isEditing == true {
+            cell?.textField?.endEditing(true)
         }
     }
     
     func replaceWithSuggestedMatch(_ value: AnyHashable) {
         guard let value = value as? String else { return }
-        cell.textField?.text = value
+        cell?.textField?.text = value
         validate(userEntry: value)
     }
     
@@ -205,7 +207,7 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
         } else {
             partialMatch = nil
             timer = .scheduledTimer(withTimeInterval: 0.01, repeats: false, block: { (timer) in
-                self.cell.textField?.text = userQuery
+                self.cell?.textField?.text = userQuery
             })
             autoCompleteCharacterCount = 0
         }
@@ -224,14 +226,14 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
     private func putColourFormattedTextInTextField(autocompleteResult: String, userQuery: String) {
         let styledString: NSMutableAttributedString = NSMutableAttributedString(string: userQuery + autocompleteResult)
         styledString.addAttribute(.foregroundColor, value: StyleConstants.Color.gray, range: NSRange(location: userQuery.count,length: autocompleteResult.count))
-        cell.textField?.attributedText = styledString
+        cell?.textField?.attributedText = styledString
     }
 
     private func moveCaretToEndOfUserQueryPosition(userQuery: String) {
-        guard let beginning = cell.textField?.beginningOfDocument else { return }
+        guard let beginning = cell?.textField?.beginningOfDocument else { return }
 
-        if let newPosition = cell.textField?.position(from: beginning, offset: userQuery.count) {
-            cell.textField?.selectedTextRange = cell.textField?.textRange(from: newPosition, to: newPosition)
+        if let newPosition = cell?.textField?.position(from: beginning, offset: userQuery.count) {
+            cell?.textField?.selectedTextRange = cell?.textField?.textRange(from: newPosition, to: newPosition)
         }
     }
 
@@ -273,7 +275,7 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
     }
     
     private func showPopup() {
-        guard let userEntry = cell.textField?.text else { return }
+        guard let userEntry = cell?.textField?.text else { return }
         var choices = ""
 
         suggestedMatches.enumerated().forEach { index, choice in
@@ -309,15 +311,15 @@ final class ShortFormEntryValidator: NSObject, UserEntryValidating, UITextFieldD
     }
     
     private func resign() {
-         cell.textField?.resignFirstResponder()
+        cell?.textField?.resignFirstResponder()
     }
      
     private func showWarning() {
-         cell.textField?.backgroundColor = StyleConstants.Color.red.withAlphaComponent(0.5)
+        cell?.textField?.backgroundColor = StyleConstants.Color.red.withAlphaComponent(0.5)
     }
 
     private func hideWarning() {
-         cell.textField?.backgroundColor = StyleConstants.Color.light
+        cell?.textField?.backgroundColor = StyleConstants.Color.light
     }
      
     private func validate(userEntry: String) {
