@@ -15,12 +15,12 @@ DEPENDENCIES:
   - AppCenter/Distribute (= 2.5.1)
 
 SPEC REPOS:
-  trunk:
+  https://github.com/cocoapods/specs.git:
     - AppCenter
 
 SPEC CHECKSUMS:
   AppCenter: fddcbac6e4baae3d93a196ceb0bfe0e4ce407dec
 
-PODFILE CHECKSUM: 364e015329d1298f5177eca39d24e63ebd9d1d88
+PODFILE CHECKSUM: 83917197e75bfbf71b072067a9d322fe9c35d642
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.7.5

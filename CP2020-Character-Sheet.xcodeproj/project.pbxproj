@@ -150,7 +150,6 @@
 		9DFFCADC239008E600FF5BFF /* DamageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFFCADB239008E600FF5BFF /* DamageType.swift */; };
 		9DFFCADE23934CA400FF5BFF /* DiceRoll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFFCADD23934CA400FF5BFF /* DiceRoll.swift */; };
 		9DFFCAE023934D5600FF5BFF /* DiceRollEntryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFFCADF23934D5600FF5BFF /* DiceRollEntryCollectionViewCell.swift */; };
-		B015A39FBD917B71C3D49062 /* libPods-CP2020-Character-SheetTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4FEC6A76667F05EB09BF88D /* libPods-CP2020-Character-SheetTests.a */; };
 		D9C10573D7CB59E54CF95A51 /* libPods-CP2020-Character-Sheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7B8BE8C6628A6E142C97F9 /* libPods-CP2020-Character-Sheet.a */; };
 /* End PBXBuildFile section */
 
@@ -177,7 +176,6 @@
 		64157CBB2378AA6F00667FB0 /* ArmorDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmorDataSourceDelegate.swift; sourceTree = "<group>"; };
 		64157CBD2378AC2F00667FB0 /* ArmorDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmorDataSource.swift; sourceTree = "<group>"; };
 		64157CC02378ACC400667FB0 /* ArmorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmorViewModel.swift; sourceTree = "<group>"; };
-		79CBE5CBD09F9EF85009D6B3 /* Pods-CP2020-Character-SheetTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CP2020-Character-SheetTests.debug.xcconfig"; path = "Target Support Files/Pods-CP2020-Character-SheetTests/Pods-CP2020-Character-SheetTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9D0003A121F4FD080044F84A /* SkillField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillField.swift; sourceTree = "<group>"; };
 		9D0003A321FE46000044F84A /* EditorCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCollectionViewController.swift; sourceTree = "<group>"; };
 		9D0003A821FE479D0044F84A /* UserEntryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -326,8 +324,6 @@
 		9DFFCADF23934D5600FF5BFF /* DiceRollEntryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceRollEntryCollectionViewCell.swift; sourceTree = "<group>"; };
 		C35938B902A13BC22D3DE017 /* Pods-CP2020-Character-Sheet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CP2020-Character-Sheet.release.xcconfig"; path = "Target Support Files/Pods-CP2020-Character-Sheet/Pods-CP2020-Character-Sheet.release.xcconfig"; sourceTree = "<group>"; };
 		C65BB47270384F3FCC681F4A /* Pods-CP2020-Character-Sheet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CP2020-Character-Sheet.debug.xcconfig"; path = "Target Support Files/Pods-CP2020-Character-Sheet/Pods-CP2020-Character-Sheet.debug.xcconfig"; sourceTree = "<group>"; };
-		D4FEC6A76667F05EB09BF88D /* libPods-CP2020-Character-SheetTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CP2020-Character-SheetTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F2A189D44815050AFA7D124C /* Pods-CP2020-Character-SheetTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CP2020-Character-SheetTests.release.xcconfig"; path = "Target Support Files/Pods-CP2020-Character-SheetTests/Pods-CP2020-Character-SheetTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -343,7 +339,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B015A39FBD917B71C3D49062 /* libPods-CP2020-Character-SheetTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,7 +642,6 @@
 			isa = PBXGroup;
 			children = (
 				5A7B8BE8C6628A6E142C97F9 /* libPods-CP2020-Character-Sheet.a */,
-				D4FEC6A76667F05EB09BF88D /* libPods-CP2020-Character-SheetTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -857,8 +851,6 @@
 			children = (
 				C65BB47270384F3FCC681F4A /* Pods-CP2020-Character-Sheet.debug.xcconfig */,
 				C35938B902A13BC22D3DE017 /* Pods-CP2020-Character-Sheet.release.xcconfig */,
-				79CBE5CBD09F9EF85009D6B3 /* Pods-CP2020-Character-SheetTests.debug.xcconfig */,
-				F2A189D44815050AFA7D124C /* Pods-CP2020-Character-SheetTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -889,7 +881,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9D5C1F5121A06CE800B3D493 /* Build configuration list for PBXNativeTarget "CP2020-Character-SheetTests" */;
 			buildPhases = (
-				DA5AC28743834CE89EFBC6C1 /* [CP] Check Pods Manifest.lock */,
 				9D5C1F3621A06CE800B3D493 /* Sources */,
 				9D5C1F3721A06CE800B3D493 /* Frameworks */,
 				9D5C1F3821A06CE800B3D493 /* Resources */,
@@ -1029,28 +1020,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-CP2020-Character-Sheet-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DA5AC28743834CE89EFBC6C1 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CP2020-Character-SheetTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1411,7 +1380,6 @@
 		};
 		9D5C1F5221A06CE800B3D493 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 79CBE5CBD09F9EF85009D6B3 /* Pods-CP2020-Character-SheetTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1434,7 +1402,6 @@
 		};
 		9D5C1F5321A06CE800B3D493 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F2A189D44815050AFA7D124C /* Pods-CP2020-Character-SheetTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

@@ -7,11 +7,5 @@ target 'CP2020-Character-Sheet' do
 
   pod 'AppCenter', '2.5.1'
   pod 'AppCenter/Distribute', '2.5.1'
-  # Pods for CP2020-Character-Sheet
-
-  target 'CP2020-Character-SheetTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
 
 end
