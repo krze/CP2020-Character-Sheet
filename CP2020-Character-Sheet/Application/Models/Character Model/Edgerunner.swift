@@ -314,7 +314,15 @@ final class Edgerunner: Codable, EditableModel {
                     return
             }
             
-//            if wound
+            guard wound.damageAmount > amount else {
+                self.remove(wound, validationCompletion: completion)
+                return
+            }
+            
+            let oldWound = self.wounds.remove(at: woundIndex)
+            let newWound = Wound(traumaType: oldWound.traumaType, damageAmount: oldWound.damageAmount - amount, location: oldWound.location)
+            
+            self.wounds.insert(newWound, at: woundIndex)
             
             self.woundsChanged()
             

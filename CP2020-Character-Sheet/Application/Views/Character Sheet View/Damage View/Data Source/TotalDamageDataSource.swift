@@ -181,11 +181,15 @@ extension TotalDamageDataSource: TableViewManaging {
         let title = wound.traumaType == .CyberwareDamage ? "Repair" : "Heal"
         
         let action = UIContextualAction(style: .normal, title: title) { (action, view, completion) in
-            self.model.remove(wound) { (result) in
-                switch result {
-                case .success: completion(true)
-                default: completion(false)
+            self.repairAmount(title: "\(title) damage:") { _ in
+                guard let damageReducerHelper = self.damageReducerHelper else { return }
+                self.model.reduce(wound: wound, amount: damageReducerHelper.value) { (result) in
+                    switch result {
+                    case .success: completion(true)
+                    default: completion(false)
+                    }
                 }
+                self.damageReducerHelper = nil
             }
         }
       
@@ -221,7 +225,9 @@ extension TotalDamageDataSource: TableViewManaging {
 }
 
 private final class DamageReducerHelper: NSObject, UITextFieldDelegate {
+    
     var value = 0
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let string = textField.text,
             let value = Int(string) else {
