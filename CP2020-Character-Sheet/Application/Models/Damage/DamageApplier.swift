@@ -45,15 +45,32 @@ struct DamageHelper {
                         let thisType = traumaTypes.removeFirst()
                         let amount = traumaTypes.isEmpty ? amountPerWound + remainder : amountPerWound
 
-                         wounds.append(Wound(traumaType: thisType, damageAmount: amount, locations: locations))
+                        wounds.append(contentsOf: distribute(damage: amount, overLocations: locations, traumaType: thisType))
                     }
                 }
                 else {
                     if let traumaType = traumaTypes.first {
-                        wounds.append(Wound(traumaType: traumaType, damageAmount: leftoverDamage, locations: locations))
+                        wounds.append(contentsOf: distribute(damage: leftoverDamage, overLocations: locations, traumaType: traumaType))
                     }
                 }
             }
+        }
+        
+        return wounds
+    }
+    
+    private static func distribute(damage: Int, overLocations locations: [BodyLocation], traumaType: TraumaType) -> [Wound] {
+        var locations = locations.shuffled()
+        let damagePerWound = damage / locations.count
+        let remainder = damage % locations.count
+        var wounds = [Wound]()
+        
+        while locations.count > 0 {
+            let thisLocation = locations.removeFirst()
+            let amount = locations.isEmpty ? damagePerWound + remainder : damagePerWound
+            let finalAmount = thisLocation == .Head ? amount * Rules.Damage.headWoundMultiplier : amount
+            
+            wounds.append(Wound(traumaType: traumaType, damageAmount: finalAmount, location: thisLocation) )
         }
         
         return wounds

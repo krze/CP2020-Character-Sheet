@@ -24,6 +24,8 @@ final class TotalDamageDataSource: NSObject, EditorValueReciever {
         }
     }
     
+    private var damageReducerHelper: DamageReducerHelper?
+    
     init(model: DamageModel) {
         self.model = model
         self.maxDamage = Rules.Damage.maxDamagePoints
@@ -69,8 +71,8 @@ final class TotalDamageDataSource: NSObject, EditorValueReciever {
         let wounds = model.wounds
 
         BodyLocation.allCases.forEach { location in
-            let damage = wounds.filter({ !$0.isMultiLocation() && $0.locations.contains(location) }).reduce(0, { $0 + $1.totalDamage()})
-            let hasMortalDamage = wounds.contains(where: { !$0.isMultiLocation() && $0.isMortal() })
+            let damage = wounds.filter({ $0.location == location }).reduce(0, { $0 + $1.damageAmount})
+            let hasMortalDamage = wounds.contains(where: { $0.isMortal() })
             let status: BodyPartStatus = hasMortalDamage ? .Destroyed : damage > 0 ? .Damaged : .Undamaged
             
             // MARK: Update AnatomyDisplayController
@@ -114,16 +116,9 @@ extension TotalDamageDataSource: TableViewManaging {
             model.wounds.indices.contains(indexPath.row) {
             
             let wound = model.wounds[indexPath.row]
-            let location: String = {
-                guard wound.locations.count == 1,
-                    let location = wound.locations.first else {
-                        return BodyStrings.multipleLocations
-                }
-                
-                return location.descriptiveText()
-            }()
+            let location = wound.location.descriptiveText()
             let columnListing = ColumnListing(name: location,
-                                              firstColumnValue: "\(wound.totalDamage())",
+                                              firstColumnValue: "\(wound.damageAmount)",
                                               secondColumnValue: "\(wound.traumaType.abbreviation())",
                                               thirdColumnValue: "\(wound.isFatal() ? "YES" : "NO")")
 
@@ -166,7 +161,7 @@ extension TotalDamageDataSource: TableViewManaging {
         guard model.wounds.indices.contains(indexPath.row) else { return nil }
         
         let wound = model.wounds[indexPath.row]
-        let action = UIContextualAction(style: .destructive, title: "Heal") { (action, view, completion) in
+        let action = UIContextualAction(style: .destructive, title: "Remove") { (action, view, completion) in
             self.model.remove(wound) { (result) in
                 switch result {
                 case .success: completion(true)
@@ -176,6 +171,25 @@ extension TotalDamageDataSource: TableViewManaging {
         }
       
         action.backgroundColor = StyleConstants.Color.red
+        return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard model.wounds.indices.contains(indexPath.row) else { return nil }
+        
+        let wound = model.wounds[indexPath.row]
+        let title = wound.traumaType == .CyberwareDamage ? "Repair" : "Heal"
+        
+        let action = UIContextualAction(style: .normal, title: title) { (action, view, completion) in
+            self.model.remove(wound) { (result) in
+                switch result {
+                case .success: completion(true)
+                default: completion(false)
+                }
+            }
+        }
+      
+        action.backgroundColor = StyleConstants.Color.blue
         return UISwipeActionsConfiguration(actions: [action])
     }
   
@@ -188,4 +202,32 @@ extension TotalDamageDataSource: TableViewManaging {
         NotificationCenter.default.post(name: .showEditor, object: editorViewController)
     }
     
+    @objc private func repairAmount(title: String, acceptHandler: @escaping (UIAlertAction) -> Void) {
+        damageReducerHelper = DamageReducerHelper()
+        
+        let alert = UIAlertController(title: title, message: "Enter a positive integer", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+            self.damageReducerHelper = nil
+        }))
+        alert.addAction(UIAlertAction(title: "Accept", style: .default, handler: acceptHandler))
+
+        alert.addTextField { [weak self] field in
+            field.keyboardType = .numberPad
+            field.delegate = self?.damageReducerHelper
+        }
+        NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
+    }
+    
+}
+
+private final class DamageReducerHelper: NSObject, UITextFieldDelegate {
+    var value = 0
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let string = textField.text,
+            let value = Int(string) else {
+                return
+        }
+        
+        self.value = value
+    }
 }

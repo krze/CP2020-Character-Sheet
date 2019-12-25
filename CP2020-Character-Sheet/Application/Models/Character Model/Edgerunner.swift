@@ -306,8 +306,29 @@ final class Edgerunner: Codable, EditableModel {
         }
     }
     
+    func reduce(wound: Wound, amount: Int, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self,
+                let woundIndex = self.wounds.firstIndex(of: wound)
+                else {
+                    return
+            }
+            
+//            if wound
+            
+            self.woundsChanged()
+            
+            completion(.success(.valid))
+
+            NotificationCenter.default.post(name: .statsDidChange, object: nil)
+            NotificationCenter.default.post(name: .damageDidChange, object: nil)
+            
+            self.saveCharacter()
+        }
+    }
+    
     private func woundsChanged() {
-        self.damage = self.wounds.map({$0.totalDamage()}).reduce(0, { $0 + $1 })
+        self.damage = self.wounds.map({$0.damageAmount}).reduce(0, { $0 + $1 })
 
         self.statModifiers.removeAll(where: { $0.damageRelated })
         

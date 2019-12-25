@@ -18,47 +18,30 @@ struct Wound: Codable, Hashable {
     let damageAmount: Int
     
     /// Where the wound is located
-    let locations: [BodyLocation]
+    let location: BodyLocation
     
     /// A unique ID created to ensure two wounds don't get mixed up
     let uniqueID: UUID = UUID()
-    
-    /// Calculates the total damage based on location variables. Use this instead of `damageAmount` to get the actual damage
-    /// caused to the location.
-    func totalDamage() -> Int {
-        guard !isMultiLocation() else { return damageAmount }
-        
-        if traumaType != .CyberwareDamage && locations.contains(.Head) {
-            return damageAmount * Rules.Damage.headWoundMultiplier
-        }
-        
-        return damageAmount
-    }
-    
+
     /// Specifies whether this wound is a mortal wound. Outside of the mortal track, particuarly traumatic wounds must be
     /// accompanied with a mortal check
     func isMortal() -> Bool {
         guard traumaType != .CyberwareDamage else { return false }
         
-        return totalDamage() >= Rules.Damage.mortalWoundThreshold
+        return damageAmount >= Rules.Damage.mortalWoundThreshold
     }
     
     /// Specifies whether this wound is instantly fatal. This cannot be resisted with a Mortal check.
     func isFatal() -> Bool {
-        return isMortal() && locations.contains(.Head)
+        return isMortal() && location == .Head
     }
-    
-    /// Specifies if the wound covers multiple locations.
-    func isMultiLocation() -> Bool {
-        return locations.count > 1
-    }
-    
+
     // MARK: Hashable
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(traumaType)
         hasher.combine(damageAmount)
-        hasher.combine(locations)
+        hasher.combine(location)
         hasher.combine(uniqueID)
     }
 

@@ -38,4 +38,11 @@ protocol DamageModel {
     ///   - wound: The wound to remove
     ///   - completion: The validation completion
     func remove(_ wound: Wound, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
+    
+    /// Reduces the damage of the wound specified
+    /// - Parameters:
+    ///   - wound: The wound to heal or repair
+    ///   - amount: The amount to reduce the damage
+    ///   - completion: The validation completion
+    func reduce(wound: Wound, amount: Int, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
 }
