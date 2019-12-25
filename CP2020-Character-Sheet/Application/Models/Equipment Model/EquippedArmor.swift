@@ -121,14 +121,18 @@ final class EquippedArmor: Codable {
     ///   - damages: A series of DamageRollResults
     ///   - coverSP: The coverSP before the damage is applied
     ///   - leftoverDamageHandler: This closure is called for each event where the damage bypasses armor
-    func applyDamages(_ damages: [DamageRollResult], coverSP: Int, leftoverDamageHandler: (Int, [BodyLocation]) -> Void) {
+    func applyDamages(_ damages: [DamageRollResult], coverSP: Int, leftoverDamageHandler: (Int, [BodyLocation], DamageType) -> Void) {
         var coverSP = coverSP
         
         for damage in damages {
             guard damage.locations.count == 1,
                 let location = damage.locations.first
                 else {
-                    // Iterate over all armor individually and apply damage to its affected parts
+                    // Currently there are no cases where multi-location damage results in damage
+                    // that does not ignore armor. Therefore, if there's more than one location, it must be
+                    // ignoring armor.
+                    
+                    // First, iterate over all armor individually and apply damage to its affected parts
                     var allArmor = armor
                     while !allArmor.isEmpty {
                         let thisArmor = allArmor.removeFirst()
@@ -147,16 +151,14 @@ final class EquippedArmor: Codable {
                         }
                     }
                     
-                    // Currently there are no cases where multi-location damage results in damage
-                    // that ignores armor. Therefore, if there's more than one location, it must be
-                    // ignoring armor.
-                    leftoverDamageHandler(damage.amount, damage.locations)
+                    // Then apply the full damage to the body, since this is definitely ignoring armor
+                    leftoverDamageHandler(damage.amount, damage.locations, damage.type)
                     continue
             }
             let thisRemaining = applyDamage(damage.amount, damageType: damage.type, location: location, coverSP: coverSP)
             
             if thisRemaining > 0 {
-                leftoverDamageHandler(thisRemaining, damage.locations)
+                leftoverDamageHandler(thisRemaining, damage.locations, damage.type)
 
                 if coverSP > 0 {
                  coverSP -= 1

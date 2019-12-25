@@ -13,6 +13,35 @@ struct Rules {
     
     typealias CharacterStats = CP2020_Character_Sheet.Stats
     
+    static func halvedDown(_ amount: Int) -> Int {
+        let amount = Double(amount)
+        let result = amount * 0.5
+        
+        return Int(floor(result))
+    }
+    
+    static func halvedUp(_ amount: Int) -> Int {
+        let amount = Double(amount)
+        let result = amount * 0.5
+        
+        return Int(ceil(result))
+    }
+    
+    static func quarteredUp(_ amount: Int) -> Int {
+        let amount = Double(amount)
+        let result = amount * 0.25
+        
+        return Int(ceil(result))
+    }
+    
+    static func thirdedDown(_ amount: Int) -> Int {
+        let amount = Double(amount)
+        let multiplier: Double = 1.0/3.0
+        let result = amount * multiplier
+        
+        return Int(floor(result))
+    }
+    
     struct WornArmor {
         static let maxLayersPerLocation = 3
         static let maxHardArmorPerLocation = 1
@@ -139,35 +168,6 @@ struct Rules {
             default:
                 return damage
             }
-        }
-        
-        static func halvedDown(_ amount: Int) -> Int {
-            let amount = Double(amount)
-            let result = amount * 0.5
-            
-            return Int(floor(result))
-        }
-        
-        static func halvedUp(_ amount: Int) -> Int {
-            let amount = Double(amount)
-            let result = amount * 0.5
-            
-            return Int(ceil(result))
-        }
-        
-        static func quarteredUp(_ amount: Int) -> Int {
-            let amount = Double(amount)
-            let result = amount * 0.25
-            
-            return Int(ceil(result))
-        }
-        
-        static func thirdedDown(_ amount: Int) -> Int {
-            let amount = Double(amount)
-            let multiplier: Double = 1.0/3.0
-            let result = amount * multiplier
-            
-            return Int(floor(result))
         }
         
     }
@@ -335,6 +335,15 @@ struct Rules {
                 return [.Burn]
             default:
                 return [.Piercing]
+            }
+        }
+        
+        static func effectiveDamage(of damageType: DamageType, amount damage: Int) -> Int {
+            switch damageType {
+            case .AP:
+                return halvedDown(damage)
+            default:
+                return damage
             }
         }
         

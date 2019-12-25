@@ -31,9 +31,12 @@ struct DamageHelper {
         var wounds = [Wound]()
         
         if !damages.isEmpty {
-            edgerunner.equippedArmor.applyDamages(damages, coverSP: incomingDamage.coverSP) { leftoverDamage, locations in
+            edgerunner.equippedArmor.applyDamages(damages, coverSP: incomingDamage.coverSP) { leftoverDamage, locations, damageType in
                 var traumaTypes = Rules.Damage.traumaTypes(for: damageType)
-
+                let leftoverDamage = Rules.Damage.effectiveDamage(of: damageType, amount: leftoverDamage)
+                
+                // NEXT: Verify how much damage explosive damage gets proportionally
+                
                 if traumaTypes.count > 1 {
                     let amountPerWound = leftoverDamage / traumaTypes.count
                     let remainder = leftoverDamage % traumaTypes.count
