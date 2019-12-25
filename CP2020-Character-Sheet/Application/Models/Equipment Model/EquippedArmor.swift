@@ -17,10 +17,6 @@ final class EquippedArmor: Codable {
     /// Total EV penalty from armor and layered encumberance.
     private(set) var encumberancePenalty = 0
     
-    /// The ordering of armor worn. This is from the most internal ArmorZone outward. Within each zone, armor is sorted
-    /// by greatest to least SP value.
-    private(set) var order = [Int: Armor]()
-    
     /// The amount of damage to armor in the location. This subtracts the SP.
     private(set) var armorDamages = [ArmorDamage]()
     
@@ -32,12 +28,11 @@ final class EquippedArmor: Codable {
     /// Returns the SP value for the body part location, based on the New Armor Rules
     /// - Parameter location: The location that you need an SP value for
     func sp(for location: BodyLocation) -> Int {
-        var currentLayer = 0
         var previousLayerSP = 0
         var diffBonus = 0
         var largestSP = 0
         
-        while let thisLayer = order[currentLayer] {
+        armor.forEach { thisLayer in
             if thisLayer.locations.contains(location) {
                 let thisLayerSP = thisLayer.currentSP(for: location)
                 if previousLayerSP > 0 {
@@ -51,7 +46,6 @@ final class EquippedArmor: Codable {
                 
                 previousLayerSP = thisLayerSP
             }
-            currentLayer += 1
         }
         
         return largestSP + diffBonus
@@ -90,8 +84,8 @@ final class EquippedArmor: Codable {
         
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.modifyArmorZones(.adding, armor)
             self.armor.append(armor)
+            self.armor.sortByZones()
             self.updateEncumberance()
             
             completion(.success(.valid))
@@ -109,8 +103,9 @@ final class EquippedArmor: Codable {
     func remove(_ armor: Armor, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.modifyArmorZones(.removing, armor)
+            
             self.armor.removeAll(where: { $0 == armor})
+            self.armor.sortByZones()
             self.updateEncumberance()
             
             completion(.success(.valid))
@@ -168,6 +163,8 @@ final class EquippedArmor: Codable {
                 }
             }
         }
+        
+        NotificationCenter.default.post(name: .armorDidChange, object: nil)
     }
         
     /// Applies damage to the specified location. If any damage exceeds the armor, this will return a value > 0
@@ -240,33 +237,6 @@ final class EquippedArmor: Codable {
         }
 
         return encumberingArmor.count
-    }
-    
-    /// Modifies the sorted armor zones
-    /// - Parameters:
-    ///   - process: The specified process of either adding or removing
-    ///   - armor: The armor under process
-    private func modifyArmorZones(_ process: Process, _ armor: Armor) {
-        var mutableOrder = [Int: Armor]()
-        var currentLayer = 0
-        var zones = ArmorZone.allCases
-        
-        // Order the armor by layers from inside to out
-        
-        while !zones.isEmpty {
-            let zone = zones.removeFirst()
-            var armorInZone = self.armor.filter { $0.zone == zone }
-            if armor.zone == zone {
-                process == .adding ? armorInZone.append(armor) : armorInZone.removeAll(where: { $0 == armor})
-            }
-            
-            armorInZone.sort(by: { $0.sp > $1.sp })
-            armorInZone.forEach { armor in
-                mutableOrder[currentLayer] = armor
-                currentLayer += 1
-            }
-        }
-        order = mutableOrder
     }
         
     private func saveCharacter() {

@@ -59,6 +59,9 @@ final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOn
         
         backgroundColor = StyleConstants.Color.light
         setupTapTarget()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(armorChanged), name: .armorDidChange, object: nil)
+        
         wasSetUp = true
     }
 
@@ -94,6 +97,10 @@ final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOn
             self.dataSource?.anatomyDisplayController = headerViewController
             NotificationCenter.default.post(name: .showEditor, object: statusTableView)
         }
+    }
+    
+    @objc private func armorChanged() {
+        dataSource?.refreshData()
     }
     
     private func setupTapTarget() {

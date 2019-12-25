@@ -307,7 +307,7 @@ final class Edgerunner: Codable, EditableModel {
     }
     
     private func woundsChanged() {
-        self.damage = self.wounds.map({$0.damageAmount}).reduce(0, { $0 + $1 })
+        self.damage = self.wounds.map({$0.totalDamage()}).reduce(0, { $0 + $1 })
 
         self.statModifiers.removeAll(where: { $0.damageRelated })
         
