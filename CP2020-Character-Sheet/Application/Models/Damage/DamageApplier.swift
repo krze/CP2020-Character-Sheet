@@ -31,27 +31,36 @@ struct DamageHelper {
         var wounds = [Wound]()
         
         if !damages.isEmpty {
-            edgerunner.equippedArmor.applyDamages(damages, coverSP: incomingDamage.coverSP) { leftoverDamage, locations, damageType in
+            edgerunner.equippedArmor.applyDamages(damages, coverSP: incomingDamage.coverSP)
+            { leftoverDamage, locations, damageType in
+                // This closure is only called when damage exceeds the armor protection.
+                
+                // Just in case, don't bother applying damage if there is none
+                guard leftoverDamage > 0 else { return }
+                
                 var traumaTypes = Rules.Damage.traumaTypes(for: damageType)
                 let leftoverDamage = Rules.Damage.effectiveDamage(of: damageType, amount: leftoverDamage)
-                
-                // NEXT: Verify how much damage explosive damage gets proportionally
-                
-                if traumaTypes.count > 1 {
+                                
+                // Cannot create extra damage. If there's only 1 point of damage, but multiple trauma types,
+                // then don't bother trying to distribute this damage over multiple trauma types. Wounds that
+                // have multiple trauma types are hard-coded to have the types ordered by the rules in the
+                // book, so if there is less damage than trauma types, it will be given to the first trauma
+                // type listed.
+                //
+                // Currently, there are no damages that cause more than two trauma types.
+                if traumaTypes.count > 1 && leftoverDamage > traumaTypes.count {
                     let amountPerWound = leftoverDamage / traumaTypes.count
                     let remainder = leftoverDamage % traumaTypes.count
 
                     while traumaTypes.count > 0 {
-                        let thisType = traumaTypes.removeFirst()
+                        let traumaType = traumaTypes.removeFirst()
                         let amount = traumaTypes.isEmpty ? amountPerWound + remainder : amountPerWound
 
-                        wounds.append(contentsOf: distribute(damage: amount, overLocations: locations, traumaType: thisType))
+                        wounds.append(contentsOf: distribute(damage: amount, overLocations: locations, traumaType: traumaType))
                     }
                 }
-                else {
-                    if let traumaType = traumaTypes.first {
-                        wounds.append(contentsOf: distribute(damage: leftoverDamage, overLocations: locations, traumaType: traumaType))
-                    }
+                else if let traumaType = traumaTypes.first {
+                    wounds.append(contentsOf: distribute(damage: leftoverDamage, overLocations: locations, traumaType: traumaType))
                 }
             }
         }
@@ -61,16 +70,24 @@ struct DamageHelper {
     
     private static func distribute(damage: Int, overLocations locations: [BodyLocation], traumaType: TraumaType) -> [Wound] {
         var locations = locations.shuffled()
+        
+        // The minimum amount of damage a location can receive is 1 point. We cannot distribute more
+        // damage than there are locations on the body, therefore, this loop removes locations from
+        // the array until, at minimum, the locations left will receive at least 1 point of damage
+        while locations.count > damage {
+            locations.removeFirst()
+        }
+        
         let damagePerWound = damage / locations.count
         let remainder = damage % locations.count
         var wounds = [Wound]()
         
         while locations.count > 0 {
-            let thisLocation = locations.removeFirst()
+            let location = locations.removeFirst()
             let amount = locations.isEmpty ? damagePerWound + remainder : damagePerWound
-            let finalAmount = thisLocation == .Head ? amount * Rules.Damage.headWoundMultiplier : amount
+            let finalAmount = location == .Head ? amount * Rules.Damage.headWoundMultiplier : amount
             
-            wounds.append(Wound(traumaType: traumaType, damageAmount: finalAmount, location: thisLocation) )
+            wounds.append(Wound(traumaType: traumaType, damageAmount: finalAmount, location: location))
         }
         
         return wounds

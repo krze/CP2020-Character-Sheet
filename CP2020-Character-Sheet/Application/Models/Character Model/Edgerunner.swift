@@ -306,6 +306,31 @@ final class Edgerunner: Codable, EditableModel {
         }
     }
     
+    func removeAll(_ traumaType: TraumaType, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self,
+                self.wounds.contains(where: { $0.traumaType == traumaType }) else {
+                return
+            }
+            
+            self.wounds.forEach { wound in
+                if wound.traumaType == traumaType, let woundIndex = self.wounds.firstIndex(of: wound) {
+                    self.wounds.remove(at: woundIndex)
+                }
+            }
+            
+            self.woundsChanged()
+            
+            completion(.success(.valid))
+
+            NotificationCenter.default.post(name: .statsDidChange, object: nil)
+            NotificationCenter.default.post(name: .damageDidChange, object: nil)
+            
+            self.saveCharacter()
+        }
+    }
+    
+    
     func reduce(wound: Wound, amount: Int, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self,

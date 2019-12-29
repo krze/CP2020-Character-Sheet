@@ -98,6 +98,7 @@ extension TotalDamageDataSource: TableViewManaging {
     func createDamageButtons(_ navigationItem: UINavigationItem) {
         // NEXT: figre out how to pop options for healing damage
         navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showNewDamageEditor)), animated: true)
+        navigationItem.setLeftBarButton(UIBarButtonItem(title: "Heal All...", style: .plain, target: self, action: #selector(showMultiHealMenu)), animated: true)
     }
     
     // MARK: UITableViewDataSource
@@ -204,6 +205,10 @@ extension TotalDamageDataSource: TableViewManaging {
         let editorViewController = EditorCollectionViewController(with: EditorCollectionViewModel.incomingDamage())
         editorViewController.delegate = self
         NotificationCenter.default.post(name: .showEditor, object: editorViewController)
+    }
+    
+    @objc private func showMultiHealMenu() {
+        let alert = UIAlertController(title: "Choose an option to heal", message: nil, preferredStyle: .actionSheet)
     }
     
     @objc private func repairAmount(title: String, acceptHandler: @escaping (UIAlertAction) -> Void) {

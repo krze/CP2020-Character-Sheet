@@ -39,6 +39,13 @@ protocol DamageModel {
     ///   - completion: The validation completion
     func remove(_ wound: Wound, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
     
+    /// Removes all wounds of the trauma type specified.
+    ///
+    /// - Parameters:
+    ///   - traumaType: The trauma type to remove
+    ///   - completion: The validation completion
+    func removeAll(_ traumaType: TraumaType, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
+    
     /// Reduces the damage of the wound specified
     /// - Parameters:
     ///   - wound: The wound to heal or repair
