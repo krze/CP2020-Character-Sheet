@@ -32,13 +32,13 @@ enum TraumaType: String, CaseIterable, Codable {
     func abbreviation() -> String {
         switch self {
         case .Burn:
-            return "BRN"
+            return "BURN"
         case .Blunt:
-            return "BLT"
+            return "BLNT"
         case .Piercing:
-            return "PRC"
+            return "PRCE"
         case .CyberwareDamage:
-            return "CYB"
+            return "CYBR"
         }
     }
     

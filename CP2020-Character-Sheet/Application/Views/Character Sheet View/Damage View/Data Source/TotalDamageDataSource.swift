@@ -71,8 +71,9 @@ final class TotalDamageDataSource: NSObject, EditorValueReciever {
         let wounds = model.wounds
 
         BodyLocation.allCases.forEach { location in
-            let damage = wounds.filter({ $0.location == location }).reduce(0, { $0 + $1.damageAmount})
-            let hasMortalDamage = wounds.contains(where: { $0.isMortal() })
+            let locationWounds = wounds.filter({ $0.location == location })
+            let damage = locationWounds.reduce(0, { $0 + $1.damageAmount})
+            let hasMortalDamage = locationWounds.contains(where: { $0.isMortal() })
             let status: BodyPartStatus = hasMortalDamage ? .Destroyed : damage > 0 ? .Damaged : .Undamaged
             
             // MARK: Update AnatomyDisplayController
