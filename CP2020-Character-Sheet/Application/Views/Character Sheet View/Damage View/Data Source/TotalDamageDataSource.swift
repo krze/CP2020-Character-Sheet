@@ -217,7 +217,7 @@ extension TotalDamageDataSource: TableViewManaging {
             self.model.removeAll(.Burn, validationCompletion: {_ in })
             self.model.removeAll(.Piercing, validationCompletion: {_ in })
         }
-        let healCyberWearAction = UIAlertAction(title: "Repair All Cyberwear Damage", style: .default) { _ in
+        let healCyberWearAction = UIAlertAction(title: "Repair All CyberWare Damage", style: .default) { _ in
             self.model.removeAll(.CyberwareDamage, validationCompletion: {_ in })
         }
         let healAllAction = UIAlertAction(title: "Heal All Damage", style: .destructive) { _ in
