@@ -208,7 +208,32 @@ extension TotalDamageDataSource: TableViewManaging {
     }
     
     @objc private func showMultiHealMenu() {
-        let alert = UIAlertController(title: "Choose an option to heal", message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Heals or repairs damage of a specific type.", message: nil, preferredStyle: .actionSheet)
+        let healBluntAction = UIAlertAction(title: "Heal All Blunt Damage", style: .default) { _ in
+            self.model.removeAll(.Blunt, validationCompletion: {_ in })
+        }
+        let healFleshDamage = UIAlertAction(title: "Heal All Flesh Damage", style: .default) { _ in
+            self.model.removeAll(.Blunt, validationCompletion: {_ in })
+            self.model.removeAll(.Burn, validationCompletion: {_ in })
+            self.model.removeAll(.Piercing, validationCompletion: {_ in })
+        }
+        let healCyberWearAction = UIAlertAction(title: "Repair Cyberwear Damage", style: .default) { _ in
+            self.model.removeAll(.CyberwareDamage, validationCompletion: {_ in })
+        }
+        let healAllAction = UIAlertAction(title: "Heal All Damage", style: .destructive) { _ in
+            self.model.wounds.forEach { wound in
+                self.model.remove(wound, validationCompletion: { _ in })
+            }
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alert.addAction(healBluntAction)
+        alert.addAction(healFleshDamage)
+        alert.addAction(healCyberWearAction)
+        alert.addAction(healAllAction)
+        alert.addAction(cancel)
+        
+        NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
     }
     
     @objc private func repairAmount(title: String, acceptHandler: @escaping (UIAlertAction) -> Void) {
