@@ -358,6 +358,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E811C7B23CBBDE000B6082A /* Popup Views */ = {
+			isa = PBXGroup;
+			children = (
+				4E9EC72D23CBAC7E00B2AEC5 /* PopupViewController.swift */,
+			);
+			path = "Popup Views";
+			sourceTree = "<group>";
+		};
 		64157CBA2378A9EE00667FB0 /* Armor View */ = {
 			isa = PBXGroup;
 			children = (
@@ -405,7 +413,7 @@
 				9DC8D65B2380A39F003B6C72 /* Status Table View */,
 				9D3761E921EE702C0027513E /* Field Editor */,
 				9D004E3921D82B8D004DFA4D /* Decoration View */,
-				4E9EC72D23CBAC7E00B2AEC5 /* PopupViewController.swift */,
+				4E811C7B23CBBDE000B6082A /* Popup Views */,
 			);
 			path = Views;
 			sourceTree = "<group>";

@@ -32,20 +32,29 @@ final class PopupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = StyleConstants.Color.dark90
-        view.alpha = 0.25
+        view.backgroundColor = .clear
+        
+        // Set up the translucent background
+        
+        let backgroundView = UIView(frame: view.frame)
+        view.addSubview(backgroundView)
+        backgroundView.backgroundColor = StyleConstants.Color.dark
+        backgroundView.alpha = 0.45
         
         guard let contentView = contentView else { return }
         
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(contentView)
+        // Set up the scrollview with the contenView info
+        let scrollView = UIScrollView(frame: view.frame)
+        scrollView.backgroundColor = .clear
+        scrollView.contentSize = contentView.bounds.size
+        view.addSubview(scrollView)
         
-        NSLayoutConstraint.activate([
-            contentView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0),
-            contentView.heightAnchor.constraint(equalToConstant: contentViewHeight),
-            contentView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            contentView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+        // Add the content view
+        
+        let origin = CGPoint(x: 0.0, y: view.frame.height * 0.05)
+        let frame = CGRect(origin: origin, size: CGSize(width: view.frame.width, height: contentViewHeight))
+        contentView.frame = frame
+        scrollView.addSubview(contentView)
     }
     
 }
