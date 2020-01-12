@@ -16,13 +16,22 @@ import Foundation
 /// - Mortal: Mortal Wound
 enum WoundType: String, CaseIterable {
     case Light, Serious, Critical, Mortal
+    
+    func saveRollTypes() -> [SaveRollType] {
+        switch self {
+        case .Mortal:
+            return [.Mortal, .Stun]
+        default:
+            return [.Stun]
+        }
+    }
 }
 
-/// Categories of Stun effects.
+/// Categories of Save Roll effects.
 ///
 /// - Stun: Stun effect
-enum StunType: String, CaseIterable {
-    case Stun
+enum SaveRollType: String, CaseIterable {
+    case Stun, Mortal
 }
 
 /// Categories of Damage types

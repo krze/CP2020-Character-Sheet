@@ -22,7 +22,7 @@ import UIKit
 struct DamageSectionViewModel {
     
     let woundType: WoundType
-    let stunType: StunType = StunType.Stun // There is only one type of stun, but it's not considered a wound
+    let stunType: SaveRollType = .Stun // There is only one type of stun, but it's not considered a wound
 
     
     /// The proportion of the view taken up by the top section label indicating damage type. This is the top section of the view.

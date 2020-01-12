@@ -127,7 +127,7 @@ final class DamageSectionView: UIView {
     ///   - stunType: The type of stun to be listed in the label
     ///   - yPosition: The yPosition relative to the entire DamageSectionView
     /// - Returns: UILabel ready to be positioned in the cell
-    private func label(for stunType: StunType, yPosition: CGFloat) -> UILabel {
+    private func label(for stunType: SaveRollType, yPosition: CGFloat) -> UILabel {
         let text = "\(stunType.rawValue) -\(model.stunCount)"
         let label = self.label(for: text, yPosition: yPosition, viewRatio: model.stunLabelViewRatio, invertColors: true)
         
