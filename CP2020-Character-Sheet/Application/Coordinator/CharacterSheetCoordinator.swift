@@ -123,6 +123,7 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
         NotificationCenter.default.addObserver(self, selector: #selector(showSkillTable), name: .showSkillTable, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showEditor), name: .showEditor, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showHelpTextAlert), name: .showHelpTextAlert, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showPopup), name: .showPopup, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(saveToDiskRequested(notification:)), name: .saveToDiskRequested, object: nil)
     }
     
@@ -154,6 +155,17 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
         DispatchQueue.main.async {
             guard let alertController = notification.object as? UIAlertController else { return }
             self.display(alert: alertController)
+        }
+    }
+    
+    @objc private func showPopup(notification: Notification) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self, !self.childViewIsPresenting,
+                let editorViewController = notification.object as? PopupViewController else {
+                    return
+            }
+            editorViewController.modalPresentationStyle = .overCurrentContext
+            self.topVC.present(editorViewController, animated: true)
         }
     }
     

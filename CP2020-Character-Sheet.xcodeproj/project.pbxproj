@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4E4F549423B2ED3700621BA8 /* Array+Armor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F549323B2ED3700621BA8 /* Array+Armor.swift */; };
+		4E9EC72E23CBAC7E00B2AEC5 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9EC72D23CBAC7E00B2AEC5 /* PopupViewController.swift */; };
 		4EF602C323C03EAC00D91F1B /* Int+Nonnegative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF602C223C03EAC00D91F1B /* Int+Nonnegative.swift */; };
 		64157CB92378A9AF00667FB0 /* ArmorViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64157CB82378A9AF00667FB0 /* ArmorViewCell.swift */; };
 		64157CBC2378AA6F00667FB0 /* ArmorDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64157CBB2378AA6F00667FB0 /* ArmorDataSourceDelegate.swift */; };
@@ -174,6 +175,7 @@
 
 /* Begin PBXFileReference section */
 		4E4F549323B2ED3700621BA8 /* Array+Armor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Armor.swift"; sourceTree = "<group>"; };
+		4E9EC72D23CBAC7E00B2AEC5 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		4EF602C223C03EAC00D91F1B /* Int+Nonnegative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Nonnegative.swift"; sourceTree = "<group>"; };
 		5A7B8BE8C6628A6E142C97F9 /* libPods-CP2020-Character-Sheet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CP2020-Character-Sheet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		64157CB82378A9AF00667FB0 /* ArmorViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmorViewCell.swift; sourceTree = "<group>"; };
@@ -403,6 +405,7 @@
 				9DC8D65B2380A39F003B6C72 /* Status Table View */,
 				9D3761E921EE702C0027513E /* Field Editor */,
 				9D004E3921D82B8D004DFA4D /* Decoration View */,
+				4E9EC72D23CBAC7E00B2AEC5 /* PopupViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1111,6 +1114,7 @@
 				9D004E2721D5A97D004DFA4D /* ModelManager.swift in Sources */,
 				9DFA19EF21CE9D920092A450 /* HighlightedSkillViewCellDataSource.swift in Sources */,
 				9D7E123F238191F30025443D /* ColumnListing.swift in Sources */,
+				4E9EC72E23CBAC7E00B2AEC5 /* PopupViewController.swift in Sources */,
 				9DFCB7B021D1506C00F99798 /* SkillModel.swift in Sources */,
 				9D5C1F5C21A0794400B3D493 /* DamageSectionView.swift in Sources */,
 				9D4724A02309EF0100CECEA2 /* EditorCollectionViewModel+Role.swift in Sources */,

@@ -107,6 +107,7 @@ extension TotalDamageDataSource: TableViewManaging {
     func numberOfSections(in tableView: UITableView) -> Int {
         1
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         model.wounds.count
     }

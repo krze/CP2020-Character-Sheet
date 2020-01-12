@@ -66,8 +66,17 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
                 ])
             
             leadingAnchor = cell.trailingAnchor
+            
+            // TEMP till refactoring
+            
+            if label == .Save {
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showSavePopup))
+                tapGesture.cancelsTouchesInView = false
+                tapGesture.numberOfTouchesRequired = 1
+                cell.addGestureRecognizer(tapGesture)
+            }
         }
-
+        
         wasSetUp = true
     }
     
@@ -129,6 +138,16 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
         label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
         
         return label
+    }
+    
+    @objc private func showSavePopup() {
+        let printerPaperViewModel = PrinterPaperViewModel()
+        let printerSize = CGSize(width: self.frame.width, height: 300.0)
+        let printerFrame = CGRect(origin: .zero, size: printerSize)
+        let printerPaperView = PrinterPaperView(frame: printerFrame, viewModel: printerPaperViewModel)
+        let popupViewModel = PopupViewModel(contentHeight: 300.0, contentView: printerPaperView)
+        let popupView = PopupViewController(with: popupViewModel)
+        NotificationCenter.default.post(name: .showPopup, object: popupView)
     }
     
     private enum Label: String, CaseIterable {

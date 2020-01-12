@@ -23,6 +23,7 @@ extension Notification.Name {
     static let showEditor = Notification.Name("showEditor")
     static let showSkillDetail = Notification.Name("showSkillDetail")
     static let showHelpTextAlert = Notification.Name("showHelpTextAlert")
+    static let showPopup = Notification.Name("showPopup")
     
     // View dismissals
     static let saveWasCalled = Notification.Name("saveWasCalled")
