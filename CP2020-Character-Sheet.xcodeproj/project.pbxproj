@@ -12,6 +12,9 @@
 		4E811C8023CBC94600B6082A /* SaveRoll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E811C7F23CBC94600B6082A /* SaveRoll.swift */; };
 		4E811C8223CBCB1500B6082A /* SaveRollStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E811C8123CBCB1500B6082A /* SaveRollStrings.swift */; };
 		4E811C8423CBD4FE00B6082A /* SaveRollViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E811C8323CBD4FE00B6082A /* SaveRollViewManager.swift */; };
+		4E811C8623CD6B9700B6082A /* SaveRollTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E811C8523CD6B9700B6082A /* SaveRollTableViewCell.swift */; };
+		4E811C8823CD796E00B6082A /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E811C8723CD796E00B6082A /* Button.swift */; };
+		4E811C8A23CD80A000B6082A /* SaveRollDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E811C8923CD80A000B6082A /* SaveRollDelegate.swift */; };
 		4E9EC72E23CBAC7E00B2AEC5 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9EC72D23CBAC7E00B2AEC5 /* PopupViewController.swift */; };
 		4EF602C323C03EAC00D91F1B /* Int+Nonnegative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF602C223C03EAC00D91F1B /* Int+Nonnegative.swift */; };
 		64157CB92378A9AF00667FB0 /* ArmorViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64157CB82378A9AF00667FB0 /* ArmorViewCell.swift */; };
@@ -183,6 +186,9 @@
 		4E811C7F23CBC94600B6082A /* SaveRoll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRoll.swift; sourceTree = "<group>"; };
 		4E811C8123CBCB1500B6082A /* SaveRollStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRollStrings.swift; sourceTree = "<group>"; };
 		4E811C8323CBD4FE00B6082A /* SaveRollViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRollViewManager.swift; sourceTree = "<group>"; };
+		4E811C8523CD6B9700B6082A /* SaveRollTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRollTableViewCell.swift; sourceTree = "<group>"; };
+		4E811C8723CD796E00B6082A /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		4E811C8923CD80A000B6082A /* SaveRollDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRollDelegate.swift; sourceTree = "<group>"; };
 		4E9EC72D23CBAC7E00B2AEC5 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		4EF602C223C03EAC00D91F1B /* Int+Nonnegative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Nonnegative.swift"; sourceTree = "<group>"; };
 		5A7B8BE8C6628A6E142C97F9 /* libPods-CP2020-Character-Sheet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CP2020-Character-Sheet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -380,7 +386,9 @@
 			children = (
 				4E811C7C23CBC90B00B6082A /* SaveRollView.swift */,
 				4E811C7F23CBC94600B6082A /* SaveRoll.swift */,
+				4E811C8923CD80A000B6082A /* SaveRollDelegate.swift */,
 				4E811C8323CBD4FE00B6082A /* SaveRollViewManager.swift */,
+				4E811C8523CD6B9700B6082A /* SaveRollTableViewCell.swift */,
 			);
 			path = "Save Roll";
 			sourceTree = "<group>";
@@ -417,6 +425,7 @@
 				9D004E5821DA7FE1004DFA4D /* EntryType.swift */,
 				9D7E124623820FCC0025443D /* CheckboxConfig.swift */,
 				9D7E1248238214680025443D /* Checkbox.swift */,
+				4E811C8723CD796E00B6082A /* Button.swift */,
 				9D43614A234AA7D70057D27B /* Validating */,
 			);
 			path = Cells;
@@ -1073,6 +1082,7 @@
 				9D552CFA21AC89DA008B90E9 /* DamageModifierDataSourceDelegate.swift in Sources */,
 				9D85671D230C960100295479 /* StatsStrings.swift in Sources */,
 				9D4724A22309F06D00CECEA2 /* UICollectionViewLayout+Common.swift in Sources */,
+				4E811C8A23CD80A000B6082A /* SaveRollDelegate.swift in Sources */,
 				9DFCB7A921D0674A00F99798 /* Stats.swift in Sources */,
 				9D7E12452381E0A20025443D /* AnatomyDisplayController.swift in Sources */,
 				9DE3359B21A9E9F700180927 /* DamageModifierViewCell.swift in Sources */,
@@ -1083,6 +1093,7 @@
 				9D004E2D21D6E37C004DFA4D /* PrinterPaperViewModel.swift in Sources */,
 				9DFFCADE23934CA400FF5BFF /* DiceRoll.swift in Sources */,
 				9DB8765023955E1400A13FDD /* EditorCollectionViewModel+Damage.swift in Sources */,
+				4E811C8623CD6B9700B6082A /* SaveRollTableViewCell.swift in Sources */,
 				9DCD370B21CC239B00EE00D9 /* SkillTableViewController.swift in Sources */,
 				9D2D1DB623986E6100F28FE2 /* ArmorDamage.swift in Sources */,
 				9DFE711721BDA18B000561B0 /* StatsViewCellModel.swift in Sources */,
@@ -1136,6 +1147,7 @@
 				9D0003B121FE493C0044F84A /* LongTextEntryCollectionViewCell.swift in Sources */,
 				9DFE711521BD94FD000561B0 /* Stat.swift in Sources */,
 				9DFFCACF2384C2F400FF5BFF /* AppCenterHokum.swift in Sources */,
+				4E811C8823CD796E00B6082A /* Button.swift in Sources */,
 				64157CC12378ACC400667FB0 /* ArmorViewModel.swift in Sources */,
 				9DB6AD90234AB3FA0068120C /* UITextField+Done.swift in Sources */,
 				9D1B14DB237E259100BCB972 /* UIView+Borders.swift in Sources */,

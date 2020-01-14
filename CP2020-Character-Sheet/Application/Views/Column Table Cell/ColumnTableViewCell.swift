@@ -26,7 +26,7 @@ final class ColumnTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        contentView.autoresizingMask = UIView.AutoresizingMask.flexibleHeight
+        contentView.autoresizingMask = .flexibleHeight
 
         stack.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(stack)
@@ -140,11 +140,7 @@ final class ColumnTableViewCell: UITableViewCell {
         let nameFrameWidth = totalWidth * nameCellWidthRatio
         let nameFrame = CGRect(x: safeFrame.minX, y: safeFrame.minY,
                                width: nameFrameWidth, height: ColumnTableConstants.rowHeight)
-        let nameMargins = NSDirectionalEdgeInsets(top: nameFrame.height * 0.05,
-                                                  leading: nameFrame.width * 0.05,
-                                                  bottom: nameFrame.height * 0.05,
-                                                  trailing: nameFrame.width * 0.05)
-        
+        let nameMargins = StyleConstants.SizeConstants.fivePercentInsets(from: nameFrame)
         let nameView = UILabel.container(frame: nameFrame,
                                          margins: nameMargins,
                                          backgroundColor: StyleConstants.Color.light,
@@ -171,10 +167,7 @@ final class ColumnTableViewCell: UITableViewCell {
                                       y: safeFrame.minY,
                                       width: detailFrameWidth,
                                       height: safeFrame.height)
-            let detailMargins = NSDirectionalEdgeInsets(top: detailFrame.height * 0.05,
-                                                         leading: detailFrame.width * 0.05,
-                                                         bottom: detailFrame.height * 0.05,
-                                                         trailing: detailFrame.width * 0.05)
+            let detailMargins = StyleConstants.SizeConstants.fivePercentInsets(from: detailFrame)
             let backgroundColor = detailColumn % 2 > 0 ? StyleConstants.Color.gray : StyleConstants.Color.light
             let detailView = UILabel.container(frame: detailFrame,
                                                 margins: detailMargins,

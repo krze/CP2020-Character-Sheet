@@ -30,7 +30,7 @@ enum WoundType: String, CaseIterable {
 /// Categories of Save Roll effects.
 ///
 /// - Stun: Stun effect
-enum SaveRollType: String, CaseIterable {
+enum SaveRollType: String, Codable, CaseIterable {
     case Stun, Mortal
 }
 

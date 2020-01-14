@@ -97,7 +97,6 @@ final class TotalDamageDataSource: NSObject, EditorValueReciever {
 extension TotalDamageDataSource: TableViewManaging {
     
     func createDamageButtons(_ navigationItem: UINavigationItem) {
-        // NEXT: figre out how to pop options for healing damage
         navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showNewDamageEditor)), animated: true)
         navigationItem.setLeftBarButton(UIBarButtonItem(title: "Heal All...", style: .plain, target: self, action: #selector(showMultiHealMenu)), animated: true)
     }

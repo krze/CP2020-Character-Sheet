@@ -9,7 +9,7 @@
 import Foundation
 
 /// Holds a value for a dice roll.
-struct DiceRoll: Hashable {
+struct DiceRoll: Codable, Hashable {
     
     let number: Int
     let sides: Int

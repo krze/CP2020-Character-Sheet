@@ -8,17 +8,30 @@
 
 import Foundation
 
-struct SaveRoll {
+struct SaveRoll: Codable, Hashable {
     
     let type: SaveRollType
     let target: Int
+    let diceRoll: DiceRoll
+    
+    private let identifier = UUID()
     
     /// Performs a roll against the target number.
     /// Returns true if the roll was successful.
-    ///
-    /// - Parameter diceRoll: Supply a dice roll
-    func roll(_ diceRoll: DiceRoll) -> Bool {
+    func resolve() -> Bool {
         return diceRoll.perform() <= target
     }
     
+    // MARK: Hashable
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(type.rawValue)
+        hasher.combine(target)
+        hasher.combine(diceRoll)
+        hasher.combine(identifier)
+    }
+
+    static func == (lhs: SaveRoll, rhs: SaveRoll) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
 }

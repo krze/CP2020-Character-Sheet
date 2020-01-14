@@ -78,6 +78,15 @@ struct StyleConstants {
         
         /// The row height for the editor views
         static let editorRowHeight: CGFloat = 44
+        
+        static func fivePercentInsets(from frame: CGRect) -> NSDirectionalEdgeInsets {
+            return NSDirectionalEdgeInsets(top: frame.height * 0.05,
+                                           leading: frame.width * 0.05,
+                                           bottom: frame.height * 0.05,
+                                           trailing: frame.width * 0.05)
+        }
+        
+
     }
 
 }

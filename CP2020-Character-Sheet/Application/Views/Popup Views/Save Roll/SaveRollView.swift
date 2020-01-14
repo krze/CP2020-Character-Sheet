@@ -19,7 +19,7 @@ final class SaveRollView: UIView {
     private let manager = SaveRollViewManager()
     
     func setup(with viewModel: SaveRollViewModel) {
-        manager.rolls = viewModel.rolls
+        manager.appendRolls(viewModel.rolls)
         let tableView = UITableView()
         
         tableView.delegate = manager
