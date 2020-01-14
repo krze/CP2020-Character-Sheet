@@ -14,10 +14,14 @@ final class SaveRollViewManager: NSObject, TableViewManaging {
     private let descriptionIdentifier = "description"
     private let rollsIdentifier = "rolls"
     
+    init(description: String) {
+        sections[.Description] = [description]
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         sections.keys.count
     }
-    
+        
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let section = SaveRollTableSection(rawValue: section) else {
             return 0

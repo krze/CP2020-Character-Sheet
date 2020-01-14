@@ -69,6 +69,21 @@ final class PrinterPaperView: UIView {
         self.backgroundColor = viewModel.lightColor
     }
     
+    /// Adds the given view to the content view
+    /// - Parameter view: The view to add to the content view
+    func addToContentView(_ view: UIView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(view)
+        
+        NSLayoutConstraint.activate([
+            view.topAnchor.constraint(equalTo: contentView.topAnchor),
+            view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            view.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            view.heightAnchor.constraint(equalTo: contentView.heightAnchor)
+        ])
+    }
+    
     private func feedBorder(frame: CGRect, side: Side) -> UIView {
         let container = UIView(frame: frame)
         container.translatesAutoresizingMaskIntoConstraints = false

@@ -141,11 +141,21 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
     }
     
     @objc private func showSavePopup() {
+        let rolls = [SaveRoll(type: .Stun, target: 7, diceRoll: DiceRoll(number: 1, sides: 10, modifier: 0)),
+                     SaveRoll(type: .Mortal, target: 8, diceRoll: DiceRoll(number: 1, sides: 10, modifier: 0))]
+        let saveRollViewModel = SaveRollViewModel(rolls: rolls)
+        let popupHeight = saveRollViewModel.totalHeight()
+
         let printerPaperViewModel = PrinterPaperViewModel()
-        let printerSize = CGSize(width: self.frame.width, height: 2000.0)
+        let printerSize = CGSize(width: self.frame.width, height: popupHeight)
         let printerFrame = CGRect(origin: .zero, size: printerSize)
         let printerPaperView = PrinterPaperView(frame: printerFrame, viewModel: printerPaperViewModel)
-        let popupViewModel = PopupViewModel(contentHeight: 2000.0, contentView: printerPaperView)
+        let saveRollView = SaveRollView(frame: printerPaperView.contentView.frame)
+        
+        saveRollView.setup(with: saveRollViewModel)
+        printerPaperView.addToContentView(saveRollView)
+        
+        let popupViewModel = PopupViewModel(contentHeight: popupHeight, contentView: printerPaperView)
         let popupView = PopupViewController(with: popupViewModel)
         NotificationCenter.default.post(name: .showPopup, object: popupView)
     }
