@@ -11,7 +11,7 @@ import UIKit
 struct PopupViewModel {
     
     let contentHeight: CGFloat
-    let contentView: PopupViewDismissing
+    let contentView: UIView
     
 }
 
@@ -23,7 +23,7 @@ protocol PopupViewDismissing: UIView {
 
 final class PopupViewController: UIViewController {
     
-    private(set) var contentView: PopupViewDismissing?
+    private(set) var contentView: UIView?
     private let contentViewHeight: CGFloat
     
     init(with viewModel: PopupViewModel) {
@@ -61,12 +61,12 @@ final class PopupViewController: UIViewController {
         let origin = CGPoint(x: 0.0, y: view.frame.height * 0.05)
         let frame = CGRect(origin: origin, size: CGSize(width: view.frame.width, height: contentViewHeight))
         contentView.frame = frame
-        
-        contentView.dissmiss = {
-            self.dismiss(animated: true)
-        }
-        
+                
         scrollView.addSubview(contentView)
+    }
+    
+    func dismiss() {
+        self.dismiss(animated: true)
     }
     
 }

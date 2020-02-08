@@ -15,7 +15,7 @@ final class SaveRollViewManager {
         self.rolls.append(contentsOf: rolls)
     }
     
-    func resolveRolls() {
+    @objc func resolveRolls() {
         rolls.forEach { roll in
             let succeeded = roll.resolve()
             
@@ -30,11 +30,15 @@ final class SaveRollViewManager {
         }
     }
     
-    func acceptStunned() {
+    @objc func dismiss() {
+        
+    }
+    
+    @objc func acceptStunned() {
         // model.markAsStunned()
     }
     
-    func acceptDeath() {
+    @objc func acceptDeath() {
         // model.markAsDead()
     }
     

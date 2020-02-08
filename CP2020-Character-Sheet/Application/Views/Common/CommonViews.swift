@@ -153,7 +153,7 @@ struct CommonViews {
         return headerLabel(frame: frame, text: nil)
     }
     
-    static func roundedCornerButton(frame: CGRect, title: String) -> UIButton {
+    static func roundedCornerButton(frame: CGRect, title: String) -> Button {
         let button = Button(type: .custom)
         button.frame = frame
         

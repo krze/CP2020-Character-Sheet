@@ -9,5 +9,10 @@
 import Foundation
 
 struct SaveRollStrings {
-    static let saveRollViewDescription = "The following save rolls must be performed:"
+    static let saveRollViewDescription = "The following save rolls must be performed, in order:"
+    
+    static let resolveAllRolls = "Resolve all rolls"
+    static let acceptStunState = "Succumb to Stun"
+    static let acceptDeathState = "Succumb to Death"
+    static let resolveWithoutRolling = "Resolve without rolling"
 }

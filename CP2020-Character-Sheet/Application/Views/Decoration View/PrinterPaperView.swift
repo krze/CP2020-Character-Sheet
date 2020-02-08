@@ -11,6 +11,9 @@ import UIKit
 /// A view that resembles dot matrix printer paper. Contains a contentView that contains
 /// the view contents, and a border of dot matrix printer paper
 final class PrinterPaperView: UIView {
+    
+    var dissmiss: (() -> Void)?
+    
     private let viewModel: PrinterPaperViewModel
     private(set) var contentView: UIView
 

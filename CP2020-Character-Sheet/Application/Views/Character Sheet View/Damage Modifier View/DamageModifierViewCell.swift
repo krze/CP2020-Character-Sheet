@@ -157,6 +157,8 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
         
         let popupViewModel = PopupViewModel(contentHeight: popupHeight, contentView: printerPaperView)
         let popupView = PopupViewController(with: popupViewModel)
+        saveRollView.dissmiss = popupView.dismiss
+        
         NotificationCenter.default.post(name: .showPopup, object: popupView)
     }
     
