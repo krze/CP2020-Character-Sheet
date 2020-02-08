@@ -89,21 +89,7 @@ final class SaveRollView: UIView, PopupViewDismissing {
         
         // MARK: Buttons
         
-        buttons(withHeightPerButton: viewModel.buttonHeight).forEach { key, button in
-            switch key {
-            case .resolveAll:
-                button.addTarget(manager, action: #selector(manager.resolveRolls), for: .touchUpInside)
-            case .dismissAll:
-                button.addTarget(manager, action: #selector(manager.dismiss), for: .touchUpInside)
-            case .acceptStun:
-                button.addTarget(manager, action: #selector(manager.acceptStunned), for: .touchUpInside)
-            case .acceptDeath:
-                button.addTarget(manager, action: #selector(manager.acceptDeath), for: .touchUpInside)
-            }
-            
-            button.addTarget(self, action: #selector(dismissPopup), for: .touchUpInside)
-            stackView.addArrangedSubview(button)
-        }
+        buttons(withHeightPerButton: viewModel.buttonHeight).forEach { stackView.addArrangedSubview($0) }
         
         let bottomFillerView = UIView(frame: CGRect(origin: .zero, size: fillerSize))
         bottomFillerView.backgroundColor = StyleConstants.Color.light
@@ -121,7 +107,7 @@ final class SaveRollView: UIView, PopupViewDismissing {
     
     /// Creates the buttons used
     /// - Parameter height: Height for each button
-    private func buttons(withHeightPerButton height: CGFloat) -> [SaveRollButtonMapping: Button] {
+    private func buttons(withHeightPerButton height: CGFloat) -> [Button] {
         let labelTexts: [SaveRollButtonMapping: String] = [
             .resolveAll: SaveRollStrings.resolveAllRolls,
             .dismissAll: SaveRollStrings.resolveWithoutRolling,
@@ -129,21 +115,39 @@ final class SaveRollView: UIView, PopupViewDismissing {
             .acceptDeath: SaveRollStrings.acceptDeathState
         ]
         
-        var mappings = [SaveRollButtonMapping: Button]()
+        var buttons = [Button]()
         
-        labelTexts.forEach { mapping, title in
-            let buttonSize = CGSize(width: bounds.width, height: height)
-            let buttonFrame = CGRect(origin: .zero, size: buttonSize)
-            let button = CommonViews.roundedCornerButton(frame: buttonFrame, title: title)
-            button.widthAnchor.constraint(equalToConstant: bounds.width * 0.95).isActive = true
+        // This is done so they come out in order
+        
+        SaveRollButtonMapping.allCases.forEach { mapping in
+            if let title = labelTexts[mapping] {
+                let buttonSize = CGSize(width: bounds.width, height: height)
+                let buttonFrame = CGRect(origin: .zero, size: buttonSize)
+                let button = CommonViews.roundedCornerButton(frame: buttonFrame, title: title)
+                button.widthAnchor.constraint(equalToConstant: bounds.width * 0.95).isActive = true
 
-            mappings[mapping] = button
+                
+                switch mapping {
+                case .resolveAll:
+                    button.addTarget(manager, action: #selector(manager.resolveRolls), for: .touchUpInside)
+                case .dismissAll:
+                    button.addTarget(manager, action: #selector(manager.dismiss), for: .touchUpInside)
+                case .acceptStun:
+                    button.addTarget(manager, action: #selector(manager.acceptStunned), for: .touchUpInside)
+                case .acceptDeath:
+                    button.addTarget(manager, action: #selector(manager.acceptDeath), for: .touchUpInside)
+                }
+                
+                button.addTarget(self, action: #selector(dismissPopup), for: .touchUpInside)
+                
+                buttons.append(button)
+            }
         }
-            
-        return mappings
+                
+        return buttons
     }
     
-    private enum SaveRollButtonMapping {
+    private enum SaveRollButtonMapping: CaseIterable {
         case resolveAll, dismissAll, acceptStun, acceptDeath
     }
 }
