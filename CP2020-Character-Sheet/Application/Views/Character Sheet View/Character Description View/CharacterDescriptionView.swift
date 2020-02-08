@@ -47,7 +47,7 @@ final class CharacterDescriptionView: UIView {
                                            margins: viewModel.createInsets(with: inputFieldFrame),
                                            backgroundColor: viewModel.lightColor,
                                            borderColor: viewModel.darkColor,
-                                           borderWidth: StyleConstants.SizeConstants.borderWidth,
+                                           borderWidth: StyleConstants.Size.borderWidth,
                                            labelMaker: self.inputField)
         
         addSubview(inputField.container)

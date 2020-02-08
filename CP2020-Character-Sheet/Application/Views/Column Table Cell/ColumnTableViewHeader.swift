@@ -35,7 +35,7 @@ final class ColumnTableViewHeader: UIView {
                                 y: frame.minY,
                                 width: frame.width - directionalLayoutMargins.leading - directionalLayoutMargins.trailing,
                                 height: frame.height - directionalLayoutMargins.top - directionalLayoutMargins.bottom)
-        let label = CommonEntryConstructor.headerLabel(frame: labelFrame)
+        let label = CommonViews.headerLabel(frame: labelFrame)
         label.font = viewModel.headerFont
         label.backgroundColor = viewModel.darkColor
         label.textColor = viewModel.lightColor
@@ -65,7 +65,7 @@ final class ColumnTableViewHeader: UIView {
             let backgroundColor = StyleConstants.Color.dark
           
             func columnLabel(frame: CGRect) -> UILabel {
-                let label = CommonEntryConstructor.headerLabel(frame: frame)
+                let label = CommonViews.headerLabel(frame: frame)
                 label.font = viewModel.columnLabelFont?.withSize(viewModel.columnLabelMaxTextSize)
                 label.backgroundColor = viewModel.darkColor
                 label.textColor = viewModel.lightColor

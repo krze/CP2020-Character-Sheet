@@ -19,34 +19,41 @@ struct SaveRollViewModel {
     }
 }
 
-final class SaveRollView: UIView {
-    private let manager = SaveRollViewManager(description: SaveRollStrings.saveRollViewDescription)
+final class SaveRollView: UIView, PopupViewDismissing {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
+    var dissmiss: (() -> Void)?
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private let manager = SaveRollViewManager()
     
     func setup(with viewModel: SaveRollViewModel) {
-        manager.appendRolls(viewModel.rolls)
-        let tableView = UITableView()
-        tableView.dataSource = manager
-        tableView.delegate = manager
-        manager.registerCells(for: tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.isScrollEnabled = false
-        addSubview(tableView)
+        manager.append(rolls: viewModel.rolls)
+        let stackView = UIStackView(frame: bounds)
         
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tableView.topAnchor.constraint(equalTo: topAnchor),
-            tableView.widthAnchor.constraint(equalTo: widthAnchor),
-            tableView.heightAnchor.constraint(equalTo: heightAnchor)
-        ])
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.distribution = .equalSpacing
         
-        tableView.reloadData()
+        addSubview(stackView)
+        
+        let descriptionSize = CGSize(width: bounds.width, height: viewModel.descriptionHeight)
+        let descriptionLabel = CommonViews.headerLabel(frame:  CGRect(origin: .zero, size: descriptionSize))
+        
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = true
+        descriptionLabel.text = SaveRollStrings.saveRollViewDescription
+        descriptionLabel.textAlignment = .center
+        descriptionLabel.numberOfLines = 0
+        
+        stackView.addArrangedSubview(descriptionLabel)
+        
+        let buttonSize = CGSize(width: bounds.width, height: viewModel.rollHeight)
+        let buttonFrame = CGRect(origin: .zero, size: buttonSize)
+        let button = CommonViews.roundedCornerButton(frame: buttonFrame, title: "TEST")
+        button.widthAnchor.constraint(equalToConstant: bounds.width * 0.95).isActive = true
+        
+        stackView.addArrangedSubview(button)
+    }
+    
+    @objc private func dismissPopup() {
+        dissmiss?()
     }
 }

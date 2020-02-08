@@ -21,7 +21,7 @@ struct EditorCollectionViewModel: MarginCreator {
         return enforcedOrder.count
     }
     
-    let paddingRatio = StyleConstants.SizeConstants.textPaddingRatio
+    let paddingRatio = StyleConstants.Size.textPaddingRatio
     
     let mode: EditorMode
     

@@ -65,7 +65,7 @@ final class LegView: UIView, BodyPartView {
         addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        let paddingConstant = AnatomyDisplayView.Constants.heightAsStatusHeaderView * StyleConstants.SizeConstants.edgePaddingRatio
+        let paddingConstant = AnatomyDisplayView.Constants.heightAsStatusHeaderView * StyleConstants.Size.edgePaddingRatio
         let distanceFromCenterX = AnatomyDisplayView.Constants.heightAsStatusHeaderView * 0.20
 
         let XAxisConstraint: NSLayoutConstraint = {

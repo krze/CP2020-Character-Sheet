@@ -140,7 +140,7 @@ final class ColumnTableViewCell: UITableViewCell {
         let nameFrameWidth = totalWidth * nameCellWidthRatio
         let nameFrame = CGRect(x: safeFrame.minX, y: safeFrame.minY,
                                width: nameFrameWidth, height: ColumnTableConstants.rowHeight)
-        let nameMargins = StyleConstants.SizeConstants.fivePercentInsets(from: nameFrame)
+        let nameMargins = StyleConstants.Size.fivePercentInsets(from: nameFrame)
         let nameView = UILabel.container(frame: nameFrame,
                                          margins: nameMargins,
                                          backgroundColor: StyleConstants.Color.light,
@@ -167,7 +167,7 @@ final class ColumnTableViewCell: UITableViewCell {
                                       y: safeFrame.minY,
                                       width: detailFrameWidth,
                                       height: safeFrame.height)
-            let detailMargins = StyleConstants.SizeConstants.fivePercentInsets(from: detailFrame)
+            let detailMargins = StyleConstants.Size.fivePercentInsets(from: detailFrame)
             let backgroundColor = detailColumn % 2 > 0 ? StyleConstants.Color.gray : StyleConstants.Color.light
             let detailView = UILabel.container(frame: detailFrame,
                                                 margins: detailMargins,

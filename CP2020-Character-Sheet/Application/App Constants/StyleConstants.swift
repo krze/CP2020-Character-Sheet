@@ -60,7 +60,7 @@ struct StyleConstants {
         
     }
     
-    struct SizeConstants {
+    struct Size {
         
         /// The thickness of borders
         static let borderWidth: CGFloat = 2
@@ -86,7 +86,8 @@ struct StyleConstants {
                                            trailing: frame.width * 0.05)
         }
         
-
+        /// Corner rounding radius
+        static let cornerRadius: CGFloat = 5
     }
 
 }

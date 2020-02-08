@@ -39,7 +39,7 @@ final class RoleView: UIView {
                                                       margins: viewModel.createInsets(with: classDescriptionFrame),
                                                       backgroundColor: viewModel.lightColor,
                                                       borderColor: viewModel.darkColor,
-                                                      borderWidth: StyleConstants.SizeConstants.borderWidth,
+                                                      borderWidth: StyleConstants.Size.borderWidth,
                                                       labelMaker: self.classDescriptionLabel)
         
         addSubview(classDescriptionLabel.container)

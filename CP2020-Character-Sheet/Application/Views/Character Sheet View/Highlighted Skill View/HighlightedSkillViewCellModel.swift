@@ -16,7 +16,7 @@ struct HighlightedSkillViewCellModel: MarginCreator {
     
     let cellDescriptionLabelText = "Highlighted Skills"
     let cellDescriptionLabelFont = StyleConstants.Font.defaultBold
-    let paddingRatio: CGFloat = StyleConstants.SizeConstants.textPaddingRatio
+    let paddingRatio: CGFloat = StyleConstants.Size.textPaddingRatio
     
     let columnLabelWidthRatio = CGFloat(0.15)
     let columnLabelMaxTextSize = CGFloat(16)

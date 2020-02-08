@@ -51,7 +51,7 @@ final class AnatomyDisplayController: StatusTableViewHeaderControlling {
         let size = CGSize(width: distance, height: distance)
         let frame = CGRect(origin: .zero, size: size)
         
-        return CommonEntryConstructor.simpleHeaderValueCell(frame: frame, labelHeightRatio: 0.35, headerText: part.labelText())
+        return CommonViews.simpleHeaderValueCell(frame: frame, labelHeightRatio: 0.35, headerText: part.labelText())
     }
     
 }

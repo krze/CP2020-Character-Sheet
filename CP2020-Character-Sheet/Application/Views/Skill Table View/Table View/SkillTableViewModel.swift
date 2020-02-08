@@ -9,7 +9,7 @@
 import UIKit
 
 struct SkillTableViewModel: MarginCreator {
-    let paddingRatio: CGFloat = StyleConstants.SizeConstants.textPaddingRatio
+    let paddingRatio: CGFloat = StyleConstants.Size.textPaddingRatio
     let headerHeight: CGFloat = ColumnTableConstants.rowHeight
     
     let darkColor = StyleConstants.Color.dark

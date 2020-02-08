@@ -9,7 +9,7 @@
 import UIKit
 
 struct CheckboxContainerModel: MarginCreator {
-    let paddingRatio = StyleConstants.SizeConstants.textPaddingRatio
+    let paddingRatio = StyleConstants.Size.textPaddingRatio
     let frame: CGRect
     
     let unselectedBackgroundColor = StyleConstants.Color.light
@@ -46,7 +46,7 @@ final class Checkbox: Hashable {
         viewModel = model
         
         func labelMaker(frame: CGRect) -> UILabel {
-            let label = CommonEntryConstructor.headerLabel(frame: frame)
+            let label = CommonViews.headerLabel(frame: frame)
             label.backgroundColor = model.unselectedBackgroundColor
             label.textColor = model.unselectedTextColor
             
@@ -56,7 +56,7 @@ final class Checkbox: Hashable {
         let checkbox = UILabel.container(frame: model.frame,
                                          margins: model.createInsets(with: model.frame),
                                          backgroundColor: model.unselectedBackgroundColor,
-                                         borderColor: StyleConstants.Color.dark90, borderWidth: StyleConstants.SizeConstants.borderWidth,
+                                         borderColor: StyleConstants.Color.dark90, borderWidth: StyleConstants.Size.borderWidth,
                                          labelMaker: labelMaker)
         container = checkbox.container
         label = checkbox.label

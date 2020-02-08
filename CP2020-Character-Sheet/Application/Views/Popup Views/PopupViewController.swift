@@ -11,14 +11,21 @@ import UIKit
 struct PopupViewModel {
     
     let contentHeight: CGFloat
-    let contentView: UIView
+    let contentView: PopupViewDismissing
+    
+}
+
+protocol PopupViewDismissing: UIView {
+    
+    var dissmiss: (() -> Void)? { get set }
     
 }
 
 final class PopupViewController: UIViewController {
     
-    private(set) var contentView: UIView?
+    private(set) var contentView: PopupViewDismissing?
     private let contentViewHeight: CGFloat
+    
     init(with viewModel: PopupViewModel) {
         contentView = viewModel.contentView
         contentViewHeight = viewModel.contentHeight
@@ -54,6 +61,11 @@ final class PopupViewController: UIViewController {
         let origin = CGPoint(x: 0.0, y: view.frame.height * 0.05)
         let frame = CGRect(origin: origin, size: CGSize(width: view.frame.width, height: contentViewHeight))
         contentView.frame = frame
+        
+        contentView.dissmiss = {
+            self.dismiss(animated: true)
+        }
+        
         scrollView.addSubview(contentView)
     }
     

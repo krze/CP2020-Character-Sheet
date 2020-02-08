@@ -16,5 +16,5 @@ struct ColumnTableViewCellModel: MarginCreator {
     
     let fontSize = CGFloat(16)
     
-    let paddingRatio: CGFloat = StyleConstants.SizeConstants.textPaddingRatio
+    let paddingRatio: CGFloat = StyleConstants.Size.textPaddingRatio
 }

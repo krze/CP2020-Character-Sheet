@@ -8,81 +8,34 @@
 
 import UIKit
 
-final class SaveRollViewManager: NSObject, TableViewManaging {
-    private var sections = [SaveRollTableSection: [AnyHashable]]()
+final class SaveRollViewManager {
+    private var rolls = [SaveRoll]()
     
-    private let descriptionIdentifier = "description"
-    private let rollsIdentifier = "rolls"
-    
-    init(description: String) {
-        sections[.Description] = [description]
+    func append(rolls: [SaveRoll]) {
+        self.rolls.append(contentsOf: rolls)
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        sections.keys.count
-    }
-        
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let section = SaveRollTableSection(rawValue: section) else {
-            return 0
-        }
-        
-        return sections[section]?.count ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let section = SaveRollTableSection(rawValue: indexPath.section) else {
-            return 0
-        }
-        
-        switch section {
-        case .Description:
-            return 88
-        default:
-            return 44
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let section = SaveRollTableSection(rawValue: indexPath.section) else {
-            return UITableViewCell()
-        }
-        
-        switch section {
-        case .Description:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: descriptionIdentifier) else {
-                return UITableViewCell()
+    func resolveRolls() {
+        rolls.forEach { roll in
+            let succeeded = roll.resolve()
+            
+            // NEXT: Adjust the model to accept a stun state and a death state
+            
+            switch roll.type {
+            case .Mortal:
+                succeeded ? print("Phew") : print("ARHG")
+            case .Stun:
+                succeeded ? print("Phew") : print("ARHG")
             }
-            
-            cell.textLabel?.text = sections[section]?.first as? String
-            cell.textLabel?.font = StyleConstants.Font.defaultFont
-            cell.textLabel?.textAlignment = .center
-            
-            return cell
-        case .Rolls:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: rollsIdentifier) as? SaveRollTableViewCell,
-                let rolls = sections[section] as? [SaveRoll],
-                rolls.indices.contains(indexPath.row) else {
-                return UITableViewCell()
-            }
-            
-            cell.setup(with: rolls[indexPath.row])
-            
-            return cell
         }
-        
     }
     
-    func registerCells(for tableView: UITableView) {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: descriptionIdentifier)
-        tableView.register(SaveRollTableViewCell.self, forCellReuseIdentifier: rollsIdentifier)
+    func acceptStunned() {
+        // model.markAsStunned()
     }
     
-    func appendRolls(_ rolls: [SaveRoll]) {
-        sections[.Rolls] = rolls
+    func acceptDeath() {
+        // model.markAsDead()
     }
     
-    private enum SaveRollTableSection: Int {
-        case Description = 0, Rolls
-    }
 }

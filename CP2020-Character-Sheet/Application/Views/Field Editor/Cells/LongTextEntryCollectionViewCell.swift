@@ -40,7 +40,7 @@ final class LongTextEntryCollectionViewCell: UICollectionViewCell, LongFormEntry
         self.identifier = identifier
         self.fieldDescription = description
         
-        let headerView = CommonEntryConstructor.headerView(size: .zero, text: identifier)
+        let headerView = CommonViews.headerView(size: .zero, text: identifier)
         let sidePadding = self.contentView.frame.width * viewModel.paddingRatio
         
         contentView.addSubview(headerView)

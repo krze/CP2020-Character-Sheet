@@ -27,7 +27,7 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
         self.fieldDescription = description
         self.checkboxConfig = checkboxConfig
         
-        let headerView = CommonEntryConstructor.headerView(size: .zero, text: identifier)
+        let headerView = CommonViews.headerView(size: .zero, text: identifier)
         let sidePadding = self.contentView.frame.width * viewModel.paddingRatio
         
         contentView.addSubview(headerView)
@@ -111,7 +111,7 @@ final class CheckboxEntryCollectionViewCell: UICollectionViewCell, CheckboxColle
             thisRow.axis = .horizontal
             thisRow.alignment = .center
             thisRow.distribution = .fillEqually
-            thisRow.spacing = contentView.safeAreaLayoutGuide.layoutFrame.width * StyleConstants.SizeConstants.edgePaddingRatio
+            thisRow.spacing = contentView.safeAreaLayoutGuide.layoutFrame.width * StyleConstants.Size.edgePaddingRatio
             verticalStackView.addArrangedSubview(thisRow)
         }
         let backgroundView = UIView(frame: verticalStackView.bounds)

@@ -1,5 +1,5 @@
 //
-//  CommonEntryConstructor.swift
+//  CommonViews.swift
 //  CP2020-Character-Sheet
 //
 //  Created by Ken Krzeminski on 3/8/19.
@@ -8,8 +8,9 @@
 
 import UIKit
 
-/// A collection of functions that help construct common elements in user entry views.
-struct CommonEntryConstructor {
+/// A collection of functions that help construct common elements that
+/// aren't subclasses of views
+struct CommonViews {
     
     /// Style constants that dictate how the editor fields appear
     private static let styleConstants = EditorStyleConstants()
@@ -22,6 +23,17 @@ struct CommonEntryConstructor {
     ///   - fullHeight: When true, the top and bottom margins will be set to 0
     /// - Returns: View containing the label
     static func headerView(size: CGSize, text: String, fullHeight: Bool = false, margins: NSDirectionalEdgeInsets? = nil, labelMaker: ((CGRect) -> UILabel)? = nil) -> UIView {
+        return headerContainer(size: size, text: text, fullHeight: fullHeight, margins: margins, labelMaker: labelMaker).container
+    }
+    
+    /// Creates a containter with alabel inset with margins according to the EditorStyleConstants
+    ///
+    /// - Parameters:
+    ///   - size: Size of the view
+    ///   - text: The text you wish to display in the label
+    ///   - fullHeight: When true, the top and bottom margins will be set to 0
+    /// - Returns: Both the containeer view, and an accessor for the
+    static func headerContainer(size: CGSize, text: String, fullHeight: Bool = false, margins: NSDirectionalEdgeInsets? = nil, labelMaker: ((CGRect) -> UILabel)? = nil) -> (container: UIView, label: UILabel) {
         let labelViewFrame = CGRect(x: 0,
                                     y: 0,
                                     width: size.width,
@@ -33,7 +45,7 @@ struct CommonEntryConstructor {
         labelView.container.backgroundColor = .clear
         labelView.label.backgroundColor = .clear
         
-        return labelView.container
+        return labelView
     }
     
     /// Creates a TextField for user entry
@@ -88,10 +100,10 @@ struct CommonEntryConstructor {
         let cell = UIView(frame: frame)
         cell.translatesAutoresizingMaskIntoConstraints = false
         let containerFrame = CGRect(x: 0.0, y: 0.0, width: frame.width, height: frame.height * labelHeightRatio)
-        let insets = NSDirectionalEdgeInsets(top: frame.height * StyleConstants.SizeConstants.textPaddingRatio,
-                                             leading: frame.width * StyleConstants.SizeConstants.textPaddingRatio,
-                                             bottom: frame.height * StyleConstants.SizeConstants.textPaddingRatio,
-                                             trailing: frame.width * StyleConstants.SizeConstants.textPaddingRatio)
+        let insets = NSDirectionalEdgeInsets(top: frame.height * StyleConstants.Size.textPaddingRatio,
+                                             leading: frame.width * StyleConstants.Size.textPaddingRatio,
+                                             bottom: frame.height * StyleConstants.Size.textPaddingRatio,
+                                             trailing: frame.width * StyleConstants.Size.textPaddingRatio)
         // Quick function to make this work better with the label container
         func makeLabel(frame: CGRect) -> UILabel {
             let label = headerLabel(frame: frame, text: headerText)
@@ -135,10 +147,25 @@ struct CommonEntryConstructor {
         return (cell, valueLabel)
     }
     
-
-
+    /// Simple header label format, ready for autolayout
+    /// - Parameter frame: Frame for the header used for sizing purposes
     static func headerLabel(frame: CGRect) -> UILabel {
         return headerLabel(frame: frame, text: nil)
+    }
+    
+    static func roundedCornerButton(frame: CGRect, title: String) -> UIButton {
+        let button = Button(type: .custom)
+        button.frame = frame
+        
+        button.titleLabel?.font = StyleConstants.Font.defaultBold
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(StyleConstants.Color.light, for: .normal)
+        button.setTitleColor(StyleConstants.Color.light.darker(by: 15.0), for: .highlighted)
+        button.backgroundColor = StyleConstants.Color.blue
+        button.setHighlightedColor(StyleConstants.Color.blue.darker(by: 15.0))
+        button.layer.cornerRadius = 5
+        
+        return button
     }
     
     // MARK: Private
@@ -167,7 +194,7 @@ struct CommonEntryConstructor {
         label.textColor = StyleConstants.Color.dark
         label.backgroundColor = StyleConstants.Color.light
         label.layer.borderColor = StyleConstants.Color.dark.cgColor
-        label.layer.borderWidth = StyleConstants.SizeConstants.borderWidth
+        label.layer.borderWidth = StyleConstants.Size.borderWidth
         label.textAlignment = .center
         label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
 

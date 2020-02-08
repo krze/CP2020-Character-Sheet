@@ -36,7 +36,7 @@ final class DiceRollEntryCollectionViewCell: UICollectionViewCell, DiceRollColle
         self.fieldDescription = description
         diceRoll = placeholder
         
-        let headerView = CommonEntryConstructor.headerView(size: .zero, text: identifier)
+        let headerView = CommonViews.headerView(size: .zero, text: identifier)
         let sidePadding = self.contentView.frame.width * viewModel.paddingRatio
         
         contentView.addSubview(headerView)

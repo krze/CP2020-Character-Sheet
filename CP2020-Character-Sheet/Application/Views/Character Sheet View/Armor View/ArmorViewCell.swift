@@ -39,7 +39,7 @@ final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOn
             let size = CGSize(width: subviewWidth, height: subviewHeight)
             let frame = CGRect(origin: .zero, size: size)
 
-            let view = CommonEntryConstructor.simpleHeaderValueCell(frame: frame, labelHeightRatio: viewModel.labelHeightRatio, headerText: label.labelText())
+            let view = CommonViews.simpleHeaderValueCell(frame: frame, labelHeightRatio: viewModel.labelHeightRatio, headerText: label.labelText())
             view.valueLabel.text = viewModel.placeholderValue
             let cell = view.wholeView
             cells[label] = view.valueLabel
