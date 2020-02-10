@@ -60,3 +60,8 @@ enum TraumaType: String, CaseIterable, Codable {
         }
     }
 }
+
+/// Indicates how alive, stunned, or dead a player is
+enum LivingState: Int, Codable {
+    case alive = -2, stunned, dead0, dead1, dead2, dead3, dead4, dead5, dead6, dead7, dead8, dead9, dead10 // lol
+}

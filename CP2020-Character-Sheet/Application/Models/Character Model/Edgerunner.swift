@@ -63,6 +63,14 @@ final class Edgerunner: Codable, EditableModel {
     /// Collection of arbitrary modifiers (currently unused)
     private(set) var arbitraryModifiers = [ArbitraryModifier]()
     
+    // MARK: Save Rolls and Stun/Death state
+    
+    /// Collection of save rolls that must be performed
+    private(set) var saveRolls = [SaveRoll]()
+    
+    /// Indicates the state of the player
+    private(set) var livingState: LivingState = .alive
+    
     /// Creates a blank character before naming.
     ///
     /// - Parameter baseStats: The Base Stats of the character
@@ -360,6 +368,32 @@ final class Edgerunner: Codable, EditableModel {
         }
     }
     
+    func add(_ saveRolls: [SaveRoll]) {
+        DispatchQueue.main.async {
+            self.saveRolls.append(contentsOf: saveRolls)
+            
+            // NEXT: Signal cell that needs to display alert
+        }
+    }
+    
+    func clearSaveRolls() {
+        DispatchQueue.main.async {
+            self.saveRolls.removeAll()
+            
+            // NEXT: Signal cell that needs to clear alert
+        }
+    }
+
+
+    func enter(livingState: LivingState) {
+        DispatchQueue.main.async {
+            self.livingState = livingState
+            
+            // NEXT: Signal state (stunned or dead)
+        }
+    }
+    
+    
     private func woundsChanged() {
         self.damage = self.wounds.map({$0.damageAmount}).reduce(0, { $0 + $1 })
 
@@ -440,7 +474,10 @@ final class Edgerunner: Codable, EditableModel {
         statModifiers = try container.decode([StatModifier].self, forKey: .statModifiers)
         skillModifiers = try container.decode([SkillModifier].self, forKey: .skillModifiers)
         arbitraryModifiers = try container.decode([ArbitraryModifier].self, forKey: .arbitraryModifiers)
-
+        
+        saveRolls = try container.decode([SaveRoll].self, forKey: .saveRolls)
+        livingState = try container.decode(LivingState.self, forKey: .livingState)
+        
         // Used for updates to the Edgerunner model.
         do {
             equippedArmor = try container.decode(EquippedArmor.self, forKey: .equippedArmor)

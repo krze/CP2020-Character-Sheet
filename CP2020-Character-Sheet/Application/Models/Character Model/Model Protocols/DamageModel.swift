@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol DamageModel {
+protocol DamageModel: class {
     
     /// Current damage of the Edgerunner
     var damage: Int { get }
@@ -24,6 +24,20 @@ protocol DamageModel {
     
     /// Current wounds the edgerunner has sustained
     var wounds: [Wound] { get }
+    
+    /// SaveRolls that need to be resolved
+    var saveRolls: [SaveRoll] { get }
+    
+    /// Adds save rolls to the Edgerunner
+    /// - Parameter saveRolls: SaveRolls
+    func add(_ saveRolls: [SaveRoll])
+    
+    /// Removes all save rolls without rolling
+    func clearSaveRolls()
+    
+    /// Sets the player to the specified living state
+    /// - Parameter livingState: LivingState
+    func enter(livingState: LivingState)
     
     /// Applies the damage described to the Edgerunner.
     ///

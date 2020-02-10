@@ -152,7 +152,7 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
         let printerPaperView = PrinterPaperView(frame: printerFrame, viewModel: printerPaperViewModel)
         let saveRollView = SaveRollView(frame: printerPaperView.contentView.frame)
         
-        saveRollView.setup(with: saveRollViewModel)
+        saveRollView.setup(with: saveRollViewModel, damageModel: dataSource?.model)
         printerPaperView.addToContentView(saveRollView)
         
         let popupViewModel = PopupViewModel(contentHeight: popupHeight, contentView: printerPaperView)

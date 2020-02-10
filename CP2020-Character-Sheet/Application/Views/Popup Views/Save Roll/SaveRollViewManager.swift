@@ -9,6 +9,9 @@
 import UIKit
 
 final class SaveRollViewManager {
+    
+    weak var damageModel: DamageModel?
+
     private var rolls = [SaveRoll]()
     
     func append(rolls: [SaveRoll]) {
@@ -18,9 +21,7 @@ final class SaveRollViewManager {
     @objc func resolveRolls() {
         rolls.forEach { roll in
             let succeeded = roll.resolve()
-            
-            // NEXT: Adjust the model to accept a stun state and a death state
-            
+                        
             switch roll.type {
             case .Mortal:
                 succeeded ? print("Phew") : print("ARHG")
@@ -31,15 +32,15 @@ final class SaveRollViewManager {
     }
     
     @objc func dismiss() {
-        
+        damageModel?.clearSaveRolls()
     }
     
     @objc func acceptStunned() {
-        // model.markAsStunned()
+        damageModel?.enter(livingState: .stunned)
     }
     
     @objc func acceptDeath() {
-        // model.markAsDead()
+        damageModel?.enter(livingState: .dead0)
     }
     
 }

@@ -11,7 +11,7 @@ import Foundation
 /// Manages the status of the characters' damage modifiers in order to make UI updates to the DamageModifierViewCell
 final class DamageModifierDataSource: EditorValueReciever {
     
-    private let model: DamageModel
+    weak var model: DamageModel?
     weak var delegate: DamageModifierDataSourceDelegate?
     
     init(model: DamageModel) {
@@ -31,10 +31,10 @@ final class DamageModifierDataSource: EditorValueReciever {
     
     @objc func refreshData() {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
+            guard let self = self, let model = self.model else { return }
             
-            self.delegate?.bodyTypeDidChange(save: self.model.save, btm: self.model.btm)
-            self.delegate?.damageDidChange(totalDamage: self.model.damage)
+            self.delegate?.bodyTypeDidChange(save: model.save, btm: model.btm)
+            self.delegate?.damageDidChange(totalDamage: model.damage)
         }
     }
     

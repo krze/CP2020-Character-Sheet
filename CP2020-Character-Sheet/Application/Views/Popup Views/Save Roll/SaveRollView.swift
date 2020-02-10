@@ -45,8 +45,9 @@ final class SaveRollView: UIView, PopupViewDismissing {
     
     private let manager = SaveRollViewManager()
     
-    func setup(with viewModel: SaveRollViewModel) {
+    func setup(with viewModel: SaveRollViewModel, damageModel: DamageModel?) {
         manager.append(rolls: viewModel.rolls)
+        manager.damageModel = damageModel
         
         // MARK: Stackview Setup
 
