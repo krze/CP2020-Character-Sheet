@@ -28,10 +28,6 @@ protocol DamageModel: class {
     /// SaveRolls that need to be resolved
     var saveRolls: [SaveRoll] { get }
     
-    /// Adds save rolls to the Edgerunner
-    /// - Parameter saveRolls: SaveRolls
-    func add(_ saveRolls: [SaveRoll])
-    
     /// Removes all save rolls without rolling
     func clearSaveRolls()
     

@@ -19,16 +19,22 @@ final class SaveRollViewManager {
     }
     
     @objc func resolveRolls() {
-        rolls.forEach { roll in
-            let succeeded = roll.resolve()
-                        
+        for roll in rolls {
+            // Skip if the resolution comes back as a success
+            guard !roll.resolve() else { continue }
+                  
             switch roll.type {
             case .Mortal:
-                succeeded ? print("Phew") : print("ARHG")
+                acceptDeath()
             case .Stun:
-                succeeded ? print("Phew") : print("ARHG")
+                acceptStunned()
             }
+            
+            break
         }
+        
+        dismiss()
+        rolls = [SaveRoll]()
     }
     
     @objc func dismiss() {

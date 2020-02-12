@@ -17,7 +17,7 @@ struct DamageHelper {
     /// - Parameters:
     ///   - edgerunner: The unlucky Edgerunner being attacked
     ///   - incomingDamage: The Incoming Damage
-    static func applyArmorDamage(to edgerunner: ArmorModel, incomingDamage: IncomingDamage) -> [Wound] {
+    static func applyArmorDamage(to edgerunner: ArmorModel & DamageModel, incomingDamage: IncomingDamage) -> [Wound] {
         let damageType = incomingDamage.damageType
         let locations = incomingDamage.hitLocations
         var damages = [DamageRollResult]()
@@ -34,13 +34,11 @@ struct DamageHelper {
             edgerunner.equippedArmor.applyDamages(damages, coverSP: incomingDamage.coverSP)
             { leftoverDamage, locations, damageType in
                 // This closure is only called when damage exceeds the armor protection.
-                
-                // Just in case, don't bother applying damage if there is none
+                // Just in case, check to make sure we're working with damage to begin with
                 guard leftoverDamage > 0 else { return }
-                
+                let leftoverDamage = Rules.Damage.effectiveDamage(of: damageType, amount: leftoverDamage, btm: edgerunner.btm)
                 var traumaTypes = Rules.Damage.traumaTypes(for: damageType)
-                let leftoverDamage = Rules.Damage.effectiveDamage(of: damageType, amount: leftoverDamage)
-                                
+
                 // Cannot create extra damage. If there's only 1 point of damage, but multiple trauma types,
                 // then don't bother trying to distribute this damage over multiple trauma types. Wounds that
                 // have multiple trauma types are hard-coded to have the types ordered by the rules in the

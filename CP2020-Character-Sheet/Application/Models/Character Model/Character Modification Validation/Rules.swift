@@ -338,13 +338,17 @@ struct Rules {
             }
         }
         
-        static func effectiveDamage(of damageType: DamageType, amount damage: Int) -> Int {
+        static func effectiveDamage(of damageType: DamageType, amount damage: Int, btm: Int) -> Int {
+            let effectiveDamage: Int
+            
             switch damageType {
             case .AP:
-                return halvedDown(damage)
+                effectiveDamage = halvedDown(damage) - btm
             default:
-                return damage
+                effectiveDamage = damage - btm
             }
+            
+            return effectiveDamage > 0 ? effectiveDamage : 1
         }
         
         static func randomBodyLocation() -> BodyLocation {

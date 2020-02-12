@@ -281,9 +281,18 @@ final class Edgerunner: Codable, EditableModel {
             guard let self = self else { return }
             let newWounds = DamageHelper.applyArmorDamage(to: self, incomingDamage: damage)
             self.wounds.append(contentsOf: newWounds)
-
+            
+            if newWounds.contains(where: { $0.isFatal()} ) {
+                self.livingState = .dead0
+                NotificationCenter.default.post(name: .livingStateDidChange, object: nil)
+            }
+            else {
+                self.saveRolls.append(contentsOf: self.sortedSaveRolls(from: newWounds))
+                NotificationCenter.default.post(name: .saveRollsDidChange, object: nil)
+            }
+            
             self.woundsChanged()
-
+            
             completion(.success(.valid))
 
             NotificationCenter.default.post(name: .statsDidChange, object: nil)
@@ -368,28 +377,19 @@ final class Edgerunner: Codable, EditableModel {
         }
     }
     
-    func add(_ saveRolls: [SaveRoll]) {
-        DispatchQueue.main.async {
-            self.saveRolls.append(contentsOf: saveRolls)
-            
-            // NEXT: Signal cell that needs to display alert
-        }
-    }
-    
     func clearSaveRolls() {
         DispatchQueue.main.async {
             self.saveRolls.removeAll()
-            
-            // NEXT: Signal cell that needs to clear alert
+            NotificationCenter.default.post(name: .saveRollsDidChange, object: nil)
+            // NEXT: Build interrupting trigger in coordinator to pop the save roll popover immediately
         }
     }
-
 
     func enter(livingState: LivingState) {
         DispatchQueue.main.async {
             self.livingState = livingState
-            
-            // NEXT: Signal state (stunned or dead)
+            NotificationCenter.default.post(name: .livingStateDidChange, object: nil)
+            // NEXT: Build interrupting trigger in coordinator to pop the death popover immediately
         }
     }
     
@@ -427,6 +427,44 @@ final class Edgerunner: Codable, EditableModel {
         return skillModifiers.filter({ $0.skill == skill }).reduce(0, { total, next in
             total + next.amount
         })
+    }
+    
+    private func sortedSaveRolls(from wounds: [Wound]) -> [SaveRoll] {
+        guard let woundTrackState = Rules.Damage.wound(forTotalDamage: damage) else { return [SaveRoll]() }
+        
+        let saveRollTypes = woundTrackState.saveRollTypes()
+        let stunPenalty = Rules.Damage.stunValue(forTotalDamage: damage) ?? 0
+        let mortalPenalty = Rules.Damage.mortalValue(forTotalDamage: damage) ?? 0
+        let bodyValue = value(for: .Body).displayValue
+        
+        var saveRolls = [SaveRoll]()
+        
+        // First, you should track all immediate mortal checks
+    
+        wounds.forEach { wound in
+            // Immediately mortal wounds are special cases where the player must roll at Mortal0
+            if wound.isMortal() {
+                let saveRoll = SaveRoll(type: .Mortal, target: bodyValue, diceRoll: .d10())
+                saveRolls.append(saveRoll)
+            }
+        }
+        
+        // Then, append the rolls of wherever you are in the woundTrack track.
+        
+        saveRolls.append(contentsOf: saveRollTypes.map({ type in
+            let target: Int
+            
+            switch type {
+            case .Mortal:
+                target = (bodyValue - mortalPenalty).zeroFloor()
+            case .Stun:
+                target = (bodyValue - stunPenalty).zeroFloor()
+            }
+            
+            return SaveRoll(type: type, target: target, diceRoll: .d10())
+        }))
+        
+        return saveRolls
     }
     
     /// Called when reflex refresh is needed.
