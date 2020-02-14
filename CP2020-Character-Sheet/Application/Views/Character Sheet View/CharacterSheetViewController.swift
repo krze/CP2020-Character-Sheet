@@ -16,6 +16,7 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
     weak var roleDescriptionView: RoleDescriptionViewCell?
     weak var highlightedSkillView: HighlightedSkillViewCell?
     weak var armorView: ArmorViewCell?
+    weak var viewCoordinator: ViewCoordinating?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +87,10 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
             let armorViewCellModel = ArmorViewModel()
             cell.setup(with: armorViewCellModel)
             armorView = cell
+        }
+        
+        if let cell = cell as? ViewCreating {
+            cell.viewCoordinator = viewCoordinator
         }
         
         return cell

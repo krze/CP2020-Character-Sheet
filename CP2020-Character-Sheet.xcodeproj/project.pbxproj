@@ -15,6 +15,7 @@
 		4E811C8A23CD80A000B6082A /* SaveRollDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E811C8923CD80A000B6082A /* SaveRollDelegate.swift */; };
 		4E9EC72E23CBAC7E00B2AEC5 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9EC72D23CBAC7E00B2AEC5 /* PopupViewController.swift */; };
 		4EA7CDD023EF46C300DB66CC /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA7CDCF23EF46C300DB66CC /* Button.swift */; };
+		4ED0B48523F6256A0016A6C8 /* ViewCreating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0B48423F6256A0016A6C8 /* ViewCreating.swift */; };
 		4EF602C323C03EAC00D91F1B /* Int+Nonnegative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF602C223C03EAC00D91F1B /* Int+Nonnegative.swift */; };
 		64157CB92378A9AF00667FB0 /* ArmorViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64157CB82378A9AF00667FB0 /* ArmorViewCell.swift */; };
 		64157CBC2378AA6F00667FB0 /* ArmorDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64157CBB2378AA6F00667FB0 /* ArmorDataSourceDelegate.swift */; };
@@ -188,6 +189,7 @@
 		4E811C8923CD80A000B6082A /* SaveRollDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRollDelegate.swift; sourceTree = "<group>"; };
 		4E9EC72D23CBAC7E00B2AEC5 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		4EA7CDCF23EF46C300DB66CC /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		4ED0B48423F6256A0016A6C8 /* ViewCreating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCreating.swift; sourceTree = "<group>"; };
 		4EF602C223C03EAC00D91F1B /* Int+Nonnegative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Nonnegative.swift"; sourceTree = "<group>"; };
 		5A7B8BE8C6628A6E142C97F9 /* libPods-CP2020-Character-Sheet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CP2020-Character-Sheet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		64157CB82378A9AF00667FB0 /* ArmorViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmorViewCell.swift; sourceTree = "<group>"; };
@@ -455,6 +457,7 @@
 			isa = PBXGroup;
 			children = (
 				9D2CFA0321C5921A00EC76D7 /* CharacterSheetCoordinator.swift */,
+				4ED0B48423F6256A0016A6C8 /* ViewCreating.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -1085,6 +1088,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D552CFA21AC89DA008B90E9 /* DamageModifierDataSourceDelegate.swift in Sources */,
+				4ED0B48523F6256A0016A6C8 /* ViewCreating.swift in Sources */,
 				9D85671D230C960100295479 /* StatsStrings.swift in Sources */,
 				9D4724A22309F06D00CECEA2 /* UICollectionViewLayout+Common.swift in Sources */,
 				4E811C8A23CD80A000B6082A /* SaveRollDelegate.swift in Sources */,

@@ -8,11 +8,12 @@
 
 import UIKit
 
-final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSource, UITableViewDelegate, UsedOnce, SkillsDataSourceDelegate {
+final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSource, UITableViewDelegate, UsedOnce, SkillsDataSourceDelegate, ViewCreating {
     
     private (set) var wasSetUp: Bool = false
     
     private var dataSource: HighlightedSkillViewCellDataSource?
+    private weak var skillsTableDataSource: SkillsDataSource?
     
     // MARK: Tableview fields
     
@@ -25,6 +26,8 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     
     private var highlightedSkills = [SkillListing]()
     
+    var viewCoordinator: ViewCoordinating?
+
     func setup(viewModel: HighlightedSkillViewCellModel) {
         if wasSetUp {
             dataSource?.refreshData()
@@ -91,8 +94,9 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     /// Adds the datasource and refreshes data
     ///
     /// - Parameter dataSource: The HighlightedSkillViewCellDataSource
-    func update(dataSource: HighlightedSkillViewCellDataSource) {
-        self.dataSource = dataSource
+    func update(dataSource: SkillsDataSource) {
+        self.skillsTableDataSource = dataSource
+        self.dataSource = dataSource.highlightedSkillsDataSource()
         self.dataSource?.delegate = self
         self.dataSource?.refreshData()
     }
@@ -123,6 +127,18 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     
     // MARK: Private
     
+    private func showSkillTable(with dataSource: SkillsDataSource) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            let skillTableViewController = SkillTableViewController(with: dataSource,
+                                                                    viewModel: SkillTableViewModel(),
+                                                                    tableViewCellModel: ColumnTableViewCellModel())
+            let modalView = UINavigationController(rootViewController: skillTableViewController)
+            
+            self.viewCoordinator?.viewControllerNeedsPresentation(vc: modalView)
+        }
+    }
+    
     private func createObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(forceRefresh), name: .roleDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(forceRefresh), name: .skillDidChange, object: nil)
@@ -137,7 +153,8 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
     }
     
     @objc private func cellTapped() {
-        NotificationCenter.default.post(name: .showSkillTable, object: nil)
+        guard let dataSource = skillsTableDataSource else { return }
+        showSkillTable(with: dataSource)
     }
     
     private func descriptionLabel(frame: CGRect) -> UILabel {

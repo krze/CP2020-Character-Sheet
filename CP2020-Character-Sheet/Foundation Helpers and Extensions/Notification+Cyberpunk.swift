@@ -23,7 +23,6 @@ extension Notification.Name {
     
     // Show a new view
     static let showEditor = Notification.Name("showEditor")
-    static let showSkillDetail = Notification.Name("showSkillDetail")
     static let showHelpTextAlert = Notification.Name("showHelpTextAlert")
     static let showPopup = Notification.Name("showPopup")
     
@@ -31,7 +30,7 @@ extension Notification.Name {
     static let saveWasCalled = Notification.Name("saveWasCalled")
 
     // Navigation
-    static let showSkillTable = Notification.Name("showSkillTable")
+//    static let showSkillTable = Notification.Name("showSkillTable")
     
     // I/O
     static let saveToDiskRequested = Notification.Name("saveToDiskRequested")

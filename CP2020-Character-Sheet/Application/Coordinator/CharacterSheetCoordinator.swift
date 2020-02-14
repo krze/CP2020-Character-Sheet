@@ -10,12 +10,12 @@ import UIKit
 
 /// A top-down coordinator for setting up various views for the character sheet, and displaying new views that the sheet requests.
 /// This class also ensures views get the updated edgerunenr model once it's loaded from disk.
-final class CharacterSheetCoordinator: CharacterCoordinating {
+final class CharacterSheetCoordinator: CharacterCoordinating, ViewCoordinating {
     
     private var skillsDataSource: SkillsDataSource? {
         didSet {
             if let dataSource = skillsDataSource {
-                characterSheetViewController.highlightedSkillView?.update(dataSource: dataSource.highlightedSkillsDataSource())
+                characterSheetViewController.highlightedSkillView?.update(dataSource: dataSource)
             }
         }
     }
@@ -65,16 +65,6 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
     
     // Child views
     
-    private lazy var skillTableViewController: SkillTableViewController? = {
-        if let skillsDataSource = skillsDataSource {
-            return SkillTableViewController(with: skillsDataSource,
-                                            viewModel: SkillTableViewModel(),
-                                            tableViewCellModel: ColumnTableViewCellModel())
-        }
-        
-        return nil
-    }()
-    
     private var topVC: UIViewController {
         if var topController = window.rootViewController {
             while let presentedViewController = topController.presentedViewController {
@@ -85,11 +75,6 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
         }
         
         return navigationController
-    }
-    
-    /// Check this to prevent multiple view controllers from being presented
-    private var childViewIsPresenting: Bool {
-        return skillTableViewController != nil && skillTableViewController?.isBeingPresented == true
     }
     
     private let modelManager: ModelManager
@@ -108,6 +93,7 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
         navigationController = UINavigationController(rootViewController:characterSheetViewController)
         
         modelManager.coordinator = self
+        characterSheetViewController.viewCoordinator = self
 
         createObservers()
     }
@@ -120,28 +106,27 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
     }
     
     private func createObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(showSkillTable), name: .showSkillTable, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showEditor), name: .showEditor, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showHelpTextAlert), name: .showHelpTextAlert, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showPopup), name: .showPopup, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(saveToDiskRequested(notification:)), name: .saveToDiskRequested, object: nil)
     }
     
-    @objc private func showSkillTable(notification: Notification) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self, !self.childViewIsPresenting,
-                let skillTableViewController = self.skillTableViewController else {
-                return
-            }
-            
-            let modalView = UINavigationController(rootViewController: skillTableViewController)
-            self.navigationController.present(modalView, animated: true)
-        }
-    }
+//    @objc private func showSkillTable(notification: Notification) {
+//        DispatchQueue.main.async { [weak self] in
+//            guard let self = self, !self.childViewIsPresenting,
+//                let skillTableViewController = self.skillTableViewController else {
+//                return
+//            }
+//
+//            let modalView = UINavigationController(rootViewController: skillTableViewController)
+//            self.navigationController.present(modalView, animated: true)
+//        }
+//    }
     
     @objc private func showEditor(notification: Notification) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self, !self.childViewIsPresenting,
+            guard let self = self,
                 let editorViewController = notification.object as? UIViewController else {
                     return
             }
@@ -160,7 +145,7 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
     
     @objc private func showPopup(notification: Notification) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self, !self.childViewIsPresenting,
+            guard let self = self,
                 let editorViewController = notification.object as? PopupViewController else {
                     return
             }
@@ -186,6 +171,8 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
         }
     }
     
+    // MARK: - CharacterCoordinating
+    
     func edgerunnerLoaded(_ edgerunner: Edgerunner) {
         skillsDataSource = SkillsDataSource(model: edgerunner)
         statsDataSource = StatsDataSource(statsModel: edgerunner)
@@ -196,6 +183,12 @@ final class CharacterSheetCoordinator: CharacterCoordinating {
         refreshCharacterSheet()
     }
     
+    // MARK: - ViewCoordinating
+    
+    func viewControllerNeedsPresentation(vc: UIViewController) {
+        self.navigationController.present(vc, animated: true)
+    }
+    
 }
 
 protocol CharacterCoordinating: class {
@@ -204,4 +197,10 @@ protocol CharacterCoordinating: class {
     ///
     /// - Parameter edgerunner: The edgerunner loaded from disk.
     func edgerunnerLoaded(_ edgerunner: Edgerunner)
+}
+
+protocol ViewCoordinating: class {
+    
+    func viewControllerNeedsPresentation(vc: UIViewController)
+    
 }
