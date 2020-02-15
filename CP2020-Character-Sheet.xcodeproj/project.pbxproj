@@ -15,6 +15,8 @@
 		4E811C8A23CD80A000B6082A /* SaveRollDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E811C8923CD80A000B6082A /* SaveRollDelegate.swift */; };
 		4E9EC72E23CBAC7E00B2AEC5 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9EC72D23CBAC7E00B2AEC5 /* PopupViewController.swift */; };
 		4EA7CDD023EF46C300DB66CC /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA7CDCF23EF46C300DB66CC /* Button.swift */; };
+		4ED041E423F8A0060026642A /* ViewCoordinating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED041E323F8A0060026642A /* ViewCoordinating.swift */; };
+		4ED041E623F8A0490026642A /* CharacterCoordinating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED041E523F8A0490026642A /* CharacterCoordinating.swift */; };
 		4ED0B48523F6256A0016A6C8 /* ViewCreating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0B48423F6256A0016A6C8 /* ViewCreating.swift */; };
 		4EF602C323C03EAC00D91F1B /* Int+Nonnegative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF602C223C03EAC00D91F1B /* Int+Nonnegative.swift */; };
 		64157CB92378A9AF00667FB0 /* ArmorViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64157CB82378A9AF00667FB0 /* ArmorViewCell.swift */; };
@@ -189,6 +191,8 @@
 		4E811C8923CD80A000B6082A /* SaveRollDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRollDelegate.swift; sourceTree = "<group>"; };
 		4E9EC72D23CBAC7E00B2AEC5 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		4EA7CDCF23EF46C300DB66CC /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		4ED041E323F8A0060026642A /* ViewCoordinating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCoordinating.swift; sourceTree = "<group>"; };
+		4ED041E523F8A0490026642A /* CharacterCoordinating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCoordinating.swift; sourceTree = "<group>"; };
 		4ED0B48423F6256A0016A6C8 /* ViewCreating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCreating.swift; sourceTree = "<group>"; };
 		4EF602C223C03EAC00D91F1B /* Int+Nonnegative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Nonnegative.swift"; sourceTree = "<group>"; };
 		5A7B8BE8C6628A6E142C97F9 /* libPods-CP2020-Character-Sheet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CP2020-Character-Sheet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -458,6 +462,8 @@
 			children = (
 				9D2CFA0321C5921A00EC76D7 /* CharacterSheetCoordinator.swift */,
 				4ED0B48423F6256A0016A6C8 /* ViewCreating.swift */,
+				4ED041E323F8A0060026642A /* ViewCoordinating.swift */,
+				4ED041E523F8A0490026642A /* CharacterCoordinating.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -1092,6 +1098,7 @@
 				9D85671D230C960100295479 /* StatsStrings.swift in Sources */,
 				9D4724A22309F06D00CECEA2 /* UICollectionViewLayout+Common.swift in Sources */,
 				4E811C8A23CD80A000B6082A /* SaveRollDelegate.swift in Sources */,
+				4ED041E423F8A0060026642A /* ViewCoordinating.swift in Sources */,
 				9DFCB7A921D0674A00F99798 /* Stats.swift in Sources */,
 				9D7E12452381E0A20025443D /* AnatomyDisplayController.swift in Sources */,
 				9DE3359B21A9E9F700180927 /* DamageModifierViewCell.swift in Sources */,
@@ -1217,6 +1224,7 @@
 				9D9CC95C2346BDAD005AF278 /* BodyType.swift in Sources */,
 				9D004E3821D81BC5004DFA4D /* UsedOnce.swift in Sources */,
 				9DB8764E2395515300A13FDD /* DiceRollEntryValidator.swift in Sources */,
+				4ED041E623F8A0490026642A /* CharacterCoordinating.swift in Sources */,
 				9D9CC95E2349297D005AF278 /* UIColor+Adjust.swift in Sources */,
 				9DAF2DDA235CF3AF00EEEDE2 /* EquippedArmor.swift in Sources */,
 				9D7E12432381CFB50025443D /* ArmorStrings.swift in Sources */,

@@ -10,6 +10,7 @@ import Foundation
 
 protocol ViewCreating: class {
     
+    /// The ViewCoordinator responsible for handling the presentation of views
     var viewCoordinator: ViewCoordinating? { get set }
     
 }

@@ -98,53 +98,6 @@ final class CharacterSheetCoordinator: CharacterCoordinating, ViewCoordinating {
         createObservers()
     }
     
-    private func refreshCharacterSheet() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.characterSheetViewController.collectionView.reloadData()
-        }
-    }
-    
-    private func createObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(showHelpTextAlert), name: .showHelpTextAlert, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showPopup), name: .showPopup, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(saveToDiskRequested(notification:)), name: .saveToDiskRequested, object: nil)
-    }
-    
-    @objc private func showHelpTextAlert(notification: Notification) {
-        DispatchQueue.main.async {
-            guard let alertController = notification.object as? UIAlertController else { return }
-            self.display(alert: alertController)
-        }
-    }
-    
-    @objc private func showPopup(notification: Notification) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self,
-                let editorViewController = notification.object as? PopupViewController else {
-                    return
-            }
-            editorViewController.modalPresentationStyle = .overCurrentContext
-            self.topVC.present(editorViewController, animated: true)
-        }
-    }
-    
-    private func display(alert: UIAlertController) {
-        DispatchQueue.main.async {
-            self.topVC.present(alert, animated: true)
-        }
-    }
-    
-    @objc private func saveToDiskRequested(notification: Notification) {
-        guard let edgerunnerData = notification.object as? Data else { return }
-        modelManager.saveEdgerunner(data: edgerunnerData) { error in
-            if let error = error {
-                let alert = UIAlertController(title: "Unable to save character:", message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: AlertViewStrings.dismissButtonTitle, style: .default, handler: nil))
-                display(alert: alert)
-            }
-        }
-    }
     
     // MARK: - CharacterCoordinating
     
@@ -165,18 +118,54 @@ final class CharacterSheetCoordinator: CharacterCoordinating, ViewCoordinating {
         self.topVC.present(modalView, animated: true)
     }
     
-}
-
-protocol CharacterCoordinating: class {
+    // MARK: - Private
     
-    /// Sets up the coordinator with the edgerunner. Reloads all the data with the updated edgerunner
-    ///
-    /// - Parameter edgerunner: The edgerunner loaded from disk.
-    func edgerunnerLoaded(_ edgerunner: Edgerunner)
-}
-
-protocol ViewCoordinating: class {
+    private func display(alert: UIAlertController) {
+        DispatchQueue.main.async {
+            self.topVC.present(alert, animated: true)
+        }
+    }
     
-    func viewControllerNeedsPresentation(vc: UIViewController)
+    @objc private func showHelpTextAlert(notification: Notification) {
+        DispatchQueue.main.async {
+            guard let alertController = notification.object as? UIAlertController else { return }
+            self.display(alert: alertController)
+        }
+    }
+    
+    @objc private func showPopup(notification: Notification) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self,
+                let editorViewController = notification.object as? PopupViewController else {
+                    return
+            }
+            editorViewController.modalPresentationStyle = .overCurrentContext
+            self.topVC.present(editorViewController, animated: true)
+        }
+    }
+    
+    @objc private func saveToDiskRequested(notification: Notification) {
+        guard let edgerunnerData = notification.object as? Data else { return }
+        modelManager.saveEdgerunner(data: edgerunnerData) { error in
+            if let error = error {
+                let alert = UIAlertController(title: "Unable to save character:", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: AlertViewStrings.dismissButtonTitle, style: .default, handler: nil))
+                display(alert: alert)
+            }
+        }
+    }
+    
+    private func refreshCharacterSheet() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.characterSheetViewController.collectionView.reloadData()
+        }
+    }
+    
+    private func createObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(showHelpTextAlert), name: .showHelpTextAlert, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showPopup), name: .showPopup, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(saveToDiskRequested(notification:)), name: .saveToDiskRequested, object: nil)
+    }
     
 }
