@@ -22,15 +22,12 @@ extension Notification.Name {
     static let characterComponentDidRequestSaveToDisk = Notification.Name("characterComponentDidRequestSaveToDisk")
     
     // Show a new view
-    static let showEditor = Notification.Name("showEditor")
+//    static let showEditor = Notification.Name("showEditor")
     static let showHelpTextAlert = Notification.Name("showHelpTextAlert")
     static let showPopup = Notification.Name("showPopup")
     
     // View dismissals
     static let saveWasCalled = Notification.Name("saveWasCalled")
-
-    // Navigation
-//    static let showSkillTable = Notification.Name("showSkillTable")
     
     // I/O
     static let saveToDiskRequested = Notification.Name("saveToDiskRequested")

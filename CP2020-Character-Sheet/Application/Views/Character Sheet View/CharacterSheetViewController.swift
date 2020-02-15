@@ -88,10 +88,8 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
             cell.setup(with: armorViewCellModel)
             armorView = cell
         }
-        
-        if let cell = cell as? ViewCreating {
-            cell.viewCoordinator = viewCoordinator
-        }
+
+        (cell as? ViewCreating)?.viewCoordinator = viewCoordinator
         
         return cell
     }

@@ -9,7 +9,8 @@
 import UIKit
 
 /// The table view containing the full listing of every skill available to the Edgerunner
-final class SkillTableViewController: UITableViewController, SkillsDataSourceDelegate, UISearchResultsUpdating {
+final class SkillTableViewController: UITableViewController, SkillsDataSourceDelegate, UISearchResultsUpdating, ViewCreating {
+    weak var viewCoordinator: ViewCoordinating?
 
     private let dataSource: SkillsDataSource
     
@@ -276,8 +277,9 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             let skillDetail = EditorCollectionViewController(with: viewModel)
+            
             skillDetail.delegate = self.dataSource
-            NotificationCenter.default.post(name: .showEditor, object: skillDetail)
+            self.viewCoordinator?.viewControllerNeedsPresentation(vc: skillDetail)
         }
     }
     

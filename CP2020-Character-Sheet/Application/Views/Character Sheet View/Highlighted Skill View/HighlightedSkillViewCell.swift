@@ -133,9 +133,8 @@ final class HighlightedSkillViewCell: UICollectionViewCell, UITableViewDataSourc
             let skillTableViewController = SkillTableViewController(with: dataSource,
                                                                     viewModel: SkillTableViewModel(),
                                                                     tableViewCellModel: ColumnTableViewCellModel())
-            let modalView = UINavigationController(rootViewController: skillTableViewController)
-            
-            self.viewCoordinator?.viewControllerNeedsPresentation(vc: modalView)
+            skillTableViewController.viewCoordinator = self.viewCoordinator
+            self.viewCoordinator?.viewControllerNeedsPresentation(vc: skillTableViewController)
         }
     }
     

@@ -8,7 +8,9 @@
 
 import UIKit
 
-final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionDataSourceDelegate, UsedOnce {
+final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionDataSourceDelegate, UsedOnce, ViewCreating {
+    
+    weak var viewCoordinator: ViewCoordinating?
     
     private (set) var wasSetUp: Bool = false
 
@@ -100,8 +102,9 @@ final class RoleDescriptionViewCell: UICollectionViewCell, CharacterDescriptionD
             let role = Role(rawValue: self.fields[.CharacterRole]?.text ?? "")
             let model = EditorCollectionViewModel.model(with: role, name: self.fields[.Name]?.text ?? "", handle: self.fields[.Handle]?.text ?? "")
             let viewController = EditorCollectionViewController(with: model)
+            
             viewController.delegate = self.dataSource
-            NotificationCenter.default.post(name: .showEditor, object: viewController)
+            self.viewCoordinator?.viewControllerNeedsPresentation(vc: viewController)
         }
     }
     

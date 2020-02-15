@@ -8,7 +8,9 @@
 
 import UIKit
 
-final class ArmorDataSource: NSObject, EditorValueReciever {
+final class ArmorDataSource: NSObject, EditorValueReciever, ViewCreating {
+    
+    weak var viewCoordinator: ViewCoordinating?
     
     /// If an AnatomyDisplayController is present, this view will be updated as well
     weak var anatomyDisplayController: AnatomyDisplayController? {
@@ -172,7 +174,7 @@ extension ArmorDataSource: TableViewManaging {
     @objc private func showNewArmorEditor() {
         let editorViewController = EditorCollectionViewController(with: EditorCollectionViewModel.newArmor())
         editorViewController.delegate = self
-        NotificationCenter.default.post(name: .showEditor, object: editorViewController)
+        viewCoordinator?.viewControllerNeedsPresentation(vc: editorViewController)
     }
     
 }

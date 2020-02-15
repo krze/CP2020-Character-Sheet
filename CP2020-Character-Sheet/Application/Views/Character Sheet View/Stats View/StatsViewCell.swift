@@ -8,7 +8,9 @@
 
 import UIKit
 
-final class StatsViewCell: UICollectionViewCell, StatsDataSourceDelegate, UsedOnce {
+final class StatsViewCell: UICollectionViewCell, StatsDataSourceDelegate, UsedOnce, ViewCreating {
+    
+    var viewCoordinator: ViewCoordinating?
     
     private (set) var wasSetUp: Bool = false
     private var statViews = [StatView]()
@@ -143,8 +145,9 @@ final class StatsViewCell: UICollectionViewCell, StatsDataSourceDelegate, UsedOn
             }()
             let model = EditorCollectionViewModel.make(with: stats, humanityLossPlaceholder: humanityLossPlaceholder)
             let viewController = EditorCollectionViewController(with: model)
+            
             viewController.delegate = self.dataSource
-            NotificationCenter.default.post(name: .showEditor, object: viewController)
+            self.viewCoordinator?.viewControllerNeedsPresentation(vc: viewController)
         }
     }
     

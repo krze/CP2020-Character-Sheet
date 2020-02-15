@@ -106,34 +106,9 @@ final class CharacterSheetCoordinator: CharacterCoordinating, ViewCoordinating {
     }
     
     private func createObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(showEditor), name: .showEditor, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showHelpTextAlert), name: .showHelpTextAlert, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showPopup), name: .showPopup, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(saveToDiskRequested(notification:)), name: .saveToDiskRequested, object: nil)
-    }
-    
-//    @objc private func showSkillTable(notification: Notification) {
-//        DispatchQueue.main.async { [weak self] in
-//            guard let self = self, !self.childViewIsPresenting,
-//                let skillTableViewController = self.skillTableViewController else {
-//                return
-//            }
-//
-//            let modalView = UINavigationController(rootViewController: skillTableViewController)
-//            self.navigationController.present(modalView, animated: true)
-//        }
-//    }
-    
-    @objc private func showEditor(notification: Notification) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self,
-                let editorViewController = notification.object as? UIViewController else {
-                    return
-            }
-            
-            let modalView = UINavigationController(rootViewController: editorViewController)
-            self.topVC.present(modalView, animated: true)
-        }
     }
     
     @objc private func showHelpTextAlert(notification: Notification) {
@@ -186,7 +161,8 @@ final class CharacterSheetCoordinator: CharacterCoordinating, ViewCoordinating {
     // MARK: - ViewCoordinating
     
     func viewControllerNeedsPresentation(vc: UIViewController) {
-        self.navigationController.present(vc, animated: true)
+        let modalView = UINavigationController(rootViewController: vc)
+        self.topVC.present(modalView, animated: true)
     }
     
 }

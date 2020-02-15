@@ -8,7 +8,10 @@
 
 import UIKit
 
-final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOnce {
+final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOnce, ViewCreating {
+    
+    weak var viewCoordinator: ViewCoordinating?
+    
     private(set) var wasSetUp: Bool = false
     private var model: ArmorViewModel?
     private var dataSource: ArmorDataSource?
@@ -77,6 +80,7 @@ final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOn
     /// - Parameter dataSource: The ArmorDataSource
     func update(dataSource: ArmorDataSource) {
         dataSource.delegate = self
+        dataSource.viewCoordinator = viewCoordinator
         self.dataSource = dataSource
         self.dataSource?.refreshData()
     }
@@ -95,7 +99,7 @@ final class ArmorViewCell: UICollectionViewCell, ArmorDataSourceDelegate, UsedOn
             let statusTableView = StatusTableView(with: viewModel, headerViewController: headerViewController)
             
             self.dataSource?.anatomyDisplayController = headerViewController
-            NotificationCenter.default.post(name: .showEditor, object: statusTableView)
+            self.viewCoordinator?.viewControllerNeedsPresentation(vc: statusTableView)
         }
     }
     

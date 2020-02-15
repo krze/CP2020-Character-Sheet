@@ -8,7 +8,10 @@
 
 import UIKit
 
-final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate, UsedOnce {
+final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate, UsedOnce, ViewCreating {
+    
+    weak var viewCoordinator: ViewCoordinating?
+    
     private (set) var wasSetUp: Bool = false
     
     private var dataSource: TotalDamageDataSource?
@@ -151,6 +154,7 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
     func update(dataSource: TotalDamageDataSource) {
         self.dataSource = dataSource
         self.dataSource?.delegate = self
+        self.dataSource?.viewCoordinator = self.viewCoordinator
     }
     
     // MARK: Gesture Recognition and actions
@@ -182,7 +186,8 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
             let statusTableView = StatusTableView(with: viewModel, headerViewController: headerViewController)
             
             self.dataSource?.anatomyDisplayController = headerViewController
-            NotificationCenter.default.post(name: .showEditor, object: statusTableView)
+            
+            self.viewCoordinator?.viewControllerNeedsPresentation(vc: statusTableView)
         }
     }
     
@@ -192,8 +197,9 @@ final class DamageViewCell: UICollectionViewCell, TotalDamageDataSourceDelegate,
             guard let self = self else { return }
             let model = EditorCollectionViewModel.incomingDamage()
             let viewController = EditorCollectionViewController(with: model)
+            
             viewController.delegate = self.dataSource
-            NotificationCenter.default.post(name: .showEditor, object: viewController)
+            self.viewCoordinator?.viewControllerNeedsPresentation(vc: viewController)
         }
     }
     

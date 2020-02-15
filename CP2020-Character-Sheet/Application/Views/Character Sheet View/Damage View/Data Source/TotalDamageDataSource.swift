@@ -8,7 +8,9 @@
 
 import UIKit
 
-final class TotalDamageDataSource: NSObject, EditorValueReciever {
+final class TotalDamageDataSource: NSObject, EditorValueReciever, ViewCreating {
+    
+    weak var viewCoordinator: ViewCoordinating?
 
     private let model: DamageModel
     private let maxDamage: Int
@@ -205,7 +207,8 @@ extension TotalDamageDataSource: TableViewManaging {
     @objc private func showNewDamageEditor() {
         let editorViewController = EditorCollectionViewController(with: EditorCollectionViewModel.incomingDamage())
         editorViewController.delegate = self
-        NotificationCenter.default.post(name: .showEditor, object: editorViewController)
+        
+        self.viewCoordinator?.viewControllerNeedsPresentation(vc: editorViewController)
     }
     
     @objc private func showMultiHealMenu() {
