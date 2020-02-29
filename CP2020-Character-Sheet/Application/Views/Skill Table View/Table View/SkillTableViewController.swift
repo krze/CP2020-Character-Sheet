@@ -113,8 +113,12 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
                                    acceptHandler: { _ in
                                     self.dataSource.reset(listing) { (result) in
                                         switch result {
-                                        case .success:
-                                            completion(true)
+                                        case .success(let validity):
+                                            switch validity {
+                                            case .valid(let validityCompletion):
+                                                completion(true)
+                                                validityCompletion()
+                                        }
                                         default:
                                             completion(false)
                                         }
@@ -136,8 +140,12 @@ final class SkillTableViewController: UITableViewController, SkillsDataSourceDel
         let action = UIContextualAction(style: .normal, title: title) { (action, view, completion) in
             self.dataSource.flipStar(listing) { (result) in
                 switch result {
-                case .success:
-                    completion(true)
+                case .success(let validity):
+                    switch validity {
+                    case .valid(let validityCompletion):
+                        completion(true)
+                        validityCompletion()
+                }
                 default:
                     completion(false)
                 }

@@ -173,8 +173,8 @@ final class Edgerunner: Codable, EditableModel {
             
             self.skills.append(newSkill)
 
-            completion(.success(.valid))
-            NotificationCenter.default.post(name: .skillDidChange, object: newSkill)
+            completion(.success(.valid(completion: { NotificationCenter.default.post(name: .skillDidChange, object: newSkill) })))
+            
             self.saveCharacter()
         }
     }
@@ -199,8 +199,7 @@ final class Edgerunner: Codable, EditableModel {
             
             self.skills.append(skill)
             
-            completion(.success(.valid))
-            NotificationCenter.default.post(name: .skillDidChange, object: skill)
+            completion(.success(.valid(completion: { NotificationCenter.default.post(name: .skillDidChange, object: skill) })))
             self.saveCharacter()
         }
     }
@@ -217,8 +216,7 @@ final class Edgerunner: Codable, EditableModel {
             }
             
             self.skills.first(where: { $0.skill == skillListing.skill } )?.starred = !currentState
-            completion(.success(.valid))
-            NotificationCenter.default.post(name: .skillDidChange, object: skillListing)
+            completion(.success(.valid(completion: { NotificationCenter.default.post(name: .skillDidChange, object: skillListing) })))
             self.saveCharacter()
         }
 
@@ -243,8 +241,7 @@ final class Edgerunner: Codable, EditableModel {
             self.humanityLoss = humanityLoss
             self.refreshSkillListings()
             
-            completion(.success(.valid))
-            NotificationCenter.default.post(name: .statsDidChange, object: nil)
+            completion(.success(.valid(completion: { NotificationCenter.default.post(name: .statsDidChange, object: nil) })))
             self.saveCharacter()
         }
     }
@@ -258,8 +255,7 @@ final class Edgerunner: Codable, EditableModel {
     func set(role: Role, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
         DispatchQueue.main.async {
             self.role = role
-            completion(.success(.valid))
-            NotificationCenter.default.post(name: .roleDidChange, object: nil)
+            completion(.success(.valid(completion: { NotificationCenter.default.post(name: .roleDidChange, object: nil) })))
             self.saveCharacter()
         }
     }
@@ -268,8 +264,7 @@ final class Edgerunner: Codable, EditableModel {
         DispatchQueue.main.async {
             self.name = name
             self.handle = handle
-            completion(.success(.valid))
-            NotificationCenter.default.post(name: .nameAndHandleDidChange, object: nil)
+            completion(.success(.valid(completion: { NotificationCenter.default.post(name: .nameAndHandleDidChange, object: nil) })))
             self.saveCharacter()
         }
     }
@@ -280,24 +275,23 @@ final class Edgerunner: Codable, EditableModel {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             let newWounds = DamageHelper.applyArmorDamage(to: self, incomingDamage: damage)
-            
+            var notifications = [() -> Void]()
             self.wounds.append(contentsOf: newWounds)
             self.woundsChanged()
 
             if newWounds.contains(where: { $0.isFatal()} ) {
                 self.livingState = .dead0
-                NotificationCenter.default.post(name: .livingStateDidChange, object: nil)
+                notifications.append({ NotificationCenter.default.post(name: .livingStateDidChange, object: nil) })
             }
             else {
                 self.saveRolls.append(contentsOf: self.sortedSaveRolls(from: newWounds))
-                NotificationCenter.default.post(name: .saveRollsDidChange, object: nil)
+                notifications.append({ NotificationCenter.default.post(name: .saveRollsDidChange, object: nil) })
             }
+            notifications.append({ NotificationCenter.default.post(name: .statsDidChange, object: nil) })
+            notifications.append({ NotificationCenter.default.post(name: .damageDidChange, object: nil) })
             
-            completion(.success(.valid))
+            completion(.success(.valid(completion: { notifications.forEach({ $0() }) })))
 
-            NotificationCenter.default.post(name: .statsDidChange, object: nil)
-            NotificationCenter.default.post(name: .damageDidChange, object: nil)
-            
             self.saveCharacter()
         }
     }
@@ -312,10 +306,10 @@ final class Edgerunner: Codable, EditableModel {
             
             self.wounds.remove(at: woundIndex)
             self.woundsChanged()
-            completion(.success(.valid))
-
-            NotificationCenter.default.post(name: .statsDidChange, object: nil)
-            NotificationCenter.default.post(name: .damageDidChange, object: nil)
+            completion(.success(.valid(completion: {
+                NotificationCenter.default.post(name: .statsDidChange, object: nil)
+                NotificationCenter.default.post(name: .damageDidChange, object: nil)
+            })))
             
             self.saveCharacter()
         }
@@ -336,11 +330,11 @@ final class Edgerunner: Codable, EditableModel {
             
             self.woundsChanged()
             
-            completion(.success(.valid))
+            completion(.success(.valid(completion: {
+                NotificationCenter.default.post(name: .statsDidChange, object: nil)
+                NotificationCenter.default.post(name: .damageDidChange, object: nil)
+            })))
 
-            NotificationCenter.default.post(name: .statsDidChange, object: nil)
-            NotificationCenter.default.post(name: .damageDidChange, object: nil)
-            
             self.saveCharacter()
         }
     }
@@ -366,10 +360,10 @@ final class Edgerunner: Codable, EditableModel {
             
             self.woundsChanged()
             
-            completion(.success(.valid))
-
-            NotificationCenter.default.post(name: .statsDidChange, object: nil)
-            NotificationCenter.default.post(name: .damageDidChange, object: nil)
+            completion(.success(.valid(completion: {
+                NotificationCenter.default.post(name: .statsDidChange, object: nil)
+                NotificationCenter.default.post(name: .damageDidChange, object: nil)
+            })))
             
             self.saveCharacter()
         }

@@ -41,5 +41,5 @@ protocol EditorValueReciever: class {
 typealias ValidatedEditorResult = Result<Validated, Violation>
 
 enum Validated {
-    case valid
+    case valid(completion: () -> Void)
 }

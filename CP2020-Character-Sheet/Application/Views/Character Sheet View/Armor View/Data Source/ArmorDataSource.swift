@@ -157,8 +157,12 @@ extension ArmorDataSource: TableViewManaging {
         let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completion) in
             self.model.equippedArmor.remove(armor) { (result) in
                 switch result {
-                case .success:
-                    completion(true)
+                case .success(let validity):
+                    switch validity {
+                    case .valid(let validityCompletion):
+                        completion(true)
+                        validityCompletion()
+                }
                 default:
                     completion(false)
                 }

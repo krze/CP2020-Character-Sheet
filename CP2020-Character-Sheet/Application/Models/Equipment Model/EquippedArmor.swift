@@ -88,8 +88,7 @@ final class EquippedArmor: Codable {
             self.armor.sortByZones()
             self.updateEncumberance()
             
-            completion(.success(.valid))
-            NotificationCenter.default.post(name: .armorDidChange, object: nil)
+            completion(.success(.valid(completion: { NotificationCenter.default.post(name: .armorDidChange, object: nil) })))
             self.saveCharacter()
         }
 
@@ -108,8 +107,8 @@ final class EquippedArmor: Codable {
             self.armor.sortByZones()
             self.updateEncumberance()
             
-            completion(.success(.valid))
-            NotificationCenter.default.post(name: .armorDidChange, object: nil)
+            completion(.success(.valid(completion: { NotificationCenter.default.post(name: .armorDidChange, object: nil) })))
+            
             self.saveCharacter()
         }
     }

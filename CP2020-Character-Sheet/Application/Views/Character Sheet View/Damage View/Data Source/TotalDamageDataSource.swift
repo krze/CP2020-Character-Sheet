@@ -172,7 +172,12 @@ extension TotalDamageDataSource: TableViewManaging {
         let action = UIContextualAction(style: .destructive, title: "Remove") { (action, view, completion) in
             self.model.remove(wound) { (result) in
                 switch result {
-                case .success: completion(true)
+                case .success(let validity):
+                    switch validity {
+                    case .valid(let validationCompletion):
+                        completion(true)
+                        validationCompletion()
+                    }
                 default: completion(false)
                 }
             }

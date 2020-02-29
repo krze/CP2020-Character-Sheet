@@ -228,8 +228,8 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
         return CGSize(width: width, height: entryType.cellHeight())
     }
     
-    private func dismissEditor() {
-        self.dismiss(animated: true)
+    private func dismissEditor(completion: (() -> Void)?) {
+        self.dismiss(animated: true, completion: completion)
     }
     
     private func makeNextCellFirstResponder(currentIndex: Int?) -> Bool {
@@ -262,7 +262,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
             self.delegate?.valuesFromEditorDidChange(currentValues, validationCompletion: dismissOrWarn)
         }
         else {
-            dismissEditor()
+            dismissEditor(completion: nil)
         }
     }
     
@@ -271,8 +271,11 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     /// - Parameter result: The result of the validation of the change to the sheet.
     private func dismissOrWarn(_ result: ValidatedEditorResult) {
         switch result {
-        case .success:
-            dismissEditor()
+        case .success(let validity):
+            switch validity {
+            case .valid(let completion):
+                dismissEditor(completion: completion)
+            }
             return
         case .failure(let violation):
             let title = violation.title()
