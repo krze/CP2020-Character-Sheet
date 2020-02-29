@@ -86,6 +86,10 @@ final class TotalDamageDataSource: NSObject, EditorValueReciever, ViewCreating {
         
         delegate?.updateCells(to: currentDamage)
         anatomyDisplayController?.tableView?.reloadData()
+        
+        if !model.saveRolls.isEmpty {
+            showSavePopup(with: model.saveRolls)
+        }
     }
     
     func autofillSuggestion(for identifier: Identifier, value: AnyHashable) -> [Identifier : AnyHashable]? {
@@ -256,6 +260,27 @@ extension TotalDamageDataSource: TableViewManaging {
         NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
     }
     
+    private func showSavePopup(with rolls: [SaveRoll]) {
+        DispatchQueue.main.async {
+            let saveRollViewModel = SaveRollViewModel(rolls: rolls)
+            let popupHeight = saveRollViewModel.totalHeight()
+
+            let printerPaperViewModel = PrinterPaperViewModel()
+            let printerSize = CGSize(width: UIScreen.main.bounds.width, height: popupHeight)
+            let printerFrame = CGRect(origin: .zero, size: printerSize)
+            let printerPaperView = PrinterPaperView(frame: printerFrame, viewModel: printerPaperViewModel)
+            let saveRollView = SaveRollView(frame: printerPaperView.contentView.frame)
+            
+            saveRollView.setup(with: saveRollViewModel, damageModel: self.model)
+            printerPaperView.addToContentView(saveRollView)
+            
+            let popupViewModel = PopupViewModel(contentHeight: popupHeight, contentView: printerPaperView)
+            let popupView = PopupViewController(with: popupViewModel)
+            saveRollView.dissmiss = popupView.dismiss
+            
+            self.viewCoordinator?.popupViewNeedsPresentation(popup: popupView)
+        }
+    }
 }
 
 private final class DamageReducerHelper: NSObject, UITextFieldDelegate {

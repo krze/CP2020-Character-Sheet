@@ -118,6 +118,13 @@ final class CharacterSheetCoordinator: CharacterCoordinating, ViewCoordinating {
         self.topVC.present(modalView, animated: true)
     }
     
+    func popupViewNeedsPresentation(popup: PopupViewController) {
+        popup.modalPresentationStyle = .overCurrentContext
+        
+        // NEXT: Fix issue with popup not showing because of dismissal issues
+        self.topVC.present(popup, animated: true)
+    }
+    
     // MARK: - Private
     
     private func display(alert: UIAlertController) {
@@ -130,17 +137,6 @@ final class CharacterSheetCoordinator: CharacterCoordinating, ViewCoordinating {
         DispatchQueue.main.async {
             guard let alertController = notification.object as? UIAlertController else { return }
             self.display(alert: alertController)
-        }
-    }
-    
-    @objc private func showPopup(notification: Notification) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self,
-                let editorViewController = notification.object as? PopupViewController else {
-                    return
-            }
-            editorViewController.modalPresentationStyle = .overCurrentContext
-            self.topVC.present(editorViewController, animated: true)
         }
     }
     
@@ -164,7 +160,6 @@ final class CharacterSheetCoordinator: CharacterCoordinating, ViewCoordinating {
     
     private func createObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(showHelpTextAlert), name: .showHelpTextAlert, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showPopup), name: .showPopup, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(saveToDiskRequested(notification:)), name: .saveToDiskRequested, object: nil)
     }
     

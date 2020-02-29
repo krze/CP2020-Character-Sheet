@@ -280,8 +280,10 @@ final class Edgerunner: Codable, EditableModel {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             let newWounds = DamageHelper.applyArmorDamage(to: self, incomingDamage: damage)
-            self.wounds.append(contentsOf: newWounds)
             
+            self.wounds.append(contentsOf: newWounds)
+            self.woundsChanged()
+
             if newWounds.contains(where: { $0.isFatal()} ) {
                 self.livingState = .dead0
                 NotificationCenter.default.post(name: .livingStateDidChange, object: nil)
@@ -290,8 +292,6 @@ final class Edgerunner: Codable, EditableModel {
                 self.saveRolls.append(contentsOf: self.sortedSaveRolls(from: newWounds))
                 NotificationCenter.default.post(name: .saveRollsDidChange, object: nil)
             }
-            
-            self.woundsChanged()
             
             completion(.success(.valid))
 
@@ -311,9 +311,7 @@ final class Edgerunner: Codable, EditableModel {
             }
             
             self.wounds.remove(at: woundIndex)
-            
             self.woundsChanged()
-            
             completion(.success(.valid))
 
             NotificationCenter.default.post(name: .statsDidChange, object: nil)

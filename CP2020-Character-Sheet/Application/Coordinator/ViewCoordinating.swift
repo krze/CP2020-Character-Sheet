@@ -10,8 +10,12 @@ import UIKit
 
 protocol ViewCoordinating: class {
     
-    /// Passes a VC in for presentation to the coordinator
+    /// Passes a VC in for presentation to the coordinator in a modal style
     /// - Parameter vc: The View Controller to present
     func viewControllerNeedsPresentation(vc: UIViewController)
+    
+    /// Passes a PopupViewController for immediate popup, covering the window
+    /// - Parameter popup: The PopupViewController to present
+    func popupViewNeedsPresentation(popup: PopupViewController)
     
 }

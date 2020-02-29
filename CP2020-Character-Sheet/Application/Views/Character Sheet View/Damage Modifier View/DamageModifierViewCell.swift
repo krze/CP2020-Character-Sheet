@@ -66,15 +66,15 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
                 ])
             
             leadingAnchor = cell.trailingAnchor
-            
-            // TEMP till refactoring
-            
-            if label == .Save {
-                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showSavePopup))
-                tapGesture.cancelsTouchesInView = false
-                tapGesture.numberOfTouchesRequired = 1
-                cell.addGestureRecognizer(tapGesture)
-            }
+//            
+//            // TEMP till refactoring
+//            
+//            if label == .Save {
+//                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showSavePopup))
+//                tapGesture.cancelsTouchesInView = false
+//                tapGesture.numberOfTouchesRequired = 1
+//                cell.addGestureRecognizer(tapGesture)
+//            }
         }
         
         wasSetUp = true
@@ -138,28 +138,6 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
         label.fitTextToBounds(maximumSize: StyleConstants.Font.maximumSize)
         
         return label
-    }
-    
-    @objc private func showSavePopup() {
-        let rolls = [SaveRoll(type: .Stun, target: 7, diceRoll: DiceRoll(number: 1, sides: 10, modifier: 0)),
-                     SaveRoll(type: .Mortal, target: 8, diceRoll: DiceRoll(number: 1, sides: 10, modifier: 0))]
-        let saveRollViewModel = SaveRollViewModel(rolls: rolls)
-        let popupHeight = saveRollViewModel.totalHeight()
-
-        let printerPaperViewModel = PrinterPaperViewModel()
-        let printerSize = CGSize(width: self.frame.width, height: popupHeight)
-        let printerFrame = CGRect(origin: .zero, size: printerSize)
-        let printerPaperView = PrinterPaperView(frame: printerFrame, viewModel: printerPaperViewModel)
-        let saveRollView = SaveRollView(frame: printerPaperView.contentView.frame)
-        
-        saveRollView.setup(with: saveRollViewModel, damageModel: dataSource?.model)
-        printerPaperView.addToContentView(saveRollView)
-        
-        let popupViewModel = PopupViewModel(contentHeight: popupHeight, contentView: printerPaperView)
-        let popupView = PopupViewController(with: popupViewModel)
-        saveRollView.dissmiss = popupView.dismiss
-        
-        NotificationCenter.default.post(name: .showPopup, object: popupView)
     }
     
     private enum Label: String, CaseIterable {
