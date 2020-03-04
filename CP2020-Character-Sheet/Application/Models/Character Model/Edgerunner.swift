@@ -284,13 +284,15 @@ final class Edgerunner: Codable, EditableModel {
                 notifications.append({ NotificationCenter.default.post(name: .livingStateDidChange, object: nil) })
             }
             else {
-                self.saveRolls.append(contentsOf: self.sortedSaveRolls(from: newWounds))
+                self.saveRolls.append(contentsOf: self.sortedSaveRolls(from: newWounds, damage: self.damage))
                 notifications.append({ NotificationCenter.default.post(name: .saveRollsDidChange, object: nil) })
             }
             notifications.append({ NotificationCenter.default.post(name: .statsDidChange, object: nil) })
             notifications.append({ NotificationCenter.default.post(name: .damageDidChange, object: nil) })
             
-            completion(.success(.valid(completion: { notifications.forEach({ $0() }) })))
+            completion(.success(.valid(completion: {
+                notifications.forEach({ $0() })
+            })))
 
             self.saveCharacter()
         }
@@ -421,7 +423,9 @@ final class Edgerunner: Codable, EditableModel {
         })
     }
     
-    private func sortedSaveRolls(from wounds: [Wound]) -> [SaveRoll] {
+    /// Converts the array of fresh wounds into the correct collection of save rolls based on the info
+    /// contained in each wound, and the character's current damage.
+    private func sortedSaveRolls(from wounds: [Wound], damage: Int) -> [SaveRoll] {
         guard let woundTrackState = Rules.Damage.wound(forTotalDamage: damage) else { return [SaveRoll]() }
         
         let saveRollTypes = woundTrackState.saveRollTypes()
@@ -432,13 +436,10 @@ final class Edgerunner: Codable, EditableModel {
         var saveRolls = [SaveRoll]()
         
         // First, you should track all immediate mortal checks
-    
-        wounds.forEach { wound in
-            // Immediately mortal wounds are special cases where the player must roll at Mortal0
-            if wound.isMortal() {
-                let saveRoll = SaveRoll(type: .Mortal, target: bodyValue, diceRoll: .d10())
-                saveRolls.append(saveRoll)
-            }
+        // Mortal wounds are special cases where the player must roll at Mortal0 for every occurance.
+        wounds.filter({ $0.isMortal() }).forEach { wound in
+            let saveRoll = SaveRoll(type: .Mortal, target: bodyValue, diceRoll: .d10())
+            saveRolls.append(saveRoll)
         }
         
         // Then, append the rolls of wherever you are in the woundTrack track.

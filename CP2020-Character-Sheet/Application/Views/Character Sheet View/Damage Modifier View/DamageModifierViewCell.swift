@@ -66,15 +66,6 @@ final class DamageModifierViewCell: UICollectionViewCell, DamageModifierDataSour
                 ])
             
             leadingAnchor = cell.trailingAnchor
-//            
-//            // TEMP till refactoring
-//            
-//            if label == .Save {
-//                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showSavePopup))
-//                tapGesture.cancelsTouchesInView = false
-//                tapGesture.numberOfTouchesRequired = 1
-//                cell.addGestureRecognizer(tapGesture)
-//            }
         }
         
         wasSetUp = true
