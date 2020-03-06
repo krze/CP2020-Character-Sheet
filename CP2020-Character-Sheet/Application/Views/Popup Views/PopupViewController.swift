@@ -96,15 +96,17 @@ final class PopupViewController: UIViewController {
     }
     
     func dismiss() {
-        let newView = UIView()
+        self.dismiss(animated: true)
+    }
+    
+    func addNewViewToStack(_ newView: UIView, contentHeight: CGFloat) {
         newView.translatesAutoresizingMaskIntoConstraints = false
         newView.backgroundColor = .red
-        newView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        newView.heightAnchor.constraint(equalToConstant: contentHeight).isActive = true
         newView.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
-        resizeStackView(adding: 50)
-
         stackView.insertArrangedSubview(newView, at: 0)
 
+        resizeStackView(adding: contentHeight)
     }
     
     func resizeStackView(adding height: CGFloat) {

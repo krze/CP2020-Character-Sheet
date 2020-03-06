@@ -119,7 +119,7 @@ final class CharacterSheetCoordinator: CharacterCoordinating, ViewCoordinating {
     }
     
     func popupViewNeedsPresentation(popup: PopupViewController) {
-        popup.modalPresentationStyle = .overCurrentContext
+        popup.modalPresentationStyle = .overFullScreen
         topVC.present(popup, animated: true)
     }
     
