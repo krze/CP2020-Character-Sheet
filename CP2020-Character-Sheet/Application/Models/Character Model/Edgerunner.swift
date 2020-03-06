@@ -375,7 +375,6 @@ final class Edgerunner: Codable, EditableModel {
         DispatchQueue.main.async {
             self.saveRolls.removeAll()
             NotificationCenter.default.post(name: .saveRollsDidChange, object: nil)
-            // NEXT: Build interrupting trigger in coordinator to pop the save roll popover immediately
         }
     }
 

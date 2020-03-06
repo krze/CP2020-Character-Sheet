@@ -115,14 +115,12 @@ final class CharacterSheetCoordinator: CharacterCoordinating, ViewCoordinating {
     
     func viewControllerNeedsPresentation(vc: UIViewController) {
         let modalView = UINavigationController(rootViewController: vc)
-        self.topVC.present(modalView, animated: true)
+        topVC.present(modalView, animated: true)
     }
     
     func popupViewNeedsPresentation(popup: PopupViewController) {
         popup.modalPresentationStyle = .overCurrentContext
-        
-        // NEXT: Fix issue with popup not showing because of dismissal issues
-        self.topVC.present(popup, animated: true)
+        topVC.present(popup, animated: true)
     }
     
     // MARK: - Private
