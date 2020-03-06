@@ -276,6 +276,9 @@ extension TotalDamageDataSource: TableViewManaging {
             let printerPaperView = PrinterPaperView(frame: printerFrame, viewModel: printerPaperViewModel)
             let saveRollView = SaveRollView(frame: printerPaperView.contentView.frame)
             
+            saveRollView.widthAnchor.constraint(equalToConstant: printerPaperView.contentView.frame.width).isActive = true
+            saveRollView.heightAnchor.constraint(equalToConstant: printerPaperView.contentView.frame.height).isActive = true
+            
             saveRollView.setup(with: saveRollViewModel, damageModel: self.model)
             printerPaperView.addToContentView(saveRollView)
             

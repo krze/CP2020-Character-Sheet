@@ -57,6 +57,9 @@ final class SaveRollView: UIView, PopupViewDismissing {
         stackView.alignment = .center
         stackView.distribution = .equalSpacing
         
+        stackView.widthAnchor.constraint(equalToConstant: bounds.width).isActive = true
+        stackView.heightAnchor.constraint(equalToConstant: bounds.height).isActive = true
+        
         addSubview(stackView)
         
         let fillerSize = CGSize(width: bounds.width, height: bounds.height * 0.05)
