@@ -29,11 +29,14 @@ protocol DamageModel: class {
     var saveRolls: [SaveRoll] { get }
     
     /// Removes all save rolls without rolling
-    func clearSaveRolls()
+    /// - Parameter completion: Completion closure called with validity state
+    func clearSaveRolls(completion: @escaping (ValidatedEditorResult) -> Void)
     
-    /// Sets the player to the specified living state
-    /// - Parameter livingState: LivingState
-    func enter(livingState: LivingState)
+    /// Applies the damage described to the Edgerunner.
+    /// - Parameters:
+    ///   - livingState: The new living state
+    ///   - completion: Completion closure called with validity state
+    func enter(livingState: LivingState, completion: @escaping (ValidatedEditorResult) -> Void)
     
     /// Applies the damage described to the Edgerunner.
     ///

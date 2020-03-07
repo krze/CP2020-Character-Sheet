@@ -33,7 +33,7 @@ final class SaveRollViewManager {
             break
         }
         
-        dismiss()
+        damageModel?.clearSaveRolls()
         rolls = [SaveRoll]()
     }
     

@@ -371,17 +371,24 @@ final class Edgerunner: Codable, EditableModel {
         }
     }
     
-    func clearSaveRolls() {
+    func clearSaveRolls(completion: @escaping (ValidatedEditorResult) -> Void) {
         DispatchQueue.main.async {
             self.saveRolls.removeAll()
-            NotificationCenter.default.post(name: .saveRollsDidChange, object: nil)
+            
+            completion(.success(.valid(completion: {
+                NotificationCenter.default.post(name: .saveRollsDidChange, object: nil)
+            })))
         }
     }
 
-    func enter(livingState: LivingState) {
+    func enter(livingState: LivingState, completion: @escaping (ValidatedEditorResult) -> Void) {
         DispatchQueue.main.async {
             self.livingState = livingState
-            NotificationCenter.default.post(name: .livingStateDidChange, object: nil)
+            
+            completion(.success(.valid(completion: {
+                NotificationCenter.default.post(name: .livingStateDidChange, object: nil)
+            })))
+            
             // NEXT: Build interrupting trigger in coordinator to pop the death popover immediately
         }
     }
