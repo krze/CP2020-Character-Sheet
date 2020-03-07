@@ -77,7 +77,7 @@ final class EquippedArmor: Codable {
     /// - Parameters:
     ///   - armor: The new armor to equip
     ///   - completion: The validation completion
-    func equip(_ armor: Armor, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func equip(_ armor: Armor, validationCompletion completion: @escaping (ValidatedResult) -> Void) {
         guard CharacterValidator.validate(newArmor: armor, existingArmor: self.armor, completion: completion) else {
             return
         }
@@ -99,7 +99,7 @@ final class EquippedArmor: Codable {
     /// - Parameters:
     ///   - armor: The new armor to remove
     ///   - completion: The validation completion
-    func remove(_ armor: Armor, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func remove(_ armor: Armor, validationCompletion completion: @escaping (ValidatedResult) -> Void) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             

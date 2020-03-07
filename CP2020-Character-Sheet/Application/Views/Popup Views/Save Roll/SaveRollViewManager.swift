@@ -11,6 +11,7 @@ import UIKit
 final class SaveRollViewManager {
     
     weak var damageModel: DamageModel?
+    weak var delegate: SaveRollManagerDelegate?
 
     private var rolls = [SaveRoll]()
     
@@ -18,35 +19,79 @@ final class SaveRollViewManager {
         self.rolls.append(contentsOf: rolls)
     }
     
-    @objc func resolveRolls() {
+    @objc func resolveRolls(_ sender: UIButton) {
+        var wasSuccessful = true
+        var customText: String?
         for roll in rolls {
             // Skip if the resolution comes back as a success
             guard !roll.resolve() else { continue }
-                  
+            
+            wasSuccessful = false
+            
             switch roll.type {
             case .Mortal:
-                acceptDeath()
+                acceptDeath(sender)
+                customText = SaveRollStrings.dead
             case .Stun:
-                acceptStunned()
+                acceptStunned(sender)
+                customText = SaveRollStrings.stunned
             }
             
             break
         }
         
-        damageModel?.clearSaveRolls()
+        delegate?.saveResolved(with: sender, success: wasSuccessful, text: customText)
+        
+        damageModel?.clearSaveRolls(completion: { result in
+            switch result {
+            case .success(let validation):
+                switch validation {
+                case .valid(let completion):
+                    completion()
+                }
+            case .failure(let violation):
+                print(violation.helpText())
+            }
+        })
+        
         rolls = [SaveRoll]()
     }
     
-    @objc func dismiss() {
-        damageModel?.clearSaveRolls()
+    @objc func dismiss(_ sender: UIButton)  {
+        damageModel?.clearSaveRolls(completion: { result in
+            switch result {
+            case .success(let validation):
+                switch validation {
+                case .valid(let completion):
+                    completion()
+                    self.delegate?.saveResolved(with: sender, success: true, text: "Cleared All Rolls")
+                }
+            case .failure(let violation):
+                print(violation.helpText())
+            }
+        })
     }
     
-    @objc func acceptStunned() {
-        damageModel?.enter(livingState: .stunned)
+    @objc func acceptStunned(_ sender: UIButton)  {
+        damageModel?.enter(livingState: .stunned, completion: defaultResolution(_:))
+        delegate?.saveResolved(with: sender, success: false, text: "Goodnight!")
     }
     
-    @objc func acceptDeath() {
-        damageModel?.enter(livingState: .dead0)
+    @objc func acceptDeath(_ sender: UIButton)  {
+        damageModel?.enter(livingState: .dead0, completion: defaultResolution(_:))
+        delegate?.saveResolved(with: sender, success: false, text: "Sweet Release!")
+    }
+    
+    private func defaultResolution(_ result: ValidatedResult) {
+        switch result {
+        case .success(let validation):
+            switch validation {
+            case .valid(let completion):
+                completion()
+            }
+        case .failure(let violation):
+            print(violation.helpText())
+        }
     }
     
 }

@@ -36,7 +36,7 @@ final class TotalDamageDataSource: NSObject, EditorValueReciever, ViewCreating {
         NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: .damageDidChange, object: nil)
     }
     
-    func valuesFromEditorDidChange(_ values: [Identifier : AnyHashable], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func valuesFromEditorDidChange(_ values: [Identifier : AnyHashable], validationCompletion completion: @escaping (ValidatedResult) -> Void) {
         
         guard let numberOfHitsString = values[DamageField.NumberOfHits.identifier()] as? String,
             let numberOfHits = Int(numberOfHitsString),

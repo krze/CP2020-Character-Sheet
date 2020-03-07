@@ -39,7 +39,7 @@ final class SkillsDataSource: EditorValueReciever {
     /// Adds the skill to the model
     ///
     /// - Parameter newSkill: The new skill to add
-    func add(skill newSkill: SkillListing, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func add(skill newSkill: SkillListing, validationCompletion completion: @escaping (ValidatedResult) -> Void) {
         model.add(skill: newSkill, validationCompletion: completion)
     }
     
@@ -68,7 +68,7 @@ final class SkillsDataSource: EditorValueReciever {
     /// - Parameters:
     ///   - skillListing: The listing to reset
     ///   - completion: The completion handler which will be returned by the model
-    func reset(_ skillListing: SkillListing, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func reset(_ skillListing: SkillListing, validationCompletion completion: @escaping (ValidatedResult) -> Void) {
         model.reset(skill: skillListing, validationCompletion: completion)
     }
     
@@ -76,7 +76,7 @@ final class SkillsDataSource: EditorValueReciever {
     /// - Parameters:
     ///   - skillListing: The skill listing you wish to flip
     ///   - completion: The completion handler which will be returned by the model
-    func flipStar(_ skillListing: SkillListing, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func flipStar(_ skillListing: SkillListing, validationCompletion completion: @escaping (ValidatedResult) -> Void) {
         model.flipStar(skill: skillListing, validationCompletion: completion)
     }
     
@@ -89,7 +89,7 @@ final class SkillsDataSource: EditorValueReciever {
     
     // MARK: EditorValueReceiver
     
-    func valuesFromEditorDidChange(_ values: [Identifier : AnyHashable], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func valuesFromEditorDidChange(_ values: [Identifier : AnyHashable], validationCompletion completion: @escaping (ValidatedResult) -> Void) {
         guard var name = values[SkillField.Name.identifier()] as? String,
             let description = values[SkillField.Description.identifier()] as? String,
             let IPMultiplierString = values[SkillField.IPMultiplier.identifier()] as? String,

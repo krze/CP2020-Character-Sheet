@@ -15,4 +15,7 @@ struct SaveRollStrings {
     static let acceptStunState = "Succumb to Stun"
     static let acceptDeathState = "Succumb to Death"
     static let resolveWithoutRolling = "Resolve without rolling"
+    
+    static let stunned = "Stunned!"
+    static let dead = "Dead."
 }

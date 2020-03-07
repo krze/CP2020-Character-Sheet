@@ -23,7 +23,7 @@ final class DamageModifierDataSource: EditorValueReciever {
     /// Never gets called, the DamageModifierDataSource has no editor for now
     /// - Parameter values: _
     /// - Parameter completion: _
-    func valuesFromEditorDidChange(_ values: [Identifier : AnyHashable], validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {}
+    func valuesFromEditorDidChange(_ values: [Identifier : AnyHashable], validationCompletion completion: @escaping (ValidatedResult) -> Void) {}
     
     func autofillSuggestion(for identifier: Identifier, value: AnyHashable) -> [Identifier : AnyHashable]? {
         return nil

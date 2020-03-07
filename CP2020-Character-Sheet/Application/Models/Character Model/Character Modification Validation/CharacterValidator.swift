@@ -15,7 +15,7 @@ struct CharacterValidator {
     /// - Parameters:
     ///   - skillListing: The skill listing to validate.
     ///   - violationFound: Validation completion handler. Only gets called in this method if a violation occurs.
-    static func validate(skillListing: SkillListing, completion violationFound: (ValidatedEditorResult) -> Void) -> Bool {
+    static func validate(skillListing: SkillListing, completion violationFound: (ValidatedResult) -> Void) -> Bool {
         guard Rules.Skills.validPointRange.contains(skillListing.points) else {
             violationFound(.failure(Violation(ofType: .invalidSkillPointAmount, violators: [skillListing.skill.name])))
             return false
@@ -39,7 +39,7 @@ struct CharacterValidator {
     ///   - stats: Incoming stat values
     ///   - humanityLoss: Incoming humanity loss value
     ///   - violationFound: Validation completion handler. Only gets called in this method if a violation occurs.
-    static func validate(baseStats stats: Stats, humanityLoss: Int, completion violationFound: (ValidatedEditorResult) -> Void) -> Bool {
+    static func validate(baseStats stats: Stats, humanityLoss: Int, completion violationFound: (ValidatedResult) -> Void) -> Bool {
         var violations = [Stat: Int]()
         
         violations[.Intelligence] = Rules.Stats.validPointRange.contains(stats.int) ? nil : stats.int
@@ -73,7 +73,7 @@ struct CharacterValidator {
     ///   - incomingDamage: The damage amount incoming
     ///   - currentDamage: The current damage of the character
     ///   - violationFound: Validation completion handler. Only gets called in this method if a violation occurs.
-    static func validate(incomingDamage: IncomingDamage, currentDamage: Int, completion violationFound: (ValidatedEditorResult) -> Void) -> Bool {
+    static func validate(incomingDamage: IncomingDamage, currentDamage: Int, completion violationFound: (ValidatedResult) -> Void) -> Bool {
         let maxPotentialIncomingDamage = incomingDamage.rollResult.reduce(0, { $0 + $1 })
         let (pendingCurrentDamage, didOverflow): (Int, Bool) = currentDamage.addingReportingOverflow(maxPotentialIncomingDamage)
         guard !didOverflow,
@@ -91,7 +91,7 @@ struct CharacterValidator {
     ///   - newArmor: The new armor piece being added
     ///   - existingArmor: The armor already worn by the Edgerunner
     ///   - violationFound: Validation completion handler. Only gets called in this method if a violation occurs.
-    static func validate(newArmor: Armor, existingArmor: [Armor], completion violationFound: (ValidatedEditorResult) -> Void) -> Bool {
+    static func validate(newArmor: Armor, existingArmor: [Armor], completion violationFound: (ValidatedResult) -> Void) -> Bool {
         
         guard newArmor.locations.count >= Rules.WornArmor.minimumLocationCount else {
             violationFound(.failure(Violation(ofType: .invalidArmorLocationsCount, violators: [newArmor.name])))
