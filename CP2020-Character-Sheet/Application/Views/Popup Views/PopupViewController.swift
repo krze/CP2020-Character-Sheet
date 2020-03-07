@@ -16,12 +16,21 @@ struct PopupViewModel {
 }
 
 protocol PopupViewDismissing: UIView {
-    
+     
+    // !! NEXT !! HAVE this protocol also call back for when it needs a new view.
     var dissmiss: (() -> Void)? { get set }
     
 }
 
+protocol PopupViewControllerDelegate: class {
+    
+    func popupViewControllerDidRequestNewView(viewController: PopupViewController, viewAddingCloure: @escaping (UIView) -> Void)
+    
+}
+
 final class PopupViewController: UIViewController {
+    
+    weak var delegate: PopupViewControllerDelegate?
     
     private(set) var contentView: UIView?
     private let contentViewHeight: CGFloat
