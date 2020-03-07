@@ -99,7 +99,7 @@ final class PopupViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
-    func addNewViewToStack(_ newView: UIView, contentHeight: CGFloat) {
+    private func addNewViewToStack(_ newView: UIView, contentHeight: CGFloat) {
         newView.translatesAutoresizingMaskIntoConstraints = false
         newView.backgroundColor = .red
         newView.heightAnchor.constraint(equalToConstant: contentHeight).isActive = true
@@ -109,7 +109,7 @@ final class PopupViewController: UIViewController {
         resizeStackView(adding: contentHeight)
     }
     
-    func resizeStackView(adding height: CGFloat) {
+    private func resizeStackView(adding height: CGFloat) {
         let oldHeight = stackView.frame.height
         stackViewHeightConstraint?.isActive = false
         
