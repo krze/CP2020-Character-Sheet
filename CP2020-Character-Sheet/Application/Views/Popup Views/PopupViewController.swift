@@ -24,6 +24,10 @@ protocol PopupViewDismissing: UIView {
 
 protocol PopupViewControllerDelegate: class {
     
+    /// Called when the controller needs a new view to add to the popover stack
+    /// - Parameters:
+    ///   - viewController: The calling view controller
+    ///   - viewAddingCloure: The closurre that will add the view to the stack
     func popupViewControllerDidRequestNewView(viewController: PopupViewController, viewAddingCloure: @escaping (UIView) -> Void)
     
 }

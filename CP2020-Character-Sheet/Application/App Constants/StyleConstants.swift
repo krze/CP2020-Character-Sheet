@@ -26,9 +26,6 @@ struct StyleConstants {
         /// A lighter font, suited to denser blocks of text or descriptions
         static let light = UIFont(name: "AvenirNext-Regular", size: 18)
         
-        /// A lighter font, suited to denser blocks of text or descriptions, italicized
-        static let lightItalic = UIFont(name: "AvenirNext-RegularItalic", size: 18)
-        
         static let maximumSize: CGFloat = 20
         
         static let minimumSize: CGFloat = 12
