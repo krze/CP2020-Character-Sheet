@@ -131,6 +131,8 @@
 		9DCD371121CC246300EE00D9 /* ColumnTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD371021CC246300EE00D9 /* ColumnTableViewCell.swift */; };
 		9DCD371521CD598D00EE00D9 /* ColumnTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD371421CD598D00EE00D9 /* ColumnTableViewCellModel.swift */; };
 		9DCD371721CD6E5B00EE00D9 /* SkillTableConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD371621CD6E5B00EE00D9 /* SkillTableConstants.swift */; };
+		9DD0830C243929A700B4172A /* CharacterStateMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD0830B243929A700B4172A /* CharacterStateMonitor.swift */; };
+		9DD0830E24392B0300B4172A /* LivingStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD0830D24392B0300B4172A /* LivingStateModel.swift */; };
 		9DE3359721A9A53800180927 /* DamageSectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3359621A9A53800180927 /* DamageSectionViewModelTests.swift */; };
 		9DE3359B21A9E9F700180927 /* DamageModifierViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3359A21A9E9F700180927 /* DamageModifierViewCell.swift */; };
 		9DE3359E21A9EA4100180927 /* StatsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3359D21A9EA4100180927 /* StatsViewCell.swift */; };
@@ -314,6 +316,8 @@
 		9DCD371021CC246300EE00D9 /* ColumnTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnTableViewCell.swift; sourceTree = "<group>"; };
 		9DCD371421CD598D00EE00D9 /* ColumnTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnTableViewCellModel.swift; sourceTree = "<group>"; };
 		9DCD371621CD6E5B00EE00D9 /* SkillTableConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillTableConstants.swift; sourceTree = "<group>"; };
+		9DD0830B243929A700B4172A /* CharacterStateMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterStateMonitor.swift; sourceTree = "<group>"; };
+		9DD0830D24392B0300B4172A /* LivingStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivingStateModel.swift; sourceTree = "<group>"; };
 		9DE3359621A9A53800180927 /* DamageSectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageSectionViewModelTests.swift; sourceTree = "<group>"; };
 		9DE3359A21A9E9F700180927 /* DamageModifierViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageModifierViewCell.swift; sourceTree = "<group>"; };
 		9DE3359D21A9EA4100180927 /* StatsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewCell.swift; sourceTree = "<group>"; };
@@ -461,6 +465,7 @@
 			isa = PBXGroup;
 			children = (
 				9D2CFA0321C5921A00EC76D7 /* CharacterSheetCoordinator.swift */,
+				9DD0830B243929A700B4172A /* CharacterStateMonitor.swift */,
 				4ED0B48423F6256A0016A6C8 /* ViewCreating.swift */,
 				4ED041E323F8A0060026642A /* ViewCoordinating.swift */,
 				4ED041E523F8A0490026642A /* CharacterCoordinating.swift */,
@@ -871,6 +876,7 @@
 				9D004E3221D80DB5004DFA4D /* CharacterDescriptionModel.swift */,
 				9D9CC9592346BB25005AF278 /* DamageModel.swift */,
 				9D567FD2237B9513003F69F5 /* ArmorModel.swift */,
+				9DD0830D24392B0300B4172A /* LivingStateModel.swift */,
 			);
 			path = "Model Protocols";
 			sourceTree = "<group>";
@@ -1121,6 +1127,7 @@
 				9DFCB7BE21D5156A00F99798 /* ModelReceiver.swift in Sources */,
 				64157CB92378A9AF00667FB0 /* ArmorViewCell.swift in Sources */,
 				9D2CFA0821C59B9400EC76D7 /* RoleView.swift in Sources */,
+				9DD0830E24392B0300B4172A /* LivingStateModel.swift in Sources */,
 				9D552CF221AB0E69008B90E9 /* StyleConstants.swift in Sources */,
 				9D7E12352380A8EB0025443D /* HeadView.swift in Sources */,
 				9D2D1DBA23A46A3B00F28FE2 /* BodyStrings.swift in Sources */,
@@ -1187,6 +1194,7 @@
 				9D7E12372380DAB00025443D /* TorsoView.swift in Sources */,
 				9D3761E421E16AA20027513E /* StatsDataSourceDelegate.swift in Sources */,
 				9DE335AC21A9F2C800180927 /* TotalDamageDataSourceDelegate.swift in Sources */,
+				9DD0830C243929A700B4172A /* CharacterStateMonitor.swift in Sources */,
 				9DCD371521CD598D00EE00D9 /* ColumnTableViewCellModel.swift in Sources */,
 				9D2CFA0021C433C500EC76D7 /* CharacterDescriptionViewModel.swift in Sources */,
 				9D24375421A085DE0084E77D /* WoundType.swift in Sources */,

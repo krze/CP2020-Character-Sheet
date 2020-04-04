@@ -25,41 +25,31 @@ protocol DamageModel: class {
     /// Current wounds the edgerunner has sustained
     var wounds: [Wound] { get }
     
-    /// SaveRolls that need to be resolved
-    var saveRolls: [SaveRoll] { get }
-    
-    /// Removes all save rolls without rolling
-    func clearSaveRolls()
-    
-    /// Sets the player to the specified living state
-    /// - Parameter livingState: LivingState
-    func enter(livingState: LivingState)
-    
     /// Applies the damage described to the Edgerunner.
     ///
     /// - Parameters:
     ///   - damage: The incoming damage value
     ///   - completion: Completion closure called with validity state
-    func apply(damage: IncomingDamage, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
+    func apply(damage: IncomingDamage, validationCompletion completion: @escaping (ValidatedResult) -> Void)
     
     /// Removes the wound specified.
     ///
     /// - Parameters:
     ///   - wound: The wound to remove
     ///   - completion: The validation completion
-    func remove(_ wound: Wound, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
+    func remove(_ wound: Wound, validationCompletion completion: @escaping (ValidatedResult) -> Void)
     
     /// Removes all wounds of the trauma type specified.
     ///
     /// - Parameters:
     ///   - traumaType: The trauma type to remove
     ///   - completion: The validation completion
-    func removeAll(_ traumaType: TraumaType, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
+    func removeAll(_ traumaType: TraumaType, validationCompletion completion: @escaping (ValidatedResult) -> Void)
     
     /// Reduces the damage of the wound specified
     /// - Parameters:
     ///   - wound: The wound to heal or repair
     ///   - amount: The amount to reduce the damage
     ///   - completion: The validation completion
-    func reduce(wound: Wound, amount: Int, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
+    func reduce(wound: Wound, amount: Int, validationCompletion completion: @escaping (ValidatedResult) -> Void)
 }

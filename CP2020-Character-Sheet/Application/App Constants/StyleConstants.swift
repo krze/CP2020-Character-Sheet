@@ -26,9 +26,6 @@ struct StyleConstants {
         /// A lighter font, suited to denser blocks of text or descriptions
         static let light = UIFont(name: "AvenirNext-Regular", size: 18)
         
-        /// A lighter font, suited to denser blocks of text or descriptions, italicized
-        static let lightItalic = UIFont(name: "AvenirNext-RegularItalic", size: 18)
-        
         static let maximumSize: CGFloat = 20
         
         static let minimumSize: CGFloat = 12
@@ -57,6 +54,8 @@ struct StyleConstants {
         
         /// A shade of red, used for cancel buttons or negative attention-grabbing elements
         static let red = UIColor(red:0.81, green:0.02, blue:0.06, alpha:1.0)
+        
+        static let green = UIColor(red:0.00, green:0.56, blue:0.07, alpha:1.0)
         
     }
     

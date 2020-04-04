@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias EditableModel = CharacterDescriptionModel & StatsModel & SkillModel & DamageModel & ArmorModel
+typealias EditableModel = CharacterDescriptionModel & StatsModel & SkillModel & DamageModel & ArmorModel & LivingStateModel
 
 /// The model for the Edgerunner character.
 /// TODO: Move responsibilities of modifying this model to another class. Don't let it manage itself.
@@ -161,7 +161,7 @@ final class Edgerunner: Codable, EditableModel {
     /// - Parameters:
     ///   - newSkill: The new skill to add.
     ///   - validationCompletion: Completion for validating the skill
-    func add(skill newSkill: SkillListing, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func add(skill newSkill: SkillListing, validationCompletion completion: @escaping (ValidatedResult) -> Void) {
         guard CharacterValidator.validate(skillListing: newSkill, completion: completion) else { return }
         
         DispatchQueue.main.async { [weak self] in
@@ -183,7 +183,7 @@ final class Edgerunner: Codable, EditableModel {
     /// - Parameters:
     ///   - skillListing: The Skill to reset
     ///   - validationCompletion: Completion for validating the skill
-    func reset(skill skillListing: SkillListing, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func reset(skill skillListing: SkillListing, validationCompletion completion: @escaping (ValidatedResult) -> Void) {
         // TODO: When chipped skills are added, there will have to be a warning regarding this
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -208,7 +208,7 @@ final class Edgerunner: Codable, EditableModel {
     /// - Parameters:
     ///   - skillListing: The Skill to flip the star state
     ///   - validationCompletion: Completion for validating the skill
-    func flipStar(skill skillListing: SkillListing, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func flipStar(skill skillListing: SkillListing, validationCompletion completion: @escaping (ValidatedResult) -> Void) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self,
                 let currentState = self.skills.first(where: { $0.skill == skillListing.skill } )?.starred else {
@@ -229,7 +229,7 @@ final class Edgerunner: Codable, EditableModel {
     ///   - baseStats: The base stats
     ///   - humanityLoss: Humanity loss
     ///   - validationCompletion: Completion for validating the skill
-    func set(baseStats: Stats, humanityLoss: Int, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func set(baseStats: Stats, humanityLoss: Int, validationCompletion completion: @escaping (ValidatedResult) -> Void) {
         guard CharacterValidator.validate(baseStats: baseStats, humanityLoss: humanityLoss, completion: completion) else { return }
         
         DispatchQueue.main.async { [weak self] in
@@ -252,7 +252,7 @@ final class Edgerunner: Codable, EditableModel {
     /// - Parameters:
     ///   - role: The new Edgerunner role
     ///   - validationCompletion: Completion for validating the skill
-    func set(role: Role, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func set(role: Role, validationCompletion completion: @escaping (ValidatedResult) -> Void) {
         DispatchQueue.main.async {
             self.role = role
             completion(.success(.valid(completion: { NotificationCenter.default.post(name: .roleDidChange, object: nil) })))
@@ -260,7 +260,7 @@ final class Edgerunner: Codable, EditableModel {
         }
     }
     
-    func set(name: String, handle: String, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func set(name: String, handle: String, validationCompletion completion: @escaping (ValidatedResult) -> Void) {
         DispatchQueue.main.async {
             self.name = name
             self.handle = handle
@@ -269,7 +269,7 @@ final class Edgerunner: Codable, EditableModel {
         }
     }
     
-    func apply(damage: IncomingDamage, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func apply(damage: IncomingDamage, validationCompletion completion: @escaping (ValidatedResult) -> Void) {
         guard CharacterValidator.validate(incomingDamage: damage, currentDamage: self.damage, completion: completion) else { return }
         
         DispatchQueue.main.async { [weak self] in
@@ -298,7 +298,7 @@ final class Edgerunner: Codable, EditableModel {
         }
     }
 
-    func remove(_ wound: Wound, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func remove(_ wound: Wound, validationCompletion completion: @escaping (ValidatedResult) -> Void) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self,
                 let woundIndex = self.wounds.firstIndex(of: wound)
@@ -317,7 +317,7 @@ final class Edgerunner: Codable, EditableModel {
         }
     }
     
-    func removeAll(_ traumaType: TraumaType, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func removeAll(_ traumaType: TraumaType, validationCompletion completion: @escaping (ValidatedResult) -> Void) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self,
                 self.wounds.contains(where: { $0.traumaType == traumaType }) else {
@@ -342,7 +342,7 @@ final class Edgerunner: Codable, EditableModel {
     }
     
     
-    func reduce(wound: Wound, amount: Int, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void) {
+    func reduce(wound: Wound, amount: Int, validationCompletion completion: @escaping (ValidatedResult) -> Void) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self,
                 let woundIndex = self.wounds.firstIndex(of: wound)
@@ -371,17 +371,34 @@ final class Edgerunner: Codable, EditableModel {
         }
     }
     
-    func clearSaveRolls() {
+    func clearSaveRolls(completion: @escaping (ValidatedResult) -> Void) {
         DispatchQueue.main.async {
             self.saveRolls.removeAll()
-            NotificationCenter.default.post(name: .saveRollsDidChange, object: nil)
+            
+            completion(.success(.valid(completion: {
+                NotificationCenter.default.post(name: .saveRollsDidChange, object: nil)
+            })))
+            self.saveCharacter()
         }
     }
 
-    func enter(livingState: LivingState) {
+    func enter(livingState: LivingState, completion: @escaping (ValidatedResult) -> Void) {
         DispatchQueue.main.async {
+            self.saveRolls.removeAll()
             self.livingState = livingState
-            NotificationCenter.default.post(name: .livingStateDidChange, object: nil)
+            
+            if livingState == .stunned {
+                let bodyValue = self.value(for: .Body).displayValue
+                let stunPenalty = Rules.Damage.stunValue(forTotalDamage: self.damage) ?? 0
+                let target = (bodyValue - stunPenalty).zeroFloor()
+                self.saveRolls.append(SaveRoll(type: .Stun, target: target, diceRoll: .d10()))
+            }
+            
+            completion(.success(.valid(completion: {
+                NotificationCenter.default.post(name: .livingStateDidChange, object: nil)
+            })))
+            self.saveCharacter()
+            
             // NEXT: Build interrupting trigger in coordinator to pop the death popover immediately
         }
     }
@@ -505,11 +522,11 @@ final class Edgerunner: Codable, EditableModel {
         skillModifiers = try container.decode([SkillModifier].self, forKey: .skillModifiers)
         arbitraryModifiers = try container.decode([ArbitraryModifier].self, forKey: .arbitraryModifiers)
         
-        saveRolls = try container.decode([SaveRoll].self, forKey: .saveRolls)
-        livingState = try container.decode(LivingState.self, forKey: .livingState)
-        
         // Used for updates to the Edgerunner model.
         do {
+            saveRolls = try container.decode([SaveRoll].self, forKey: .saveRolls)
+            livingState = try container.decode(LivingState.self, forKey: .livingState)
+
             equippedArmor = try container.decode(EquippedArmor.self, forKey: .equippedArmor)
             wounds = try container.decode([Wound].self, forKey: .wounds)
         } catch let error {

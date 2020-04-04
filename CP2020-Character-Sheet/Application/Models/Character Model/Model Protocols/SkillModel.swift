@@ -13,11 +13,11 @@ protocol SkillModel {
     var role: Role { get }
     var skills: [SkillListing] { get }
     
-    func add(skill newSkill: SkillListing, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
+    func add(skill newSkill: SkillListing, validationCompletion completion: @escaping (ValidatedResult) -> Void)
     
-    func reset(skill skillListing: SkillListing, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
+    func reset(skill skillListing: SkillListing, validationCompletion completion: @escaping (ValidatedResult) -> Void)
     
-    func flipStar(skill skillListing: SkillListing, validationCompletion completion: @escaping (ValidatedEditorResult) -> Void)
+    func flipStar(skill skillListing: SkillListing, validationCompletion completion: @escaping (ValidatedResult) -> Void)
 
     func specialAbilityName() -> String
     

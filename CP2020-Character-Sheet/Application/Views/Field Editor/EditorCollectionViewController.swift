@@ -269,7 +269,7 @@ final class EditorCollectionViewController: UICollectionViewController, UIPopove
     /// Dismisses the editor if the change is validated, otherwise shows an alert warning.
     ///
     /// - Parameter result: The result of the validation of the change to the sheet.
-    private func dismissOrWarn(_ result: ValidatedEditorResult) {
+    private func dismissOrWarn(_ result: ValidatedResult) {
         switch result {
         case .success(let validity):
             switch validity {

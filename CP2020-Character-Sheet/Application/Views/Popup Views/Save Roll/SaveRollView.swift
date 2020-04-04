@@ -12,6 +12,9 @@ struct SaveRollViewModel {
     
     let rolls: [SaveRoll]
     
+    /// Spacing between each element
+    let spacing: CGFloat = 15.0
+    
     /// Height to contain the description view
     let descriptionHeight: CGFloat = 88
     
@@ -39,15 +42,23 @@ struct SaveRollViewModel {
     
 }
 
-final class SaveRollView: UIView, PopupViewDismissing {
+protocol SaveRollManagerDelegate: class {
+    
+    func saveResolved(with button: UIButton, success: Bool, text: String?)
+    
+}
+
+final class SaveRollView: UIView, PopupViewDismissing, SaveRollManagerDelegate {
     
     var dissmiss: (() -> Void)?
     
     private let manager = SaveRollViewManager()
+    private var buttons = [UIButton]()
     
-    func setup(with viewModel: SaveRollViewModel, damageModel: DamageModel?) {
+    func setup(with viewModel: SaveRollViewModel, livingStateModel: LivingStateModel?) {
+        manager.delegate = self
         manager.append(rolls: viewModel.rolls)
-        manager.damageModel = damageModel
+        manager.livingStateModel = livingStateModel
         
         // MARK: Stackview Setup
 
@@ -55,7 +66,11 @@ final class SaveRollView: UIView, PopupViewDismissing {
         
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.distribution = .equalSpacing
+        stackView.distribution = .fill
+        stackView.spacing = viewModel.spacing
+        
+        stackView.widthAnchor.constraint(equalToConstant: bounds.width).isActive = true
+        stackView.heightAnchor.constraint(equalToConstant: bounds.height).isActive = true
         
         addSubview(stackView)
         
@@ -90,7 +105,9 @@ final class SaveRollView: UIView, PopupViewDismissing {
         
         // MARK: Buttons
         
-        buttons(withHeightPerButton: viewModel.buttonHeight).forEach { stackView.addArrangedSubview($0) }
+        let buttons = self.buttons(withHeightPerButton: viewModel.buttonHeight)
+        buttons.forEach({ stackView.addArrangedSubview($0) })
+        self.buttons = buttons
         
         let bottomFillerView = UIView(frame: CGRect(origin: .zero, size: fillerSize))
         bottomFillerView.backgroundColor = StyleConstants.Color.light
@@ -98,9 +115,60 @@ final class SaveRollView: UIView, PopupViewDismissing {
         stackView.addArrangedSubview(bottomFillerView)
     }
     
-    @objc private func dismissPopup() {
-        dissmiss?()
+    // MARK: - SaveRollManagerDelegate
+    
+    func saveResolved(with button: UIButton, success: Bool, text: String?) {
+        button.clipsToBounds = true
+        
+        let overlayStartOrigin = CGPoint(x: button.bounds.origin.x + button.bounds.width, y: button.bounds.minY)
+        let overlayEndOrigin = button.bounds.origin
+        let overlayStartFrame = CGRect(origin: overlayStartOrigin, size: button.bounds.size)
+        let overlayLabel = UILabel(frame: overlayStartFrame)
+        
+        overlayLabel.font = StyleConstants.Font.defaultBold
+        overlayLabel.textColor = StyleConstants.Color.light
+        overlayLabel.textAlignment = .center
+        
+        if success {
+            overlayLabel.backgroundColor = StyleConstants.Color.green
+            overlayLabel.text = text ?? "Success"
+        }
+        else {
+            overlayLabel.backgroundColor = StyleConstants.Color.red
+            overlayLabel.text = text ?? "Failed"
+        }
+        
+        button.addSubview(overlayLabel)
+        
+        UIView.animate(withDuration: 0.5) {
+            overlayLabel.frame.origin = overlayEndOrigin
+        }
+        
+        if success {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.dissmiss?()
+            }
+        }
     }
+    
+    // MARK: - Private
+    
+    @objc private func buttonWasTapped(_ sender: UIButton) {
+        buttons.forEach { $0.isUserInteractionEnabled = false }
+        
+        let untappedButtons = buttons.filter { $0 != sender }
+                
+        UIView.animate(withDuration: 0.25) {
+            untappedButtons.forEach { self.greyOut($0) }
+        }
+        
+    }
+    
+    private func greyOut(_ button: UIButton) {
+        button.backgroundColor = StyleConstants.Color.gray
+        button.titleLabel?.textColor = StyleConstants.Color.light
+    }
+    
     
     private func saveRollString(from rolls: [SaveRoll]) -> String {
         return rolls.map({ "\($0.type.rawValue) <= \($0.target)" }).joined(separator: "\n")
@@ -130,7 +198,7 @@ final class SaveRollView: UIView, PopupViewDismissing {
                 
                 switch mapping {
                 case .resolveAll:
-                    button.addTarget(manager, action: #selector(manager.resolveRolls), for: .touchUpInside)
+                    button.addTarget(manager, action: #selector(manager.resolveRolls(_ :)), for: .touchUpInside)
                 case .dismissAll:
                     button.addTarget(manager, action: #selector(manager.dismiss), for: .touchUpInside)
                 case .acceptStun:
@@ -139,7 +207,7 @@ final class SaveRollView: UIView, PopupViewDismissing {
                     button.addTarget(manager, action: #selector(manager.acceptDeath), for: .touchUpInside)
                 }
                 
-                button.addTarget(self, action: #selector(dismissPopup), for: .touchUpInside)
+                button.addTarget(self, action: #selector(buttonWasTapped(_:)), for: .touchUpInside)
                 
                 buttons.append(button)
             }
