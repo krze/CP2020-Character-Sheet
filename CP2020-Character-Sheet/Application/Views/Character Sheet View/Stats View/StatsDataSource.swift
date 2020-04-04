@@ -25,7 +25,7 @@ final class StatsDataSource: NSObject, EditorValueReciever {
         NotificationCenter.default.addObserver(self, selector: #selector(updateStatsView), name: .statsDidChange, object: nil)
     }
     
-    func valuesFromEditorDidChange(_ values: [Identifier : AnyHashable], validationCompletion completion: @escaping (ValidatedResult) -> Void) {
+    func valuesFromEditorDidChange(_ values: [Identifier : AnyHashable], validationCompletion completion: @escaping ValidatedCompletion) {
         let stats = Stats(int: values.statPoint(for: Stat.Intelligence.identifier()) ?? statsModel.value(for: Stat.Intelligence).baseValue,
                           ref: values.statPoint(for: Stat.Reflex.identifier()) ?? statsModel.value(for: Stat.Reflex).baseValue,
                           tech: values.statPoint(for: Stat.Tech.identifier()) ?? statsModel.value(for: Stat.Tech).baseValue,

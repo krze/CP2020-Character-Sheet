@@ -24,7 +24,7 @@ final class HighlightedSkillViewCellDataSource: EditorValueReciever {
         NotificationCenter.default.addObserver(self, selector: #selector(updateHighlightedSkills), name: .statsDidChange, object: nil)
     }
     
-    func valuesFromEditorDidChange(_ values: [Identifier : AnyHashable], validationCompletion completion: @escaping (ValidatedResult) -> Void) {}
+    func valuesFromEditorDidChange(_ values: [Identifier : AnyHashable], validationCompletion completion: @escaping ValidatedCompletion) {}
     
     func refreshData() {
         updateHighlightedSkills()

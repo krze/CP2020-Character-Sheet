@@ -17,7 +17,7 @@ protocol EditorValueReciever: class {
     /// - Parameters:
     ///   - values: The identifiers and their values from the UserEntryCollectionViewCells in the editor
     ///   - validationCompletion: The completion handler called by the model to indicate that the results were verified and came back as valid or invalid
-    func valuesFromEditorDidChange(_ values: [Identifier: AnyHashable], validationCompletion completion: @escaping (ValidatedResult) -> Void)
+    func valuesFromEditorDidChange(_ values: [Identifier: AnyHashable], validationCompletion completion: @escaping ValidatedCompletion)
     
     /// Forces a refresh on the receiver of the data
     func refreshData()
@@ -37,6 +37,22 @@ protocol EditorValueReciever: class {
 /// reciever to display the message.
 typealias ValidatedResult = Result<Validated, Violation>
 
+/// A completion block that takes a result from the validator and returns nothing
+typealias ValidatedCompletion = ValidatedCompletion
+
 enum Validated {
     case valid(completion: () -> Void)
+}
+
+func defaultCompletion(_ result: ValidatedResult) -> Void {
+    switch result {
+    case .success(let validation):
+        switch validation {
+        case .valid(let completion):
+            completion()
+        }
+    case .failure(let violation):
+        print(violation.helpText())
+    }
+
 }

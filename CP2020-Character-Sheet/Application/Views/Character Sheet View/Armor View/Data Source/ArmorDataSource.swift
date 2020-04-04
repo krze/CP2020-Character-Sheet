@@ -35,7 +35,7 @@ final class ArmorDataSource: NSObject, EditorValueReciever, ViewCreating {
                                                object: nil)
     }
 
-    func valuesFromEditorDidChange(_ values: [Identifier: AnyHashable], validationCompletion completion: @escaping (ValidatedResult) -> Void) {
+    func valuesFromEditorDidChange(_ values: [Identifier: AnyHashable], validationCompletion completion: @escaping ValidatedCompletion) {
         guard
             let name = values[ArmorField.Name.identifier()] as? String,
             let spString = values[ArmorField.SP.identifier()] as? String,

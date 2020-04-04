@@ -14,8 +14,8 @@ protocol CharacterDescriptionModel {
     var handle: String { get }
     var role: Role { get }
     
-    func set(name: String, handle: String, validationCompletion completion: @escaping (ValidatedResult) -> Void)
+    func set(name: String, handle: String, validationCompletion completion: @escaping ValidatedCompletion)
     
-    func set(role: Role, validationCompletion completion: @escaping (ValidatedResult) -> Void)
+    func set(role: Role, validationCompletion completion: @escaping ValidatedCompletion)
     
 }

@@ -30,26 +30,27 @@ protocol DamageModel: class {
     /// - Parameters:
     ///   - damage: The incoming damage value
     ///   - completion: Completion closure called with validity state
-    func apply(damage: IncomingDamage, validationCompletion completion: @escaping (ValidatedResult) -> Void)
+    func apply(damage: IncomingDamage, validationCompletion completion: @escaping ValidatedCompletion)
     
     /// Removes the wound specified.
     ///
     /// - Parameters:
     ///   - wound: The wound to remove
     ///   - completion: The validation completion
-    func remove(_ wound: Wound, validationCompletion completion: @escaping (ValidatedResult) -> Void)
+    func remove(_ wound: Wound, validationCompletion completion: @escaping ValidatedCompletion)
     
     /// Removes all wounds of the trauma type specified.
     ///
     /// - Parameters:
     ///   - traumaType: The trauma type to remove
     ///   - completion: The validation completion
-    func removeAll(_ traumaType: TraumaType, validationCompletion completion: @escaping (ValidatedResult) -> Void)
+    func removeAll(_ traumaType: TraumaType, validationCompletion completion: @escaping ValidatedCompletion)
     
     /// Reduces the damage of the wound specified
     /// - Parameters:
     ///   - wound: The wound to heal or repair
     ///   - amount: The amount to reduce the damage
     ///   - completion: The validation completion
-    func reduce(wound: Wound, amount: Int, validationCompletion completion: @escaping (ValidatedResult) -> Void)
+    func reduce(wound: Wound, amount: Int, validationCompletion completion: @escaping ValidatedCompletion)
+    
 }

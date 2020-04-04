@@ -23,7 +23,7 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever {
     
     // MARK: EditorValueReceiver
     
-    func valuesFromEditorDidChange(_ values: [Identifier: AnyHashable], validationCompletion completion: @escaping (ValidatedResult) -> Void) {
+    func valuesFromEditorDidChange(_ values: [Identifier: AnyHashable], validationCompletion completion: @escaping ValidatedCompletion) {
         let newName = values[RoleFieldLabel.Name.identifier()] as? String
         let newHandle = values[RoleFieldLabel.Handle.identifier()] as? String
         let newRole = values[RoleFieldLabel.CharacterRole.identifier()] as? String
@@ -51,7 +51,7 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever {
     /// - Parameters:
     ///   - name: The new name
     ///   - handle: The new handle
-    private func change(name: String, handle: String, validationCompletion completion: @escaping (ValidatedResult) -> Void) {
+    private func change(name: String, handle: String, validationCompletion completion: @escaping ValidatedCompletion) {
         model.set(name: name, handle: handle, validationCompletion: completion)
     }
     
@@ -59,7 +59,7 @@ final class CharacterDescriptionDataSource: NSObject, EditorValueReciever {
     ///
     /// - Parameter role: The new role as a string
     /// - Parameter validationCompletion:
-    private func change(role: String, validationCompletion completion: @escaping (ValidatedResult) -> Void) {
+    private func change(role: String, validationCompletion completion: @escaping ValidatedCompletion) {
         guard let role = Role(rawValue: role) else {
             return
         }

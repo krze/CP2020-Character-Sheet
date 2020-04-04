@@ -36,7 +36,7 @@ final class TotalDamageDataSource: NSObject, EditorValueReciever, ViewCreating {
         NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: .damageDidChange, object: nil)
     }
     
-    func valuesFromEditorDidChange(_ values: [Identifier : AnyHashable], validationCompletion completion: @escaping (ValidatedResult) -> Void) {
+    func valuesFromEditorDidChange(_ values: [Identifier : AnyHashable], validationCompletion completion: @escaping ValidatedCompletion) {
         
         guard let numberOfHitsString = values[DamageField.NumberOfHits.identifier()] as? String,
             let numberOfHits = Int(numberOfHitsString),
@@ -223,15 +223,15 @@ extension TotalDamageDataSource: TableViewManaging {
     @objc private func showMultiHealMenu() {
         let alert = UIAlertController(title: "Heals or repairs damage of a specific type.", message: nil, preferredStyle: .actionSheet)
         let healBluntAction = UIAlertAction(title: "Heal All Blunt Damage", style: .default) { _ in
-            self.model.removeAll(.Blunt, validationCompletion: {_ in })
+            self.model.removeAll(.Blunt, validationCompletion: defaultCompletion)
         }
         let healFleshDamage = UIAlertAction(title: "Heal All Flesh Damage", style: .default) { _ in
-            self.model.removeAll(.Blunt, validationCompletion: {_ in })
-            self.model.removeAll(.Burn, validationCompletion: {_ in })
-            self.model.removeAll(.Piercing, validationCompletion: {_ in })
+            self.model.removeAll(.Blunt, validationCompletion: defaultCompletion)
+            self.model.removeAll(.Burn, validationCompletion: defaultCompletion)
+            self.model.removeAll(.Piercing, validationCompletion: defaultCompletion)
         }
         let healCyberWearAction = UIAlertAction(title: "Repair All CyberWare Damage", style: .default) { _ in
-            self.model.removeAll(.CyberwareDamage, validationCompletion: {_ in })
+            self.model.removeAll(.CyberwareDamage, validationCompletion: defaultCompletion)
         }
         let healAllAction = UIAlertAction(title: "Remove All Damage", style: .destructive) { _ in
             self.model.wounds.forEach { wound in
