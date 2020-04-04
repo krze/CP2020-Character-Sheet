@@ -10,7 +10,7 @@ import UIKit
 
 final class SaveRollViewManager {
     
-    weak var damageModel: DamageModel?
+    weak var livingStateModel: LivingStateModel?
     weak var delegate: SaveRollManagerDelegate?
 
     private var rolls = [SaveRoll]()
@@ -42,7 +42,7 @@ final class SaveRollViewManager {
         
         delegate?.saveResolved(with: sender, success: wasSuccessful, text: customText)
         
-        damageModel?.clearSaveRolls(completion: { result in
+        livingStateModel?.clearSaveRolls(completion: { result in
             switch result {
             case .success(let validation):
                 switch validation {
@@ -58,7 +58,7 @@ final class SaveRollViewManager {
     }
     
     @objc func dismiss(_ sender: UIButton)  {
-        damageModel?.clearSaveRolls(completion: { result in
+        livingStateModel?.clearSaveRolls(completion: { result in
             switch result {
             case .success(let validation):
                 switch validation {
@@ -73,13 +73,13 @@ final class SaveRollViewManager {
     }
     
     @objc func acceptStunned(_ sender: UIButton)  {
-        damageModel?.enter(livingState: .stunned, completion: defaultResolution(_:))
+        livingStateModel?.enter(livingState: .stunned, completion: defaultResolution(_:))
         delegate?.saveResolved(with: sender, success: false, text: "Goodnight!")
     }
     
     @objc func acceptDeath(_ sender: UIButton)  {
-        damageModel?.enter(livingState: .dead0, completion: defaultResolution(_:))
-        delegate?.saveResolved(with: sender, success: false, text: "Sweet Release!")
+        livingStateModel?.enter(livingState: .dead0, completion: defaultResolution(_:))
+        delegate?.saveResolved(with: sender, success: false, text: "You're DEAD!")
     }
     
     private func defaultResolution(_ result: ValidatedResult) {

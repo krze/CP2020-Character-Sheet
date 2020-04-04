@@ -25,19 +25,6 @@ protocol DamageModel: class {
     /// Current wounds the edgerunner has sustained
     var wounds: [Wound] { get }
     
-    /// SaveRolls that need to be resolved
-    var saveRolls: [SaveRoll] { get }
-    
-    /// Removes all save rolls without rolling
-    /// - Parameter completion: Completion closure called with validity state
-    func clearSaveRolls(completion: @escaping (ValidatedResult) -> Void)
-    
-    /// Applies the damage described to the Edgerunner.
-    /// - Parameters:
-    ///   - livingState: The new living state
-    ///   - completion: Completion closure called with validity state
-    func enter(livingState: LivingState, completion: @escaping (ValidatedResult) -> Void)
-    
     /// Applies the damage described to the Edgerunner.
     ///
     /// - Parameters:

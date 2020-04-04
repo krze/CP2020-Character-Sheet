@@ -87,9 +87,9 @@ final class TotalDamageDataSource: NSObject, EditorValueReciever, ViewCreating {
         delegate?.updateCells(to: currentDamage)
         anatomyDisplayController?.tableView?.reloadData()
         
-        if !model.saveRolls.isEmpty {
-            showSavePopup(with: model.saveRolls)
-        }
+//        if !model.saveRolls.isEmpty {
+//            showSavePopup(with: model.saveRolls)
+//        }
     }
     
     func autofillSuggestion(for identifier: Identifier, value: AnyHashable) -> [Identifier : AnyHashable]? {
@@ -263,50 +263,6 @@ extension TotalDamageDataSource: TableViewManaging {
             field.delegate = self?.damageReducerHelper
         }
         NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
-    }
-    
-    private func showSavePopup(with rolls: [SaveRoll]) {
-        DispatchQueue.main.async {
-            let views = self.saveRollView(with: rolls)
-            
-            let popupViewModel = PopupViewModel(contentHeight: views.saveRollView.frame.height, contentView: views.printerPaperView)
-            let popupView = PopupViewController(with: popupViewModel)
-            views.saveRollView.dissmiss = popupView.dismiss
-            
-            popupView.delegate = self
-            self.viewCoordinator?.popupViewNeedsPresentation(popup: popupView)
-        }
-    }
-    
-    fileprivate func saveRollView(with rolls: [SaveRoll]) -> (saveRollView: SaveRollView, printerPaperView: PrinterPaperView) {
-        let saveRollViewModel = SaveRollViewModel(rolls: rolls)
-        let popupHeight = saveRollViewModel.totalHeight()
-
-        let printerPaperViewModel = PrinterPaperViewModel()
-        let printerSize = CGSize(width: UIScreen.main.bounds.width, height: popupHeight)
-        let printerFrame = CGRect(origin: .zero, size: printerSize)
-        let printerPaperView = PrinterPaperView(frame: printerFrame, viewModel: printerPaperViewModel)
-        let saveRollView = SaveRollView(frame: printerPaperView.contentView.frame)
-        
-        saveRollView.widthAnchor.constraint(equalToConstant: printerPaperView.contentView.frame.width).isActive = true
-        saveRollView.heightAnchor.constraint(equalToConstant: printerPaperView.contentView.frame.height).isActive = true
-        
-        saveRollView.setup(with: saveRollViewModel, damageModel: self.model)
-        printerPaperView.addToContentView(saveRollView)
-        
-        return (saveRollView, printerPaperView)
-    }
-}
-
-extension TotalDamageDataSource: PopupViewControllerDelegate {
-    func popupViewControllerDidRequestNewView(viewController: PopupViewController, viewAddingCloure: @escaping (UIView) -> Void) {
-        DispatchQueue.main.async {
-            let rolls = self.model.saveRolls
-            let views = self.saveRollView(with: rolls)
-            
-            views.saveRollView.dissmiss = viewController.dismiss
-            viewAddingCloure(views.printerPaperView)
-        }
     }
     
 }

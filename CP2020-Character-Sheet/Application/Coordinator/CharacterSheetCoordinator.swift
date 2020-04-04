@@ -60,6 +60,8 @@ final class CharacterSheetCoordinator: CharacterCoordinating, ViewCoordinating {
         }
     }
     
+    private var characterStateMonitor: CharacterStateMonitor?
+    
     let navigationController: UINavigationController
     let characterSheetViewController: CharacterSheetViewController
     
@@ -108,6 +110,8 @@ final class CharacterSheetCoordinator: CharacterCoordinating, ViewCoordinating {
         totalDamageDataSource = TotalDamageDataSource(model: edgerunner)
         damageModifierDataSource = DamageModifierDataSource(model: edgerunner)
         armorDataSource = ArmorDataSource(model: edgerunner)
+        characterStateMonitor = CharacterStateMonitor(model: edgerunner)
+        characterStateMonitor?.viewCoordinator = self
         refreshCharacterSheet()
     }
     
@@ -153,6 +157,7 @@ final class CharacterSheetCoordinator: CharacterCoordinating, ViewCoordinating {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.characterSheetViewController.collectionView.reloadData()
+            self.characterStateMonitor?.forceCheckState()
         }
     }
     

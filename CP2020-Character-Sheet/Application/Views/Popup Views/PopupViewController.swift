@@ -16,25 +16,10 @@ struct PopupViewModel {
 }
 
 protocol PopupViewDismissing: UIView {
-     
-    // !! NEXT !! HAVE this protocol also call back for when it needs a new view.
     var dissmiss: (() -> Void)? { get set }
-    
-}
-
-protocol PopupViewControllerDelegate: class {
-    
-    /// Called when the controller needs a new view to add to the popover stack
-    /// - Parameters:
-    ///   - viewController: The calling view controller
-    ///   - viewAddingCloure: The closurre that will add the view to the stack
-    func popupViewControllerDidRequestNewView(viewController: PopupViewController, viewAddingCloure: @escaping (UIView) -> Void)
-    
 }
 
 final class PopupViewController: UIViewController {
-    
-    weak var delegate: PopupViewControllerDelegate?
     
     private(set) var contentView: UIView?
     private let contentViewHeight: CGFloat
@@ -112,7 +97,7 @@ final class PopupViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
-    private func addNewViewToStack(_ newView: UIView, contentHeight: CGFloat) {
+    func addNewViewToStack(_ newView: UIView, contentHeight: CGFloat) {
         newView.translatesAutoresizingMaskIntoConstraints = false
         newView.backgroundColor = .red
         newView.heightAnchor.constraint(equalToConstant: contentHeight).isActive = true

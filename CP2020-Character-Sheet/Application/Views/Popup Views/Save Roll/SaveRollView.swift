@@ -12,6 +12,9 @@ struct SaveRollViewModel {
     
     let rolls: [SaveRoll]
     
+    /// Spacing between each element
+    let spacing: CGFloat = 15.0
+    
     /// Height to contain the description view
     let descriptionHeight: CGFloat = 88
     
@@ -52,10 +55,10 @@ final class SaveRollView: UIView, PopupViewDismissing, SaveRollManagerDelegate {
     private let manager = SaveRollViewManager()
     private var buttons = [UIButton]()
     
-    func setup(with viewModel: SaveRollViewModel, damageModel: DamageModel?) {
+    func setup(with viewModel: SaveRollViewModel, livingStateModel: LivingStateModel?) {
         manager.delegate = self
         manager.append(rolls: viewModel.rolls)
-        manager.damageModel = damageModel
+        manager.livingStateModel = livingStateModel
         
         // MARK: Stackview Setup
 
@@ -63,7 +66,8 @@ final class SaveRollView: UIView, PopupViewDismissing, SaveRollManagerDelegate {
         
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.distribution = .equalSpacing
+        stackView.distribution = .fill
+        stackView.spacing = viewModel.spacing
         
         stackView.widthAnchor.constraint(equalToConstant: bounds.width).isActive = true
         stackView.heightAnchor.constraint(equalToConstant: bounds.height).isActive = true

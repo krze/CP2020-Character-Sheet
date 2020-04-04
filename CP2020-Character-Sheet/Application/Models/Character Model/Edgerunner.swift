@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias EditableModel = CharacterDescriptionModel & StatsModel & SkillModel & DamageModel & ArmorModel
+typealias EditableModel = CharacterDescriptionModel & StatsModel & SkillModel & DamageModel & ArmorModel & LivingStateModel
 
 /// The model for the Edgerunner character.
 /// TODO: Move responsibilities of modifying this model to another class. Don't let it manage itself.
@@ -387,6 +387,13 @@ final class Edgerunner: Codable, EditableModel {
             self.saveRolls.removeAll()
             self.livingState = livingState
             
+            if livingState == .stunned {
+                let bodyValue = self.value(for: .Body).displayValue
+                let stunPenalty = Rules.Damage.stunValue(forTotalDamage: self.damage) ?? 0
+                let target = (bodyValue - stunPenalty).zeroFloor()
+                self.saveRolls.append(SaveRoll(type: .Stun, target: target, diceRoll: .d10()))
+            }
+            
             completion(.success(.valid(completion: {
                 NotificationCenter.default.post(name: .livingStateDidChange, object: nil)
             })))
@@ -515,11 +522,11 @@ final class Edgerunner: Codable, EditableModel {
         skillModifiers = try container.decode([SkillModifier].self, forKey: .skillModifiers)
         arbitraryModifiers = try container.decode([ArbitraryModifier].self, forKey: .arbitraryModifiers)
         
-        saveRolls = try container.decode([SaveRoll].self, forKey: .saveRolls)
-        livingState = try container.decode(LivingState.self, forKey: .livingState)
-        
         // Used for updates to the Edgerunner model.
         do {
+            saveRolls = try container.decode([SaveRoll].self, forKey: .saveRolls)
+            livingState = try container.decode(LivingState.self, forKey: .livingState)
+
             equippedArmor = try container.decode(EquippedArmor.self, forKey: .equippedArmor)
             wounds = try container.decode([Wound].self, forKey: .wounds)
         } catch let error {
