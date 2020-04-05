@@ -11,64 +11,28 @@ import UIKit
 struct DeadViewModel {
     let title = PlayerStateStrings.deadViewTitle
     let description = PlayerStateStrings.deadViewDescription
-    let counterText = PlayerStateStrings.deadCounterText
     
     let titleHeight: CGFloat = 56.0
     let descriptionHeight: CGFloat = 96.0
     let counterHeight: CGFloat = 65.0
-    let buttonSize = CGSize(width: 65.0, height: 65.0)
+    let buttonSize = CGSize(width: 44.0, height: 44.0)
     let padding: CGFloat = 15.0
-}
-
-final class DeadViewManager {
-    private weak var model: LivingStateModel?
+    let state: LivingState
     
-    init(model: LivingStateModel) {
-        self.model = model
-    }
-    
-    func canChange(direction: Direction) -> Bool {
-        guard let deadState = model?.livingState, deadState.rawValue >= 0 else { return false }
-        
-        switch direction {
-            case .down: return deadState.rawValue >= 1
-            case .up: return deadState.rawValue <= 9
-        }
-    }
-    
-    func incrementDeadState() {
-        guard canChange(direction: .up), let deadState = model?.livingState else { return }
-        let newValue = deadState.rawValue + 1
-        
-        if let newState = LivingState(rawValue: newValue) {
-            model?.enter(livingState: newState, completion: defaultCompletion)
-        }
-    }
-    
-    func decrementDeadState() {
-        guard canChange(direction: .down), let deadState = model?.livingState else { return }
-        let newValue = deadState.rawValue - 1
-        
-        if let newState = LivingState(rawValue: newValue) {
-            model?.enter(livingState: newState, completion: defaultCompletion)
-        }
-
-    }
-    
-    func clearDeadState() {
-        model?.enter(livingState: .alive, completion: defaultCompletion)
-    }
-    
-    enum Direction {
-        case up, down
+    func totalHeight() -> CGFloat {
+        return titleHeight + descriptionHeight + counterHeight + buttonSize.height + (padding * 3)
     }
 }
 
 final class DeadView: UIView {
     
     private let stackView = UIStackView()
+    private let manager: DeadViewManager
+    private var counterLabel: UILabel?
     
-    init(frame: CGRect, viewModel: DeadViewModel) {
+    init(frame: CGRect, viewModel: DeadViewModel, manager: DeadViewManager) {
+        self.manager = manager
+        
         super.init(frame: frame)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -107,9 +71,21 @@ final class DeadView: UIView {
             minusButton.heightAnchor.constraint(equalToConstant: viewModel.buttonSize.height),
         ])
         
+        minusButton.addTarget(self, action: #selector(decrementDeadState(_:)), for: .touchUpInside)
         containerView.addArrangedSubview(minusButton)
         
         // Title
+        guard let defaultBold = StyleConstants.Font.defaultBold else { return containerView }
+        let headerText = viewModel.state.descriptionText()
+        let estimatedSize = headerText.size(withAttributes: [.font: defaultBold])
+        let headerLabelSize = CGSize(width: estimatedSize.width, height: viewModel.counterHeight)
+        let headerFrame = CGRect(origin: .zero, size: headerLabelSize)
+        let label = CommonViews.headerLabel(frame: headerFrame)
+        
+        NSLayoutConstraint.activate([
+            label.widthAnchor.constraint(equalToConstant: estimatedSize.width),
+            label.heightAnchor.constraint(equalToConstant: viewModel.counterHeight),
+        ])
         
         // Plus Button
         let plusButton = CommonViews.roundedCornerButton(frame: buttonFrame, title: "+")
@@ -120,6 +96,7 @@ final class DeadView: UIView {
             plusButton.heightAnchor.constraint(equalToConstant: viewModel.buttonSize.height),
         ])
         
+        plusButton.addTarget(self, action: #selector(incrementDeadState(_:)), for: .touchUpInside)
         containerView.addArrangedSubview(plusButton)
         
         return containerView
@@ -129,12 +106,16 @@ final class DeadView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc private func incrementDeadState() {
-        
+    @objc private func incrementDeadState(_ sender: UIButton) {
+        guard let newValue = manager.incrementDeadState() else { return }
+        counterLabel?.text = newValue.descriptionText()
+        counterLabel?.fitTextToBounds()
     }
     
-    @objc private func decrementDeadState() {
-        
+    @objc private func decrementDeadState(_ sender: UIButton) {
+        guard let newValue = manager.decrementDeadState() else { return }
+        counterLabel?.text = newValue.descriptionText()
+        counterLabel?.fitTextToBounds()
     }
     
 }

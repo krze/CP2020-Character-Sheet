@@ -398,8 +398,6 @@ final class Edgerunner: Codable, EditableModel {
                 NotificationCenter.default.post(name: .livingStateDidChange, object: nil)
             })))
             self.saveCharacter()
-            
-            // NEXT: Build interrupting trigger in coordinator to pop the death popover immediately
         }
     }
     

@@ -123,6 +123,7 @@
 		9DB876592395A5CA00A13FDD /* Wound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB876582395A5CA00A13FDD /* Wound.swift */; };
 		9DB8765B2395BEF900A13FDD /* DamageRollResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB8765A2395BEF900A13FDD /* DamageRollResult.swift */; };
 		9DBC68D6243949B10028BB52 /* PlayerStateStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBC68D5243949B10028BB52 /* PlayerStateStrings.swift */; };
+		9DBC68D8243953D60028BB52 /* DeadViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBC68D7243953D60028BB52 /* DeadViewManager.swift */; };
 		9DC8D65823809FED003B6C72 /* StatusTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC8D65723809FED003B6C72 /* StatusTableView.swift */; };
 		9DC8D65A2380A0AE003B6C72 /* StatusTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC8D6592380A0AE003B6C72 /* StatusTableViewModel.swift */; };
 		9DCD370121CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD370021CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift */; };
@@ -310,6 +311,7 @@
 		9DB876582395A5CA00A13FDD /* Wound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wound.swift; sourceTree = "<group>"; };
 		9DB8765A2395BEF900A13FDD /* DamageRollResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageRollResult.swift; sourceTree = "<group>"; };
 		9DBC68D5243949B10028BB52 /* PlayerStateStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStateStrings.swift; sourceTree = "<group>"; };
+		9DBC68D7243953D60028BB52 /* DeadViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadViewManager.swift; sourceTree = "<group>"; };
 		9DC8D65723809FED003B6C72 /* StatusTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableView.swift; sourceTree = "<group>"; };
 		9DC8D6592380A0AE003B6C72 /* StatusTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewModel.swift; sourceTree = "<group>"; };
 		9DCD370021CC024C00EE00D9 /* HighlightedSkillViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedSkillViewCellModel.swift; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 			children = (
 				4E9EC72D23CBAC7E00B2AEC5 /* PopupViewController.swift */,
 				9DD0830F2439384400B4172A /* DeadView.swift */,
+				9DBC68D7243953D60028BB52 /* DeadViewManager.swift */,
 				4E811C7E23CBC93200B6082A /* Save Roll */,
 			);
 			path = "Popup Views";
@@ -1123,6 +1126,7 @@
 				9DFFCADE23934CA400FF5BFF /* DiceRoll.swift in Sources */,
 				9DB8765023955E1400A13FDD /* EditorCollectionViewModel+Damage.swift in Sources */,
 				9DCD370B21CC239B00EE00D9 /* SkillTableViewController.swift in Sources */,
+				9DBC68D8243953D60028BB52 /* DeadViewManager.swift in Sources */,
 				9D2D1DB623986E6100F28FE2 /* ArmorDamage.swift in Sources */,
 				9DFE711721BDA18B000561B0 /* StatsViewCellModel.swift in Sources */,
 				9D7E124723820FCC0025443D /* CheckboxConfig.swift in Sources */,

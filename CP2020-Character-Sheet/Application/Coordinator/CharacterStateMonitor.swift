@@ -95,6 +95,8 @@ final class CharacterStateMonitor: ViewCreating {
     private func showDeadPopup(with deadState: LivingState) {
         guard deadState.rawValue >= 0 else { return }
         
+        
+        // NEXT: use dead view
         print("I'M FUCKIN DEAD!!!")
     }
 }
