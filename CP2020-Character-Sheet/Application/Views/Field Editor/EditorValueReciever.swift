@@ -38,7 +38,7 @@ protocol EditorValueReciever: class {
 typealias ValidatedResult = Result<Validated, Violation>
 
 /// A completion block that takes a result from the validator and returns nothing
-typealias ValidatedCompletion = ValidatedCompletion
+typealias ValidatedCompletion = (ValidatedResult) -> Void
 
 enum Validated {
     case valid(completion: () -> Void)

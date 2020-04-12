@@ -16,7 +16,7 @@ struct PopupViewModel {
 }
 
 protocol PopupViewDismissing: UIView {
-    var dissmiss: (() -> Void)? { get set }
+    var dismiss: (() -> Void)? { get set }
 }
 
 final class PopupViewController: UIViewController {
@@ -99,7 +99,6 @@ final class PopupViewController: UIViewController {
     
     func addNewViewToStack(_ newView: UIView, contentHeight: CGFloat) {
         newView.translatesAutoresizingMaskIntoConstraints = false
-        newView.backgroundColor = .red
         newView.heightAnchor.constraint(equalToConstant: contentHeight).isActive = true
         newView.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
         stackView.insertArrangedSubview(newView, at: 0)

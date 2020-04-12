@@ -50,7 +50,7 @@ protocol SaveRollManagerDelegate: class {
 
 final class SaveRollView: UIView, PopupViewDismissing, SaveRollManagerDelegate {
     
-    var dissmiss: (() -> Void)?
+    var dismiss: (() -> Void)?
     
     private let manager = SaveRollViewManager()
     private var buttons = [UIButton]()
@@ -146,7 +146,7 @@ final class SaveRollView: UIView, PopupViewDismissing, SaveRollManagerDelegate {
         
         if success {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                self.dissmiss?()
+                self.dismiss?()
             }
         }
     }

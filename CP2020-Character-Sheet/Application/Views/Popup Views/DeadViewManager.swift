@@ -22,9 +22,10 @@ final class DeadViewManager {
         
         if let newState = LivingState(rawValue: newValue) {
             model?.enter(livingState: newState, completion: defaultCompletion)
+            return newState
         }
         
-        return newState
+        return nil
     }
     
     /// Decrements the dead state and returns the new new numeric value of the state
@@ -34,9 +35,10 @@ final class DeadViewManager {
         
         if let newState = LivingState(rawValue: newValue) {
             model?.enter(livingState: newState, completion: defaultCompletion)
+            return newState
         }
         
-        return newState
+        return nil
     }
     
     /// Clears the dead state and revives the player back to the living
