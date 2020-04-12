@@ -15,7 +15,9 @@ struct DeadViewModel {
     let titleHeight: CGFloat = 56.0
     let descriptionHeight: CGFloat = 135.0
     let counterHeight: CGFloat = 65.0
-    let buttonSize = CGSize(width: 44.0, height: 44.0)
+    // Counter buttons are square
+    let counterButtonSize = CGSize(width: 54.0, height: 54.0)
+    let imAliveButtonHeight: CGFloat = 65.0
     let padding: CGFloat = 15.0
     let state: LivingState
     
@@ -29,6 +31,11 @@ final class DeadView: UIView, PopupViewDismissing {
     private let stackView = UIStackView()
     private let manager: DeadViewManager
     private var counterLabel: UILabel?
+
+    private var minusButton: Button?
+    private var plusButton: Button?
+    private var imAliveButton: Button?
+    private var buttonAnimationDuration: TimeInterval = 0.2
     
     var dismiss: (() -> Void)?
     
@@ -84,6 +91,8 @@ final class DeadView: UIView, PopupViewDismissing {
         let buttonBar = setupButtonBar(with: viewModel)
         
         stackView.addArrangedSubview(buttonBar)
+        
+        updateButtonState(with: viewModel.state)
     }
     private func setupButtonBar(with viewModel: DeadViewModel) -> UIView {
         let containerView = UIStackView()
@@ -98,17 +107,22 @@ final class DeadView: UIView, PopupViewDismissing {
         
         // Minus Button
         
-        let buttonFrame = CGRect(origin: .zero, size: viewModel.buttonSize)
-        let minusButton = CommonViews.roundedCornerButton(frame: buttonFrame, title: "-")
+        let buttonFrame = CGRect(origin: .zero, size: viewModel.counterButtonSize)
+        let minusButton = CommonViews.roundedCornerButton(frame: buttonFrame, title: "—")
+        
         minusButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            minusButton.widthAnchor.constraint(equalToConstant: viewModel.buttonSize.width),
-            minusButton.heightAnchor.constraint(equalToConstant: viewModel.buttonSize.height),
+            minusButton.widthAnchor.constraint(equalToConstant: viewModel.counterButtonSize.width),
+            minusButton.heightAnchor.constraint(equalToConstant: viewModel.counterButtonSize.height),
         ])
         
         minusButton.addTarget(self, action: #selector(decrementDeadState(_:)), for: .touchUpInside)
+        
+        minusButton.titleLabel?.font = StyleConstants.Font.defaultBold?.withSize(30)
+        minusButton.setHighlightedColor(minusButton.defaultColor?.darker(by: 15.0))
         containerView.addArrangedSubview(minusButton)
+        self.minusButton = minusButton
         
         // Counter Label
         guard let counterFont = StyleConstants.Font.defaultBold?.withSize(22.0) else { return containerView }
@@ -117,6 +131,7 @@ final class DeadView: UIView, PopupViewDismissing {
         let headerLabelSize = CGSize(width: estimatedSize.width, height: viewModel.counterHeight)
         let headerFrame = CGRect(origin: .zero, size: headerLabelSize)
         let label = CommonViews.headerLabel(frame: headerFrame)
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = counterFont
@@ -134,12 +149,16 @@ final class DeadView: UIView, PopupViewDismissing {
         plusButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            plusButton.widthAnchor.constraint(equalToConstant: viewModel.buttonSize.width),
-            plusButton.heightAnchor.constraint(equalToConstant: viewModel.buttonSize.height),
+            plusButton.widthAnchor.constraint(equalToConstant: viewModel.counterButtonSize.width),
+            plusButton.heightAnchor.constraint(equalToConstant: viewModel.counterButtonSize.height),
         ])
         
         plusButton.addTarget(self, action: #selector(incrementDeadState(_:)), for: .touchUpInside)
+        
+        plusButton.titleLabel?.font = StyleConstants.Font.defaultBold?.withSize(30)
+        plusButton.setHighlightedColor(minusButton.defaultColor?.darker(by: 15.0))
         containerView.addArrangedSubview(plusButton)
+        self.plusButton = plusButton
         
         return containerView
     }
@@ -152,12 +171,45 @@ final class DeadView: UIView, PopupViewDismissing {
         guard let newValue = manager.incrementDeadState() else { return }
         counterLabel?.text = newValue.descriptionText()
         counterLabel?.fitTextToBounds()
+        updateButtonState(with: newValue)
     }
     
     @objc private func decrementDeadState(_ sender: UIButton) {
         guard let newValue = manager.decrementDeadState() else { return }
         counterLabel?.text = newValue.descriptionText()
         counterLabel?.fitTextToBounds()
+        updateButtonState(with: newValue)
+    }
+    
+    private func updateButtonState(with deadState: LivingState) {
+        let resetButtons = {
+            let buttons = [self.minusButton, self.plusButton]
+            buttons.forEach {
+                $0?.backgroundColor = $0?.defaultColor
+                $0?.isUserInteractionEnabled = true
+            }
+        }
+        guard deadState.rawValue >= 0 else {
+            resetButtons()
+            return
+        }
+        
+        switch deadState {
+        case .dead0:
+            UIView.animate(withDuration: buttonAnimationDuration) {
+                self.minusButton?.backgroundColor = StyleConstants.Color.gray
+                self.minusButton?.isUserInteractionEnabled = false
+            }
+        case .dead9:
+            UIView.animate(withDuration: buttonAnimationDuration) {
+                self.plusButton?.backgroundColor = StyleConstants.Color.gray
+                self.plusButton?.isUserInteractionEnabled = false
+            }
+        default:
+            UIView.animate(withDuration: buttonAnimationDuration) {
+                resetButtons()
+            }
+        }
     }
     
 }

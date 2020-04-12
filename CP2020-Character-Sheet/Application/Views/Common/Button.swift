@@ -11,10 +11,11 @@ import UIKit
 final class Button: UIButton {
     
     private var highlightedColor: UIColor?
-    private var defaultColor: UIColor?
+    private(set) var defaultColor: UIColor?
     
     override var isHighlighted: Bool {
         set {
+            guard isUserInteractionEnabled else { return }
             super.isHighlighted = newValue
             guard highlightedColor != nil else { return }
             
@@ -35,4 +36,5 @@ final class Button: UIButton {
         highlightedColor = color
         defaultColor = backgroundColor
     }
+    
 }
