@@ -17,12 +17,13 @@ struct DeadViewModel {
     let counterHeight: CGFloat = 65.0
     // Counter buttons are square
     let counterButtonSize = CGSize(width: 54.0, height: 54.0)
-    let imAliveButtonHeight: CGFloat = 65.0
+    let resetStateButtonSize = CGSize(width: 216.0, height: 54.0)
+
     let padding: CGFloat = 15.0
     let state: LivingState
     
     func totalHeight() -> CGFloat {
-        return titleHeight + descriptionHeight + counterHeight + (padding * 2)
+        return titleHeight + descriptionHeight + counterHeight + resetStateButtonSize.height + (padding * 3)
     }
 }
 
@@ -34,7 +35,9 @@ final class DeadView: UIView, PopupViewDismissing {
 
     private var minusButton: Button?
     private var plusButton: Button?
+    
     private var imAliveButton: Button?
+    
     private var buttonAnimationDuration: TimeInterval = 0.2
     
     var dismiss: (() -> Void)?
@@ -88,13 +91,15 @@ final class DeadView: UIView, PopupViewDismissing {
         descriptionLabel.fitTextToBounds()
         stackView.addArrangedSubview(descriptionLabel)
         
-        let buttonBar = setupButtonBar(with: viewModel)
+        let counterButtonBar = setupCounterButtonBar(with: viewModel)
+        stackView.addArrangedSubview(counterButtonBar)
         
-        stackView.addArrangedSubview(buttonBar)
+        let bottomButtonBar = setupBottomButtonBar(with: viewModel)
+        stackView.addArrangedSubview(bottomButtonBar)
         
         updateButtonState(with: viewModel.state)
     }
-    private func setupButtonBar(with viewModel: DeadViewModel) -> UIView {
+    private func setupCounterButtonBar(with viewModel: DeadViewModel) -> UIView {
         let containerView = UIStackView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -163,6 +168,41 @@ final class DeadView: UIView, PopupViewDismissing {
         return containerView
     }
     
+    private func setupBottomButtonBar(with viewModel: DeadViewModel) -> UIView {
+        let containerView = UIStackView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        containerView.heightAnchor.constraint(equalToConstant: viewModel.resetStateButtonSize.height).isActive = true
+        
+        containerView.axis = .horizontal
+        containerView.alignment = .center
+        containerView.distribution = .fill
+        containerView.spacing = viewModel.padding
+        
+        // Minus Button
+        
+        let buttonFrame = CGRect(origin: .zero, size: viewModel.resetStateButtonSize)
+        let imAliveButton = CommonViews.roundedCornerButton(frame: buttonFrame,
+                                                            title: PlayerStateStrings.imAliveTitle)
+        
+        imAliveButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            imAliveButton.widthAnchor.constraint(equalToConstant: viewModel.resetStateButtonSize.width),
+            imAliveButton.heightAnchor.constraint(equalToConstant: viewModel.resetStateButtonSize.height),
+        ])
+        
+        imAliveButton.addTarget(self, action: #selector(imAlive(_:)), for: .touchUpInside)
+        
+        imAliveButton.titleLabel?.font = StyleConstants.Font.defaultBold?.withSize(25)
+        imAliveButton.setHighlightedColor(imAliveButton.defaultColor?.darker(by: 15.0))
+        containerView.addArrangedSubview(imAliveButton)
+        
+        self.imAliveButton = imAliveButton
+        
+        return containerView
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -179,6 +219,13 @@ final class DeadView: UIView, PopupViewDismissing {
         counterLabel?.text = newValue.descriptionText()
         counterLabel?.fitTextToBounds()
         updateButtonState(with: newValue)
+    }
+    
+    @objc private func imAlive(_ sender: UIButton) {
+        guard let sender = sender as? Button else { return }
+        sender.animateOver(withTitle: PlayerStateStrings.imAliveTitleAlt, labelColor: StyleConstants.Color.green, animationDuration: 0.2, completionDelay: 2.0) {
+            self.manager.clearDeadState()
+        }
     }
     
     private func updateButtonState(with deadState: LivingState) {

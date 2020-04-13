@@ -246,6 +246,9 @@ extension TotalDamageDataSource: TableViewManaging {
         alert.addAction(healAllAction)
         alert.addAction(cancel)
         
+        // NEXT: FIX THE HEAL ALL BUTTONS NOT CLEARING THE WOUNDS IMMEDIATELY
+        // ALSO FOR SOME REASON THE TOTAL DAMAGE STICKS AROUND IN THE LITTLE BOX ON THE MAIN SCREEN
+        
         NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
     }
     

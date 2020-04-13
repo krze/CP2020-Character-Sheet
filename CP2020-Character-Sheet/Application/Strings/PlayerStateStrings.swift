@@ -11,7 +11,10 @@ import Foundation
 struct PlayerStateStrings {
     static let deadViewTitle = "You're dead!"
     static let deadViewDescription = "Hope you got Trauma Team on speed dial.\n\nWhen you exceed DEAD9, you're body bank fodder!"
+    static let imAliveTitle = "Revive"
+    static let imAliveTitleAlt = "YEAGH IM ALIVE BABEY!!"
     static let allCapsDead = "DEAD"
     static let allCapsAlive = "ALIVE"
     static let allCapsStunned = "STUNNED"
+    static let allCapsRIP = "RIP"
 }

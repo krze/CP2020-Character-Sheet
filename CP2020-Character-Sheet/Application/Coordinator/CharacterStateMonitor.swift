@@ -31,6 +31,11 @@ final class CharacterStateMonitor: ViewCreating {
     }
     
     private func respond(to state: LivingState) {
+        guard state != .alive else {
+            presentedPopupView?.dismiss()
+            return
+        }
+        
         if state == .stunned,
             let rolls = model?.saveRolls,
             !rolls.isEmpty {

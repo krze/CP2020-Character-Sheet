@@ -37,4 +37,36 @@ final class Button: UIButton {
         defaultColor = backgroundColor
     }
     
+    /// Slides in a label over the button from right to left.
+    /// - Parameters:
+    ///   - title: Title to put over the button
+    ///   - labelColor: background color of the label
+    ///   - animationDuration: The duration to slide in the new label
+    ///   - completionDelay: Async delay to hold until executing the completion
+    ///   - completion: The completion block
+    func animateOver(withTitle title: String, labelColor: UIColor?, animationDuration: TimeInterval, completionDelay: TimeInterval, completion: (() -> Void)? ) {
+        self.clipsToBounds = true
+        
+        let overlayStartOrigin = CGPoint(x: bounds.origin.x + bounds.width, y: bounds.minY)
+        let overlayEndOrigin = bounds.origin
+        let overlayStartFrame = CGRect(origin: overlayStartOrigin, size: bounds.size)
+        let overlayLabel = UILabel(frame: overlayStartFrame)
+        
+        overlayLabel.font = StyleConstants.Font.defaultBold
+        overlayLabel.textColor = StyleConstants.Color.light
+        overlayLabel.textAlignment = .center
+        overlayLabel.text = title
+        overlayLabel.backgroundColor = labelColor
+        
+        addSubview(overlayLabel)
+        
+        UIView.animate(withDuration: animationDuration) {
+            overlayLabel.frame.origin = overlayEndOrigin
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + completionDelay) {
+            completion?()
+        }
+    }
+    
 }
