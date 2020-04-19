@@ -235,7 +235,7 @@ extension TotalDamageDataSource: TableViewManaging {
         }
         let healAllAction = UIAlertAction(title: "Remove All Damage", style: .destructive) { _ in
             self.model.wounds.forEach { wound in
-                self.model.remove(wound, validationCompletion: { _ in })
+                self.model.remove(wound, validationCompletion: defaultCompletion)
             }
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -245,10 +245,7 @@ extension TotalDamageDataSource: TableViewManaging {
         alert.addAction(healCyberWearAction)
         alert.addAction(healAllAction)
         alert.addAction(cancel)
-        
-        // NEXT: FIX THE HEAL ALL BUTTONS NOT CLEARING THE WOUNDS IMMEDIATELY
-        // ALSO FOR SOME REASON THE TOTAL DAMAGE STICKS AROUND IN THE LITTLE BOX ON THE MAIN SCREEN
-        
+
         NotificationCenter.default.post(name: .showHelpTextAlert, object: alert)
     }
     
