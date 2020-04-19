@@ -224,6 +224,7 @@ final class DeadView: UIView, PopupViewDismissing {
     @objc private func imAlive(_ sender: UIButton) {
         guard let sender = sender as? Button else { return }
         sender.animateOver(withTitle: PlayerStateStrings.imAliveTitleAlt, labelColor: StyleConstants.Color.green, animationDuration: 0.2, completionDelay: 2.0) {
+            self.dismiss?()
             self.manager.clearDeadState()
         }
     }

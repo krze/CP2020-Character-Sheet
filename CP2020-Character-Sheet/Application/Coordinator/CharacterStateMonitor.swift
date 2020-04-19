@@ -13,7 +13,15 @@ final class CharacterStateMonitor: ViewCreating {
     private weak var model: LivingStateModel?
     
     weak var viewCoordinator: ViewCoordinating?
-    private weak var presentedPopupView: PopupViewController?
+    private weak var presentedPopupView: PopupViewController? {
+        didSet {
+            if presentedPopupView == nil {
+                deadViewPresented = false
+            }
+        }
+    }
+    
+    private var deadViewPresented = false
     
     init(model: LivingStateModel) {
         self.model = model
@@ -33,6 +41,7 @@ final class CharacterStateMonitor: ViewCreating {
     private func respond(to state: LivingState) {
         guard state != .alive else {
             presentedPopupView?.dismiss()
+            presentedPopupView = nil
             return
         }
         
@@ -42,7 +51,7 @@ final class CharacterStateMonitor: ViewCreating {
 
             showPopup(with: saveRollView(with: rolls))
         }
-        else if state.rawValue >= 0 && presentedPopupView == nil {
+        else if state.rawValue >= 0 {
             showDeadPopup(with: model)
         }
     }
@@ -95,17 +104,17 @@ final class CharacterStateMonitor: ViewCreating {
     
     private func showPopup(with views: (contentView: UIView & PopupViewDismissing, printerPaperView: PrinterPaperView)) {
         DispatchQueue.main.async {
+            views.contentView.dismiss = {
+                self.presentedPopupView?.dismiss()
+                self.presentedPopupView = nil
+            }
+            
             if let presentedPopupView = self.presentedPopupView {
                 presentedPopupView.addNewViewToStack(views.printerPaperView, contentHeight: views.printerPaperView.frame.height)
             }
             else {
                 let popupViewModel = PopupViewModel(contentHeight: views.printerPaperView.frame.height, contentView: views.printerPaperView)
                 let popupView = PopupViewController(with: popupViewModel)
-                views.contentView.dismiss = {
-                    popupView.dismiss()
-                    self.presentedPopupView = nil
-                }
-                
                 self.presentedPopupView = popupView
                 self.viewCoordinator?.popupViewNeedsPresentation(popup: popupView)
             }
@@ -113,9 +122,11 @@ final class CharacterStateMonitor: ViewCreating {
     }
     
     private func showDeadPopup(with livingStateModel: LivingStateModel?) {
-        guard let livingStateModel = livingStateModel, livingStateModel.livingState.rawValue >= 0 else { return }
+        guard let livingStateModel = livingStateModel, livingStateModel.livingState.rawValue >= 0, !deadViewPresented else { return }
         let views = deadView(with: livingStateModel, deadViewModel: DeadViewModel(state: livingStateModel.livingState))
         
         showPopup(with: views)
+        deadViewPresented = true
     }
+    
 }
