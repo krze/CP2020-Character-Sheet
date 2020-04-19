@@ -16,6 +16,26 @@ final class PrinterPaperView: UIView {
     
     private let viewModel: PrinterPaperViewModel
     private(set) var contentView: UIView
+    
+    /// Returns the height necessary to dispay the printer paper feed effect while maintaining
+    /// The correct spacing of dots so they look contiguous when new views are added.
+    /// - Parameters:
+    ///   - minimumFrame: The minimum frame required to contain the content view
+    ///   - viewModel: The view model
+    static func requiredPaperHeight(minimumFrame: CGRect, viewModel: PrinterPaperViewModel) -> CGFloat {
+        let paperStripWidth = minimumFrame.width * viewModel.printerFeedStripsWidthRatio
+        let radius = (paperStripWidth * viewModel.printerHoleWidthRatio) / 2
+        let spacing = (radius * 2) * viewModel.printerHoleSpacingConstantMultiplier
+        
+        let modulo = minimumFrame.height.truncatingRemainder(dividingBy: spacing)
+        
+        if modulo > 0.0 {
+            return (floor(minimumFrame.height / spacing) * spacing) + spacing
+        }
+        else {
+            return minimumFrame.height
+        }
+    }
 
     init(frame: CGRect, viewModel: PrinterPaperViewModel) {
         self.viewModel = viewModel
@@ -80,10 +100,10 @@ final class PrinterPaperView: UIView {
         contentView.addSubview(view)
         
         NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: contentView.topAnchor),
-            view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            view.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            view.heightAnchor.constraint(equalTo: contentView.heightAnchor)
+            view.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            view.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            view.widthAnchor.constraint(equalToConstant: view.frame.width),
+            view.heightAnchor.constraint(equalToConstant: view.frame.height)
         ])
     }
     

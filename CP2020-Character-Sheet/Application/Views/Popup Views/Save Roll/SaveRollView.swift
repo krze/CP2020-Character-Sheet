@@ -22,12 +22,12 @@ struct SaveRollViewModel {
     let buttonHeight: CGFloat = 44
     
     /// Height for each roll.
-    let rollHeight: CGFloat = 44
+    let rollHeight: CGFloat = 34
     
     let buttonCount = 4
     
     func totalHeight() -> CGFloat {
-        return descriptionHeight + heightForButtons() + heightForRolls()
+        return descriptionHeight + heightForButtons() + heightForRolls() + (spacing * 3)
     }
     
     /// Total height to contain the list of all the rolls
@@ -100,6 +100,14 @@ final class SaveRollView: UIView, PopupViewDismissing, SaveRollManagerDelegate {
         rollLabel.text = saveRollString(from: viewModel.rolls)
         rollLabel.textAlignment = .center
         rollLabel.numberOfLines = 0
+        
+        NSLayoutConstraint.activate([
+            rollLabel.heightAnchor.constraint(equalToConstant: viewModel.heightForRolls()),
+            rollLabel.widthAnchor.constraint(equalToConstant: bounds.width),
+        ])
+        
+        rollLabel.fitTextToBounds()
+        
         
         stackView.addArrangedSubview(rollLabel)
         

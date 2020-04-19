@@ -61,13 +61,13 @@ final class CharacterStateMonitor: ViewCreating {
         let popupHeight = saveRollViewModel.totalHeight()
 
         let printerPaperViewModel = PrinterPaperViewModel()
-        let printerSize = CGSize(width: UIScreen.main.bounds.width, height: popupHeight)
-        let printerFrame = CGRect(origin: .zero, size: printerSize)
+        let minimumSize = CGSize(width: UIScreen.main.bounds.width, height: popupHeight)
+        let minimumFrame = CGRect(origin: .zero, size: minimumSize)
+        let printerHeight = PrinterPaperView.requiredPaperHeight(minimumFrame: minimumFrame, viewModel: printerPaperViewModel)
+        let printerFrame = CGRect(origin: .zero, size: CGSize(width: minimumSize.width, height: printerHeight))
         let printerPaperView = PrinterPaperView(frame: printerFrame, viewModel: printerPaperViewModel)
-        let saveRollView = SaveRollView(frame: printerPaperView.contentView.frame)
-        
-        saveRollView.widthAnchor.constraint(equalToConstant: printerPaperView.contentView.frame.width).isActive = true
-        saveRollView.heightAnchor.constraint(equalToConstant: printerPaperView.contentView.frame.height).isActive = true
+        let saveRollViewFrame = CGRect(origin: .zero, size: CGSize(width: printerPaperView.contentView.frame.width, height: popupHeight))
+        let saveRollView = SaveRollView(frame: saveRollViewFrame)
         
         saveRollView.setup(with: saveRollViewModel, livingStateModel: model)
         printerPaperView.addToContentView(saveRollView)
@@ -77,15 +77,14 @@ final class CharacterStateMonitor: ViewCreating {
     
     private func deadView(with model: LivingStateModel, deadViewModel: DeadViewModel) -> (contentView: DeadView, printerPaperView: PrinterPaperView) {
         let printerPaperViewModel = PrinterPaperViewModel()
-        let printerSize = CGSize(width: UIScreen.main.bounds.width, height: deadViewModel.totalHeight())
-        let printerFrame = CGRect(origin: .zero, size: printerSize)
+        let popupHeight = deadViewModel.totalHeight()
+        let minimumSize = CGSize(width: UIScreen.main.bounds.width, height: popupHeight)
+        let minimumFrame = CGRect(origin: .zero, size: minimumSize)
+        let printerHeight = PrinterPaperView.requiredPaperHeight(minimumFrame: minimumFrame, viewModel: printerPaperViewModel)
+        let printerFrame = CGRect(origin: .zero, size: CGSize(width: minimumSize.width, height: printerHeight))
         let printerPaperView = PrinterPaperView(frame: printerFrame, viewModel: printerPaperViewModel)
-        let deadView = DeadView(frame: printerPaperView.contentView.frame, manager: DeadViewManager(model: model))
-        
-        NSLayoutConstraint.activate([
-            deadView.widthAnchor.constraint(equalToConstant: printerPaperView.contentView.frame.width),
-            deadView.heightAnchor.constraint(equalToConstant: deadViewModel.totalHeight())
-        ])
+        let deadViewFrame = CGRect(origin: .zero, size: CGSize(width: printerPaperView.contentView.frame.width, height: popupHeight))
+        let deadView = DeadView(frame: deadViewFrame, manager: DeadViewManager(model: model))
         
         deadView.setup(with: deadViewModel)
         printerPaperView.addToContentView(deadView)
@@ -97,12 +96,15 @@ final class CharacterStateMonitor: ViewCreating {
     private func showPopup(with views: (contentView: UIView & PopupViewDismissing, printerPaperView: PrinterPaperView)) {
         DispatchQueue.main.async {
             if let presentedPopupView = self.presentedPopupView {
-                presentedPopupView.addNewViewToStack(views.printerPaperView, contentHeight: views.contentView.frame.height)
+                presentedPopupView.addNewViewToStack(views.printerPaperView, contentHeight: views.printerPaperView.frame.height)
             }
             else {
-                let popupViewModel = PopupViewModel(contentHeight: views.contentView.frame.height, contentView: views.printerPaperView)
+                let popupViewModel = PopupViewModel(contentHeight: views.printerPaperView.frame.height, contentView: views.printerPaperView)
                 let popupView = PopupViewController(with: popupViewModel)
-                views.contentView.dismiss = popupView.dismiss
+                views.contentView.dismiss = {
+                    popupView.dismiss()
+                    self.presentedPopupView = nil
+                }
                 
                 self.presentedPopupView = popupView
                 self.viewCoordinator?.popupViewNeedsPresentation(popup: popupView)
