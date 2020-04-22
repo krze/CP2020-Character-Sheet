@@ -340,12 +340,12 @@ struct Rules {
         
         static func effectiveDamage(of damageType: DamageType, amount damage: Int, btm: Int) -> Int {
             let effectiveDamage: Int
-            
+            let absoluteBTM = abs(btm)
             switch damageType {
             case .AP:
-                effectiveDamage = halvedDown(damage) - btm
+                effectiveDamage = halvedDown(damage) - absoluteBTM
             default:
-                effectiveDamage = damage - btm
+                effectiveDamage = damage - absoluteBTM
             }
             
             return effectiveDamage > 0 ? effectiveDamage : 1
