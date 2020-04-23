@@ -63,6 +63,8 @@
 		9D2D1DBA23A46A3B00F28FE2 /* BodyStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2D1DB923A46A3B00F28FE2 /* BodyStrings.swift */; };
 		9D3761E421E16AA20027513E /* StatsDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3761E321E16AA20027513E /* StatsDataSourceDelegate.swift */; };
 		9D3761EB21EE704E0027513E /* SkillStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3761EA21EE704E0027513E /* SkillStrings.swift */; };
+		9D3EA21B24510E9F007ED5CA /* Cyberware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EA21A24510E9F007ED5CA /* Cyberware.swift */; };
+		9D3EA21D24510F92007ED5CA /* SortableEquipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EA21C24510F92007ED5CA /* SortableEquipment.swift */; };
 		9D43614C234AA8030057D27B /* AlertViewStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43614B234AA8030057D27B /* AlertViewStrings.swift */; };
 		9D4458082232BE6B00AC4EFE /* CommonViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4458072232BE6B00AC4EFE /* CommonViews.swift */; };
 		9D4724A02309EF0100CECEA2 /* EditorCollectionViewModel+Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D47249F2309EF0100CECEA2 /* EditorCollectionViewModel+Role.swift */; };
@@ -245,6 +247,8 @@
 		9D2D1DB923A46A3B00F28FE2 /* BodyStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyStrings.swift; sourceTree = "<group>"; };
 		9D3761E321E16AA20027513E /* StatsDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsDataSourceDelegate.swift; sourceTree = "<group>"; };
 		9D3761EA21EE704E0027513E /* SkillStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillStrings.swift; sourceTree = "<group>"; };
+		9D3EA21A24510E9F007ED5CA /* Cyberware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cyberware.swift; sourceTree = "<group>"; };
+		9D3EA21C24510F92007ED5CA /* SortableEquipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortableEquipment.swift; sourceTree = "<group>"; };
 		9D43614B234AA8030057D27B /* AlertViewStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewStrings.swift; sourceTree = "<group>"; };
 		9D4458072232BE6B00AC4EFE /* CommonViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViews.swift; sourceTree = "<group>"; };
 		9D47249F2309EF0100CECEA2 /* EditorCollectionViewModel+Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorCollectionViewModel+Role.swift"; sourceTree = "<group>"; };
@@ -703,7 +707,9 @@
 		9DAF2DD6235CEA4600EEEDE2 /* Equipment Model */ = {
 			isa = PBXGroup;
 			children = (
+				9D3EA21C24510F92007ED5CA /* SortableEquipment.swift */,
 				9DAF2DD4235CEA3E00EEEDE2 /* Armor.swift */,
+				9D3EA21A24510E9F007ED5CA /* Cyberware.swift */,
 				9DAF2DD7235CEC4000EEEDE2 /* BodyLocation.swift */,
 				9DAF2DD9235CF3AF00EEEDE2 /* EquippedArmor.swift */,
 			);
@@ -1122,6 +1128,7 @@
 				9DD083102439384400B4172A /* DeadView.swift in Sources */,
 				9D43614C234AA8030057D27B /* AlertViewStrings.swift in Sources */,
 				9D7E123D238191040025443D /* ColumnTableConstants.swift in Sources */,
+				9D3EA21D24510F92007ED5CA /* SortableEquipment.swift in Sources */,
 				9D004E2D21D6E37C004DFA4D /* PrinterPaperViewModel.swift in Sources */,
 				9DFFCADE23934CA400FF5BFF /* DiceRoll.swift in Sources */,
 				9DB8765023955E1400A13FDD /* EditorCollectionViewModel+Damage.swift in Sources */,
@@ -1193,6 +1200,7 @@
 				9DFCB7B021D1506C00F99798 /* SkillModel.swift in Sources */,
 				9D5C1F5C21A0794400B3D493 /* DamageSectionView.swift in Sources */,
 				9D4724A02309EF0100CECEA2 /* EditorCollectionViewModel+Role.swift in Sources */,
+				9D3EA21B24510E9F007ED5CA /* Cyberware.swift in Sources */,
 				9D2CFA0A21C59BEA00EC76D7 /* RoleViewModel.swift in Sources */,
 				9D7E124D23821DF00025443D /* EditorCollectionViewModel+Armor.swift in Sources */,
 				9D0003B721FE5CC20044F84A /* EditorCollectionViewModel+SkillListing.swift in Sources */,
