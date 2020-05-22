@@ -9,7 +9,7 @@
 import Foundation
 
 /// Describes a set of properties used to display the equipment that belongs to the player in a list
-protocol SortableEquipment {
+protocol SortableEquipment: Equippable {
     
     /// What the equipment is called
     var name: String { get }
