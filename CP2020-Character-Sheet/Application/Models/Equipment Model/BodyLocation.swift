@@ -48,24 +48,7 @@ enum BodyLocation: String, CaseIterable, Codable, CheckboxConfigProviding {
     }
     
     static func from(string: String) -> BodyLocation? {
-        if string == BodyLocation.LeftArm.labelText() {
-            return BodyLocation.LeftArm
-        }
-        else if string == BodyLocation.RightArm.labelText() {
-            return BodyLocation.RightArm
-
-        }
-        else if string == BodyLocation.RightLeg.labelText() {
-            return BodyLocation.RightLeg
-
-        }
-        else if string == BodyLocation.LeftLeg.labelText() {
-            return BodyLocation.LeftLeg
-
-        }
-        else {
-            return BodyLocation(rawValue: string)
-        }
+        return BodyLocation.allCases.first(where: { $0.labelText() == string }) ?? BodyLocation(rawValue: string)
     }
     
 }

@@ -108,6 +108,7 @@
 		9D85671D230C960100295479 /* StatsStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671C230C960100295479 /* StatsStrings.swift */; };
 		9D85671F230F62EF00295479 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671E230F62EF00295479 /* Rules.swift */; };
 		9D856721230F65AA00295479 /* CharacterValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D856720230F65AA00295479 /* CharacterValidator.swift */; };
+		9D87FB58249D6B9000C9847D /* CyberPartLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D87FB57249D6B9000C9847D /* CyberPartLocation.swift */; };
 		9D9CC9532341411C005AF278 /* DamageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC9522341411C005AF278 /* DamageCell.swift */; };
 		9D9CC95523414EC7005AF278 /* Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC95423414EC7005AF278 /* Modifier.swift */; };
 		9D9CC95A2346BB25005AF278 /* DamageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC9592346BB25005AF278 /* DamageModel.swift */; };
@@ -301,6 +302,7 @@
 		9D85671C230C960100295479 /* StatsStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsStrings.swift; sourceTree = "<group>"; };
 		9D85671E230F62EF00295479 /* Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
 		9D856720230F65AA00295479 /* CharacterValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterValidator.swift; sourceTree = "<group>"; };
+		9D87FB57249D6B9000C9847D /* CyberPartLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyberPartLocation.swift; sourceTree = "<group>"; };
 		9D9CC9522341411C005AF278 /* DamageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageCell.swift; sourceTree = "<group>"; };
 		9D9CC95423414EC7005AF278 /* Modifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifier.swift; sourceTree = "<group>"; };
 		9D9CC9592346BB25005AF278 /* DamageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageModel.swift; sourceTree = "<group>"; };
@@ -695,6 +697,15 @@
 			path = "Character Modification Validation";
 			sourceTree = "<group>";
 		};
+		9D87FB56249D6B3100C9847D /* Armor */ = {
+			isa = PBXGroup;
+			children = (
+				9DAF2DD4235CEA3E00EEEDE2 /* Armor.swift */,
+				9DAF2DD9235CF3AF00EEEDE2 /* EquippedArmor.swift */,
+			);
+			path = Armor;
+			sourceTree = "<group>";
+		};
 		9DA1C3E22380A46000817D9D /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -715,11 +726,11 @@
 			children = (
 				9D3EA21C24510F92007ED5CA /* SortableEquipment.swift */,
 				9D4ABA6A24786B9300DCBE2E /* DamageCausing.swift */,
-				9DAF2DD4235CEA3E00EEEDE2 /* Armor.swift */,
+				9D87FB56249D6B3100C9847D /* Armor */,
 				9D3EA21A24510E9F007ED5CA /* Cyberpart.swift */,
 				9D4ABA68247868AE00DCBE2E /* Cyberware.swift */,
 				9DAF2DD7235CEC4000EEEDE2 /* BodyLocation.swift */,
-				9DAF2DD9235CF3AF00EEEDE2 /* EquippedArmor.swift */,
+				9D87FB57249D6B9000C9847D /* CyberPartLocation.swift */,
 				9D4ABA6C24786C1E00DCBE2E /* Equippable.swift */,
 			);
 			path = "Equipment Model";
@@ -1274,6 +1285,7 @@
 				9D7E123B2380E2160025443D /* LegView.swift in Sources */,
 				9DBC68D6243949B10028BB52 /* PlayerStateStrings.swift in Sources */,
 				9D0003B321FE4E9D0044F84A /* EditorStyleConstants.swift in Sources */,
+				9D87FB58249D6B9000C9847D /* CyberPartLocation.swift in Sources */,
 				9D9CC95A2346BB25005AF278 /* DamageModel.swift in Sources */,
 				9D4ABA69247868AE00DCBE2E /* Cyberware.swift in Sources */,
 				9DAF2DD8235CEC4000EEEDE2 /* BodyLocation.swift in Sources */,

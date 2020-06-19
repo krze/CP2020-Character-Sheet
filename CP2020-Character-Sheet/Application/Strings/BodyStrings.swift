@@ -18,5 +18,9 @@ struct BodyStrings {
     static let rightArm = "Right Arm"
     static let leftLeg = "Left Leg"
     static let rightLeg = "Right Leg"
+    static let leftEye = "Left Eye"
+    static let rightEye = "Right Eye"
+    static let leftHand = "Left Hand"
+    static let rightHand = "Right Hand"
     
 }
