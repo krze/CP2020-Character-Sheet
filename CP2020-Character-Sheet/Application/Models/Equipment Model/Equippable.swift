@@ -12,6 +12,6 @@ protocol Equippable {
     var equipped: Equipped { get }
 }
 
-enum Equipped {
+enum Equipped: Int, Codable {
     case equipped, carried, stored
 }

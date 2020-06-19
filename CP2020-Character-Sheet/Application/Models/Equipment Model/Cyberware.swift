@@ -8,21 +8,29 @@
 
 import Foundation
 
-final class Cyberware:  SortableEquipment {
+final class Cyberware: HumanityCosting, Codable {
+    let humanityCost: Int
+    
     let name: String
     let cost: Double
     private(set) var description: String
     var equipped: Equipped = .equipped
     
+    /// How much SDP are added to the location with this enhancement installed
     let sdpEnhancement: Int?
+    
+    /// The number of slots the cyberware occupies in a location, if any
     let slotsOccupied: Int
     
-    init(name: String, euroCost: Double, description: String, sdpEnhancement: Int?, slotsOccupied: Int) {
+    var slottedInCyberBodyPartIdentifier: UUID?
+    
+    init(name: String, euroCost: Double, description: String, sdpEnhancement: Int?, slotsOccupied: Int, humanityCost: Int) {
         self.name = name
         self.cost = euroCost
         self.description = description
         self.sdpEnhancement = sdpEnhancement
         self.slotsOccupied = slotsOccupied
+        self.humanityCost = humanityCost
     }
     
 }

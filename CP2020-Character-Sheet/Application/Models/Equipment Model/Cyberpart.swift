@@ -41,7 +41,8 @@ protocol StandardDamage {
     
 }
 
-final class CyberBodyPart: HumanityCosting, StandardDamage {
+/// Replaces an entire BodyLocation with a cybernetic replacement
+final class CyberBodyPart: HumanityCosting, StandardDamage, Codable {
     var equipped: Equipped = .equipped
     
     let name: String
@@ -49,6 +50,7 @@ final class CyberBodyPart: HumanityCosting, StandardDamage {
     let humanityCost: Int
     let cost: Double
     
+    /// The total SDP available including any boots from Cyberware
     var totalSDP: Int {
         return baseSDP + slottedEquipment.reduce(0, { sdpBoost, part in
             if let boost = part.sdpEnhancement {
@@ -57,22 +59,36 @@ final class CyberBodyPart: HumanityCosting, StandardDamage {
             return sdpBoost
         })
     }
+    
+    /// The base SDP of the part before enhancement
     private let baseSDP: Int
+    
+    /// Current decremented damge
     private(set) var currentDamage: Int = 0
+    
     var currentSDP: Int {
         return totalSDP - currentDamage
     }
     
+    /// The number of slots available for enhancements
     let slots: Int
+    
+    /// The location this part replaces
+    let bodyLocation: BodyLocation
+    
+    let uniqueID = UUID()
+    
+    /// Contains references to the equipment that occupies these slots
     private var slottedEquipment = [Cyberware]()
 
-    init(name: String, description: String, humanityCost: Int, euroCost: Double, baseSDP: Int, slots: Int) {
+    init(name: String, description: String, humanityCost: Int, euroCost: Double, baseSDP: Int, slots: Int, bodyLocation: BodyLocation) {
         self.name = name
         self.description = description
         self.humanityCost = humanityCost
         self.cost = euroCost
         self.baseSDP = baseSDP
         self.slots = slots
+        self.bodyLocation = bodyLocation
     }
     
     func apply(damage: Int) {
@@ -86,6 +102,12 @@ final class CyberBodyPart: HumanityCosting, StandardDamage {
     
     func repairAll() {
         currentDamage = 0
+    }
+    
+    func slot(_ cyberWare: Cyberware) {
+        guard slottedEquipment.count <= slots else { return } // TODO: Throw error
+        cyberWare.slottedInCyberBodyPartIdentifier = uniqueID
+        slottedEquipment.append(cyberWare)
     }
     
 }
