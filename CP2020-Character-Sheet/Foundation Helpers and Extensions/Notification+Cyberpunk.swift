@@ -18,6 +18,7 @@ extension Notification.Name {
     static let armorDidChange = Notification.Name("armorDidChange")
     static let saveRollsDidChange = Notification.Name("saveRollsDidChange")
     static let livingStateDidChange = Notification.Name("livingStateDidChange")
+    static let humanityDidChange = Notification.Name("humanityDidChange")
     
     static let characterComponentDidRequestSaveToDisk = Notification.Name("characterComponentDidRequestSaveToDisk")
     

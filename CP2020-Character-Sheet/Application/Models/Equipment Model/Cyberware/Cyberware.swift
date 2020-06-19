@@ -22,6 +22,8 @@ final class Cyberware: HumanityCosting, Codable {
     /// The number of slots the cyberware occupies in a location, if any
     let slotsOccupied: Int
     
+    let uniqeID = UUID()
+    
     var slottedInCyberBodyPartIdentifier: UUID?
     
     init(name: String, euroCost: Double, description: String, sdpEnhancement: Int?, slotsOccupied: Int, humanityCost: Int) {

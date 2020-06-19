@@ -109,6 +109,7 @@
 		9D85671F230F62EF00295479 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85671E230F62EF00295479 /* Rules.swift */; };
 		9D856721230F65AA00295479 /* CharacterValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D856720230F65AA00295479 /* CharacterValidator.swift */; };
 		9D87FB58249D6B9000C9847D /* CyberPartLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D87FB57249D6B9000C9847D /* CyberPartLocation.swift */; };
+		9D87FB5B249D714F00C9847D /* InstalledCyberWare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D87FB5A249D714F00C9847D /* InstalledCyberWare.swift */; };
 		9D9CC9532341411C005AF278 /* DamageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC9522341411C005AF278 /* DamageCell.swift */; };
 		9D9CC95523414EC7005AF278 /* Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC95423414EC7005AF278 /* Modifier.swift */; };
 		9D9CC95A2346BB25005AF278 /* DamageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC9592346BB25005AF278 /* DamageModel.swift */; };
@@ -303,6 +304,7 @@
 		9D85671E230F62EF00295479 /* Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
 		9D856720230F65AA00295479 /* CharacterValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterValidator.swift; sourceTree = "<group>"; };
 		9D87FB57249D6B9000C9847D /* CyberPartLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyberPartLocation.swift; sourceTree = "<group>"; };
+		9D87FB5A249D714F00C9847D /* InstalledCyberWare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledCyberWare.swift; sourceTree = "<group>"; };
 		9D9CC9522341411C005AF278 /* DamageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageCell.swift; sourceTree = "<group>"; };
 		9D9CC95423414EC7005AF278 /* Modifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifier.swift; sourceTree = "<group>"; };
 		9D9CC9592346BB25005AF278 /* DamageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageModel.swift; sourceTree = "<group>"; };
@@ -706,6 +708,17 @@
 			path = Armor;
 			sourceTree = "<group>";
 		};
+		9D87FB59249D711300C9847D /* Cyberware */ = {
+			isa = PBXGroup;
+			children = (
+				9D3EA21A24510E9F007ED5CA /* Cyberpart.swift */,
+				9D4ABA68247868AE00DCBE2E /* Cyberware.swift */,
+				9D87FB57249D6B9000C9847D /* CyberPartLocation.swift */,
+				9D87FB5A249D714F00C9847D /* InstalledCyberWare.swift */,
+			);
+			path = Cyberware;
+			sourceTree = "<group>";
+		};
 		9DA1C3E22380A46000817D9D /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -727,10 +740,8 @@
 				9D3EA21C24510F92007ED5CA /* SortableEquipment.swift */,
 				9D4ABA6A24786B9300DCBE2E /* DamageCausing.swift */,
 				9D87FB56249D6B3100C9847D /* Armor */,
-				9D3EA21A24510E9F007ED5CA /* Cyberpart.swift */,
-				9D4ABA68247868AE00DCBE2E /* Cyberware.swift */,
+				9D87FB59249D711300C9847D /* Cyberware */,
 				9DAF2DD7235CEC4000EEEDE2 /* BodyLocation.swift */,
-				9D87FB57249D6B9000C9847D /* CyberPartLocation.swift */,
 				9D4ABA6C24786C1E00DCBE2E /* Equippable.swift */,
 			);
 			path = "Equipment Model";
@@ -1275,6 +1286,7 @@
 				9DB8764E2395515300A13FDD /* DiceRollEntryValidator.swift in Sources */,
 				4ED041E623F8A0490026642A /* CharacterCoordinating.swift in Sources */,
 				9D9CC95E2349297D005AF278 /* UIColor+Adjust.swift in Sources */,
+				9D87FB5B249D714F00C9847D /* InstalledCyberWare.swift in Sources */,
 				9DAF2DDA235CF3AF00EEEDE2 /* EquippedArmor.swift in Sources */,
 				9D7E12432381CFB50025443D /* ArmorStrings.swift in Sources */,
 				9D004E3321D80DB5004DFA4D /* CharacterDescriptionModel.swift in Sources */,

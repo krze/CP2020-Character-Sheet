@@ -74,21 +74,21 @@ final class CyberBodyPart: HumanityCosting, StandardDamage, Codable {
     let slots: Int
     
     /// The location this part replaces
-    let bodyLocation: BodyLocation
+    let location: CyberPartLocation
     
     let uniqueID = UUID()
     
     /// Contains references to the equipment that occupies these slots
-    private var slottedEquipment = [Cyberware]()
+    private(set) var slottedEquipment = [Cyberware]()
 
-    init(name: String, description: String, humanityCost: Int, euroCost: Double, baseSDP: Int, slots: Int, bodyLocation: BodyLocation) {
+    init(name: String, description: String, humanityCost: Int, euroCost: Double, baseSDP: Int, slots: Int, location: CyberPartLocation) {
         self.name = name
         self.description = description
         self.humanityCost = humanityCost
         self.cost = euroCost
         self.baseSDP = baseSDP
         self.slots = slots
-        self.bodyLocation = bodyLocation
+        self.location = location
     }
     
     func apply(damage: Int) {
@@ -108,6 +108,13 @@ final class CyberBodyPart: HumanityCosting, StandardDamage, Codable {
         guard slottedEquipment.count <= slots else { return } // TODO: Throw error
         cyberWare.slottedInCyberBodyPartIdentifier = uniqueID
         slottedEquipment.append(cyberWare)
+    }
+    
+    func remove(_ cyberware: Cyberware) -> Cyberware {
+        slottedEquipment.removeAll(where: { $0.uniqeID == cyberware.uniqeID })
+        cyberware.slottedInCyberBodyPartIdentifier = nil
+        
+        return cyberware
     }
     
 }
