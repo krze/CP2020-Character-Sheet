@@ -78,7 +78,7 @@ enum CyberPartLocation: String, CaseIterable, Codable, CheckboxConfigProviding {
                        [CyberPartLocation.RightHand.labelText(), CyberPartLocation.LeftHand.labelText()],
                        [CyberPartLocation.RightLeg.labelText(), CyberPartLocation.LeftLeg.labelText()]]
         return CheckboxConfig(choices: choices,
-                              maxChoices: CyberPartLocation.allCases.count,
+                              maxChoices: 1,
                               minChoices: 1,
                               selectedStates: [])
     }
