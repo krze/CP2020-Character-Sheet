@@ -110,6 +110,7 @@
 		9D856721230F65AA00295479 /* CharacterValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D856720230F65AA00295479 /* CharacterValidator.swift */; };
 		9D87FB58249D6B9000C9847D /* CyberPartLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D87FB57249D6B9000C9847D /* CyberPartLocation.swift */; };
 		9D87FB5B249D714F00C9847D /* InstalledCyberWare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D87FB5A249D714F00C9847D /* InstalledCyberWare.swift */; };
+		9D87FB5D249E83A500C9847D /* EquipmentStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D87FB5C249E83A500C9847D /* EquipmentStrings.swift */; };
 		9D9CC9532341411C005AF278 /* DamageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC9522341411C005AF278 /* DamageCell.swift */; };
 		9D9CC95523414EC7005AF278 /* Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC95423414EC7005AF278 /* Modifier.swift */; };
 		9D9CC95A2346BB25005AF278 /* DamageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9CC9592346BB25005AF278 /* DamageModel.swift */; };
@@ -305,6 +306,7 @@
 		9D856720230F65AA00295479 /* CharacterValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterValidator.swift; sourceTree = "<group>"; };
 		9D87FB57249D6B9000C9847D /* CyberPartLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyberPartLocation.swift; sourceTree = "<group>"; };
 		9D87FB5A249D714F00C9847D /* InstalledCyberWare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledCyberWare.swift; sourceTree = "<group>"; };
+		9D87FB5C249E83A500C9847D /* EquipmentStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentStrings.swift; sourceTree = "<group>"; };
 		9D9CC9522341411C005AF278 /* DamageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageCell.swift; sourceTree = "<group>"; };
 		9D9CC95423414EC7005AF278 /* Modifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifier.swift; sourceTree = "<group>"; };
 		9D9CC9592346BB25005AF278 /* DamageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageModel.swift; sourceTree = "<group>"; };
@@ -552,6 +554,7 @@
 				9D2D1DB923A46A3B00F28FE2 /* BodyStrings.swift */,
 				4E811C8123CBCB1500B6082A /* SaveRollStrings.swift */,
 				9DBC68D5243949B10028BB52 /* PlayerStateStrings.swift */,
+				9D87FB5C249E83A500C9847D /* EquipmentStrings.swift */,
 			);
 			path = Strings;
 			sourceTree = "<group>";
@@ -1296,6 +1299,7 @@
 				9DE3359E21A9EA4100180927 /* StatsViewCell.swift in Sources */,
 				9D7E123B2380E2160025443D /* LegView.swift in Sources */,
 				9DBC68D6243949B10028BB52 /* PlayerStateStrings.swift in Sources */,
+				9D87FB5D249E83A500C9847D /* EquipmentStrings.swift in Sources */,
 				9D0003B321FE4E9D0044F84A /* EditorStyleConstants.swift in Sources */,
 				9D87FB58249D6B9000C9847D /* CyberPartLocation.swift in Sources */,
 				9D9CC95A2346BB25005AF278 /* DamageModel.swift in Sources */,

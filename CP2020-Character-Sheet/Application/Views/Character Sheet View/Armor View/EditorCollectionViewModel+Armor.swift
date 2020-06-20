@@ -30,7 +30,9 @@ extension EditorCollectionViewModel {
                     return BodyLocation.checkboxConfig()
                 case .Zone:
                     return ArmorZone.checkboxConfig()
-                case .Name, .SP, .EV:
+                case .Price:
+                    return "0"
+                case .Name, .SP, .EV, .Description:
                     return ""
                 }
             }()
@@ -57,18 +59,14 @@ extension EditorCollectionViewModel {
     
     private static func description(for field: ArmorField) -> String {
         switch field {
-        case .ArmorType:
-            return ArmorStrings.armorTypeDescription
-        case .Locations:
-            return ArmorStrings.armorLocationDescription
-        case .Name:
-            return ArmorStrings.armorNameDescription
-        case .Zone:
-            return ArmorStrings.armorZoneDescription
-        case .SP:
-            return ArmorStrings.spDescription
-        case .EV:
-            return ArmorStrings.evDescription
+        case .ArmorType: return ArmorStrings.armorTypeDescription
+        case .Locations: return ArmorStrings.armorLocationDescription
+        case .Name: return ArmorStrings.armorNameDescription
+        case .Zone: return ArmorStrings.armorZoneDescription
+        case .SP: return ArmorStrings.spDescription
+        case .EV: return ArmorStrings.evDescription
+        case .Description: return EquipmentStrings.description
+        case .Price: return EquipmentStrings.price
         }
     }
 }

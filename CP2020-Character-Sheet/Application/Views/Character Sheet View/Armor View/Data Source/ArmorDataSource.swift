@@ -38,6 +38,9 @@ final class ArmorDataSource: NSObject, EditorValueReciever, ViewCreating {
     func valuesFromEditorDidChange(_ values: [Identifier: AnyHashable], validationCompletion completion: @escaping ValidatedCompletion) {
         guard
             let name = values[ArmorField.Name.identifier()] as? String,
+            let description = values[ArmorField.Description.identifier()] as? String,
+            let priceString = values[ArmorField.Price.identifier()] as? String,
+            let price = Int(priceString),
             let spString = values[ArmorField.SP.identifier()] as? String,
             let sp = Int(spString),
             let armorTypeArray = (values[ArmorField.ArmorType.identifier()] as? CheckboxConfig)?.selectedStates,
@@ -59,8 +62,6 @@ final class ArmorDataSource: NSObject, EditorValueReciever, ViewCreating {
                 return
         }
         
-        let price = 0
-        let description = ""
         let armor = Armor(name: name, description: description, type: armorType, sp: sp, ev: ev, zone: zone, price: price, locations: locations)
         
         model.equippedArmor.equip(armor, validationCompletion: completion)

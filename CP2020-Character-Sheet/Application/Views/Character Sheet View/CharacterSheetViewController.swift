@@ -36,7 +36,6 @@ final class CharacterSheetViewController: UICollectionViewController, UICollecti
         collectionView.register(ArmorViewCell.self,
                                 forCellWithReuseIdentifier: CharacterSheetSections.Armor.cellReuseID())
         
-        // NEXT: Cyberware cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
