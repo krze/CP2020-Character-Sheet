@@ -59,7 +59,9 @@ final class ArmorDataSource: NSObject, EditorValueReciever, ViewCreating {
                 return
         }
         
-        let armor = Armor(name: name, type: armorType, sp: sp, ev: ev, zone: zone, locations: locations)
+        let price = 0
+        let description = ""
+        let armor = Armor(name: name, description: description, type: armorType, sp: sp, ev: ev, zone: zone, price: price, locations: locations)
         
         model.equippedArmor.equip(armor, validationCompletion: completion)
     }

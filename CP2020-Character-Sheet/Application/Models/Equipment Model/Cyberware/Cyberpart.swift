@@ -48,7 +48,7 @@ final class CyberBodyPart: HumanityCosting, StandardDamage, Codable {
     let name: String
     private(set) var description: String
     let humanityCost: Int
-    let cost: Double
+    let price: Int
     
     /// The total SDP available including any boots from Cyberware
     var totalSDP: Int {
@@ -78,11 +78,11 @@ final class CyberBodyPart: HumanityCosting, StandardDamage, Codable {
     /// Contains IDs of the equipment that occupies these slots
     private(set) var slottedEquipment = [UUID]()
 
-    init(name: String, description: String, humanityCost: Int, euroCost: Double, baseSDP: Int, slots: Int, location: CyberPartLocation) {
+    init(name: String, description: String, humanityCost: Int, price: Int, baseSDP: Int, slots: Int, location: CyberPartLocation) {
         self.name = name
         self.description = description
         self.humanityCost = humanityCost
-        self.cost = euroCost
+        self.price = price
         self.baseSDP = baseSDP
         self.slots = slots
         self.location = location
@@ -105,12 +105,12 @@ final class CyberBodyPart: HumanityCosting, StandardDamage, Codable {
         guard slottedEquipment.count <= slots else { return } // TODO: Throw error
         cyberware.containerID = uniqueID
         bonusSDP += cyberware.sdpEnhancement ?? 0
-        slottedEquipment.append(cyberware.uniqeID)
+        slottedEquipment.append(cyberware.uniqueID)
     }
     
     func uninstall(_ cyberware: Cyberware) {
-        guard slottedEquipment.contains(cyberware.uniqeID) else { return  } // TODO: Throw error
-        slottedEquipment.removeAll(where: { $0 == cyberware.uniqeID })
+        guard slottedEquipment.contains(cyberware.uniqueID) else { return  } // TODO: Throw error
+        slottedEquipment.removeAll(where: { $0 == cyberware.uniqueID })
         bonusSDP -= cyberware.sdpEnhancement ?? 0
         cyberware.containerID = nil
     }

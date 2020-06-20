@@ -15,9 +15,12 @@ protocol SortableEquipment: Equippable {
     var name: String { get }
     
     /// The value the player paid for the equipment
-    var cost: Double { get }
+    var price: Int { get }
     
     /// The description of the equipment
     var description: String { get }
+    
+    /// Unique ID to identify the equipment
+    var uniqueID: UUID { get }
     
 }

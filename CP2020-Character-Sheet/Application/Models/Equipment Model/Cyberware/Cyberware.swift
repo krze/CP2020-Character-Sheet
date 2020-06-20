@@ -12,7 +12,7 @@ final class Cyberware: HumanityCosting, Codable {
     let humanityCost: Int
     
     let name: String
-    let cost: Double
+    let price: Int
     private(set) var description: String
     var equipped: Equipped = .equipped
     
@@ -22,13 +22,13 @@ final class Cyberware: HumanityCosting, Codable {
     /// The number of slots the cyberware occupies in a location, if any
     let slotsOccupied: Int
     
-    let uniqeID = UUID()
+    let uniqueID = UUID()
     
     var containerID: UUID?
     
-    init(name: String, euroCost: Double, description: String, sdpEnhancement: Int?, slotsOccupied: Int, humanityCost: Int) {
+    init(name: String, price: Int, description: String, sdpEnhancement: Int?, slotsOccupied: Int, humanityCost: Int) {
         self.name = name
-        self.cost = euroCost
+        self.price = price
         self.description = description
         self.sdpEnhancement = sdpEnhancement
         self.slotsOccupied = slotsOccupied

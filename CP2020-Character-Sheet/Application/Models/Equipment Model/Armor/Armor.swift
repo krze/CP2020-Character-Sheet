@@ -126,9 +126,13 @@ enum ArmorField: String, EntryTypeProvider, CaseIterable {
     }
 }
 
-final class Armor: Codable, Hashable {
+final class Armor: SortableEquipment, Codable, Hashable {
+    
+    var equipped: Equipped = .equipped
     
     let name: String
+    let description: String
+
     let locations: [BodyLocation]
     
     let zone: ArmorZone
@@ -138,6 +142,8 @@ final class Armor: Codable, Hashable {
     
     /// The base SP that the armor provides when undamaged
     let sp: Int
+    
+    let price: Int
     
     /// A unique ID created to ensure two armors don't get mixed up
     let uniqueID: UUID
@@ -150,14 +156,16 @@ final class Armor: Codable, Hashable {
     /// - Parameter ev: Encumberance Value
     /// - Parameter zone: The zone in which the armor occupies inside or outside of the body
     /// - Parameter locations: The locations covered by the single piece of armor
-    init(name: String, type: ArmorType, sp: Int, ev: Int, zone: ArmorZone, locations: [BodyLocation]) {
+    init(name: String, description: String, type: ArmorType, sp: Int, ev: Int, zone: ArmorZone, price: Int, locations: [BodyLocation]) {
         self.name = name
+        self.description = description
         self.type = type
         self.sp = sp
         self.ev = ev
         self.zone = zone
         self.locations = locations
         self.uniqueID = UUID()
+        self.price = price
     }
     
     /// Indicates that the armor adds an enumberance penalty when layered. This is an innate property

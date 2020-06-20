@@ -16,12 +16,7 @@ final class InstalledCyberWare: Codable {
     
     /// The total humanity loss of all parts
     func humanityLoss() -> Int {
-        let looseParts = cyberware.reduce(0) { $0 + $1.humanityCost }
-        let bodyParts = cyberBodyParts.reduce(0, { total, part in
-            total + part.humanityCost + part.slottedEquipment.reduce(0) { $0 + $1.humanityCost }
-        })
-        
-        return looseParts + bodyParts
+        cyberware.reduce(0) { $0 + $1.humanityCost } + cyberBodyParts.reduce(0) { $0 + $1.humanityCost }
     }
     
     /// Add a new CyberBodyPart
@@ -61,7 +56,7 @@ final class InstalledCyberWare: Codable {
                 return // This should result in a rule violation
             }
             
-            part.slot(cyberware)
+            part.install(cyberware)
         }
         else {
             self.cyberware.append(cyberware)
@@ -73,16 +68,15 @@ final class InstalledCyberWare: Codable {
     /// Removes the cyberware
     /// - Parameter cyberware: The cyberware to remove
     func remove(_ cyberware: Cyberware) {
-        var removedPart: Cyberware?
         
-        if let index = self.cyberware.firstIndex(where: { $0.uniqeID == cyberware.uniqeID }) {
-            removedPart = self.cyberware.remove(at: index)
+        if let index = self.cyberware.firstIndex(where: { $0.uniqueID == cyberware.uniqueID }) {
+            self.cyberware.remove(at: index)
         }
-        else if let part = cyberBodyParts.first(where: { $0.slottedEquipment.contains(where: { $0.uniqeID == cyberware.uniqeID })}) {
-            removedPart = part.remove(cyberware)
+        else if let part = cyberBodyParts.first(where: { $0.slottedEquipment.contains(where: { $0 == cyberware.uniqueID })}) {
+            part.uninstall(cyberware)
         }
         
-        removedPart?.equipped = .stored
+        cyberware.equipped = .stored
         
         NotificationCenter.default.post(name: .humanityDidChange, object: nil)
     }
