@@ -11,7 +11,8 @@ import Foundation
 /// Contains a model for the armor equipped by the Edgerunner
 final class EquippedArmor: Codable {
     
-    // NEXT: Stop this class from holding references to the armor and instead get a reference to an equipment pool that can be queried
+    // NEXT: Stop this class from holding references to the armor and instead get a reference to an equipment pool that can be queried.
+    // This class should not be encoded on the player and instead be fed by the equipment pool on the player.
     
     /// All armor on the character
     private(set) var armor = [Armor]()
