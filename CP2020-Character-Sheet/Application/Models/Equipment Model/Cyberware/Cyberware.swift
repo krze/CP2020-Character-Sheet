@@ -24,7 +24,7 @@ final class Cyberware: HumanityCosting, Codable {
     
     let uniqeID = UUID()
     
-    var slottedInCyberBodyPartIdentifier: UUID?
+    var containerID: UUID?
     
     init(name: String, euroCost: Double, description: String, sdpEnhancement: Int?, slotsOccupied: Int, humanityCost: Int) {
         self.name = name

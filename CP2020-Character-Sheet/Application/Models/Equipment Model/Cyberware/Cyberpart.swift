@@ -52,16 +52,13 @@ final class CyberBodyPart: HumanityCosting, StandardDamage, Codable {
     
     /// The total SDP available including any boots from Cyberware
     var totalSDP: Int {
-        return baseSDP + slottedEquipment.reduce(0, { sdpBoost, part in
-            if let boost = part.sdpEnhancement {
-                return sdpBoost + boost
-            }
-            return sdpBoost
-        })
+        return baseSDP + bonusSDP
     }
     
     /// The base SDP of the part before enhancement
     private let baseSDP: Int
+    
+    private var bonusSDP = 0
     
     /// Current decremented damge
     private(set) var currentDamage: Int = 0
@@ -78,8 +75,8 @@ final class CyberBodyPart: HumanityCosting, StandardDamage, Codable {
     
     let uniqueID = UUID()
     
-    /// Contains references to the equipment that occupies these slots
-    private(set) var slottedEquipment = [Cyberware]()
+    /// Contains IDs of the equipment that occupies these slots
+    private(set) var slottedEquipment = [UUID]()
 
     init(name: String, description: String, humanityCost: Int, euroCost: Double, baseSDP: Int, slots: Int, location: CyberPartLocation) {
         self.name = name
@@ -104,17 +101,18 @@ final class CyberBodyPart: HumanityCosting, StandardDamage, Codable {
         currentDamage = 0
     }
     
-    func slot(_ cyberWare: Cyberware) {
+    func install(_ cyberware: Cyberware) {
         guard slottedEquipment.count <= slots else { return } // TODO: Throw error
-        cyberWare.slottedInCyberBodyPartIdentifier = uniqueID
-        slottedEquipment.append(cyberWare)
+        cyberware.containerID = uniqueID
+        bonusSDP += cyberware.sdpEnhancement ?? 0
+        slottedEquipment.append(cyberware.uniqeID)
     }
     
-    func remove(_ cyberware: Cyberware) -> Cyberware {
-        slottedEquipment.removeAll(where: { $0.uniqeID == cyberware.uniqeID })
-        cyberware.slottedInCyberBodyPartIdentifier = nil
-        
-        return cyberware
+    func uninstall(_ cyberware: Cyberware) {
+        guard slottedEquipment.contains(cyberware.uniqeID) else { return  } // TODO: Throw error
+        slottedEquipment.removeAll(where: { $0 == cyberware.uniqeID })
+        bonusSDP -= cyberware.sdpEnhancement ?? 0
+        cyberware.containerID = nil
     }
     
 }
